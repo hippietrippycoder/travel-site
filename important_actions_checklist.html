@@ -176,36 +176,79 @@ footer{color:var(--text-muted); font-size:0.78rem; text-align:center; padding-to
   .progress-panel{padding:16px 16px 18px;}
 }
 
-.site-nav{
-  position:sticky; top:12px; z-index:50;
-  display:flex; align-items:center; justify-content:space-between; gap:14px;
-  background:var(--surface); border:1px solid var(--line); border-radius:12px;
-  box-shadow:var(--shadow);
-  padding:10px 16px;
-}
-.site-nav-home{
-  display:flex; align-items:center; gap:8px;
-  font-family:'JetBrains Mono', monospace; font-size:0.72rem; letter-spacing:0.05em; text-transform:uppercase; font-weight:600;
-  color:var(--accent-strong); text-decoration:none; flex-shrink:0;
-}
-.site-nav-home svg{width:15px; height:15px; flex-shrink:0;}
-.site-nav-home:hover{color:var(--accent);}
-.site-nav-page{
-  font-family:'JetBrains Mono', monospace; font-size:0.68rem; letter-spacing:0.04em; text-transform:uppercase; color:var(--text-muted);
-  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-}
-@media (max-width:420px){ .site-nav-page{display:none;} }
 .wrap{gap:32px;}
+
+body{ padding-inline:0; padding-block:0; overflow-x:hidden; }
+.site-shell{ display:flex; align-items:flex-start; min-height:100vh; }
+.sidebar{
+  width:238px; flex-shrink:0;
+  background:var(--surface); border-right:1px solid var(--line);
+  padding:18px 12px 24px; display:flex; flex-direction:column; gap:2px;
+  position:sticky; top:0; height:100vh; overflow-y:auto;
+}
+.sidebar-brand{ padding:8px 10px 14px; }
+.sidebar-eyebrow{ font-family:'Fraunces', Georgia, serif; font-weight:700; font-size:0.98rem; color:var(--text); line-height:1.25; }
+.sidebar-eyebrow small{ display:block; font-family:'JetBrains Mono', monospace; font-size:0.6rem; letter-spacing:0.07em; text-transform:uppercase; color:var(--accent-strong); font-weight:600; margin-top:4px; }
+.sidebar-group{ font-family:'JetBrains Mono', monospace; font-size:0.62rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-muted); font-weight:600; margin:14px 10px 4px; }
+.sidebar-link{
+  display:flex; align-items:center; gap:10px;
+  padding:8px 10px; border-radius:8px;
+  color:var(--text); text-decoration:none;
+  font-size:0.85rem; font-weight:500; line-height:1.3;
+}
+.sidebar-link svg{ width:16px; height:16px; flex-shrink:0; color:var(--text-muted); }
+.sidebar-link:hover{ background:var(--surface-2); }
+.sidebar-link.is-active{ background:var(--accent-soft); color:var(--accent-strong); font-weight:700; }
+.sidebar-link.is-active svg{ color:var(--accent-strong); }
+.sidebar-link.home-link{ border-bottom:1px solid var(--line); margin-bottom:6px; padding-bottom:12px; }
+
+.site-main{ flex:1 1 auto; min-width:0; padding-inline:20px; padding-block:36px 64px; }
+
+.sidebar-toggle{ display:none; }
+.sidebar-backdrop{ display:none; }
+
+@media (max-width:900px){
+  .sidebar{
+    position:fixed; top:0; left:0; height:100vh; width:78vw; max-width:280px; z-index:200;
+    transform:translateX(-100%); transition:transform 0.2s ease;
+  }
+  .sidebar.is-open{ transform:translateX(0); box-shadow:10px 0 28px rgba(0,0,0,0.18); }
+  .sidebar-toggle{
+    display:flex; align-items:center; justify-content:center;
+    position:fixed; top:14px; left:14px; z-index:210;
+    width:40px; height:40px; border-radius:10px;
+    background:var(--surface); border:1px solid var(--line); box-shadow:var(--shadow);
+    color:var(--text); cursor:pointer;
+  }
+  .sidebar-toggle svg{ width:19px; height:19px; }
+  .sidebar-backdrop{
+    display:block; position:fixed; inset:0; background:rgba(10,14,8,0.4);
+    opacity:0; pointer-events:none; transition:opacity 0.2s ease; z-index:190;
+  }
+  .sidebar-backdrop.is-open{ opacity:1; pointer-events:auto; }
+  .site-main{ padding-top:72px; }
+}
 </style>
 <body>
+<div class="site-shell">
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand"><span class="sidebar-eyebrow">Africa Five Nation Tour<small>24 Sep &ndash; 12 Oct 2026</small></span></div>
+  <a class="sidebar-link home-link" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg><span>Trip Home</span></a>
+  <div class="sidebar-group">Day by day</div>
+  <a class="sidebar-link" href="full_trip_route.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 20l-5.5 2V6L9 4m0 16l6 2m-6-2V4m6 18l5.5-2V4L15 6m0 16V4m0 0L9 6"/></svg><span>Day-by-Day Itinerary</span></a>
+  <a class="sidebar-link" href="weather_overview.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10.58A5 5 0 0 0 16 2h-1.24A8 8 0 1 0 5 14.25"/><path d="M8 17v3M12 15.5v3M16 17v3"/></svg><span>Weather Forecast Daily</span></a>
+  <a class="sidebar-link" href="free_time_extras.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg><span>Off Beat Activities</span></a>
+  <a class="sidebar-link" href="local_food_guide.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3v7a3 3 0 0 0 3 3v8M7 3v7M10 3v7M17 3c-2 2-2 5-2 8 0 2 1 3 2 3v7"/></svg><span>Local Food &amp; Cuisines</span></a>
+  <div class="sidebar-group">Reference</div>
+  <a class="sidebar-link" href="hotels_flights.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 22l20-9L2 4l5 9-5 9z"/></svg><span>Hotel &amp; Flights</span></a>
+  <a class="sidebar-link" href="trip_budget.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span>Budget Vs Actuals</span></a>
+  <a class="sidebar-link is-active" href="important_actions_checklist.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span>Imp To-Do Checklist</span></a>
+  <a class="sidebar-link" href="travel_documents_checklist.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg><span>Travel Doc Checklist</span></a>
+</aside>
+<main class="site-main">
 <div class="wrap">
-<nav class="site-nav">
-  <a class="site-nav-home" href="index.html">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>
-    <span>Africa Five Nation Tour</span>
-  </a>
-  <span class="site-nav-page">Imp To-Do Checklist</span>
-</nav>
 
 <header>
     <h1>IMPORTANT ACTIONS CHECKLIST</h1>
@@ -413,6 +456,22 @@ footer{color:var(--text-muted); font-size:0.78rem; text-align:center; padding-to
   } else {
     setStatus('Saved on this device only', 'local');
   }
+})();
+</script>
+</main>
+</div>
+<script>
+(function(){
+  var btn = document.getElementById('sidebarToggle');
+  var sidebar = document.getElementById('sidebar');
+  var backdrop = document.getElementById('sidebarBackdrop');
+  if(!btn || !sidebar || !backdrop) return;
+  function openSb(){ sidebar.classList.add('is-open'); backdrop.classList.add('is-open'); }
+  function closeSb(){ sidebar.classList.remove('is-open'); backdrop.classList.remove('is-open'); }
+  btn.addEventListener('click', function(){
+    sidebar.classList.contains('is-open') ? closeSb() : openSb();
+  });
+  backdrop.addEventListener('click', closeSb);
 })();
 </script>
 </body>

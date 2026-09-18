@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trip Site Build Log</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Karla:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+  :root{
+    --bg: #EEF0E4;
+    --surface: #FBFBF4;
+    --surface-2: #F2F3E8;
+    --text: #212C1C;
+    --text-muted: #5C6650;
+    --line: #D6DAC4;
+    --accent: #A9701F;
+    --accent-strong: #7C5216;
+    --accent-soft: #EFDFBB;
+    --shadow: 0 1px 2px rgba(33,44,28,0.06), 0 8px 24px -12px rgba(33,44,28,0.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg: #161D14;
+      --surface: #1D2519;
+      --surface-2: #232C1E;
+      --text: #E8EADB;
+      --text-muted: #9CA68C;
+      --line: #333F2B;
+      --accent: #DDA54E;
+      --accent-strong: #F0BE70;
+      --accent-soft: #3A3220;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg: #161D14;
+    --surface: #1D2519;
+    --surface-2: #232C1E;
+    --text: #E8EADB;
+    --text-muted: #9CA68C;
+    --line: #333F2B;
+    --accent: #DDA54E;
+    --accent-strong: #F0BE70;
+    --accent-soft: #3A3220;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;}
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:'Karla', ui-sans-serif, system-ui, sans-serif;
+    padding-inline:20px; padding-block:48px 80px;
+    line-height:1.55;
+  }
+  .wrap{max-width:880px; margin:0 auto;}
+
+  h1,h2,h3{font-family:'Fraunces', Georgia, serif; color:var(--text); text-wrap:balance; margin:0;}
+  h1{font-size:clamp(1.9rem,4.5vw,2.7rem); font-weight:700; line-height:1.12;}
+  h2{font-size:clamp(1.3rem,3vw,1.6rem); font-weight:700; margin-bottom:14px;}
+  h3{font-size:1.06rem; font-weight:700; color:var(--accent-strong); margin-bottom:6px;}
+  p{margin:0 0 12px; max-width:66ch;}
+  a{color:var(--accent-strong);}
+  code, .mono{font-family:'JetBrains Mono', ui-monospace, monospace;}
+
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace; font-size:0.72rem; font-weight:600;
+    letter-spacing:0.09em; text-transform:uppercase; color:var(--accent-strong);
+    display:flex; align-items:center; gap:8px; margin-bottom:10px;
+  }
+  .eyebrow::before{content:''; width:18px; height:1.5px; background:var(--accent-strong);}
+
+  header.hero{padding-block:8px 40px; border-bottom:1px solid var(--line); margin-bottom:40px;}
+  header.hero .sub{color:var(--text-muted); font-size:1.02rem; margin-top:14px; max-width:60ch;}
+  .meta-row{display:flex; flex-wrap:wrap; gap:8px; margin-top:22px;}
+  .meta-chip{
+    font-family:'JetBrains Mono', monospace; font-size:0.72rem; color:var(--text-muted);
+    background:var(--surface); border:1px solid var(--line); border-radius:20px;
+    padding:5px 12px;
+  }
+
+  section{margin-bottom:56px;}
+  section > p.lede{color:var(--text-muted); margin-bottom:22px;}
+
+  /* diagram */
+  figure{margin:0; background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:18px 14px 14px; box-shadow:var(--shadow);}
+  figure svg{display:block; width:100%; height:auto; color:var(--text);}
+  figcaption{font-size:0.82rem; color:var(--text-muted); text-align:center; padding-top:10px;}
+  .diagram-legend{display:flex; flex-wrap:wrap; gap:16px; justify-content:center; margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:0.68rem; color:var(--text-muted);}
+  .diagram-legend span{display:flex; align-items:center; gap:6px;}
+  .legend-dot{width:9px; height:9px; border-radius:50%; display:inline-block;}
+
+  /* tech grid */
+  .tech-grid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px;}
+  .tech-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:12px;
+    padding:16px; box-shadow:var(--shadow); min-width:0;
+  }
+  .tech-card .ic{width:28px; height:28px; color:var(--accent-strong); margin-bottom:10px;}
+  .tech-card .ic svg{width:100%; height:100%;}
+  .tech-card h4{font-family:'Fraunces', Georgia, serif; font-size:0.98rem; font-weight:700; margin:0 0 5px;}
+  .tech-card p{font-size:0.83rem; color:var(--text-muted); margin:0; max-width:none; overflow-wrap:anywhere;}
+
+  /* swatches */
+  .swatch-row{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:26px;}
+  .swatch{
+    flex:1 1 100px; min-width:100px; border-radius:10px; border:1px solid var(--line);
+    padding:36px 10px 10px; position:relative; overflow:hidden;
+  }
+  .swatch .name{font-family:'JetBrains Mono', monospace; font-size:0.66rem; font-weight:600; display:block;}
+  .swatch .hex{font-family:'JetBrains Mono', monospace; font-size:0.66rem; opacity:0.75; display:block;}
+  .type-sample{display:flex; flex-direction:column; gap:14px;}
+  .type-row{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:16px 18px; box-shadow:var(--shadow);}
+  .type-row .fam-label{font-family:'JetBrains Mono', monospace; font-size:0.68rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--text-muted); margin-bottom:6px; display:block;}
+  .type-row .sample-fraunces{font-family:'Fraunces', Georgia, serif; font-weight:700; font-size:1.4rem;}
+  .type-row .sample-karla{font-family:'Karla', sans-serif; font-size:1.05rem;}
+  .type-row .sample-mono{font-family:'JetBrains Mono', monospace; font-size:0.92rem;}
+
+  /* file table */
+  .file-table{width:100%; border-collapse:collapse; font-size:0.88rem;}
+  .file-table th{
+    text-align:left; font-family:'JetBrains Mono', monospace; font-size:0.66rem;
+    letter-spacing:0.06em; text-transform:uppercase; color:var(--text-muted);
+    padding:0 10px 8px; border-bottom:1px solid var(--line);
+  }
+  .file-table td{padding:10px; border-bottom:1px solid var(--line); vertical-align:top;}
+  .file-table tr:last-child td{border-bottom:none;}
+  .file-table td.fname{font-family:'JetBrains Mono', monospace; font-size:0.78rem; color:var(--accent-strong); white-space:nowrap;}
+  .file-table td.page{font-weight:600;}
+  .file-table td.desc{color:var(--text-muted);}
+  .table-wrap{overflow-x:auto; background:var(--surface); border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow); padding:6px 4px;}
+
+  /* build log */
+  .log-entry{
+    display:grid; grid-template-columns:22px 1fr; gap:14px; padding-bottom:26px; position:relative;
+  }
+  .log-entry:not(:last-child)::before{
+    content:''; position:absolute; left:10px; top:22px; bottom:0; width:1.5px; background:var(--line);
+  }
+  .log-dot{width:22px; height:22px; border-radius:50%; background:var(--accent-soft); border:1.5px solid var(--accent-strong); display:flex; align-items:center; justify-content:center; z-index:1;}
+  .log-dot svg{width:12px; height:12px; color:var(--accent-strong);}
+  .log-entry p{font-size:0.93rem;}
+  .log-entry p.detail{color:var(--text-muted); font-size:0.87rem;}
+
+  /* code block */
+  pre{
+    background:var(--surface-2); border:1px solid var(--line); border-radius:12px;
+    padding:16px 18px; overflow-x:auto; font-family:'JetBrains Mono', monospace;
+    font-size:0.82rem; line-height:1.7; color:var(--text);
+  }
+  pre .c{color:var(--text-muted);}
+
+  footer.page-end{
+    border-top:1px solid var(--line); padding-top:22px; margin-top:60px;
+    font-size:0.8rem; color:var(--text-muted); text-align:center;
+  }
+
+  @media (max-width:640px){
+    .tech-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+    .swatch{flex:1 1 80px; padding:30px 8px 8px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="eyebrow">Technical documentation</div>
+    <h1>How the Africa Tour site gets built and shipped</h1>
+    <p class="sub">A record of the actual system behind <span class="mono">africatour.hippytrippytrader.com</span> — nine static pages, a design system built up over many small rounds, and the exact pipeline that turns a chat request into a deployed page.</p>
+    <div class="meta-row">
+      <span class="meta-chip">9 static HTML pages</span>
+      <span class="meta-chip">Cloudflare Workers hosting</span>
+      <span class="meta-chip">Git-connected auto-deploy</span>
+      <span class="meta-chip">No framework, no build step</span>
+      <span class="meta-chip">Built Sep 2026</span>
+    </div>
+  </header>
+
+  <section>
+    <h2>From a chat message to a live page</h2>
+    <p class="lede">Every change follows the same two-phase loop: a fast inner loop where edits get made and checked without touching the live site, and a deliberate outer step — done by hand, on purpose — that actually ships it.</p>
+
+    <figure>
+      <svg viewBox="0 0 1120 600" role="img" aria-label="Diagram: a request loops through Claude editing and testing the HTML, previewing a screenshot, and getting approved — that loop repeats for more changes, or exits down into the ship pipeline: zip, unzip and git push on the user's Mac, GitHub main branch, Cloudflare Workers auto-deploy, and the live site viewed by the three travellers.">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+          </marker>
+        </defs>
+
+        <text x="24" y="34" class="mono" font-family="JetBrains Mono, monospace" font-size="12" font-weight="700" letter-spacing="0.08em" fill="currentColor" opacity="0.55">1 · ITERATE (many rounds, nothing live yet)</text>
+
+        <!-- Row 1: iterate loop -->
+        <g stroke="currentColor" fill="none">
+          <line x1="194" y1="110" x2="386" y2="110" stroke-width="1.4" marker-end="url(#arrow)"/>
+          <line x1="454" y1="110" x2="646" y2="110" stroke-width="1.4" marker-end="url(#arrow)"/>
+          <line x1="714" y1="110" x2="906" y2="110" stroke-width="1.4" marker-end="url(#arrow)"/>
+        </g>
+        <text x="290" y="100" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.7">Claude edits &amp; tests</text>
+        <text x="550" y="100" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.7">screenshots it</text>
+        <text x="810" y="100" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.7">you review</text>
+
+        <!-- repeat arc -->
+        <path d="M940,76 C 940,18 160,18 160,76" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="1 5" stroke-linecap="round" marker-end="url(#arrow)"/>
+        <text x="550" y="16" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.7">want changes? loop again</text>
+
+        <!-- Row 1 nodes -->
+        <g transform="translate(160,110)">
+          <circle r="34" style="fill:var(--surface-2); stroke:var(--line);" stroke-width="1.5"/>
+          <g transform="translate(-12,-12)" stroke="currentColor" stroke-width="1.6" style="color:var(--accent-strong)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="13" rx="4"/>
+            <path d="M9 17 L7 21 L12 17"/>
+            <circle cx="8" cy="10.5" r="1" fill="currentColor" stroke="none"/>
+            <circle cx="12" cy="10.5" r="1" fill="currentColor" stroke="none"/>
+            <circle cx="16" cy="10.5" r="1" fill="currentColor" stroke="none"/>
+          </g>
+          <text y="56" text-anchor="middle" font-size="12.5" font-weight="700" fill="currentColor">You ask for a change</text>
+        </g>
+
+        <g transform="translate(420,110)">
+          <circle r="34" style="fill:var(--surface-2); stroke:var(--line);" stroke-width="1.5"/>
+          <g transform="translate(-12,-12)" stroke="currentColor" stroke-width="1.8" style="color:var(--accent-strong)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 18l6-6-6-6"/>
+            <path d="M8 6l-6 6 6 6"/>
+          </g>
+          <text y="56" text-anchor="middle" font-size="12.5" font-weight="700" fill="currentColor">Claude edits the HTML</text>
+        </g>
+
+        <g transform="translate(680,110)">
+          <circle r="34" style="fill:var(--surface-2); stroke:var(--line);" stroke-width="1.5"/>
+          <g transform="translate(-12,-12)" stroke="currentColor" stroke-width="1.6" style="color:var(--accent-strong)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="15" rx="2"/>
+            <circle cx="8.2" cy="9.2" r="1.6"/>
+            <path d="M2 16 L9 10 L13 14 L16 11.5 L22 16"/>
+          </g>
+          <text y="56" text-anchor="middle" font-size="12.5" font-weight="700" fill="currentColor">Screenshot preview</text>
+        </g>
+
+        <g transform="translate(940,110)">
+          <circle r="34" style="fill:var(--accent-soft); stroke:var(--accent-strong);" stroke-width="1.5"/>
+          <g transform="translate(-12,-12)" stroke="currentColor" stroke-width="1.9" style="color:var(--accent-strong)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9.5"/>
+            <path d="M8 12.3 L11 15.3 L16.3 8.7"/>
+          </g>
+          <text y="56" text-anchor="middle" font-size="12.5" font-weight="700" fill="currentColor">You approve</text>
+        </g>
+
+        <!-- connector down to ship pipeline -->
+        <g stroke="currentColor" fill="none">
+          <polyline points="940,144 940,210 140,210 140,282" stroke-width="1.4" marker-end="url(#arrow)"/>
+        </g>
+        <text x="540" y="203" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.7">ready to ship → package it up</text>
+
+        <text x="24" y="330" class="mono" font-family="JetBrains Mono, monospace" font-size="12" font-weight="700" letter-spacing="0.08em" fill="currentColor" opacity="0.55">2 · SHIP (once, when you say go)</text>
+
+        <!-- Row 2: pipeline -->
+        <g stroke="currentColor" fill="none">
+          <line x1="174" y1="410" x2="316" y2="410" stroke-width="1.4" marker-end="url(#arrow)"/>
+          <line x1="384" y1="410" x2="526" y2="410" stroke-width="1.4" marker-end="url(#arrow)"/>
+          <line x1="594" y1="410" x2="736" y2="410" stroke-width="1.4" marker-end="url(#arrow)"/>
+          <line x1="804" y1="410" x2="946" y2="410" stroke-width="1.4" marker-end="url(#arrow)"/>
+        </g>
+        <text x="245" y="400" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.7">unzip &amp; copy in</text>
+        <text x="455" y="400" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.7">git push</text>
+        <text x="665" y="400" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.7">webhook</text>
+        <text x="875" y="400" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.7">serves globally</text>
+
+        <!-- Row 2 nodes -->
+        <g transform="translate(140,410)">
+          <circle r="34" style="fill:var(--surface-2); stroke:var(--line);" stroke-width="1.5"/>
+          <g transform="translate(-12,-12)" stroke="currentColor" stroke-width="1.6" style="color:var(--accent-strong)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="2" width="16" height="20" rx="2"/>
+            <line x1="12" y1="2" x2="12" y2="6"/>
+            <line x1="12" y1="8" x2="12" y2="10"/>
+            <line x1="12" y1="12" x2="12" y2="14"/>
+            <rect x="10.5" y="14" width="3" height="3" fill="currentColor" stroke="none"/>
+          </g>
+          <text y="56" text-anchor="middle" font-size="12.5" font-weight="700" fill="currentColor">Zip lands in chat</text>
+        </g>
+
+        <g transform="translate(350,410)">
+          <circle r="34" style="fill:var(--surface-2); stroke:var(--line);" stroke-width="1.5"/>
+          <g transform="translate(-12,-12)" stroke="currentColor" stroke-width="1.7" style="color:var(--accent-strong)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="18" rx="2"/>
+            <polyline points="6,9 10,12 6,15"/>
+            <line x1="11" y1="15" x2="16" y2="15"/>
+          </g>
+          <text y="56" text-anchor="middle" font-size="12.5" font-weight="700" fill="currentColor">Your Mac (Terminal)</text>
+        </g>
+
+        <g transform="translate(560,410)">
+          <circle r="34" style="fill:var(--surface-2); stroke:var(--line);" stroke-width="1.5"/>
+          <g transform="translate(-12,-12)" stroke="currentColor" stroke-width="1.6" style="color:var(--accent-strong)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="6" y1="3" x2="6" y2="15"/>
+            <circle cx="18" cy="6" r="3"/>
+            <circle cx="6" cy="18" r="3"/>
+            <path d="M18 9a9 9 0 0 1-9 9"/>
+          </g>
+          <text y="56" text-anchor="middle" font-size="12.5" font-weight="700" fill="currentColor">GitHub — main</text>
+        </g>
+
+        <g transform="translate(770,410)">
+          <circle r="34" style="fill:var(--surface-2); stroke:var(--line);" stroke-width="1.5"/>
+          <g transform="translate(-12,-12)" stroke="currentColor" stroke-width="1.6" style="color:var(--accent-strong)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/>
+          </g>
+          <g transform="translate(6,4)">
+            <polygon points="13,3 9.5,10 12,10 10.5,15 15.5,8 12.5,8" fill="var(--accent-strong)" stroke="none" opacity="0.9"/>
+          </g>
+          <text y="56" text-anchor="middle" font-size="12.5" font-weight="700" fill="currentColor">Cloudflare Workers</text>
+        </g>
+
+        <g transform="translate(980,410)">
+          <circle r="34" style="fill:var(--accent-soft); stroke:var(--accent-strong);" stroke-width="1.5"/>
+          <g transform="translate(-12,-12)" stroke="currentColor" stroke-width="1.6" style="color:var(--accent-strong)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9.5"/>
+            <line x1="2.5" y1="12" x2="21.5" y2="12"/>
+            <path d="M12 2.5a14.5 14.5 0 0 1 3.8 9.5A14.5 14.5 0 0 1 12 21.5 14.5 14.5 0 0 1 8.2 12 14.5 14.5 0 0 1 12 2.5z"/>
+          </g>
+          <text y="56" text-anchor="middle" font-size="12.5" font-weight="700" fill="currentColor">Live site</text>
+          <text y="72" text-anchor="middle" font-size="10.5" fill="currentColor" opacity="0.65">3 travellers · desktop + mobile</text>
+        </g>
+      </svg>
+      <figcaption>Round-trip of a single change: an inner loop that edits and previews safely, exiting only when you approve — into the one-way pipeline that actually deploys it.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>What it's built with</h2>
+    <p class="lede">No framework and no build step anywhere in this stack — every page is a single self-contained HTML file, which is what makes the "edit → zip → push" loop above possible at all.</p>
+    <div class="tech-grid">
+      <div class="tech-card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M16 18l6-6-6-6"/><path d="M8 6l-6 6 6 6"/></svg></div>
+        <h4>Vanilla HTML / CSS / JS</h4>
+        <p>Each of the 9 pages inlines its own &lt;style&gt; block and a few lines of JS for the mobile sidebar toggle. No React, no bundler, no npm install.</p>
+      </div>
+      <div class="tech-card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg></div>
+        <h4>Cloudflare Workers</h4>
+        <p>Serves the static HTML files globally under <span class="mono">africatour.hippytrippytrader.com</span>. No server, no database.</p>
+      </div>
+      <div class="tech-card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg></div>
+        <h4>GitHub, git-connected</h4>
+        <p>Repo <span class="mono">hippietrippycoder/travel-site</span>. Cloudflare watches the <span class="mono">main</span> branch and redeploys on every push — no manual "deploy" click.</p>
+      </div>
+      <div class="tech-card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="15" rx="2"/><circle cx="8.2" cy="9.2" r="1.6"/><path d="M2 16 L9 10 L13 14 L16 11.5 L22 16"/></svg></div>
+        <h4>Playwright QA</h4>
+        <p>Every edit gets checked headless in Chromium at desktop and mobile widths, in light and dark mode, for horizontal overflow and JS errors, before it's ever shown to you.</p>
+      </div>
+      <div class="tech-card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 2.5a14.5 14.5 0 0 1 3.8 9.5A14.5 14.5 0 0 1 12 21.5 14.5 14.5 0 0 1 8.2 12 14.5 14.5 0 0 1 12 2.5z"/><line x1="2.5" y1="12" x2="21.5" y2="12"/></svg></div>
+        <h4>CSS custom properties</h4>
+        <p>Colors, shadows and radii are tokens (<span class="mono">--bg</span>, <span class="mono">--accent</span>, …), swapped automatically for dark mode via <span class="mono">prefers-color-scheme</span>.</p>
+      </div>
+      <div class="tech-card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V6.5a2.5 2.5 0 0 1 2.5-2.5H20"/><path d="M4 19a2 2 0 0 0 2 2h14V4"/><path d="M9 8h9"/></svg></div>
+        <h4>Fraunces · Karla · JetBrains Mono</h4>
+        <p>One serif for headings, one grotesk for body text, one mono for labels and stats — loaded from Google Fonts in every page.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Design system</h2>
+    <p class="lede">Every page shares the same nine color tokens and three typefaces, so the checklist pages, the itinerary and the home page all read as one site.</p>
+    <div class="swatch-row">
+      <div class="swatch" style="background:var(--bg); color:var(--text);"><span class="name">bg</span><span class="hex">#EEF0E4</span></div>
+      <div class="swatch" style="background:var(--surface); color:var(--text);"><span class="name">surface</span><span class="hex">#FBFBF4</span></div>
+      <div class="swatch" style="background:var(--accent-soft); color:var(--accent-strong);"><span class="name">accent-soft</span><span class="hex">#EFDFBB</span></div>
+      <div class="swatch" style="background:var(--accent); color:#FBFBF4;"><span class="name">accent</span><span class="hex">#A9701F</span></div>
+      <div class="swatch" style="background:var(--accent-strong); color:#FBFBF4;"><span class="name">accent-strong</span><span class="hex">#7C5216</span></div>
+      <div class="swatch" style="background:var(--text); color:var(--surface);"><span class="name">text</span><span class="hex">#212C1C</span></div>
+    </div>
+    <div class="type-sample">
+      <div class="type-row"><span class="fam-label">Fraunces — headings</span><span class="sample-fraunces">Africa Five Nation Tour</span></div>
+      <div class="type-row"><span class="fam-label">Karla — body text</span><span class="sample-karla">24 September – 12 October 2026, across Zimbabwe, Zambia, Botswana, South Africa and Mauritius.</span></div>
+      <div class="type-row"><span class="fam-label">JetBrains Mono — labels &amp; stats</span><span class="sample-mono">18 DAYS · 5 COUNTRIES · 3 TRAVELLERS</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>The nine pages</h2>
+    <div class="table-wrap">
+      <table class="file-table">
+        <thead><tr><th>File</th><th>Page</th><th>What's on it</th></tr></thead>
+        <tbody>
+          <tr><td class="fname">index.html</td><td class="page">Home</td><td class="desc">Route header, trip stats, the trivia grid, national parks, border-crossing &amp; Panorama Route notes.</td></tr>
+          <tr><td class="fname">full_trip_route.html</td><td class="page">Day-by-Day Itinerary</td><td class="desc">The full day-by-day route and stops — the largest page on the site.</td></tr>
+          <tr><td class="fname">free_time_extras.html</td><td class="page">Off Beat Activities</td><td class="desc">Optional activities and free-time extras for down days.</td></tr>
+          <tr><td class="fname">local_food_guide.html</td><td class="page">Local Food &amp; Cuisines</td><td class="desc">One card per day, matching what's worth eating where.</td></tr>
+          <tr><td class="fname">weather_overview.html</td><td class="page">Weather Forecast Daily</td><td class="desc">Expected conditions for each leg of the trip.</td></tr>
+          <tr><td class="fname">hotels_flights.html</td><td class="page">Hotel &amp; Flights</td><td class="desc">Confirmed hotel stays and flight bookings for all three travellers.</td></tr>
+          <tr><td class="fname">important_actions_checklist.html</td><td class="page">Imp To-Do Checklist</td><td class="desc">Pre-trip tasks — visas, insurance, packing, bookings to confirm.</td></tr>
+          <tr><td class="fname">travel_documents_checklist.html</td><td class="page">Travel Doc Checklist</td><td class="desc">Passports, visas and paperwork needed per country.</td></tr>
+          <tr><td class="fname">trip_budget.html</td><td class="page">Budget Vs Actuals</td><td class="desc">Planned vs. actual spend, filed under the Financials nav group.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>What we built, round by round</h2>
+    <p class="lede">The site started as nine plain pages and got its personality through many small, reviewed rounds. A few of the more notable ones:</p>
+
+    <div class="log-entry">
+      <div class="log-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></div>
+      <div>
+        <p><strong>The header &amp; hero.</strong> Added flag emoji next to each country in the route line, then had to make all five country names fit on a single line without losing the flags — a flexbox quirk (a nowrap child was silently forcing its parent to grow) got fixed with one <span class="mono">min-width:0</span>. The title itself got reworked from "AFRICA FIVE / NATION TOUR" to a cleaner "AFRICA / FIVE NATION TOUR" break.</p>
+      </div>
+    </div>
+
+    <div class="log-entry">
+      <div class="log-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></div>
+      <div>
+        <p><strong>Trivia, grounded in the real itinerary.</strong> Every stat on the home page — coastline driven in Mauritius, number of beaches, national parks along the way — was pulled from the actual day-by-day plan, never invented. When a requested addition (Black River Gorges NP) turned out not to be an actual stop, that got flagged and confirmed before adding it rather than added silently.</p>
+      </div>
+    </div>
+
+    <div class="log-entry">
+      <div class="log-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></div>
+      <div>
+        <p><strong>From "bricks" to a bento grid.</strong> The original trivia tiles were uniform boxes that read as "bricks arranged." They were rebuilt with CSS Grid <span class="mono">grid-template-areas</span> — a hero tile spanning 2×2, a wide tile spanning 2×1 — redefined at a 640px breakpoint so mobile gets its own 2-column layout instead of a squashed desktop one.</p>
+      </div>
+    </div>
+
+    <div class="log-entry">
+      <div class="log-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></div>
+      <div>
+        <p><strong>The sidebar found its shape.</strong> "Trip Home" became "Home"; a new Financials group was carved out for the budget page; the Day-by-Day links got reordered; every label was set to uppercase and then tuned (font-size, padding, letter-spacing) until the longest one, "Weather Forecast Daily," fit on one line without wrapping.</p>
+      </div>
+    </div>
+
+    <div class="log-entry">
+      <div class="log-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></div>
+      <div>
+        <p><strong>The top-left badge, three tries.</strong> The "Africa Five Nation Tour / 24 Sep–12 Oct" text block came out first for a single compass icon, then — after review — for the current mark: six small bordered icons (paw, mountain, pin, palm, sun, continent outline) in a row, sized to fit the 238px sidebar with room to spare. Each option was mocked up as a sample sheet and shown before being wired in.</p>
+      </div>
+    </div>
+
+    <div class="log-entry">
+      <div class="log-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.86 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.86a2 2 0 0 0-3.4 0z"/></svg></div>
+      <div>
+        <p><strong>Fixing the mojibake bug.</strong> Four pages were rendering garbled characters in place of dashes, dots and flag emoji. The bytes on disk were valid UTF‑8 the whole time — the actual cause was that those four files were missing their <span class="mono">&lt;!doctype html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset="UTF-8"&gt;</span> wrapper entirely, so the browser was guessing the encoding. Adding the standard document head fixed all four without touching a single character of content.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Shipping a change</h2>
+    <p class="lede">The outer step is deliberately manual — nothing goes live until you run this yourself:</p>
+    <pre><span class="c"># unzip the delivered file, then from the repo folder:</span>
+cd ~/Downloads/trip-site_1
+cp trip-site_N/*.html .
+git add *.html
+git commit -m "<span class="c">describe the change</span>"
+git push</pre>
+    <p style="margin-top:14px; color:var(--text-muted); font-size:0.88rem;">Cloudflare picks up the push to <span class="mono">main</span> within a minute or two and the live site updates automatically — no dashboard clicks required.</p>
+  </section>
+
+  <footer class="page-end">
+    Built round by round in Claude, for the Africa Five Nation Tour · September 2026
+  </footer>
+
+</div>
+</body>
+</html>

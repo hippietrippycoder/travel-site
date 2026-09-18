@@ -1,0 +1,391 @@
+<title>Important Actions Checklist — Africa Five Nation Tour</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Karla:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --bg: #EEF0E4;
+  --surface: #FBFBF4;
+  --surface-2: #F2F3E8;
+  --text: #212C1C;
+  --text-muted: #5C6650;
+  --line: #D6DAC4;
+  --accent: #A9701F;
+  --accent-strong: #7C5216;
+  --accent-soft: #EFDFBB;
+  --danger: #963B26;
+  --danger-soft: #F3DCCC;
+  --shadow: 0 1px 2px rgba(33,44,28,0.06), 0 8px 24px -12px rgba(33,44,28,0.18);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg: #161D14;
+    --surface: #1D2519;
+    --surface-2: #232C1E;
+    --text: #E8EADB;
+    --text-muted: #9CA68C;
+    --line: #333F2B;
+    --accent: #DDA54E;
+    --accent-strong: #F0BE70;
+    --accent-soft: #3A3220;
+    --danger: #E58A6C;
+    --danger-soft: #3B241C;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+  }
+}
+:root[data-theme="dark"]{
+  --bg: #161D14;
+  --surface: #1D2519;
+  --surface-2: #232C1E;
+  --text: #E8EADB;
+  --text-muted: #9CA68C;
+  --line: #333F2B;
+  --accent: #DDA54E;
+  --accent-strong: #F0BE70;
+  --accent-soft: #3A3220;
+  --danger: #E58A6C;
+  --danger-soft: #3B241C;
+  --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+}
+
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Karla', ui-sans-serif, system-ui, sans-serif;
+  padding-inline:20px;
+  padding-block:36px 64px;
+}
+.wrap{max-width:1080px; margin:0 auto; display:flex; flex-direction:column; gap:28px;}
+
+h1,h2,h3{font-family:'Fraunces', Georgia, serif; text-wrap:balance; margin:0;}
+.eyebrow{
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.72rem;
+  letter-spacing:0.09em;
+  text-transform:uppercase;
+  color:var(--accent-strong);
+  font-weight:600;
+}
+.num{font-family:'JetBrains Mono', monospace; font-variant-numeric:tabular-nums;}
+
+.travellers{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:2px;
+}
+.travellers .pill{
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.68rem;
+  letter-spacing:0.03em;
+  font-weight:600;
+  text-transform:uppercase;
+  color:var(--accent-strong);
+  background:var(--accent-soft);
+  border:1px solid var(--line);
+  padding:5px 12px;
+  border-radius:999px;
+  white-space:nowrap;
+}
+
+/* header */
+header{display:flex; flex-direction:column; gap:10px;}
+header h1{font-size:clamp(1.7rem, 4.5vw, 2.4rem); font-weight:700; color:var(--text);}
+header p.sub{margin:0; color:var(--text-muted); font-size:1.02rem; max-width:60ch;}
+
+/* callout */
+.callout{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:18px 20px;
+  box-shadow:var(--shadow);
+  display:flex; gap:16px; align-items:flex-start;
+}
+.callout.warn{background:var(--danger-soft); border-color:transparent;}
+.callout .icon{
+  font-family:'JetBrains Mono',monospace; font-weight:700; font-size:0.72rem;
+  letter-spacing:0.08em; text-transform:uppercase; color:var(--danger);
+  flex-shrink:0; margin-top:3px;
+}
+.callout p{margin:0; font-size:0.95rem; line-height:1.55; color:var(--text);}
+.callout p+p{margin-top:6px;}
+.callout strong{color:var(--danger); font-weight:700;}
+
+/* reference table */
+.table-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:12px;}
+table{border-collapse:collapse; width:100%; min-width:520px; background:var(--surface);}
+th,td{padding:10px 14px; text-align:left; font-size:0.85rem; border-bottom:1px solid var(--line);}
+th{
+  font-family:'JetBrains Mono',monospace; font-size:0.68rem; text-transform:uppercase;
+  letter-spacing:0.05em; color:var(--text-muted); background:var(--surface-2); font-weight:600;
+}
+td.num{font-family:'JetBrains Mono',monospace; font-variant-numeric:tabular-nums;}
+tr:last-child td{border-bottom:none;}
+th.chk-col{text-align:center;}
+td.chk-col{text-align:center; transition:background 0.15s;}
+.chk-box{width:17px; height:17px; cursor:pointer; accent-color:var(--accent-strong); margin:0;}
+td.chk-col.is-done{background:var(--accent-soft);}
+.doc-table td:nth-child(3), .doc-table th:nth-child(3){white-space:nowrap;}
+tr.section-row td{
+  background:var(--accent-soft); color:var(--accent-strong);
+  font-family:'JetBrains Mono',monospace; font-size:0.68rem;
+  text-transform:uppercase; letter-spacing:0.06em; font-weight:700;
+  padding:8px 14px;
+}
+
+footer{color:var(--text-muted); font-size:0.78rem; text-align:center; padding-top:8px;}
+
+/* progress panel */
+.progress-panel{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:18px 22px 20px;
+  box-shadow:var(--shadow);
+  display:flex; flex-direction:column; gap:14px;
+}
+.progress-panel-head{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;}
+.progress-title{font-family:'Fraunces', Georgia, serif; font-weight:600; font-size:1.08rem; color:var(--text);}
+.sync-status{
+  font-family:'JetBrains Mono', monospace; font-size:0.64rem; text-transform:uppercase;
+  letter-spacing:0.05em; font-weight:600; color:var(--text-muted);
+  padding:4px 11px; border-radius:999px; background:var(--surface-2); border:1px solid var(--line);
+  white-space:nowrap;
+}
+.sync-status.synced{color:var(--accent-strong); background:var(--accent-soft); border-color:transparent;}
+.progress-rows{display:flex; flex-direction:column; gap:10px;}
+.progress-row{display:grid; grid-template-columns:minmax(120px,190px) 1fr 46px; align-items:center; gap:12px;}
+.progress-row.overall{margin-top:2px; padding-top:14px; border-top:1px dashed var(--line);}
+.progress-label{font-size:0.85rem; color:var(--text); font-weight:600;}
+.progress-row.overall .progress-label{font-weight:700;}
+.progress-track{height:10px; border-radius:999px; background:var(--surface-2); border:1px solid var(--line); overflow:hidden;}
+.progress-fill{height:100%; width:0%; border-radius:999px; background:var(--accent); transition:width 0.35s ease;}
+.progress-row.overall .progress-fill{background:var(--accent-strong);}
+.progress-fill.is-complete{background:var(--accent-strong);}
+.progress-pct{font-family:'JetBrains Mono', monospace; font-size:0.78rem; text-align:right; color:var(--text-muted); font-weight:600;}
+
+@media (max-width:640px){
+  .doc-table{table-layout:auto; min-width:0;}
+  .doc-table td, .doc-table th{white-space:normal !important; font-size:0.72rem; padding:6px 4px;}
+  .doc-table th.chk-col, .doc-table td.chk-col{padding-inline:2px;}
+  .doc-table .chk-box{width:14px; height:14px;}
+  .progress-row{grid-template-columns:minmax(84px,120px) 1fr 40px; gap:8px;}
+  .progress-label{font-size:0.76rem;}
+  .progress-panel{padding:16px 16px 18px;}
+}
+</style>
+<body>
+<div class="wrap">
+
+<header>
+    <h1>IMPORTANT ACTIONS CHECKLIST</h1>
+    <span class="eyebrow">Africa Five Nation Tour · 24 September – 12 October 2026</span>
+    <div class="travellers"><span class="pill">Amar Raj Urs</span><span class="pill">Pratap Raj</span><span class="pill">Praveen Kumar Nallipogu</span></div>
+  </header>
+
+  <p style="font-size:0.85rem; color:var(--text-muted); text-align:center; max-width:640px; margin:0 auto;">Every visa, check-in and pre-arrival action for the trip, in the order they need doing — pulled straight from the main itinerary for quick reference.</p>
+
+  <div class="progress-panel">
+    <div class="progress-panel-head">
+      <span class="progress-title">Action Readiness</span>
+      <span id="sync-status" class="sync-status">Checking sync…</span>
+    </div>
+    <div class="progress-rows">
+      <div class="progress-row" data-who="ARU">
+        <span class="progress-label">Amar Raj Urs</span>
+        <div class="progress-track"><div class="progress-fill"></div></div>
+        <span class="progress-pct">0%</span>
+      </div>
+      <div class="progress-row" data-who="PR">
+        <span class="progress-label">Pratap Raj</span>
+        <div class="progress-track"><div class="progress-fill"></div></div>
+        <span class="progress-pct">0%</span>
+      </div>
+      <div class="progress-row" data-who="PKN">
+        <span class="progress-label">Praveen Kumar Nallipogu</span>
+        <div class="progress-track"><div class="progress-fill"></div></div>
+        <span class="progress-pct">0%</span>
+      </div>
+      <div class="progress-row overall">
+        <span class="progress-label">Overall action readiness</span>
+        <div class="progress-track"><div class="progress-fill"></div></div>
+        <span class="progress-pct">0%</span>
+      </div>
+    </div>
+  </div>
+
+  <div>
+  <div class="table-scroll">
+    <table class="doc-table">
+      <thead><tr><th>Action date</th><th>Date of travel</th><th>Country</th><th>Action to be performed</th><th class="chk-col">ARU</th><th class="chk-col">PR</th><th class="chk-col">PKN</th></tr></thead>
+      <tbody>
+        <tr><td>Before 24 Sep</td><td>27 Sep</td><td>🇿🇲 ZMB</td><td><strong>PRE-ARRIVAL</strong> — Confirm Zambia Double-Entry visa approval before leaving Bengaluru.</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zambia-visa-confirm" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zambia-visa-confirm" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zambia-visa-confirm" data-who="PKN"></td></tr>
+        <tr><td>23 Sep</td><td>24 Sep</td><td>🇮🇳 IND</td><td><strong>WEB CHECK-IN</strong> — Akasa QP1150, Bengaluru → Mumbai (16:05).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="qp1150-checkin" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="qp1150-checkin" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="qp1150-checkin" data-who="PKN"></td></tr>
+        <tr><td>23 Sep</td><td>24 Sep</td><td>🇮🇳 IND</td><td><strong>PRE-ARRIVAL</strong> — Register on Digi Yatra for Akasa QP1150.</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="qp1150-digiyatra" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="qp1150-digiyatra" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="qp1150-digiyatra" data-who="PKN"></td></tr>
+        <tr><td>23 Sep</td><td>25 Sep</td><td>🇮🇳 IND / 🇰🇪 KEN</td><td><strong>WEB CHECK-IN</strong> — Kenya Airways KQ203 (Mumbai–Nairobi) &amp; KQ792 (Nairobi–Victoria Falls).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="kq-checkin" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="kq-checkin" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="kq-checkin" data-who="PKN"></td></tr>
+        <tr><td>23 Sep</td><td>25 Sep</td><td>🇿🇼 ZWE</td><td><strong>PRE-ARRIVAL</strong> — Submit Zimbabwe Digital Immigration Form (after KQ203/KQ792 check-in).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zw-digital-immigration" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zw-digital-immigration" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zw-digital-immigration" data-who="PKN"></td></tr>
+        <tr><td>27 Sep</td><td>27 Sep</td><td>🇿🇲 ZMB</td><td><strong>PRE-ARRIVAL</strong> — Fill Zambia arrival card; carry visa approval letter &amp; payment receipt.</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zm-arrival-card" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zm-arrival-card" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zm-arrival-card" data-who="PKN"></td></tr>
+        <tr><td>29 Sep</td><td>29 Sep</td><td>🇧🇼 BWA</td><td><strong>PRE-ARRIVAL</strong> — Pay Botswana visa-on-arrival fee at Kazungula border (cash).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="bw-visa-arrival" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="bw-visa-arrival" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="bw-visa-arrival" data-who="PKN"></td></tr>
+        <tr><td>1 Oct</td><td>2 Oct</td><td>🇿🇼 ZWE / 🇿🇦 ZAF</td><td><strong>WEB CHECK-IN</strong> — FlySafAir FA-827, Victoria Falls → JNB (15:50).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="fa827-checkin" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="fa827-checkin" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="fa827-checkin" data-who="PKN"></td></tr>
+        <tr><td>1 Oct</td><td>2 Oct</td><td>🇿🇼 ZWE</td><td><strong>PRE-ARRIVAL</strong> — Submit Zimbabwe Digital Immigration Form (after FA-827 check-in).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zw-digital-immigration-fa827" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zw-digital-immigration-fa827" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zw-digital-immigration-fa827" data-who="PKN"></td></tr>
+        <tr><td>1 Oct</td><td>2 Oct</td><td>🇿🇦 ZAF</td><td><strong>PRE-ARRIVAL</strong> — Submit SA Customs Traveller Declaration (after FA-827 check-in).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="sa-customs-declaration" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="sa-customs-declaration" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="sa-customs-declaration" data-who="PKN"></td></tr>
+        <tr><td>1 Oct</td><td>2 Oct</td><td>🇿🇦 ZAF</td><td><strong>HOTEL CHECK-IN</strong> — Vetho 1 Apartments, OR Tambo Airport.</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="vetho1-checkin-2oct" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="vetho1-checkin-2oct" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="vetho1-checkin-2oct" data-who="PKN"></td></tr>
+        <tr><td>5 Oct</td><td>6 Oct</td><td>🇿🇦 ZAF</td><td><strong>HOTEL CHECK-IN</strong> — Vetho 1 Apartments, OR Tambo Airport.</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="vetho1-checkin-6oct" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="vetho1-checkin-6oct" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="vetho1-checkin-6oct" data-who="PKN"></td></tr>
+        <tr><td>6 Oct</td><td>7 Oct</td><td>🇿🇦 ZAF</td><td><strong>WEB CHECK-IN</strong> — FlySafAir FA-830, JNB → Mauritius (09:00).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="fa830-checkin" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="fa830-checkin" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="fa830-checkin" data-who="PKN"></td></tr>
+        <tr><td>6 Oct</td><td>7 Oct</td><td>🇲🇺 MUS</td><td><strong>PRE-ARRIVAL</strong> — Submit Mauritius Health Declaration Form (after FA-830 check-in).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="mu-health-declaration" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="mu-health-declaration" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="mu-health-declaration" data-who="PKN"></td></tr>
+        <tr><td>11 Oct</td><td>12 Oct</td><td>🇲🇺 MUS</td><td><strong>WEB CHECK-IN</strong> — IndiGo 6E1862, Mauritius → Bengaluru (09:30).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="6e1862-checkin" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="6e1862-checkin" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="6e1862-checkin" data-who="PKN"></td></tr>
+        <tr><td>11 Oct</td><td>12 Oct</td><td>🇮🇳 IND</td><td><strong>PRE-ARRIVAL</strong> — Submit India Air Suvidha 2.0 (after 6E1862 check-in).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="air-suvidha" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="air-suvidha" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="air-suvidha" data-who="PKN"></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:0.82rem; color:var(--text-muted); margin-top:8px;">"Action date" is when to actually do the thing (check in, confirm, pay); "Date of travel" is the day the leg itself happens. Web check-in windows above follow each airline's standard 24–48h opening — always double-check the exact opening time closer to the date. Tick off ARU / PR / PKN as each traveller completes an item. When live sync is available, progress updates instantly on every traveller's device; otherwise ticks are saved on this device only.</p>
+  </div>
+
+</div>
+<script>
+(function(){
+  var LEGACY_KEY = 'actions-checklist-v1';
+  var travellers = ['ARU', 'PR', 'PKN'];
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('.chk-box'));
+
+  var allKeys = [];
+  boxes.forEach(function(el){
+    var k = el.getAttribute('data-key');
+    if(allKeys.indexOf(k) === -1) allKeys.push(k);
+  });
+  var totalPerTraveller = allKeys.length;
+
+  // state[who][key] = true/false — shared shape whether it's coming from
+  // this browser's localStorage or from the live db document.
+  var state = {ARU:{}, PR:{}, PKN:{}};
+  var usingDb = false;
+  var dbDoc = null;
+
+  function loadLegacyLocal(){
+    try{
+      var raw = JSON.parse(localStorage.getItem(LEGACY_KEY) || '{}');
+      Object.keys(raw).forEach(function(flatKey){
+        var idx = flatKey.lastIndexOf(':');
+        if(idx === -1) return;
+        var key = flatKey.slice(0, idx), who = flatKey.slice(idx + 1);
+        if(state[who] && raw[flatKey]) state[who][key] = true;
+      });
+    }catch(e){}
+  }
+
+  function saveLocal(){
+    try{
+      var flat = {};
+      travellers.forEach(function(who){
+        Object.keys(state[who] || {}).forEach(function(key){
+          if(state[who][key]) flat[key + ':' + who] = true;
+        });
+      });
+      localStorage.setItem(LEGACY_KEY, JSON.stringify(flat));
+    }catch(e){}
+  }
+
+  function setStatus(text, mode){
+    var el = document.getElementById('sync-status');
+    if(!el) return;
+    el.textContent = text;
+    el.className = 'sync-status' + (mode ? ' ' + mode : '');
+  }
+
+  function render(){
+    boxes.forEach(function(el){
+      var key = el.getAttribute('data-key'), who = el.getAttribute('data-who');
+      var done = !!(state[who] && state[who][key]);
+      el.checked = done;
+      el.closest('td').classList.toggle('is-done', done);
+    });
+    renderProgress();
+  }
+
+  function renderProgress(){
+    var totalDone = 0;
+    travellers.forEach(function(who){
+      var done = allKeys.reduce(function(acc, key){
+        return acc + (state[who] && state[who][key] ? 1 : 0);
+      }, 0);
+      totalDone += done;
+      var pct = totalPerTraveller ? Math.round((done / totalPerTraveller) * 100) : 0;
+      var row = document.querySelector('.progress-row[data-who="' + who + '"]');
+      if(row){
+        var fill = row.querySelector('.progress-fill');
+        fill.style.width = pct + '%';
+        fill.classList.toggle('is-complete', pct === 100);
+        row.querySelector('.progress-pct').textContent = pct + '%';
+      }
+    });
+    var overallTotal = totalPerTraveller * travellers.length;
+    var overallPct = overallTotal ? Math.round((totalDone / overallTotal) * 100) : 0;
+    var overallRow = document.querySelector('.progress-row.overall');
+    if(overallRow){
+      var overallFill = overallRow.querySelector('.progress-fill');
+      overallFill.style.width = overallPct + '%';
+      overallFill.classList.toggle('is-complete', overallPct === 100);
+      overallRow.querySelector('.progress-pct').textContent = overallPct + '%';
+    }
+  }
+
+  function handleChange(el){
+    var key = el.getAttribute('data-key'), who = el.getAttribute('data-who'), val = el.checked;
+    if(!state[who]) state[who] = {};
+    state[who][key] = val;
+    render();
+    saveLocal();
+
+    if(usingDb && dbDoc){
+      var patch = {};
+      patch[who] = {};
+      patch[who][key] = val;
+      dbDoc.update(patch).catch(function(err){
+        if(err && err.code === 'invalid_argument'){
+          var full = {ARU:{}, PR:{}, PKN:{}};
+          travellers.forEach(function(w){ full[w] = Object.assign({}, state[w]); });
+          dbDoc.set(full).catch(function(){ setStatus('Saved on this device only', 'local'); });
+        } else {
+          setStatus('Saved on this device only', 'local');
+        }
+      });
+    }
+  }
+
+  boxes.forEach(function(el){
+    el.addEventListener('change', function(){ handleChange(el); });
+  });
+
+  loadLegacyLocal();
+  render();
+
+  if(window.claude && typeof window.claude.use === 'function'){
+    window.claude.use('db').then(function(db){
+      if(!db){ setStatus('Saved on this device only', 'local'); return; }
+      usingDb = true;
+      dbDoc = db.doc('checklist/actions');
+      setStatus('Connecting…', 'local');
+      dbDoc.onSnapshot(function(snap){
+        var data = snap.exists ? snap.data() : null;
+        if(data){
+          travellers.forEach(function(who){
+            state[who] = Object.assign({}, state[who], data[who] || {});
+          });
+        }
+        render();
+        setStatus('Synced live across all travellers', 'synced');
+      }, function(){
+        setStatus('Saved on this device only', 'local');
+      });
+    }).catch(function(){
+      setStatus('Saved on this device only', 'local');
+    });
+  } else {
+    setStatus('Saved on this device only', 'local');
+  }
+})();
+</script>
+</body>
+</html>

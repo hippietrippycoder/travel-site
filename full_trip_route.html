@@ -1,0 +1,1294 @@
+<title>Full Trip Route — Day 0 to 18</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Karla:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --bg: #EEF0E4;
+  --surface: #FBFBF4;
+  --surface-2: #F2F3E8;
+  --text: #212C1C;
+  --text-muted: #5C6650;
+  --line: #D6DAC4;
+  --accent: #A9701F;
+  --accent-strong: #7C5216;
+  --accent-soft: #EFDFBB;
+  --danger: #963B26;
+  --danger-soft: #F3DCCC;
+  --shadow: 0 1px 2px rgba(33,44,28,0.06), 0 8px 24px -12px rgba(33,44,28,0.18);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg: #161D14;
+    --surface: #1D2519;
+    --surface-2: #232C1E;
+    --text: #E8EADB;
+    --text-muted: #9CA68C;
+    --line: #333F2B;
+    --accent: #DDA54E;
+    --accent-strong: #F0BE70;
+    --accent-soft: #3A3220;
+    --danger: #E58A6C;
+    --danger-soft: #3B241C;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+  }
+}
+:root[data-theme="dark"]{
+  --bg: #161D14;
+  --surface: #1D2519;
+  --surface-2: #232C1E;
+  --text: #E8EADB;
+  --text-muted: #9CA68C;
+  --line: #333F2B;
+  --accent: #DDA54E;
+  --accent-strong: #F0BE70;
+  --accent-soft: #3A3220;
+  --danger: #E58A6C;
+  --danger-soft: #3B241C;
+  --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+}
+
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Karla', ui-sans-serif, system-ui, sans-serif;
+  padding-inline:20px;
+  padding-block:36px 64px;
+}
+.wrap{max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:28px;}
+
+h1,h2,h3{font-family:'Fraunces', Georgia, serif; text-wrap:balance; margin:0;}
+.eyebrow{
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.72rem;
+  letter-spacing:0.09em;
+  text-transform:uppercase;
+  color:var(--accent-strong);
+  font-weight:600;
+}
+.countries-line{
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.7rem;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--text-muted);
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:9px;
+  margin-top:4px;
+}
+.countries-line .sep{
+  color:var(--accent);
+  font-size:0.6rem;
+  transform:translateY(-1px);
+}
+.countries-line .flag{
+  font-size:1.15rem;
+  line-height:1;
+}
+.num{font-family:'JetBrains Mono', monospace; font-variant-numeric:tabular-nums;}
+
+.travellers{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:2px;
+}
+.travellers .pill{
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.68rem;
+  letter-spacing:0.03em;
+  font-weight:600;
+  text-transform:uppercase;
+  color:var(--accent-strong);
+  background:var(--accent-soft);
+  border:1px solid var(--line);
+  padding:5px 12px;
+  border-radius:999px;
+  white-space:nowrap;
+}
+
+/* header */
+header{display:flex; flex-direction:column; gap:10px;}
+header h1{font-size:clamp(1.7rem, 4.5vw, 2.4rem); font-weight:700; color:var(--text);}
+header p.sub{margin:0; color:var(--text-muted); font-size:1.02rem; max-width:60ch;}
+
+.route-strip{
+  display:flex;
+  align-items:flex-start;
+  overflow-x:auto;
+  padding-block:8px 6px;
+}
+.route-node{
+  display:flex; flex-direction:column; align-items:center; gap:6px;
+  min-width:68px; flex-shrink:0;
+}
+.route-dot{
+  width:13px; height:13px; border-radius:50%;
+  background:var(--accent); border:2px solid var(--surface);
+  box-shadow:0 0 0 2px var(--accent);
+  flex-shrink:0;
+}
+.route-dot.is-muted{background:var(--text-muted); box-shadow:0 0 0 2px var(--text-muted);}
+.route-dot.is-danger{background:var(--danger); box-shadow:0 0 0 2px var(--danger);}
+.route-flag{
+  font-size:1.35rem; line-height:1;
+  border-radius:50%;
+  box-shadow:0 0 0 2px var(--accent);
+  width:24px; height:24px;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+  flex-shrink:0;
+}
+.route-flag.is-danger{box-shadow:0 0 0 2px var(--danger);}
+.route-node span{font-size:0.76rem; text-align:center; color:var(--text); font-weight:600; line-height:1.2;}
+.route-node small{display:flex; flex-direction:column; align-items:center; gap:1px; text-align:center;}
+.route-node .rd-day{font-family:'JetBrains Mono',monospace; font-size:0.72rem; font-weight:700; color:var(--text); line-height:1.2;}
+.route-node .rd-month{font-family:'JetBrains Mono',monospace; font-size:0.58rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--text-muted); line-height:1.2;}
+.route-line{
+  flex:1 1 16px; height:2px; align-self:flex-start; margin-top:6px; min-width:12px;
+  background:repeating-linear-gradient(90deg, var(--line) 0 5px, transparent 5px 8px);
+}
+
+/* callout */
+.callout{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:18px 20px;
+  box-shadow:var(--shadow);
+  display:flex; gap:16px; align-items:flex-start;
+}
+.callout.warn{background:var(--danger-soft); border-color:transparent;}
+.callout .icon{
+  font-family:'JetBrains Mono',monospace; font-weight:700; font-size:0.72rem;
+  letter-spacing:0.08em; text-transform:uppercase; color:var(--danger);
+  flex-shrink:0; margin-top:3px;
+}
+.callout p{margin:0; font-size:0.95rem; line-height:1.55; color:var(--text);}
+.callout p+p{margin-top:6px;}
+.callout strong{color:var(--danger); font-weight:700;}
+
+
+/* day cards */
+.day{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:16px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.day-head{
+  display:flex; align-items:center; gap:14px;
+  padding:18px 22px;
+  border-bottom:1px solid var(--line);
+  background:var(--surface-2);
+}
+.day-badge{
+  color:var(--accent-strong);
+  background:var(--accent-soft);
+  min-width:48px; height:44px; border-radius:10px; padding:0 6px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px;
+  flex-shrink:0;
+  line-height:1;
+}
+.day-badge .label{font-family:'JetBrains Mono',monospace; font-size:0.55rem; letter-spacing:0.09em; font-weight:700; opacity:0.85;}
+.day-badge .num{font-family:'Fraunces',serif; font-weight:700; font-size:1.25rem;}
+.day-head h2{font-size:1.15rem; color:var(--text); text-transform:uppercase; letter-spacing:0.02em;}
+.day-head h2 .via{font-size:0.62em; font-weight:600; color:var(--text-muted); letter-spacing:0.01em;}
+.day-head .date, .day-head .day-country{font-size:0.85rem; color:var(--text-muted); font-weight:500;}
+.day-head .camp{
+  margin-left:auto; text-align:right; flex-shrink:0;
+}
+.day-head .camp .label{font-size:0.66rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted);}
+.day-head .camp .name{font-family:'JetBrains Mono',monospace; font-size:0.88rem; font-weight:600; color:var(--accent-strong);}
+.day-head .camp .tbd{font-size:0.62rem; color:var(--text-muted); font-weight:500;}
+
+.legs{display:flex; flex-direction:column;}
+.leg{
+  display:grid;
+  grid-template-columns:26px 1fr auto;
+  gap:4px 14px;
+  padding:14px 22px;
+  border-bottom:1px solid var(--line);
+  align-items:start;
+}
+.leg:last-child{border-bottom:none;}
+.leg .dot-col{display:flex; flex-direction:column; align-items:center; padding-top:3px;}
+.leg .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);}
+.leg .leg-icon{width:17px; height:17px; color:var(--accent-strong); flex-shrink:0;}
+.leg .stem{width:1px; flex:1; background:var(--line); margin-top:4px;}
+.leg .dot-col:has(.leg-icon){padding-top:0;}
+.leg .route-name{font-weight:600; font-size:0.95rem; color:var(--text);}
+.leg .road{font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:var(--text-muted); margin-left:6px;}
+.leg .note{font-size:0.86rem; color:var(--text-muted); margin-top:3px; line-height:1.45;}
+.leg .dist{
+  font-family:'JetBrains Mono',monospace; text-align:right; white-space:nowrap;
+  font-size:0.85rem; color:var(--accent-strong); font-weight:600;
+}
+.leg .dist small{display:block; font-weight:400; color:var(--text-muted); font-size:0.72rem;}
+
+.day-foot{
+  padding:12px 22px 18px;
+  display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
+  font-size:0.85rem; color:var(--text-muted);
+}
+.day-foot .total{font-weight:700; color:var(--text);}
+
+.day-legend{
+  padding:9px 22px; border-top:1px solid var(--line); background:var(--surface-2);
+  display:flex; flex-wrap:wrap; align-items:center; gap:5px 12px;
+  font-family:'JetBrains Mono',monospace; font-size:0.66rem; color:var(--text-muted);
+}
+.day-legend .item{display:inline-flex; align-items:center; gap:4px; white-space:nowrap;}
+.day-legend svg{width:11px; height:11px; flex-shrink:0; color:var(--accent-strong);}
+
+/* reminder */
+.reminder{
+  display:flex; align-items:center; gap:12px;
+  background:var(--accent-soft); border:1px solid var(--line);
+  border-radius:12px; padding:12px 18px;
+}
+.reminder svg{width:20px; height:20px; color:var(--accent-strong); flex-shrink:0;}
+.reminder p{margin:0; font-size:0.86rem; color:var(--text); line-height:1.4;}
+.reminder strong{color:var(--accent-strong);}
+
+.fuel-tag{margin-left:6px; font-size:0.85em;}
+.wild-tag{margin-right:6px; font-size:0.85em;}
+
+/* reference table */
+.table-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:12px;}
+table{border-collapse:collapse; width:100%; min-width:520px; background:var(--surface);}
+th,td{padding:10px 14px; text-align:left; font-size:0.85rem; border-bottom:1px solid var(--line);}
+th{
+  font-family:'JetBrains Mono',monospace; font-size:0.68rem; text-transform:uppercase;
+  letter-spacing:0.05em; color:var(--text-muted); background:var(--surface-2); font-weight:600;
+}
+td.num{font-family:'JetBrains Mono',monospace; font-variant-numeric:tabular-nums;}
+tr:last-child td{border-bottom:none;}
+tr.section-row td{
+  background:var(--accent-soft); color:var(--accent-strong);
+  font-family:'JetBrains Mono',monospace; font-size:0.68rem;
+  text-transform:uppercase; letter-spacing:0.06em; font-weight:700;
+  padding:8px 14px;
+}
+
+.notes{display:flex; flex-direction:column; gap:12px;}
+.notes h3{font-size:1.05rem; margin-bottom:2px;}
+.notes ul{margin:0; padding-left:1.2em; display:flex; flex-direction:column; gap:8px;}
+.notes li{font-size:0.92rem; line-height:1.55; color:var(--text);}
+.notes li strong{color:var(--accent-strong);}
+
+footer{color:var(--text-muted); font-size:0.78rem; text-align:center; padding-top:8px;}
+
+@media (max-width:520px){
+  .day-head{flex-wrap:wrap;}
+  .day-head .camp{margin-left:0; text-align:left;}
+  .leg{grid-template-columns:20px 1fr; }
+  .leg .dist{grid-column:2; text-align:left; margin-top:2px;}
+}
+</style>
+
+<div class="wrap">
+
+  <header>
+    <h1>AFRICA FIVE NATION TOUR</h1>
+    <span class="eyebrow">24 September – 12 October 2026</span>
+    <div class="countries-line">ZIMBABWE <span class="sep">◆</span> ZAMBIA <span class="sep">◆</span> BOTSWANA <span class="sep">◆</span> SOUTH AFRICA <span class="sep">◆</span> MAURITIUS</div>
+    <div class="travellers"><span class="pill">Amar Raj Urs</span><span class="pill">Pratap Raj</span><span class="pill">Praveen Kumar Nallipogu</span></div>
+
+    <div class="route-strip">
+      <div class="route-node"><div class="route-flag" title="India — trip start">🇮🇳</div><span>IND</span><small><span class="rd-day">24 Sep</span><span class="rd-month">Departure</span></small></div>
+      <div class="route-line"></div>
+      <div class="route-node"><div class="route-flag" title="Zimbabwe">🇿🇼</div><span>ZWE</span><small><span class="rd-day">25–27</span><span class="rd-month">Sep 2026</span></small></div>
+      <div class="route-line"></div>
+      <div class="route-node"><div class="route-flag" title="Zambia">🇿🇲</div><span>ZMB</span><small><span class="rd-day">27–29</span><span class="rd-month">Sep 2026</span></small></div>
+      <div class="route-line"></div>
+      <div class="route-node"><div class="route-flag" title="Botswana">🇧🇼</div><span>BWA</span><small><span class="rd-day">29–2</span><span class="rd-month">Sep–Oct 2026</span></small></div>
+      <div class="route-line"></div>
+      <div class="route-node"><div class="route-flag" title="Zimbabwe — transit">🇿🇼</div><span>ZWE</span><small><span class="rd-day">2 Oct</span><span class="rd-month">Transit</span></small></div>
+      <div class="route-line"></div>
+      <div class="route-node"><div class="route-flag is-danger" title="South Africa">🇿🇦</div><span>ZAF</span><small><span class="rd-day">2–7</span><span class="rd-month">Oct 2026</span></small></div>
+      <div class="route-line"></div>
+      <div class="route-node"><div class="route-flag" title="Mauritius">🇲🇺</div><span>MUS</span><small><span class="rd-day">7–12</span><span class="rd-month">Oct 2026</span></small></div>
+      <div class="route-line"></div>
+      <div class="route-node"><div class="route-flag" title="India — trip end">🇮🇳</div><span>IND</span><small><span class="rd-day">12 Oct</span><span class="rd-month">Arrival</span></small></div>
+    </div>
+  </header>
+
+  <div class="reminder">
+    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2a1 1 0 0 1 1 1v1.06A7 7 0 0 1 19 11v4.5l1.6 2.4a1 1 0 0 1-.83 1.6H4.23a1 1 0 0 1-.83-1.6L5 15.5V11a7 7 0 0 1 6-6.94V3a1 1 0 0 1 1-1zM9.5 20a2.5 2.5 0 0 0 5 0h-5z"/></svg>
+    <p><strong>Web check-in reminder</strong> — Akasa Air QP1150, Bengaluru → Mumbai, departs 16:05 on 24 Sep. Check in online as soon as it opens (typically 24–48h ahead).</p>
+  </div>
+
+  <!-- DAY 0 -->
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">0</span></div>
+      <div>
+        <h2>Bengaluru → Mumbai</h2>
+        <div class="date">Thursday, 24 September</div>
+        <div class="day-country">India</div>
+      </div>
+      <div class="camp"><div class="label">Onward</div><div class="name">Mumbai → Nairobi, 02:40</div></div>
+    </div>
+    <div class="legs">
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M21 16v-2l-8-5V5.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V18l-2.5 2v1.5l4-1.2 4 1.2V20l-2.5-2v-4.5z"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Bengaluru → Mumbai</div><span class="road">Akasa Air QP1150 · PNR S5U6MS</span>
+          <div class="note">Depart BLR 16:05, arrive BOM 18:05.</div>
+        </div>
+        <div class="dist">02h duration</div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Airport → Bandra–Worli Sea Link</div><span class="road">by car/cab</span>
+          <div class="note">Allow ~40 min to clear the domestic terminal and get moving. The Sea Link is a striking evening drive — worth doing it as the opening leg while there's still some light, then continuing south.</div>
+        </div>
+        <div class="dist">≈45 min<small>traffic-dependent</small></div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="dot"></div><div class="stem"></div></div>
+        <div><div class="route-name">Gateway of India &amp; Taj Mahal Palace Hotel</div><span class="road">Colaba, South Mumbai</span>
+          <div class="note">Worth flagging: this landmark is the <strong>Gateway of India</strong>, right on the waterfront beside the Taj — India Gate is a different monument, in Delhi. The two sit side by side and are the classic Mumbai photo stop; an hour or so here covers it comfortably, with dinner in Colaba if you want one.</div>
+        </div>
+        <div class="dist">≈45–60 min<small>via Worli &amp; Marine Drive</small></div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/></svg></div></div>
+        <div><div class="route-name">Colaba → Mumbai Airport</div><span class="road">by car/cab</span>
+          <div class="note">Target leaving Colaba by ≈22:00 to be back at the airport by 23:00. That still leaves nearly 3h40 before the 02:40 Kenya Airways departure — comfortable margin over the airline's 2-hour international check-in guidance, with room to spare for Mumbai traffic running long.</div>
+        </div>
+        <div class="dist">≈45–60 min<small>traffic-dependent</small></div>
+      </div>
+    </div>
+    <div class="day-foot"><span>All three travellers — Amar, Pratap, Praveen — on this sector together. One car for the whole evening loop is simplest; a pre-booked cab beats hailing one in Colaba late at night.</span></div>
+  <div class="day-legend"><span class="item"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M21 16v-2l-8-5V5.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V18l-2.5 2v1.5l4-1.2 4 1.2V20l-2.5-2v-4.5z"/></svg>Flight</span><span class="item"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/></svg>Car / taxi</span></div>
+  </section>
+
+
+  <div class="reminder">
+    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2a1 1 0 0 1 1 1v1.06A7 7 0 0 1 19 11v4.5l1.6 2.4a1 1 0 0 1-.83 1.6H4.23a1 1 0 0 1-.83-1.6L5 15.5V11a7 7 0 0 1 6-6.94V3a1 1 0 0 1 1-1zM9.5 20a2.5 2.5 0 0 0 5 0h-5z"/></svg>
+    <p><strong>Web check-in reminder</strong> — Kenya Airways KQ203, Mumbai → Nairobi, departs 02:40, and KQ792, Nairobi → Victoria Falls, departs 07:25, both 25 Sep. Check in for both sectors today once online check-in opens.</p>
+  </div>
+
+  <!-- DAY 1 -->
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">1</span></div>
+      <div>
+        <h2>Mumbai → Nairobi → Victoria Falls</h2>
+        <div class="date">Friday, 25 September</div>
+        <div class="day-country">Zimbabwe</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Joyful Vista Guest Lodge</div></div>
+    </div>
+    <div class="legs">
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M21 16v-2l-8-5V5.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V18l-2.5 2v1.5l4-1.2 4 1.2V20l-2.5-2v-4.5z"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Mumbai → Nairobi</div><span class="road">Kenya Airways KQ203</span>
+          <div class="note">Depart BOM 02:40, arrive NBO 06:25 — the red-eye out of Mumbai, so this is technically still an extension of the 24 Sep evening rather than a fresh start to 25 Sep. Pratap &amp; Praveen on PNR YATBRP, Amar on YB2SM9, same flight and time for all three.</div>
+        </div>
+        <div class="dist">flight</div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon" title="Border crossing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5v3M12 8.5v3M12 14.5v3M12 20.5v.5"/><path d="M4.5 12h13.5M14 8.5l4 3.5-4 3.5"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Nairobi Airport, transit</div><span class="road">JKIA</span>
+          <div class="note">A tight-ish 1-hour connection (land 06:25, depart 07:25) — head straight to the onward gate rather than lingering, especially if there's a terminal change for the KQ792 departure.</div>
+        </div>
+        <div class="dist">≈1 h<small>connection</small></div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M21 16v-2l-8-5V5.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V18l-2.5 2v1.5l4-1.2 4 1.2V20l-2.5-2v-4.5z"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Nairobi → Victoria Falls</div><span class="road">Kenya Airways KQ792</span>
+          <div class="note">Depart NBO 07:25, arrive VFA 09:40. Pratap &amp; Praveen on PNR YATBRP, Amar on YB2SM9 — same flight, same time.</div>
+        </div>
+        <div class="dist">flight</div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon" title="Border crossing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5v3M12 8.5v3M12 14.5v3M12 20.5v.5"/><path d="M4.5 12h13.5M14 8.5l4 3.5-4 3.5"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Zimbabwe immigration &amp; visa entry</div><span class="road">Victoria Falls Airport</span>
+          <div class="note"><strong>Zimbabwe Double-Entry visa</strong> — already applied for and paid, so this is a stamp-in against an existing visa rather than a counter purchase. (Indian nationals aren't eligible for the KAZA UniVisa; the double-entry visa is what covers both this entry today and the second one on 2 Oct, when you cross back in from Botswana.) Keep the payment confirmation/reference handy just in case it's asked for at the counter.</div>
+        </div>
+        <div class="dist">≈20–30 min</div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Airport → Joyful Vista Guest Lodge</div><span class="road">by car/cab</span>
+          <div class="note">832 Aerodrome Rd · +263 78 928 5141 · S 17°55.759′ E 25°49.408′. ≈20 km, ~20 min — a short hop into town. If you land well ahead of standard check-in, the lodge can usually hold bags so you can start sightseeing straight away rather than waiting around.</div>
+        </div>
+        <div class="dist">≈20 km<small>~20 min</small></div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1.5" fill="currentColor" stroke="none"/><path d="M12 8v5l-3 6M12 13l3 5M9 11l3-1 3 2"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Local sightseeing, in and around Victoria Falls Town</div><span class="road">on foot / short taxi hops</span>
+          <div class="note">With the main Falls saved for tomorrow's sunrise, today is for the town itself: the <strong>Big Tree</strong> (a giant baobab a few minutes from the Falls entrance), the view over the <strong>Victoria Falls Bridge</strong> gorge from the Zimbabwe side, and the curio stalls at the <strong>Elephant's Walk Shopping &amp; Artist Village</strong> for crafts and a coffee stop. All three sit within a short taxi hop of the lodge and can be strung together over a couple of unhurried hours.</div>
+        </div>
+        <div class="dist">≈2–3 h</div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon" title="Boat cruise"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 3l4 8.5H8L12 3z"/><path d="M4 14.5h16l-2.1 4.4a1.8 1.8 0 0 1-1.6 1H7.7a1.8 1.8 0 0 1-1.6-1L4 14.5z"/></svg></div></div>
+        <div><div class="route-name">Zambezi sunset river cruise</div><span class="road">departs from a jetty a short transfer from town</span>
+          <div class="note">September sailings pick up around 16:00, roughly 2 h on the water plus transfers — figure on being back by ≈19:00–19:30. A relaxed way to close day one; the Boma Dinner &amp; Drum Show is a good alternative or add-on if anyone still has energy for a livelier evening.</div>
+        </div>
+        <div class="dist">≈3 h<small>incl. transfers</small></div>
+      </div>
+    </div>
+    <div class="day-foot"><span>Main Falls visit is deliberately held back for tomorrow's 6:00am opening, when the light and the crowds are both at their best.</span></div>
+  <div class="day-legend"><span class="item"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M21 16v-2l-8-5V5.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V18l-2.5 2v1.5l4-1.2 4 1.2V20l-2.5-2v-4.5z"/></svg>Flight</span><span class="item"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/></svg>Car / taxi</span><span class="item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5v3M12 8.5v3M12 14.5v3M12 20.5v.5"/><path d="M4.5 12h13.5M14 8.5l4 3.5-4 3.5"/></svg>Border crossing</span><span class="item"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 3l4 8.5H8L12 3z"/><path d="M4 14.5h16l-2.1 4.4a1.8 1.8 0 0 1-1.6 1H7.7a1.8 1.8 0 0 1-1.6-1L4 14.5z"/></svg>Boat cruise</span><span class="item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1.5" fill="currentColor" stroke="none"/><path d="M12 8v5l-3 6M12 13l3 5M9 11l3-1 3 2"/></svg>On foot</span></div>
+  </section>
+
+
+  <!-- DAY 2 -->
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">2</span></div>
+      <div>
+        <h2>Victoria Falls → Dete → Hwange</h2>
+        <div class="date">Saturday, 26 September</div>
+        <div class="day-country">Zimbabwe</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Gwango Heritage Resort</div></div>
+    </div>
+    <div class="legs">
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Joyful Vista → Victoria Falls Rainforest</div><span class="road">taxi, 6:00am</span>
+          <div class="note">Book the taxi the evening before so it's waiting at 6:00am — gates open right then, and this is a 5–10 minute hop, so no need to leave earlier.</div>
+        </div>
+        <div class="dist">≈5 km<small>~10 min</small></div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="dot"></div><div class="stem"></div></div>
+        <div><div class="route-name">Victoria Falls Rainforest</div><span class="road">Zimbabwe side</span>
+          <div class="note">2 hours inside, right on opening for the best light — 6-9am is the golden window, before the spray haze and the day's crowds build. Covers the classic views along Livingstone's route, Devil's Cataract and the Knife-Edge Bridge.</div>
+        </div>
+        <div class="dist">2 h</div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Taxi back to Joyful Vista, breakfast &amp; checkout</div><span class="road">by ≈08:15–08:30</span>
+          <div class="note">Same short hop back. That leaves a relaxed breakfast before the 10:00 checkout — no rushing after an early start.</div>
+        </div>
+        <div class="dist">≈10:00<small>checkout</small></div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Joyful Vista → local transport stand</div><span class="road">taxi/short walk</span>
+          <div class="note">The rank for buses and shared taxis (kombis) heading toward Bulawayo — the same A8 road that runs through Dete — is on the edge of town. Worth asking the lodge to point you to the current spot, since ranks shift occasionally.</div>
+        </div>
+        <div class="dist">short hop</div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M4 7a2 2 0 0 1 2-2h9.2a2 2 0 0 1 1.8 1.1L18.5 9H20a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Bus/shared taxi → Dete</div><span class="road">A8</span>
+          <div class="note">Extra City's scheduled Vic Falls–Bulawayo coaches pass through Dete, or a shared kombi from the rank will do the same run — kombis typically leave once full rather than on a fixed timetable, so budget flexibility rather than a set departure. ≈100 km; figure on 2–3 hours door-to-door once stops and any wait for a full vehicle are factored in.</div>
+        </div>
+        <div class="dist">≈100 km<small>~2–3 h</small></div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/></svg></div></div>
+        <div><div class="route-name">Dete → Gwango Heritage Resort</div><span class="road">local taxi</span>
+          <div class="note">8WCR+54M, Hwange National Park, Dete · +263 78 355 7773. Taxis wait for arrivals at the Dete stop; if none are around, the resort can usually arrange a pickup by phone. Afternoon and evening are free — relax at the lodge, or explore the grounds and immediate surrounds (many camps here run a short guided nature walk or a waterhole sit-out right on the property).</div>
+        </div>
+        <div class="dist">short hop</div>
+      </div>
+    </div>
+    <div class="day-foot"><span>A more relaxed, budget-transport day by design — no fixed onward booking to chase, so a late kombi or a longer wait at the rank costs you nothing but time.</span></div>
+  <div class="day-legend"><span class="item"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/></svg>Car / taxi</span></div>
+  </section>
+
+
+  <!-- DAY 3 -->
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">3</span></div>
+      <div>
+        <h2>Hwange → Dete → Victoria Falls → Livingstone</h2>
+        <div class="date">Sunday, 27 September</div>
+        <div class="day-country">Zimbabwe → Zambia</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Tabonina Guesthouse</div></div>
+    </div>
+    <div class="legs">
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon" title="Safari"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><ellipse cx="12" cy="15.5" rx="6.2" ry="5"/><circle cx="4.8" cy="8.3" r="2.1"/><circle cx="9.8" cy="4.8" r="2.1"/><circle cx="14.2" cy="4.8" r="2.1"/><circle cx="19.2" cy="8.3" r="2.1"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Morning safari, Hwange National Park</div><span class="road">from Gwango Heritage Resort</span>
+          <div class="note">Up at 5:30am for a 3.5-hour game drive — Hwange's waterholes are typically most active early, before the day heats up. Arrange the drive with Gwango the evening before so a vehicle and guide are ready at first light.</div>
+        </div>
+        <div class="dist">3.5 h</div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="dot"></div><div class="stem"></div></div>
+        <div><div class="route-name">Breakfast &amp; checkout, Gwango Heritage Resort</div><span class="road">by ≈10:30–11:00</span>
+          <div class="note">Safari back at camp by ≈09:00 leaves a relaxed window for breakfast and packing before checkout.</div>
+        </div>
+        <div class="dist">checkout</div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Gwango Heritage Resort → Dete local transport stand</div><span class="road">local taxi</span>
+          <div class="note">Same rank used for arrival — call ahead or ask the resort to arrange the taxi so it's waiting after checkout.</div>
+        </div>
+        <div class="dist">short hop</div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M4 7a2 2 0 0 1 2-2h9.2a2 2 0 0 1 1.8 1.1L18.5 9H20a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Bus/shared taxi → Victoria Falls / Livingstone border</div><span class="road">A8, back the way you came</span>
+          <div class="note">Same route as the 26th in reverse — Extra City coaches or a kombi from the Dete rank, ≈100 km. No fixed timetable for the kombis, so this is again a flexible-transport leg; figure on 2–3 hours to reach the Zimbabwe border post on the edge of Victoria Falls town.</div>
+        </div>
+        <div class="dist">≈100 km<small>~2–3 h</small></div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon" title="Border crossing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5v3M12 8.5v3M12 14.5v3M12 20.5v.5"/><path d="M4.5 12h13.5M14 8.5l4 3.5-4 3.5"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Zimbabwe exit &amp; walk across Victoria Falls Bridge</div><span class="road">on foot</span>
+          <div class="note">Stamp out of Zimbabwe at the border post, then it's a well-known ≈1 km walk across the historic Victoria Falls Bridge to the Zambian side — spray from the Falls and a view down into the gorge along the way. Allow 20–30 minutes for the walk itself.</div>
+        </div>
+        <div class="dist">≈1 km<small>~20–30 min</small></div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon" title="Border crossing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5v3M12 8.5v3M12 14.5v3M12 20.5v.5"/><path d="M4.5 12h13.5M14 8.5l4 3.5-4 3.5"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Zambia immigration &amp; visa entry</div><span class="road">Zambian border post</span>
+          <div class="note">First use of the <strong>Zambia Double-Entry visa</strong> — confirm the approval has come through before you set out from Bengaluru, since this is the entry it's needed for. Budget 30–60 minutes for processing.</div>
+        </div>
+        <div class="dist">≈30–60 min</div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/></svg></div></div>
+        <div><div class="route-name">Zambia border → Tabonina Guesthouse, Livingstone</div><span class="road">taxi</span>
+          <div class="note">3 Maisoko St, Nottie Broad · +260 97 4867585. Taxis wait on the Zambian side for arrivals crossing the bridge — a straightforward short hop into Livingstone from there.</div>
+        </div>
+        <div class="dist">short hop</div>
+      </div>
+    </div>
+    <div class="day-foot"><span>A long travel day stitched from an early safari and two border-adjacent, no-fixed-schedule transport legs — build in patience rather than a tight arrival target for Livingstone.</span></div>
+  <div class="day-legend"><span class="item"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/></svg>Car / taxi</span><span class="item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5v3M12 8.5v3M12 14.5v3M12 20.5v.5"/><path d="M4.5 12h13.5M14 8.5l4 3.5-4 3.5"/></svg>Border crossing</span><span class="item"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><ellipse cx="12" cy="15.5" rx="6.2" ry="5"/><circle cx="4.8" cy="8.3" r="2.1"/><circle cx="9.8" cy="4.8" r="2.1"/><circle cx="14.2" cy="4.8" r="2.1"/><circle cx="19.2" cy="8.3" r="2.1"/></svg>Safari</span></div>
+  </section>
+
+
+  <!-- DAY 4 -->
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">4</span></div>
+      <div>
+        <h2>Mosi-oa-Tunya Rhino Walk &amp; Victoria Falls <span class="via">(Zambia)</span></h2>
+        <div class="date">Monday, 28 September</div>
+        <div class="day-country">Zambia</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Tabonina Guesthouse</div></div>
+    </div>
+    <div class="legs">
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Pickup, Tabonina Guesthouse → Mosi-oa-Tunya National Park</div><span class="road">by tour vehicle</span>
+          <div class="note">Early pickup, ≈06:00–06:30 — most operators collect straight from your guesthouse. Wear long trousers and closed, sturdy shoes; the park has snakes and the walking is on rough bush ground.</div>
+        </div>
+        <div class="dist">early start</div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon" title="Safari"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><ellipse cx="12" cy="15.5" rx="6.2" ry="5"/><circle cx="4.8" cy="8.3" r="2.1"/><circle cx="9.8" cy="4.8" r="2.1"/><circle cx="14.2" cy="4.8" r="2.1"/><circle cx="19.2" cy="8.3" r="2.1"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">White rhino walking safari</div><span class="road">on foot, with an armed park ranger</span>
+          <div class="note">A guided walk tracking the park's white rhino on foot, with an anti-poaching ranger alongside for safety — zebra, giraffe, buffalo and antelope are also commonly seen en route. Coffee and muffins at the start, cold drinks after; figure on ≈5 hours door-to-door including transfers. Sightings are very likely but not guaranteed — it's a real national park, not an enclosure.</div>
+        </div>
+        <div class="dist">≈5 h<small>incl. transfers</small></div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="dot"></div><div class="stem"></div></div>
+        <div><div class="route-name">Back to Tabonina, lunch &amp; free midday</div><span class="road">at leisure</span>
+          <div class="note">Should land back in Livingstone by early afternoon. A natural window for the Livingstone Museum or Mukuni Park Curio Market from yesterday's extras list, or just rest before the Falls this evening.</div>
+        </div>
+        <div class="dist">at leisure</div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Tabonina → Victoria Falls entrance (Zambia side)</div><span class="road">short taxi hop</span>
+          <div class="note">Aim to arrive by ≈15:30–16:00. The park gate closes at 18:00, which leaves a comfortable couple of hours — and softer, warmer late-afternoon light for photos.</div>
+        </div>
+        <div class="dist">short hop</div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="dot"></div></div>
+        <div><div class="route-name">Victoria Falls, Zambian side</div><span class="road">Mosi-oa-Tunya National Park</span>
+          <div class="note">Knife-Edge Bridge, the Boiling Pot viewpoint trail, and the David Livingstone statue near the entrance. One thing to set expectations on: late September is deep dry season, and most of the river's flow has by now shifted toward the Zimbabwe side, so the Zambian side typically runs drier and less dramatic than photos taken in the flood months. The upside of low water is that <strong>Devil's Pool</strong> on Livingstone Island — swimming right at the lip of the Falls — is open roughly August–December, if anyone wants to pre-book that separately as an add-on.</div>
+        </div>
+        <div class="dist">≈2 h</div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="dot"></div></div>
+        <div><div class="route-name">Return to Tabonina Guesthouse</div><span class="road">taxi</span>
+          <div class="note">3 Maisoko St, Nottie Broad · +260 97 4867585.</div>
+        </div>
+        <div class="dist">short hop</div>
+      </div>
+    </div>
+    <div class="day-foot"><span>Wildlife on foot in the morning, the Falls at their driest and quietest in the afternoon — a full day, but not a rushed one.</span></div>
+  <div class="day-legend"><span class="item"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/></svg>Car / taxi</span><span class="item"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><ellipse cx="12" cy="15.5" rx="6.2" ry="5"/><circle cx="4.8" cy="8.3" r="2.1"/><circle cx="9.8" cy="4.8" r="2.1"/><circle cx="14.2" cy="4.8" r="2.1"/><circle cx="19.2" cy="8.3" r="2.1"/></svg>Safari</span></div>
+  </section>
+
+  <!-- DAY 5 -->
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">5</span></div>
+      <div>
+        <h2>Livingstone → Kazungula → Kasane</h2>
+        <div class="date">Tuesday, 29 September</div>
+        <div class="day-country">Zambia → Botswana</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Nxabii Cottages</div></div>
+    </div>
+    <div class="legs">
+      <div class="leg">
+        <div class="dot-col"><div class="dot"></div><div class="stem"></div></div>
+        <div><div class="route-name">Wake up &amp; checkout, Tabonina Guesthouse</div><span class="road">Livingstone</span>
+          <div class="note">No fixed transport timetable ahead today, so an unhurried morning checkout still leaves comfortable margin for the border crossing.</div>
+        </div>
+        <div class="dist">checkout</div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Tabonina Guesthouse → Livingstone bus/shared-taxi stand</div><span class="road">local taxi</span>
+          <div class="note">Short hop into town to the rank used for onward transport toward the border.</div>
+        </div>
+        <div class="dist">short hop</div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M4 7a2 2 0 0 1 2-2h9.2a2 2 0 0 1 1.8 1.1L18.5 9H20a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Bus/shared taxi → Kazungula border</div><span class="road">Livingstone–Kazungula road</span>
+          <div class="note">≈70 km. No fixed schedule on this route either — the same flexible-transport pattern as the Dete and Livingstone legs earlier in the trip, so build in patience rather than a tight arrival target.</div>
+        </div>
+        <div class="dist">≈70 km<small>~1.5–2 h</small></div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon" title="Border crossing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5v3M12 8.5v3M12 14.5v3M12 20.5v.5"/><path d="M4.5 12h13.5M14 8.5l4 3.5-4 3.5"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Zambia exit immigration</div><span class="road">Kazungula border post</span>
+          <div class="note">Standard exit stamp — straightforward and no fee.</div>
+        </div>
+        <div class="dist">≈15–30 min</div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon" title="Border crossing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5v3M12 8.5v3M12 14.5v3M12 20.5v.5"/><path d="M4.5 12h13.5M14 8.5l4 3.5-4 3.5"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Botswana visa-on-arrival &amp; entry immigration</div><span class="road">Kazungula border post</span>
+          <div class="note">Pay the visa fee at the border check-post (cash), fill in the physical immigration arrival card, and get the passport stamped. Budget around noon for this crossing, with some flex either side for queues.</div>
+        </div>
+        <div class="dist">≈30–60 min</div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M4 7a2 2 0 0 1 2-2h9.2a2 2 0 0 1 1.8 1.1L18.5 9H20a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Kazungula border → Kasane</div><span class="road">continue by bus/shared taxi</span>
+          <div class="note">Final short stretch on into Kasane once you're stamped through.</div>
+        </div>
+        <div class="dist">≈10 km<small>~15 min</small></div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/></svg></div></div>
+        <div><div class="route-name">Kasane → Nxabii Cottages</div><span class="road">taxi</span>
+          <div class="note">456 Newstands · +267 73 872 942 · S 17°48.144′ E 25°13.838′. Booked as two consecutive stays at the same property (29–30 Sep and 30 Sep–2 Oct).</div>
+        </div>
+        <div class="dist">short hop</div>
+      </div>
+    </div>
+    <div class="day-foot"><span>A land-border travel day, Zambia into Botswana — both bus/shared-taxi legs run without a fixed timetable, so the day flexes around the Kazungula crossing rather than a set arrival time.</span></div>
+  <div class="day-legend"><span class="item"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/></svg>Car / taxi</span><span class="item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5v3M12 8.5v3M12 14.5v3M12 20.5v.5"/><path d="M4.5 12h13.5M14 8.5l4 3.5-4 3.5"/></svg>Border crossing</span></div>
+  </section>
+
+  <!-- DAY 6 -->
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">6</span></div>
+      <div>
+        <h2><span class="wild-tag" title="Safari &amp; boat cruise">🐾</span>Chobe National Park Game Drive &amp; Sunset Cruise</h2>
+        <div class="date">Wednesday, 30 September</div>
+        <div class="day-country">Botswana</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Nxabii Cottages</div></div>
+    </div>
+    <div class="legs">
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon" title="Safari"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><ellipse cx="12" cy="15.5" rx="6.2" ry="5"/><circle cx="4.8" cy="8.3" r="2.1"/><circle cx="9.8" cy="4.8" r="2.1"/><circle cx="14.2" cy="4.8" r="2.1"/><circle cx="19.2" cy="8.3" r="2.1"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Chobe National Park morning game drive</div><span class="road">Chobe riverfront, from Nxabii Cottages</span>
+          <div class="note">Kasane's signature outing — Chobe holds one of the largest elephant populations of any park in Africa, and the riverfront section is the most reliable stretch for big herds, plus buffalo, lion and a wide range of antelope. A pickup can usually be arranged directly through Nxabii Cottages or a Kasane operator; worth booking a day or two ahead in peak season.</div>
+        </div>
+        <div class="dist">≈3 h<small>morning</small></div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="dot"></div><div class="stem"></div></div>
+        <div><div class="route-name">Free time at Nxabii Cottages</div><span class="road">lunch &amp; rest</span>
+          <div class="note">A relaxed midday break between the two outings — no fixed plan needed.</div>
+        </div>
+        <div class="dist">afternoon</div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon" title="Boat cruise"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 3l4 8.5H8L12 3z"/><path d="M4 14.5h16l-2.1 4.4a1.8 1.8 0 0 1-1.6 1H7.7a1.8 1.8 0 0 1-1.6-1L4 14.5z"/></svg></div></div>
+        <div><div class="route-name">Chobe River sunset boat cruise</div><span class="road">departs from Kasane</span>
+          <div class="note">The other half of the classic Kasane combo — hippos, crocodiles and elephants coming down to the water, with some of the best photographic light of the day as the sun drops over the river. Several operators run this out of Kasane; a couple of hours is typical.</div>
+        </div>
+        <div class="dist">≈2 h<small>sunset</small></div>
+      </div>
+    </div>
+    <div class="day-foot"><span>The two headline Chobe experiences — a game drive and a river cruise — done as a single easy day based out of Kasane, with no relocation needed.</span></div>
+  <div class="day-legend"><span class="item"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><ellipse cx="12" cy="15.5" rx="6.2" ry="5"/><circle cx="4.8" cy="8.3" r="2.1"/><circle cx="9.8" cy="4.8" r="2.1"/><circle cx="14.2" cy="4.8" r="2.1"/><circle cx="19.2" cy="8.3" r="2.1"/></svg>Safari</span><span class="item"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 3l4 8.5H8L12 3z"/><path d="M4 14.5h16l-2.1 4.4a1.8 1.8 0 0 1-1.6 1H7.7a1.8 1.8 0 0 1-1.6-1L4 14.5z"/></svg>Boat cruise</span></div>
+  </section>
+
+  <!-- DAY 7 -->
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">7</span></div>
+      <div>
+        <h2><span class="wild-tag" title="Safari &amp; boat cruise">🐾</span>Chobe: Sunrise Cruise, Safari &amp; Sunset Cruise</h2>
+        <div class="date">Thursday, 1 October</div>
+        <div class="day-country">Botswana</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Nxabii Cottages</div></div>
+    </div>
+    <div class="legs">
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon" title="Boat cruise"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 3l4 8.5H8L12 3z"/><path d="M4 14.5h16l-2.1 4.4a1.8 1.8 0 0 1-1.6 1H7.7a1.8 1.8 0 0 1-1.6-1L4 14.5z"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Chobe River sunrise boat cruise</div><span class="road">departs from Kasane</span>
+          <div class="note">A quieter, cooler alternative to yesterday's sunset run — early light on the water and animals typically most active first thing, with a different mood and often fewer boats out than the popular sunset slot.</div>
+        </div>
+        <div class="dist">≈2 h<small>sunrise</small></div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon" title="Safari"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><ellipse cx="12" cy="15.5" rx="6.2" ry="5"/><circle cx="4.8" cy="8.3" r="2.1"/><circle cx="9.8" cy="4.8" r="2.1"/><circle cx="14.2" cy="4.8" r="2.1"/><circle cx="19.2" cy="8.3" r="2.1"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Chobe National Park morning game drive</div><span class="road">Chobe riverfront, from Nxabii Cottages</span>
+          <div class="note">One more game drive before leaving Chobe — worth asking your operator for a different stretch of the riverfront from Day 6's for a bit of variety. Elephant herds are reliably somewhere along here; buffalo, lion and antelope are all in play too.</div>
+        </div>
+        <div class="dist">≈3 h<small>morning</small></div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="dot"></div><div class="stem"></div></div>
+        <div><div class="route-name">Free time at Nxabii Cottages</div><span class="road">lunch &amp; rest</span>
+          <div class="note">A relaxed midday break between the morning drive and the evening cruise — no fixed plan needed.</div>
+        </div>
+        <div class="dist">midday</div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon" title="Boat cruise"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 3l4 8.5H8L12 3z"/><path d="M4 14.5h16l-2.1 4.4a1.8 1.8 0 0 1-1.6 1H7.7a1.8 1.8 0 0 1-1.6-1L4 14.5z"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Chobe River sunset boat cruise</div><span class="road">departs from Kasane</span>
+          <div class="note">One last pass on the river before leaving Botswana — the same reliable combo of hippos, crocodiles and elephants coming down to drink, with the golden late light back again for photos. A good way to close out the Chobe stretch of the trip.</div>
+        </div>
+        <div class="dist">≈2 h<small>sunset</small></div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="dot"></div></div>
+        <div><div class="route-name">Evening at Nxabii Cottages, Kasane</div><span class="road">pack &amp; rest</span>
+          <div class="note">2 Oct is a full travel day back through Victoria Falls to Johannesburg, so use tonight to pack and get an early night rather than plan anything further.</div>
+        </div>
+        <div class="dist">evening</div>
+      </div>
+    </div>
+    <div class="day-foot"><span>Web check-in for tomorrow's FlySafAir FA-827 opens today — see the reminder below.</span></div>
+  <div class="day-legend"><span class="item"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><ellipse cx="12" cy="15.5" rx="6.2" ry="5"/><circle cx="4.8" cy="8.3" r="2.1"/><circle cx="9.8" cy="4.8" r="2.1"/><circle cx="14.2" cy="4.8" r="2.1"/><circle cx="19.2" cy="8.3" r="2.1"/></svg>Safari</span><span class="item"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 3l4 8.5H8L12 3z"/><path d="M4 14.5h16l-2.1 4.4a1.8 1.8 0 0 1-1.6 1H7.7a1.8 1.8 0 0 1-1.6-1L4 14.5z"/></svg>Boat cruise</span></div>
+  </section>
+
+  <div class="reminder">
+    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2a1 1 0 0 1 1 1v1.06A7 7 0 0 1 19 11v4.5l1.6 2.4a1 1 0 0 1-.83 1.6H4.23a1 1 0 0 1-.83-1.6L5 15.5V11a7 7 0 0 1 6-6.94V3a1 1 0 0 1 1-1zM9.5 20a2.5 2.5 0 0 0 5 0h-5z"/></svg>
+    <p><strong>Web check-in reminder</strong> — FlySafAir FA-827, Victoria Falls → JNB, departs 15:50 on 2 Oct. Check in online the day before, on 1 Oct.</p>
+  </div>
+
+
+  <!-- DAY 8 -->
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">8</span></div>
+      <div>
+        <h2>Kasane → Victoria Falls → Johannesburg</h2>
+        <div class="date">Friday, 2 October</div>
+        <div class="day-country">Botswana → Zimbabwe → South Africa</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Vetho 1 Apartments</div></div>
+    </div>
+    <div class="legs">
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Checkout Nxabii Cottages, Kasane</div><span class="road">Taxi → Kazungula border post</span>
+          <div class="note">456 Newstands, Kasane, Botswana · +267 73 872 942 · S 17°48.144′ E 25°13.838′. Suggested pickup ≈08:30 — with a 15:50 flight there's no need for a pre-dawn start, but leave a healthy margin for the border below.</div>
+        </div>
+        <div class="dist">≈15 km<small>~20 min</small></div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon" title="Border crossing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5v3M12 8.5v3M12 14.5v3M12 20.5v.5"/><path d="M4.5 12h13.5M14 8.5l4 3.5-4 3.5"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Kazungula border crossing</div><span class="road">Botswana exit → Zimbabwe entry</span>
+          <div class="note">Botswana exit is quick and stamp-only. Zimbabwe entry uses the second stamp on your existing double-entry visa from 25 Sep — no new payment needed, just the passport check. Budget 45–90 minutes anyway for queues; your taxi driver will typically wait or hand you to a Zimbabwe-side vehicle once you're stamped in.</div>
+        </div>
+        <div class="dist">variable<small>45–90 min</small></div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Border → Victoria Falls Town</div><span class="road">A8</span>
+          <div class="note">Arrive roughly 11:00. That leaves a comfortable window before the second taxi — lunch or a curio-market stop in town, if you want it, without it costing you anything downstream.</div>
+        </div>
+        <div class="dist">≈70 km<small>~45 min</small></div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Second taxi: Victoria Falls Town → Airport (VFA)</div><span class="road">Livingstone Way</span>
+          <div class="note">Leave town by ≈13:15 to land you at the airport in your target 13:45–14:00 window — just under 2 hours ahead of the 15:50 departure, which is the right margin for an international check-in.</div>
+        </div>
+        <div class="dist">≈20 km<small>~20–25 min</small></div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M21 16v-2l-8-5V5.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V18l-2.5 2v1.5l4-1.2 4 1.2V20l-2.5-2v-4.5z"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Victoria Falls (VFA) → OR Tambo (JNB)</div><span class="road">FlySafAir · 15:50 → 18:00</span>
+          <div class="note">Confirmed departure 15:50, landing 18:00 — same time zone as Zimbabwe/Botswana (both UTC+2), so that's a straightforward ~2 h 10 sector.</div>
+        </div>
+        <div class="dist">flight</div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/></svg></div></div>
+        <div><div class="route-name">OR Tambo → Vetho 1 Apartments</div><span class="road">Kempton Park, taxi</span>
+          <div class="note">6 Die-Agora Road, 1619 Johannesburg · +27 76 343 4056 · S 26°7.834′ E 28°11.953′. A short taxi ride from the terminal — no rental car yet tonight, just settle in and rest ahead of tomorrow's Hertz pickup and the long Komatipoort drive.</div>
+        </div>
+        <div class="dist">short hop</div>
+      </div>
+    </div>
+    <div class="day-foot"><span>Total slack built into the morning is generous — an ≈08:30 Kasane checkout for a 15:50 flight — but the Zimbabwe immigration queue is still the one truly unpredictable step, so treat 08:30 as a "no later than," not a target to push against.</span></div>
+  <div class="day-legend"><span class="item"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M21 16v-2l-8-5V5.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V18l-2.5 2v1.5l4-1.2 4 1.2V20l-2.5-2v-4.5z"/></svg>Flight</span><span class="item"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/></svg>Car / taxi</span><span class="item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5v3M12 8.5v3M12 14.5v3M12 20.5v.5"/><path d="M4.5 12h13.5M14 8.5l4 3.5-4 3.5"/></svg>Border crossing</span></div>
+  </section>
+
+
+  <!-- DAY 9 -->
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">9</span></div>
+      <div>
+        <h2>Johannesburg → Komatipoort</h2>
+        <div class="date">Saturday, 3 October</div>
+        <div class="day-country">South Africa</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Kruger Allo B&amp;B, Komatipoort</div></div>
+    </div>
+    <div class="legs">
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon" title="Self-drive"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/><circle cx="16.6" cy="3.2" r="2.1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M18.2 4.8l3.6 3.6M20.4 7l1.1-1.1M21.7 8.3l1.1-1.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Vetho 1 Apartments → Pick up Hertz self-drive car</div><span class="road">OR Tambo Airport rental desk</span>
+          <div class="note">This is the vehicle for the whole loop from here — the Kruger self-drive, the Panorama Route, and the drive back to JNB on 6 Oct. Return it at this same Hertz desk early on 7 Oct, ahead of the 09:00 FlySafAir departure to Mauritius. Aim to be at the desk by 06:30; budget 15–30 minutes for paperwork and handover before heading out.</div>
+        </div>
+        <div class="dist">short hop</div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon" title="Self-drive"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/><circle cx="16.6" cy="3.2" r="2.1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M18.2 4.8l3.6 3.6M20.4 7l1.1-1.1M21.7 8.3l1.1-1.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">OR Tambo → Komatipoort<span class="fuel-tag" title="Fuel available along the N4">⛽</span></div><span class="road">N4 toll (via eMalahleni, Belfast, Machadodorp, Mbombela)</span>
+          <div class="note">Depart by ≈07:00, once the Hertz car is in hand. Build in one fuel/breakfast stop. No game drive today — with the long N4 drive taking most of the day, this one's kept simple: arrive, check in, rest.</div>
+        </div>
+        <div class="dist">≈460 km<small>≈6h incl. stop</small></div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="dot"></div></div>
+        <div><div class="route-name">Check in, Kruger Allo B&amp;B<span class="fuel-tag" title="Fuel available in Komatipoort">⛽</span></div><span class="road">29 Steenbok Avenue, Komatipoort</span>
+          <div class="note">29 Steenbok Avenue, 1340 Komatipoort · +27 82 776 7613 · S 25°25.559′ E 31°57.347′. Booking.com confirmation 6785.358.494, PIN 4560 — Comfort Triple Room. Check-in window 15:00–19:00, so the ≈14:00 arrival off the N4 lands comfortably inside it. Carry ZAR 100 cash for the refundable damage deposit collected on arrival.</div>
+        </div>
+        <div class="dist">arrival</div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="dot"></div></div>
+        <div><div class="route-name">Free time, Komatipoort</div><span class="road">at leisure</span>
+          <div class="note">Rest up, or head out for dinner in Komatipoort — see the Free-Time Extras document for options. The B&amp;B's gate closes strictly at 21:30, so keep that in mind for whatever you pick.</div>
+        </div>
+        <div class="dist">evening</div>
+      </div>
+    </div>
+    <div class="day-foot"><span>A travel-and-rest day by design — first entry into Kruger is tomorrow morning at Crocodile Bridge, with the full gate-opening window ahead of you rather than a rushed afternoon slot.</span></div>
+  <div class="day-legend"><span class="item"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/><circle cx="16.6" cy="3.2" r="2.1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M18.2 4.8l3.6 3.6M20.4 7l1.1-1.1M21.7 8.3l1.1-1.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg>Self-drive</span></div>
+  </section>
+
+  <div class="callout warn">
+    <div class="icon">21:30</div>
+    <p><strong>Kruger Allo B&amp;B's gate closes strictly at 21:30</strong> — whatever you choose for dinner tonight, build the return trip in with margin rather than cutting it fine.</p>
+  </div>
+
+  <!-- DAY 10 -->
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">10</span></div>
+      <div>
+        <h2>Komatipoort → Satara <span class="via">(via Crocodile Bridge, Lower Sabie &amp; Skukuza)</span></h2>
+        <div class="date">Sunday, 4 October</div>
+        <div class="day-country">South Africa</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Satara Rest Camp</div></div>
+    </div>
+    <div class="legs">
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon" title="Self-drive"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/><circle cx="16.6" cy="3.2" r="2.1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M18.2 4.8l3.6 3.6M20.4 7l1.1-1.1M21.7 8.3l1.1-1.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Kruger Allo B&amp;B → Crocodile Bridge Gate (re-entry)</div><span class="road">R571</span>
+          <div class="note">Aim for the 05:30 opening — best light of the day, and you've already scouted this stretch of road once. Note: the B&amp;B's stated checkout window is 09:00–09:30, well after this departure — worth confirming an early/self-checkout (and the ZAR 100 deposit refund) with the property the evening before.</div>
+        </div>
+        <div class="dist">≈10 km<small>~15 min</small></div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon" title="Self-drive"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/><circle cx="16.6" cy="3.2" r="2.1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M18.2 4.8l3.6 3.6M20.4 7l1.1-1.1M21.7 8.3l1.1-1.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg></div><div class="leg-icon" title="Safari" style="margin-top:3px;"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><ellipse cx="12" cy="15.5" rx="6.2" ry="5"/><circle cx="4.8" cy="8.3" r="2.1"/><circle cx="9.8" cy="4.8" r="2.1"/><circle cx="14.2" cy="4.8" r="2.1"/><circle cx="19.2" cy="8.3" r="2.1"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Crocodile Bridge → Lower Sabie<span class="fuel-tag" title="Fuel available at Lower Sabie">⛽</span></div><span class="road">H4-2</span>
+          <div class="note">Leave at gate-opening, 05:30, for the best light. Sunset Dam is 5 min from Lower Sabie and is one of the most reliable waterhole stops in the park — good spot for a flask-coffee break.</div>
+        </div>
+        <div class="dist">34 km<small>~45–75 min</small></div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon" title="Self-drive"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/><circle cx="16.6" cy="3.2" r="2.1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M18.2 4.8l3.6 3.6M20.4 7l1.1-1.1M21.7 8.3l1.1-1.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg></div><div class="leg-icon" title="Safari" style="margin-top:3px;"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><ellipse cx="12" cy="15.5" rx="6.2" ry="5"/><circle cx="4.8" cy="8.3" r="2.1"/><circle cx="9.8" cy="4.8" r="2.1"/><circle cx="14.2" cy="4.8" r="2.1"/><circle cx="19.2" cy="8.3" r="2.1"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Lower Sabie → Skukuza<span class="fuel-tag" title="Fuel available at Skukuza">⛽</span></div><span class="road">H4-1</span>
+          <div class="note">Nkuhlu picnic site en route is known for wild dog and leopard sightings. Skukuza has fuel, shops and a proper breakfast/lunch stop if you need one.</div>
+        </div>
+        <div class="dist">43 km<small>~1–1.5 h</small></div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon" title="Self-drive"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/><circle cx="16.6" cy="3.2" r="2.1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M18.2 4.8l3.6 3.6M20.4 7l1.1-1.1M21.7 8.3l1.1-1.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg></div><div class="leg-icon" title="Safari" style="margin-top:3px;"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><ellipse cx="12" cy="15.5" rx="6.2" ry="5"/><circle cx="4.8" cy="8.3" r="2.1"/><circle cx="9.8" cy="4.8" r="2.1"/><circle cx="14.2" cy="4.8" r="2.1"/><circle cx="19.2" cy="8.3" r="2.1"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Skukuza → Tshokwane</div><span class="road">H1-2</span>
+          <div class="note">Tshokwane picnic site is the classic halfway stop on this road — toilets, tea, and good raptor activity in the surrounding open veld.</div>
+        </div>
+        <div class="dist">46 km<small>~1–1.5 h</small></div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon" title="Self-drive"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/><circle cx="16.6" cy="3.2" r="2.1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M18.2 4.8l3.6 3.6M20.4 7l1.1-1.1M21.7 8.3l1.1-1.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg></div><div class="leg-icon" title="Safari" style="margin-top:3px;"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><ellipse cx="12" cy="15.5" rx="6.2" ry="5"/><circle cx="4.8" cy="8.3" r="2.1"/><circle cx="9.8" cy="4.8" r="2.1"/><circle cx="14.2" cy="4.8" r="2.1"/><circle cx="19.2" cy="8.3" r="2.1"/></svg></div></div>
+        <div><div class="route-name">Tshokwane → Satara<span class="fuel-tag" title="Fuel available at Satara">⛽</span></div><span class="road">H1-3</span>
+          <div class="note">Open grassland — this stretch and the area around Satara is the most reliable lion territory in Kruger. You'll have most of the afternoon left at camp: worth using it for the S100 Timbavati road, a gravel loop just north of Satara that's one of the best lion drives in the park.</div>
+          <div class="note">Booked: SANParks Reservation <strong>RR706000</strong> (Client AMAR0131) · BD3E Bungalow, 3 single beds, en-suite, air-con, fridge &amp; hotplate · check-in 14:00 / check-out 10:00 on 5 Oct · paid in full, R4,229.70 incl. conservation fees.</div>
+        </div>
+        <div class="dist">47 km<small>~1–1.5 h</small></div>
+      </div>
+    </div>
+    <div class="day-foot">
+      <span>All tar, all public Kruger roads — no private-reserve access anywhere on this leg.</span>
+      <span class="total">≈180 km total (incl. the hop from Komatipoort) · a much lighter day than an Orpen leg would have been</span>
+    </div>
+  <div class="day-legend"><span class="item"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/><circle cx="16.6" cy="3.2" r="2.1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M18.2 4.8l3.6 3.6M20.4 7l1.1-1.1M21.7 8.3l1.1-1.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg>Self-drive</span><span class="item"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><ellipse cx="12" cy="15.5" rx="6.2" ry="5"/><circle cx="4.8" cy="8.3" r="2.1"/><circle cx="9.8" cy="4.8" r="2.1"/><circle cx="14.2" cy="4.8" r="2.1"/><circle cx="19.2" cy="8.3" r="2.1"/></svg>Safari</span></div>
+  </section>
+
+
+  <!-- DAY 11 -->
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">11</span></div>
+      <div>
+        <h2>Satara → Sabie <span class="via">(via Phabeni Gate, Hazyview &amp; Graskop)</span></h2>
+        <div class="date">Monday, 5 October</div>
+        <div class="day-country">South Africa</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Sabie Star</div></div>
+    </div>
+    <div class="legs">
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon" title="Self-drive"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/><circle cx="16.6" cy="3.2" r="2.1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M18.2 4.8l3.6 3.6M20.4 7l1.1-1.1M21.7 8.3l1.1-1.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg></div><div class="leg-icon" title="Safari" style="margin-top:3px;"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><ellipse cx="12" cy="15.5" rx="6.2" ry="5"/><circle cx="4.8" cy="8.3" r="2.1"/><circle cx="9.8" cy="4.8" r="2.1"/><circle cx="14.2" cy="4.8" r="2.1"/><circle cx="19.2" cy="8.3" r="2.1"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Satara → Tshokwane</div><span class="road">H1-3</span>
+          <div class="note">Checkout at Satara is 10:00. With only 132 km to cover before your 13:00 Phabeni deadline, that leaves room for a dawn game loop around camp first, back in time to vacate the bungalow by 10:00 and still get on the road with margin to spare.</div>
+        </div>
+        <div class="dist">47 km<small>~1–1.5 h</small></div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon" title="Self-drive"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/><circle cx="16.6" cy="3.2" r="2.1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M18.2 4.8l3.6 3.6M20.4 7l1.1-1.1M21.7 8.3l1.1-1.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg></div><div class="leg-icon" title="Safari" style="margin-top:3px;"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><ellipse cx="12" cy="15.5" rx="6.2" ry="5"/><circle cx="4.8" cy="8.3" r="2.1"/><circle cx="9.8" cy="4.8" r="2.1"/><circle cx="14.2" cy="4.8" r="2.1"/><circle cx="19.2" cy="8.3" r="2.1"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Tshokwane → Skukuza<span class="fuel-tag" title="Fuel available at Skukuza">⛽</span></div><span class="road">H1-2</span>
+          <div class="note">Aim to pass Skukuza by ≈11:00–11:30. This road can back up with sighting-traffic near Skukuza — don't linger long once you're through it.</div>
+        </div>
+        <div class="dist">46 km<small>~1–1.5 h</small></div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon" title="Self-drive"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/><circle cx="16.6" cy="3.2" r="2.1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M18.2 4.8l3.6 3.6M20.4 7l1.1-1.1M21.7 8.3l1.1-1.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg></div><div class="leg-icon" title="Safari" style="margin-top:3px;"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><ellipse cx="12" cy="15.5" rx="6.2" ry="5"/><circle cx="4.8" cy="8.3" r="2.1"/><circle cx="9.8" cy="4.8" r="2.1"/><circle cx="14.2" cy="4.8" r="2.1"/><circle cx="19.2" cy="8.3" r="2.1"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Skukuza → Phabeni Gate</div><span class="road">local tar road</span>
+          <div class="note">Short final hop. Target arrival 12:15–12:30 — that leaves 30–45 min of slack against the 13:00 deadline for the unexpected (an elephant on the road, a queue at the gate).</div>
+        </div>
+        <div class="dist">39 km<small>~45–60 min</small></div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon" title="Self-drive"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/><circle cx="16.6" cy="3.2" r="2.1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M18.2 4.8l3.6 3.6M20.4 7l1.1-1.1M21.7 8.3l1.1-1.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Phabeni Gate → Hazyview → Graskop<span class="fuel-tag" title="Fuel available at Hazyview and Graskop">⛽</span></div><span class="road">R536 / R535</span>
+          <div class="note">A short, easy climb up the escarpment — you'll be checking in well before dark even leaving Phabeni at 13:00.</div>
+        </div>
+        <div class="dist">≈49 km<small>~50–60 min</small></div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon" title="Self-drive"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/><circle cx="16.6" cy="3.2" r="2.1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M18.2 4.8l3.6 3.6M20.4 7l1.1-1.1M21.7 8.3l1.1-1.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg></div></div>
+        <div><div class="route-name">Panorama Route: the Graskop loop</div><span class="road">R534</span>
+          <div class="note">God's Window, Pinnacle Rock, Lisbon Falls and Berlin Falls all sit on a short loop just outside Graskop — 15–20 minutes apiece, easily strung together in a couple of hours. This is the half of the Panorama Route to do today; save Bourke's Luck Potholes and the Three Rondavels (further north, more driving) for tomorrow morning.</div>
+        </div>
+        <div class="dist">≈2–3 h<small>afternoon</small></div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon" title="Self-drive"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/><circle cx="16.6" cy="3.2" r="2.1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M18.2 4.8l3.6 3.6M20.4 7l1.1-1.1M21.7 8.3l1.1-1.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg></div></div>
+        <div><div class="route-name">Graskop → Sabie Star<span class="fuel-tag" title="Fuel available at Graskop and Sabie">⛽</span></div><span class="road">R532</span>
+          <div class="note">Portion 2, Farm Rietfontein JT193, Hazyview Road (R536), 1260 Sabie · +27 79 387 1868 · S 25°5.701′ E 30°48.149′. Booking.com confirmation 6057.344.272, PIN 8863 — two studio units for the three of you. Check-in window 14:00–19:00, which the Graskop loop leaves plenty of room for.</div>
+        </div>
+        <div class="dist">≈27 km<small>~25–30 min</small></div>
+      </div>
+    </div>
+    <div class="day-foot">
+      <span>Pure driving time to the gate is under 3 h against a 7.5-hour window — out by 13:00 with room to spare, then a short climb up to Graskop for the afternoon before the final short hop down to Sabie for the night.</span>
+      <span class="total">≈132 km to Phabeni + ≈49 km on to Graskop + ≈27 km on to Sabie</span>
+    </div>
+  <div class="day-legend"><span class="item"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/><circle cx="16.6" cy="3.2" r="2.1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M18.2 4.8l3.6 3.6M20.4 7l1.1-1.1M21.7 8.3l1.1-1.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg>Self-drive</span><span class="item"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><ellipse cx="12" cy="15.5" rx="6.2" ry="5"/><circle cx="4.8" cy="8.3" r="2.1"/><circle cx="9.8" cy="4.8" r="2.1"/><circle cx="14.2" cy="4.8" r="2.1"/><circle cx="19.2" cy="8.3" r="2.1"/></svg>Safari</span></div>
+  </section>
+
+
+  <!-- DAY 12 -->
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">12</span></div>
+      <div>
+        <h2>Sabie → Johannesburg <span class="via">(via Graskop &amp; Blyde River Canyon)</span></h2>
+        <div class="date">Tuesday, 6 October</div>
+        <div class="day-country">South Africa</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Vetho 1 Apartments</div></div>
+    </div>
+    <div class="legs">
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon" title="Self-drive"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/><circle cx="16.6" cy="3.2" r="2.1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M18.2 4.8l3.6 3.6M20.4 7l1.1-1.1M21.7 8.3l1.1-1.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Checkout, Sabie Star → Graskop</div><span class="road">R532</span>
+          <div class="note">Checkout window is 07:30–10:00 — an early exit sets up the Bourke's Luck Potholes run without eating into the rest of the day.</div>
+        </div>
+        <div class="dist">≈27 km<small>~25–30 min</small></div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon" title="Self-drive"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/><circle cx="16.6" cy="3.2" r="2.1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M18.2 4.8l3.6 3.6M20.4 7l1.1-1.1M21.7 8.3l1.1-1.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Bourke's Luck Potholes &amp; the Three Rondavels</div><span class="road">R532</span>
+          <div class="note">The bigger scenery of the Panorama Route — worth an early start for good light on the canyon. Round trip from Graskop and back is roughly 70 km.</div>
+        </div>
+        <div class="dist">≈3 h<small>morning</small></div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon" title="Self-drive"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/><circle cx="16.6" cy="3.2" r="2.1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M18.2 4.8l3.6 3.6M20.4 7l1.1-1.1M21.7 8.3l1.1-1.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg></div></div>
+        <div><div class="route-name">Graskop → Vetho 1 Apartments, OR Tambo<span class="fuel-tag" title="Fuel available along the N4 towns — top up before returning the hire car">⛽</span></div><span class="road">R532/N4</span>
+          <div class="note">Leave by early-to-mid afternoon to land at Vetho 1 Apartments with time to spare — this is the buffer night ahead of an international departure, so it's worth not cutting it fine.</div>
+        </div>
+        <div class="dist">≈397 km<small>~5 h</small></div>
+      </div>
+    </div>
+    <div class="day-foot"><span>Overnight at Vetho 1 Apartments sets up a relaxed run-in to the 09:00 departure on 7 Oct — no early-morning long drive needed.</span></div>
+  <div class="day-legend"><span class="item"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/><circle cx="16.6" cy="3.2" r="2.1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M18.2 4.8l3.6 3.6M20.4 7l1.1-1.1M21.7 8.3l1.1-1.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg>Self-drive</span></div>
+  </section>
+
+  <div class="reminder">
+    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2a1 1 0 0 1 1 1v1.06A7 7 0 0 1 19 11v4.5l1.6 2.4a1 1 0 0 1-.83 1.6H4.23a1 1 0 0 1-.83-1.6L5 15.5V11a7 7 0 0 1 6-6.94V3a1 1 0 0 1 1-1zM9.5 20a2.5 2.5 0 0 0 5 0h-5z"/></svg>
+    <p><strong>Web check-in reminder</strong> — FlySafAir FA-830, JNB → Mauritius, departs 09:00 on 7 Oct. Check in online the day before, on 6 Oct.</p>
+  </div>
+
+  <!-- DAY 13 -->
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">13</span></div>
+      <div>
+        <h2>Johannesburg → Mauritius → Le Morne</h2>
+        <div class="date">Wednesday, 7 October</div>
+        <div class="day-country">South Africa → Mauritius</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Palms Studio</div><div class="tbd">La Gaulette</div></div>
+    </div>
+    <div class="legs">
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M21 16v-2l-8-5V5.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V18l-2.5 2v1.5l4-1.2 4 1.2V20l-2.5-2v-4.5z"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">OR Tambo (JNB) → SSR International Airport (MRU)</div><span class="road">FlySafAir FA-830 · 09:00 → 15:15</span>
+          <div class="note">Confirmed departure 09:00 SAST, landing 15:15 local time. Mauritius runs two hours ahead of South Africa (UTC+4 vs UTC+2), which accounts for the ~6h15 gap in clock time against the roughly 4h15 flight itself.</div>
+        </div>
+        <div class="dist">flight</div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon" title="Self-drive"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/><circle cx="16.6" cy="3.2" r="2.1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M18.2 4.8l3.6 3.6M20.4 7l1.1-1.1M21.7 8.3l1.1-1.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Pick up self-drive car — OLA</div><span class="road">SSR Airport terminal</span>
+          <div class="note">This is the vehicle for the whole Mauritius stretch — Le Morne, Grand Baie and the run to Union Vale before the flight home. Budget 15–30 minutes for paperwork and handover after clearing immigration and baggage.</div>
+        </div>
+        <div class="dist">car hire</div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon" title="Self-drive"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/><circle cx="16.6" cy="3.2" r="2.1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M18.2 4.8l3.6 3.6M20.4 7l1.1-1.1M21.7 8.3l1.1-1.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg></div></div>
+        <div><div class="route-name">MRU Airport → Palms Studio, La Gaulette</div><span class="road">Self-drive (OLA rental)</span>
+          <div class="note">morcellement La Gaulette, La Gaulette · +230 5793 6343 · S 20°25.139′ E 57°22.134′. ≈55 km along the west coast past Bel Ombre and the Black River coastline. Check-in window is 15:00–18:00 — landing at 15:15, plus immigration, the OLA pickup and the ~75-minute drive, should still land you there comfortably inside the window, with time to catch sunset over Le Morne Brabant a few minutes down the road.</div>
+        </div>
+        <div class="dist">≈55 km<small>~75 min</small></div>
+      </div>
+    </div>
+    <div class="day-foot"><span>Two nights at Palms Studio, La Gaulette (confirmation 5839.373.923) — a short drive from the Le Morne peninsula, the UNESCO mountain and the kitesurfing lagoon below.</span></div>
+  <div class="day-legend"><span class="item"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M21 16v-2l-8-5V5.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V18l-2.5 2v1.5l4-1.2 4 1.2V20l-2.5-2v-4.5z"/></svg>Flight</span><span class="item"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/><circle cx="16.6" cy="3.2" r="2.1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M18.2 4.8l3.6 3.6M20.4 7l1.1-1.1M21.7 8.3l1.1-1.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg>Self-drive</span></div>
+  </section>
+
+  <!-- DAY 14 -->
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">14</span></div>
+      <div>
+        <h2>Le Morne — Free Day</h2>
+        <div class="date">Thursday, 8 October</div>
+        <div class="day-country">Mauritius</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Palms Studio</div><div class="tbd">La Gaulette</div></div>
+    </div>
+    <div style="padding:18px 22px 20px;">
+      <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0; margin-bottom:14px;">A full day with nothing fixed. Le Morne's lagoon and the UNESCO mountain are a short drive from Palms Studio and are the headline acts, with Chamarel an easy half-day add-on inland:</p>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Category</th><th>Name</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr class="section-row"><td colspan="3">On the water</td></tr>
+            <tr><td>Half/full day</td><td>Île aux Bénitiers catamaran</td><td class="num" style="white-space:normal;">The signature Le Morne excursion — sails past Crystal Rock, stops for dolphin watching (early morning is the best window), snorkeling and a beach lunch on the island. Widely offered by operators along the lagoon; booking a day or two ahead is worth it in October.</td></tr>
+            <tr><td>Lesson or session</td><td>Kitesurfing / windsurfing</td><td class="num" style="white-space:normal;">Le Morne's lagoon is one of the world's best-known kite spots — flat water inside the reef, strong trade winds especially May–October. Several certified schools along the beach offer lessons for first-timers as well as gear rental for anyone already comfortable.</td></tr>
+            <tr class="section-row"><td colspan="3">On land</td></tr>
+            <tr><td>Guided hike</td><td>Le Morne Brabant summit</td><td class="num" style="white-space:normal;">The basalt monolith right behind the beach — UNESCO World Heritage since 2008 for its history as a refuge for escaped slaves. A guided round trip is ≈3–4 hours, moderate-to-strenuous with some scrambling near the top; local guides are mandatory for the summit push and easy to book same-day.</td></tr>
+            <tr><td>Easy option</td><td>Horseback riding on the beach</td><td class="num" style="white-space:normal;">A gentler alternative to the hike — beach and shallow-water rides run by a couple of stables in the area, generally an hour or so.</td></tr>
+            <tr class="section-row"><td colspan="3">Half-day trip — Chamarel</td></tr>
+            <tr><td>Geopark</td><td>Seven Coloured Earth &amp; waterfall viewpoint</td><td class="num" style="white-space:normal;">≈25–30 minutes' drive inland. One ticket (≈Rs 800/adult) covers the undulating coloured-dune viewing platform, the Chamarel waterfall lookout, a giant tortoise enclosure and an endemic plant garden. Open daily from 08:30 (last entry ~17:00, later in southern-hemisphere summer).</td></tr>
+            <tr><td>Tasting</td><td>La Rhumerie de Chamarel</td><td class="num" style="white-space:normal;">The rum distillery next door to the geopark — tours and tastings, plus a restaurant if lunch works better here than back at the coast.</td></tr>
+            <tr class="section-row"><td colspan="3">Dining</td></tr>
+            <tr><td>Japanese, seafood</td><td>Umami</td><td class="num" style="white-space:normal;">Upscale spot well regarded for fresh seafood preparations — a good pick for a proper sit-down dinner.</td></tr>
+            <tr><td>Italian, Mediterranean</td><td>Zest Bar &amp; Lounge</td><td class="num" style="white-space:normal;">Contemporary Italian with Mediterranean touches — doubles as a lounge if you want drinks to run into the evening.</td></tr>
+            <tr><td>Fusion</td><td>Vik's</td><td class="num" style="white-space:normal;">A newer, highly-rated spot doing fragrant curries and local fish in a nice setting — worth booking ahead given the reviews.</td></tr>
+            <tr><td>Asian</td><td>Floating Market</td><td class="num" style="white-space:normal;">Indian/Asian menu, consistently praised — a change of pace from the seafood-heavy options above.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- DAY 15 -->
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">15</span></div>
+      <div>
+        <h2>Le Morne → Grand Baie</h2>
+        <div class="date">Friday, 9 October</div>
+        <div class="day-country">Mauritius</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Le Point Choisy</div><div class="tbd">Pointe aux Cannoniers</div></div>
+    </div>
+    <div class="legs">
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon" title="Self-drive"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/><circle cx="16.6" cy="3.2" r="2.1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M18.2 4.8l3.6 3.6M20.4 7l1.1-1.1M21.7 8.3l1.1-1.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg></div></div>
+        <div><div class="route-name">Palms Studio, La Gaulette → Residence Le Point Choisy</div><span class="road">Self-drive (OLA rental)</span>
+          <div class="note">Royal Road, Pointe aux Cannoniers · +230 5837 5501 · S 20°0.445′ E 57°33.541′ — a couple of km short of Grand Baie town itself. Checkout window is 08:00–11:00. ≈72 km up the west coast — roughly 1h30 direct. Check-in here runs until 23:30, so there's no rush; leaving a little later even opens up the Casela stop below.</div>
+        </div>
+        <div class="dist">≈72 km<small>~1h30</small></div>
+      </div>
+    </div>
+    <div style="padding:0 22px 20px;">
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Category</th><th>Name</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr class="section-row"><td colspan="3">En route (optional)</td></tr>
+            <tr><td>Half-day detour</td><td><span class="wild-tag" title="Safari walk">🐾</span>Casela Nature Parks</td><td class="num" style="white-space:normal;">Near Flic en Flac, roughly on the way north — ziplines, a safari walk with zebra and giraffe, and big-cat encounters. Worth 2–3 hours if you're on the road by mid-morning; skip it and go straight through if you'd rather have a longer afternoon in Grand Baie.</td></tr>
+            <tr class="section-row"><td colspan="3">First evening in Grand Baie</td></tr>
+            <tr><td>Shopping &amp; dining</td><td>Grand Baie La Croisette</td><td class="num" style="white-space:normal;">The town's shopping-and-dining complex — an easy first stop to get oriented, grab dinner and see what's around.</td></tr>
+            <tr><td>Wander</td><td>Grand Baie / Pereybere beachfront</td><td class="num" style="white-space:normal;">A relaxed evening walk along the bay to bookend the travel day.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:0.78rem; color:var(--text-muted); margin-top:10px; margin-bottom:0;">Two nights at Residence Le Point Choisy, Pointe aux Cannoniers (confirmation 6249.299.802) — breakfast included, a EUR 50 damage deposit is collected on arrival.</p>
+    </div>
+  <div class="day-legend"><span class="item"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/><circle cx="16.6" cy="3.2" r="2.1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M18.2 4.8l3.6 3.6M20.4 7l1.1-1.1M21.7 8.3l1.1-1.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg>Self-drive</span></div>
+  </section>
+
+  <!-- DAY 16 -->
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">16</span></div>
+      <div>
+        <h2>Grand Baie — Free Day</h2>
+        <div class="date">Saturday, 10 October</div>
+        <div class="day-country">Mauritius</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Le Point Choisy</div><div class="tbd">Pointe aux Cannoniers</div></div>
+    </div>
+    <div style="padding:18px 22px 20px;">
+      <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0; margin-bottom:14px;">The north's marquee outing is the northern-islands catamaran; the botanical garden and Cap Malheureux pair up as a shorter half-day alternative if a beach-and-boat day isn't the plan:</p>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Category</th><th>Name</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr class="section-row"><td colspan="3">On the water</td></tr>
+            <tr><td>Full day</td><td>Northern Islands catamaran</td><td class="num" style="white-space:normal;">Sails out to Gabriel Island, Coin de Mire and/or Ile Plate — snorkeling stops and a beach lunch, typically door-to-door most of the day. The standard full-day excursion from Grand Baie; several operators run it.</td></tr>
+            <tr><td>Half day</td><td>Dolphin &amp; whale watching</td><td class="num" style="white-space:normal;">Speedboat tours out from Grand Baie, best early morning — a shorter alternative to the full-day catamaran.</td></tr>
+            <tr class="section-row"><td colspan="3">Half-day loop — north</td></tr>
+            <tr><td>Garden</td><td>Sir Seewoosagur Ramgoolam Botanical Garden, Pamplemousses</td><td class="num" style="white-space:normal;">≈20–25 minutes from Grand Baie. Giant Victoria Amazonica water lilies, baobabs and dozens of palm varieties across 37 hectares — open 08:30–17:30, a guided intro tour (~1 hour) is available at the gate.</td></tr>
+            <tr><td>Photo stop</td><td>Cap Malheureux church</td><td class="num" style="white-space:normal;">The red-roofed waterfront church at the island's northern tip — a quick, well-known stop that combines easily with the botanical garden into one loop back into Grand Baie.</td></tr>
+            <tr class="section-row"><td colspan="3">Beaches</td></tr>
+            <tr><td>Popular</td><td>Pereybere Beach</td><td class="num" style="white-space:normal;">Calm, sandy, no rocks — the most-visited swimming beach right next to Grand Baie.</td></tr>
+            <tr><td>Scenic</td><td>Mont Choisy Beach</td><td class="num" style="white-space:normal;">A long stretch of casuarina-lined sand a couple of km away — quieter than Pereybere.</td></tr>
+            <tr><td>Local</td><td>La Cuvette Public Beach</td><td class="num" style="white-space:normal;">A smaller, more intimate public beach in the bay itself.</td></tr>
+            <tr class="section-row"><td colspan="3">Nightlife</td></tr>
+            <tr><td>Club &amp; rooftop</td><td>Banana Beach Club</td><td class="num" style="white-space:normal;">On Coastal Road, running since 1994 — cocktails and a rooftop bar downstairs, a nightclub with DJs upstairs.</td></tr>
+            <tr><td>Bar &amp; sports</td><td>Le Bar &amp; Vous</td><td class="num" style="white-space:normal;">Also on Coastal Road — themed nights, live bands, big sporting fixtures on screen, and a happy-hour window for early arrivals.</td></tr>
+            <tr><td>Beach lounge</td><td>RedCat Beach Lounge</td><td class="num" style="white-space:normal;">A short hop north in Pereybere — a 1950s beach house turned ocean-view lounge, restaurant and occasional live music/beach parties.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- DAY 17 -->
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">17</span></div>
+      <div>
+        <h2>Grand Baie → Union Vale</h2>
+        <div class="date">Sunday, 11 October</div>
+        <div class="day-country">Mauritius</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Gite des Acacias</div><div class="tbd">Union Vale</div></div>
+    </div>
+    <div class="legs">
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon" title="Self-drive"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/><circle cx="16.6" cy="3.2" r="2.1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M18.2 4.8l3.6 3.6M20.4 7l1.1-1.1M21.7 8.3l1.1-1.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg></div></div>
+        <div><div class="route-name">Residence Le Point Choisy → Gite des Acacias, Union Vale</div><span class="road">Self-drive (OLA rental)</span>
+          <div class="note">Carreau Acacias, Trois Boutiques, Union Vale · +230 5752 3915 · S 20°27.870′ E 57°40.239′. Check-in opens 13:00 (property confirms 13:00–21:00), checkout is 04:00–11:00 the next morning. It's a longer transfer than the earlier legs — ≈70 km, roughly 55 minutes to just under an hour across to the southeast coast — but this puts you about 4 km, under 10 minutes, from the airport for tomorrow's early flight instead of the ~75-minute run back from Le Morne. Family Room booked for 3, confirmation 5756.457.991 (PIN 8660), breakfast included.</div>
+        </div>
+        <div class="dist">≈70 km<small>~55 min</small></div>
+      </div>
+    </div>
+    <div style="padding:0 22px 20px;">
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Category</th><th>Name</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr class="section-row"><td colspan="3">Blue Bay &amp; Mahebourg</td></tr>
+            <tr><td>On the water</td><td>Blue Bay Marine Park</td><td class="num" style="white-space:normal;">Glass-bottom boat trips leave from Blue Bay public beach roughly 08:30–16:00 — a gentle way to see the coral (50+ species) and reef fish without diving gear; snorkelling off the boat is an option too. About a 10-minute drive from Gite des Acacias; worth it only if you arrive with a couple of hours of daylight left.</td></tr>
+            <tr><td>Nature reserve</td><td>Île aux Aigrettes</td><td class="num" style="white-space:normal;">A short boat hop from Mahebourg — a guided reserve walk (≈1.5h) past giant tortoises, pink pigeons and the Mauritius kestrel. A half-day commitment with the crossing, so only fits if you're in early.</td></tr>
+            <tr><td>Historic town</td><td>Mahebourg waterfront &amp; museum</td><td class="num" style="white-space:normal;">A short drive from Union Vale — the National History Museum and a laid-back waterfront with seafood restaurants. Note the town's market runs Mondays, which is departure morning here, so it won't be open for an evening visit.</td></tr>
+            <tr class="section-row"><td colspan="3">Last evening</td></tr>
+            <tr><td>Wind-down</td><td>Property pool, or Blue Bay beach at sunset</td><td class="num" style="white-space:normal;">Gite des Acacias has its own outdoor pool for an easy wind-down; Blue Bay beach itself is about a 10-minute drive if you'd rather close the trip out seaside — quieter than Le Morne or Grand Baie either way.</td></tr>
+            <tr><td>Dinner</td><td>Mahebourg seafood spot, or the property's dinner buffet</td><td class="num" style="white-space:normal;">Mahebourg's waterfront has a cluster of well-regarded seafood restaurants a short drive away; Gite des Acacias also offers an optional Mauritian dinner buffet on site, which makes a low-key final night easy.</td></tr>
+            <tr><td>Housekeeping</td><td>Repack for the flight</td><td class="num" style="white-space:normal;">Worth doing tonight rather than the rushed morning below — checkout opens 04:00, though with breakfast included there's no need to leave that early.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:0.78rem; color:var(--text-muted); margin-top:10px; margin-bottom:0;">One night at Gite des Acacias, Union Vale (confirmation 5756.457.991).</p>
+    </div>
+  <div class="day-legend"><span class="item"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/><circle cx="16.6" cy="3.2" r="2.1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M18.2 4.8l3.6 3.6M20.4 7l1.1-1.1M21.7 8.3l1.1-1.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg>Self-drive</span></div>
+  </section>
+
+  <div class="reminder">
+    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2a1 1 0 0 1 1 1v1.06A7 7 0 0 1 19 11v4.5l1.6 2.4a1 1 0 0 1-.83 1.6H4.23a1 1 0 0 1-.83-1.6L5 15.5V11a7 7 0 0 1 6-6.94V3a1 1 0 0 1 1-1zM9.5 20a2.5 2.5 0 0 0 5 0h-5z"/></svg>
+    <p><strong>Web check-in reminder</strong> — IndiGo 6E1862, Mauritius → Bengaluru, departs 09:30 on 12 Oct. Check in online the day before, on 11 Oct.</p>
+  </div>
+
+  <!-- DAY 18 -->
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">18</span></div>
+      <div>
+        <h2>Union Vale → Mauritius → Bengaluru</h2>
+        <div class="date">Monday, 12 October</div>
+        <div class="day-country">Mauritius → India</div>
+      </div>
+      <div class="camp"><div class="label">Flight</div><div class="name">6E1862 · 09:30</div></div>
+    </div>
+    <div class="legs">
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon" title="Self-drive"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/><circle cx="16.6" cy="3.2" r="2.1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M18.2 4.8l3.6 3.6M20.4 7l1.1-1.1M21.7 8.3l1.1-1.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg></div><div class="stem"></div></div>
+        <div><div class="route-name">Union Vale → SSR International Airport (MRU)</div><span class="road">Self-drive (OLA rental) → drop-off</span>
+          <div class="note">Just ≈4 km, under 10 minutes — this is the whole point of the Union Vale night. Drop the OLA car back at the airport terminal, building in time for that alongside checkout. Checkout opens 04:00, but breakfast is included and there's no need to rush — even a relaxed breakfast before setting off still leaves comfortable time before check-in closes for the 09:30 flight.</div>
+        </div>
+        <div class="dist">≈4 km<small>~10 min</small></div>
+      </div>
+      <div class="leg">
+        <div class="dot-col"><div class="leg-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M21 16v-2l-8-5V5.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V18l-2.5 2v1.5l4-1.2 4 1.2V20l-2.5-2v-4.5z"/></svg></div></div>
+        <div><div class="route-name">Mauritius (MRU) → Bengaluru (BLR)</div><span class="road">IndiGo 6E1862 · 09:30 → 17:05</span>
+          <div class="note">Booked departure is 09:30, not 09:00 — worth a quick double-check against your ticket, but either way it's an early start with no time for activities this morning.</div>
+        </div>
+        <div class="dist">flight</div>
+      </div>
+    </div>
+    <div class="day-foot"><span>End of the trip — welcome home.</span></div>
+  <div class="day-legend"><span class="item"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M21 16v-2l-8-5V5.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V18l-2.5 2v1.5l4-1.2 4 1.2V20l-2.5-2v-4.5z"/></svg>Flight</span><span class="item"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v4a1 1 0 0 1-1 1h-1a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H4a1 1 0 0 1-1-1v-4z"/><circle cx="16.6" cy="3.2" r="2.1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M18.2 4.8l3.6 3.6M20.4 7l1.1-1.1M21.7 8.3l1.1-1.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg>Self-drive</span></div>
+  </section>
+
+  <footer>Distances are approximate, compiled from SANParks road signage, Kruger route guides and OLA/property confirmations — treat them as planning figures, not GPS-exact. The Important Actions Checklist and Travel Documents Checklist now live in their own dedicated documents.</footer>
+
+</div>

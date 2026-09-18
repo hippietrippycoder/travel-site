@@ -1,0 +1,372 @@
+<title>Hotels &amp; Flights Booked — Africa Five Nation Tour</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Karla:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --bg: #EEF0E4;
+  --surface: #FBFBF4;
+  --surface-2: #F2F3E8;
+  --text: #212C1C;
+  --text-muted: #5C6650;
+  --line: #D6DAC4;
+  --accent: #A9701F;
+  --accent-strong: #7C5216;
+  --accent-soft: #EFDFBB;
+  --danger: #963B26;
+  --danger-soft: #F3DCCC;
+  --good: #3E7A3E;
+  --good-soft: #DCEBDA;
+  --shadow: 0 1px 2px rgba(33,44,28,0.06), 0 8px 24px -12px rgba(33,44,28,0.18);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg: #161D14;
+    --surface: #1D2519;
+    --surface-2: #232C1E;
+    --text: #E8EADB;
+    --text-muted: #9CA68C;
+    --line: #333F2B;
+    --accent: #DDA54E;
+    --accent-strong: #F0BE70;
+    --accent-soft: #3A3220;
+    --danger: #E58A6C;
+    --danger-soft: #3B241C;
+    --good: #7FC17F;
+    --good-soft: #223A22;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+  }
+}
+:root[data-theme="dark"]{
+  --bg: #161D14;
+  --surface: #1D2519;
+  --surface-2: #232C1E;
+  --text: #E8EADB;
+  --text-muted: #9CA68C;
+  --line: #333F2B;
+  --accent: #DDA54E;
+  --accent-strong: #F0BE70;
+  --accent-soft: #3A3220;
+  --danger: #E58A6C;
+  --danger-soft: #3B241C;
+  --good: #7FC17F;
+  --good-soft: #223A22;
+  --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+}
+
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Karla', ui-sans-serif, system-ui, sans-serif;
+  padding-inline:20px;
+  padding-block:36px 64px;
+}
+.wrap{max-width:1080px; margin:0 auto; display:flex; flex-direction:column; gap:28px;}
+
+h1,h2,h3{font-family:'Fraunces', Georgia, serif; text-wrap:balance; margin:0;}
+.eyebrow{
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.72rem;
+  letter-spacing:0.09em;
+  text-transform:uppercase;
+  color:var(--accent-strong);
+  font-weight:600;
+}
+.countries-line{
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.7rem;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--text-muted);
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:9px;
+  margin-top:4px;
+}
+.countries-line .sep{
+  color:var(--accent);
+  font-size:0.6rem;
+  transform:translateY(-1px);
+}
+.countries-line .flag{
+  font-size:1.15rem;
+  line-height:1;
+}
+.num{font-family:'JetBrains Mono', monospace; font-variant-numeric:tabular-nums;}
+
+.travellers{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:2px;
+}
+.travellers .pill{
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.68rem;
+  letter-spacing:0.03em;
+  font-weight:600;
+  text-transform:uppercase;
+  color:var(--accent-strong);
+  background:var(--accent-soft);
+  border:1px solid var(--line);
+  padding:5px 12px;
+  border-radius:999px;
+  white-space:nowrap;
+}
+
+/* header */
+header{display:flex; flex-direction:column; gap:10px;}
+header h1{font-size:clamp(1.7rem, 4.5vw, 2.4rem); font-weight:700; color:var(--text);}
+header p.sub{margin:0; color:var(--text-muted); font-size:1.02rem; max-width:60ch;}
+
+.route-strip{
+  display:flex;
+  align-items:flex-start;
+  overflow-x:auto;
+  padding-block:8px 6px;
+}
+.route-node{
+  display:flex; flex-direction:column; align-items:center; gap:6px;
+  min-width:68px; flex-shrink:0;
+}
+.route-dot{
+  width:13px; height:13px; border-radius:50%;
+  background:var(--accent); border:2px solid var(--surface);
+  box-shadow:0 0 0 2px var(--accent);
+  flex-shrink:0;
+}
+.route-dot.is-muted{background:var(--text-muted); box-shadow:0 0 0 2px var(--text-muted);}
+.route-dot.is-danger{background:var(--danger); box-shadow:0 0 0 2px var(--danger);}
+.route-flag{
+  font-size:1.35rem; line-height:1;
+  border-radius:50%;
+  box-shadow:0 0 0 2px var(--accent);
+  width:24px; height:24px;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+  flex-shrink:0;
+}
+.route-flag.is-danger{box-shadow:0 0 0 2px var(--danger);}
+.route-node span{font-size:0.76rem; text-align:center; color:var(--text); font-weight:600; line-height:1.2;}
+.route-node small{display:flex; flex-direction:column; align-items:center; gap:1px; text-align:center;}
+.route-node .rd-day{font-family:'JetBrains Mono',monospace; font-size:0.72rem; font-weight:700; color:var(--text); line-height:1.2;}
+.route-node .rd-month{font-family:'JetBrains Mono',monospace; font-size:0.58rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--text-muted); line-height:1.2;}
+.route-line{
+  flex:1 1 16px; height:2px; align-self:flex-start; margin-top:6px; min-width:12px;
+  background:repeating-linear-gradient(90deg, var(--line) 0 5px, transparent 5px 8px);
+}
+
+/* callout */
+.callout{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:18px 20px;
+  box-shadow:var(--shadow);
+  display:flex; gap:16px; align-items:flex-start;
+}
+.callout.warn{background:var(--danger-soft); border-color:transparent;}
+.callout .icon{
+  font-family:'JetBrains Mono',monospace; font-weight:700; font-size:0.72rem;
+  letter-spacing:0.08em; text-transform:uppercase; color:var(--danger);
+  flex-shrink:0; margin-top:3px;
+}
+.callout p{margin:0; font-size:0.95rem; line-height:1.55; color:var(--text);}
+.callout p+p{margin-top:6px;}
+.callout strong{color:var(--danger); font-weight:700;}
+
+/* gate hours */
+.gate-hours{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+  background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden;
+}
+.gate-hours > div{background:var(--surface); padding:14px 16px; display:flex; flex-direction:column; gap:4px;}
+.gate-hours .label{font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted); font-weight:600;}
+.gate-hours .value{font-family:'JetBrains Mono',monospace; font-size:1.15rem; font-weight:600; color:var(--text);}
+
+/* day cards */
+.day{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:16px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.day-head{
+  display:flex; align-items:center; gap:14px;
+  padding:18px 22px;
+  border-bottom:1px solid var(--line);
+  background:var(--surface-2);
+}
+.day-badge{
+  color:var(--accent-strong);
+  background:var(--accent-soft);
+  min-width:48px; height:44px; border-radius:10px; padding:0 6px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px;
+  flex-shrink:0;
+  line-height:1;
+}
+.day-badge .label{font-family:'JetBrains Mono',monospace; font-size:0.55rem; letter-spacing:0.09em; font-weight:700; opacity:0.85;}
+.day-badge .num{font-family:'Fraunces',serif; font-weight:700; font-size:1.25rem;}
+.day-head h2{font-size:1.15rem; color:var(--text); text-transform:uppercase; letter-spacing:0.02em;}
+.day-head h2 .via{font-size:0.62em; font-weight:600; color:var(--text-muted); letter-spacing:0.01em;}
+.day-head .date, .day-head .day-country{font-size:0.85rem; color:var(--text-muted); font-weight:500;}
+.day-head .camp{
+  margin-left:auto; text-align:right; flex-shrink:0;
+}
+.day-head .camp .label{font-size:0.66rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted);}
+.day-head .camp .name{font-family:'JetBrains Mono',monospace; font-size:0.88rem; font-weight:600; color:var(--accent-strong);}
+
+.legs{display:flex; flex-direction:column;}
+.leg{
+  display:grid;
+  grid-template-columns:26px 1fr auto;
+  gap:4px 14px;
+  padding:14px 22px;
+  border-bottom:1px solid var(--line);
+  align-items:start;
+}
+.leg:last-child{border-bottom:none;}
+.leg .dot-col{display:flex; flex-direction:column; align-items:center; padding-top:3px;}
+.leg .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);}
+.leg .leg-icon{width:17px; height:17px; color:var(--accent-strong); flex-shrink:0;}
+.leg .stem{width:1px; flex:1; background:var(--line); margin-top:4px;}
+.leg .dot-col:has(.leg-icon){padding-top:0;}
+.leg .route-name{font-weight:600; font-size:0.95rem; color:var(--text);}
+.leg .road{font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:var(--text-muted); margin-left:6px;}
+.leg .note{font-size:0.86rem; color:var(--text-muted); margin-top:3px; line-height:1.45;}
+.leg .dist{
+  font-family:'JetBrains Mono',monospace; text-align:right; white-space:nowrap;
+  font-size:0.85rem; color:var(--accent-strong); font-weight:600;
+}
+.leg .dist small{display:block; font-weight:400; color:var(--text-muted); font-size:0.72rem;}
+
+.day-foot{
+  padding:12px 22px 18px;
+  display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
+  font-size:0.85rem; color:var(--text-muted);
+}
+.day-foot .total{font-weight:700; color:var(--text);}
+
+/* reminder */
+.reminder{
+  display:flex; align-items:center; gap:12px;
+  background:var(--accent-soft); border:1px solid var(--line);
+  border-radius:12px; padding:12px 18px;
+}
+.reminder svg{width:20px; height:20px; color:var(--accent-strong); flex-shrink:0;}
+.reminder p{margin:0; font-size:0.86rem; color:var(--text); line-height:1.4;}
+.reminder strong{color:var(--accent-strong);}
+
+/* reference table */
+.table-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:12px;}
+table{border-collapse:collapse; width:100%; min-width:520px; background:var(--surface);}
+th,td{padding:10px 14px; text-align:left; font-size:0.85rem; border-bottom:1px solid var(--line);}
+th{
+  font-family:'JetBrains Mono',monospace; font-size:0.68rem; text-transform:uppercase;
+  letter-spacing:0.05em; color:var(--text-muted); background:var(--surface-2); font-weight:600;
+}
+td.num{font-family:'JetBrains Mono',monospace; font-variant-numeric:tabular-nums;}
+tr:last-child td{border-bottom:none;}
+th.chk-col{text-align:center;}
+td.chk-col{text-align:center; transition:background 0.15s;}
+.chk-box{width:17px; height:17px; cursor:pointer; accent-color:var(--accent-strong); margin:0;}
+td.chk-col.is-done{background:var(--accent-soft);}
+.doc-table td:nth-child(3), .doc-table th:nth-child(3){white-space:nowrap;}
+.fuel-tag{margin-left:6px; font-size:0.85em;}
+tr.section-row td{
+  background:var(--accent-soft); color:var(--accent-strong);
+  font-family:'JetBrains Mono',monospace; font-size:0.68rem;
+  text-transform:uppercase; letter-spacing:0.06em; font-weight:700;
+  padding:8px 14px;
+}
+
+.badge-paid{font-family:'JetBrains Mono',monospace; font-size:0.6rem; font-weight:700; letter-spacing:0.06em; padding:2px 7px; border-radius:999px; white-space:nowrap; background:var(--good-soft); color:var(--good); vertical-align:middle;}
+.badge-pay{font-family:'JetBrains Mono',monospace; font-size:0.6rem; font-weight:700; letter-spacing:0.06em; padding:2px 7px; border-radius:999px; white-space:nowrap; background:var(--danger-soft); color:var(--danger); vertical-align:middle;}
+
+.notes{display:flex; flex-direction:column; gap:12px;}
+.notes h3{font-size:1.05rem; margin-bottom:2px;}
+.notes ul{margin:0; padding-left:1.2em; display:flex; flex-direction:column; gap:8px;}
+.notes li{font-size:0.92rem; line-height:1.55; color:var(--text);}
+.notes li strong{color:var(--accent-strong);}
+
+footer{color:var(--text-muted); font-size:0.78rem; text-align:center; padding-top:8px;}
+
+@media (max-width:520px){
+  .day-head{flex-wrap:wrap;}
+  .day-head .camp{margin-left:0; text-align:left;}
+  .leg{grid-template-columns:20px 1fr; }
+  .leg .dist{grid-column:2; text-align:left; margin-top:2px;}
+  .gate-hours{grid-template-columns:1fr;}
+}
+@media (max-width:640px){
+  .hotel-table, .flight-table{table-layout:auto !important;}
+  .hotel-table col, .flight-table col{width:auto !important;}
+  .hotel-table td, .hotel-table th, .flight-table td, .flight-table th{white-space:normal !important; font-size:0.73rem; padding:7px 4px;}
+  .hotel-table td.num, .hotel-table td:nth-child(5){overflow-wrap:anywhere;}
+}
+</style>
+<body>
+<div class="wrap">
+
+<header>
+    <h1>HOTELS &amp; FLIGHTS BOOKED</h1>
+    <span class="eyebrow">Africa Five Nation Tour · 24 September – 12 October 2026</span>
+    <div class="travellers"><span class="pill">Amar Raj Urs</span><span class="pill">Pratap Raj</span><span class="pill">Praveen Kumar Nallipogu</span></div>
+  </header>
+
+  <p style="font-size:0.85rem; color:var(--text-muted); text-align:center; max-width:640px; margin:0 auto;">Every confirmed hotel reservation and flight booking for the trip, pulled straight from the main itinerary for quick reference.</p>
+
+  <div>
+  <h3 style="margin-top:4px; font-weight:700; text-transform:uppercase; letter-spacing:0.02em;">Hotel Reservations Full Trip</h3>
+  <div class="table-scroll">
+    <table class="hotel-table" style="table-layout:fixed; width:100%; min-width:0;">
+      <colgroup>
+        <col style="width:11%;"><col style="width:8%;"><col style="width:9%;"><col style="width:23%;"><col style="width:34%;"><col style="width:15%;">
+      </colgroup>
+      <thead><tr><th>Dates</th><th style="text-align:center;">Days</th><th style="text-align:center;">Country</th><th>Property</th><th>Address &amp; GPS</th><th>Phone</th></tr></thead>
+      <tbody>
+        <tr><td>25–26 Sep</td><td class="num" style="text-align:center;">1</td><td style="text-align:center; white-space:nowrap;">🇿🇼 ZWE</td><td>Joyful Vista Guest Lodge, Victoria Falls</td><td class="num">832 Aerodrome · S17°55.759′ E25°49.408′</td><td class="num" style="white-space:nowrap;">+263 78 928 5141</td></tr>
+        <tr><td>26–27 Sep</td><td class="num" style="text-align:center;">1</td><td style="text-align:center; white-space:nowrap;">🇿🇼 ZWE</td><td>Gwango Heritage Resort, Hwange <span class="badge-paid">PAID</span></td><td class="num">8WCR+54M, Hwange National Park, Dete</td><td class="num" style="white-space:nowrap;">+263 78 355 7773</td></tr>
+        <tr><td>27–29 Sep <span title="Breakfast included" style="color:var(--accent-strong); white-space:nowrap;">☕</span></td><td class="num" style="text-align:center;">2</td><td style="text-align:center; white-space:nowrap;">🇿🇲 ZMB</td><td>Tabonina Guesthouse, Livingstone <span class="badge-pay">PAY AT HOTEL</span></td><td class="num">3 Maisoko St, Nottie Broad · S17°50.573′ E25°52.071′</td><td class="num" style="white-space:nowrap;">+260 97 4867585</td></tr>
+        <tr><td>29 Sep – 2 Oct</td><td class="num" style="text-align:center;">3</td><td style="text-align:center; white-space:nowrap;">🇧🇼 BWA</td><td>Nxabii Cottages, Kasane <span class="badge-paid">PAID</span></td><td class="num">456 Newstands · S17°48.144′ E25°13.838′</td><td class="num" style="white-space:nowrap;">+267 73 872 942</td></tr>
+        <tr><td>2–3 Oct</td><td class="num" style="text-align:center;">1</td><td style="text-align:center; white-space:nowrap;">🇿🇦 ZAF</td><td>Vetho 1 Apartments, Kempton Park <span class="badge-paid">PAID</span></td><td class="num">6 Die-Agora Rd · S26°7.834′ E28°11.953′</td><td class="num" style="white-space:nowrap;">+27 76 343 4056</td></tr>
+        <tr><td>3–4 Oct <span title="Breakfast included" style="color:var(--accent-strong); white-space:nowrap;">☕</span></td><td class="num" style="text-align:center;">1</td><td style="text-align:center; white-space:nowrap;">🇿🇦 ZAF</td><td>Kruger Allo B&amp;B, Komatipoort <span class="badge-paid">PAID</span></td><td class="num">29 Steenbok Avenue · S25°25.559′ E31°57.347′</td><td class="num" style="white-space:nowrap;">+27 82 776 7613</td></tr>
+        <tr><td>4–5 Oct</td><td class="num" style="text-align:center;">1</td><td style="text-align:center; white-space:nowrap;">🇿🇦 ZAF</td><td>Satara Rest Camp, Kruger National Park <span class="badge-paid">PAID</span></td><td class="num">BD3E Bungalow · Kruger National Park</td><td class="num" style="white-space:nowrap;">+27 12 428 9111</td></tr>
+        <tr><td>5–6 Oct</td><td class="num" style="text-align:center;">1</td><td style="text-align:center; white-space:nowrap;">🇿🇦 ZAF</td><td>Sabie Star, Sabie</td><td class="num">Farm Rietfontein JT193, Hazyview Rd (R536) · S25°5.701′ E30°48.149′</td><td class="num" style="white-space:nowrap;">+27 79 387 1868</td></tr>
+        <tr><td>6–7 Oct</td><td class="num" style="text-align:center;">1</td><td style="text-align:center; white-space:nowrap;">🇿🇦 ZAF</td><td>Vetho 1 Apartments, OR Tambo Airport <span class="badge-paid">PAID</span></td><td class="num">6 Die-Agora Rd · S26°7.834′ E28°11.953′</td><td class="num" style="white-space:nowrap;">+27 76 343 4056</td></tr>
+        <tr><td>7–9 Oct</td><td class="num" style="text-align:center;">2</td><td style="text-align:center; white-space:nowrap;">🇲🇺 MUS</td><td>Palms Studio, La Gaulette (Le Morne) <span class="badge-paid">PAID</span></td><td class="num">Morcellement La Gaulette · S20°25.139′ E57°22.134′</td><td class="num" style="white-space:nowrap;">+230 5793 6343</td></tr>
+        <tr><td>9–11 Oct <span title="Breakfast included" style="color:var(--accent-strong); white-space:nowrap;">☕</span></td><td class="num" style="text-align:center;">2</td><td style="text-align:center; white-space:nowrap;">🇲🇺 MUS</td><td>Residence Le Point Choisy (Grand Baie) <span class="badge-paid">PAID</span></td><td class="num">Royal Road, Pointe aux Cannoniers · S20°0.445′ E57°33.541′</td><td class="num" style="white-space:nowrap;">+230 5837 5501</td></tr>
+        <tr><td>11–12 Oct <span title="Breakfast included" style="color:var(--accent-strong); white-space:nowrap;">☕</span></td><td class="num" style="text-align:center;">1</td><td style="text-align:center; white-space:nowrap;">🇲🇺 MUS</td><td>Gite des Acacias, Union Vale <span class="badge-paid">PAID</span></td><td class="num">Carreau Acacias, Trois Boutiques, Union Vale · S20°27.870′ E57°40.239′</td><td class="num" style="white-space:nowrap;">+230 5752 3915</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:0.82rem; color:var(--text-muted); margin-top:8px;">Kasane is booked as two consecutive stays at the same property (29–30 Sep and 30 Sep–2 Oct) — same address and GPS both times. Day-by-day route planning in the main itinerary covers every one of these stays in full. Satara's phone number above is the SANParks head office/reservations line, not the camp directly. The 2–3 Oct and 6–7 Oct nights are both at Vetho 1 Apartments (same property, two separate stays either side of the Kruger loop). All four Mauritius nights are now booked — the last one is Gite des Acacias in Union Vale, about 4 km from the airport, not back at Le Morne — see the Mauritius Itinerary document for the day-by-day plan. ☕ next to the dates means breakfast is included in that booking; a PAID badge means that stay is paid in full; a PAY AT HOTEL badge means it's payable on site.</p>
+  </div>
+
+  <div>
+  <h3 style="margin-top:4px; font-weight:700; text-transform:uppercase; letter-spacing:0.02em;">Flight Details Full Trip</h3>
+  <div class="table-scroll">
+    <table class="flight-table" style="table-layout:fixed; width:100%; min-width:0;">
+      <colgroup>
+        <col style="width:16%;"><col style="width:26%;"><col style="width:22%;"><col style="width:20%;"><col style="width:16%;">
+      </colgroup>
+      <thead><tr><th>Date</th><th>Route</th><th>Flight</th><th>Times</th><th>PNR</th></tr></thead>
+      <tbody>
+        <tr><td style="white-space:nowrap;">Thu 24 Sep</td><td>Bengaluru → Mumbai</td><td class="num">Akasa QP1150</td><td class="num" style="white-space:nowrap;">16:05 → 18:05</td><td class="num">S5U6MS</td></tr>
+        <tr><td style="white-space:nowrap;">Fri 25 Sep</td><td>Mumbai → Nairobi</td><td class="num">Kenya Airways KQ203</td><td class="num" style="white-space:nowrap;">02:40 → 06:25</td><td class="num">YATBRP / YB2SM9</td></tr>
+        <tr><td style="white-space:nowrap;">Fri 25 Sep</td><td>Nairobi → Victoria Falls</td><td class="num">Kenya Airways KQ792</td><td class="num" style="white-space:nowrap;">07:25 → 09:40</td><td class="num">YATBRP / YB2SM9</td></tr>
+        <tr><td style="white-space:nowrap;">Fri 2 Oct</td><td>Victoria Falls → JNB</td><td class="num">FlySafAir FA-827</td><td class="num" style="white-space:nowrap;">15:50 → 17:40</td><td class="num">MS1XU0</td></tr>
+        <tr><td style="white-space:nowrap;">Wed 7 Oct</td><td>JNB → Mauritius</td><td class="num">FlySafAir FA-830</td><td class="num" style="white-space:nowrap;">09:00 → 15:15</td><td class="num">NL6T0S</td></tr>
+        <tr><td style="white-space:nowrap;">Mon 12 Oct</td><td>Mauritius → Bengaluru</td><td class="num">IndiGo 6E1862</td><td class="num" style="white-space:nowrap;">09:30 → 17:05</td><td class="num">DDTVHN</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:0.82rem; color:var(--text-muted); margin-top:8px;">Travelling: Amar Raj Urs, Pratap Raj, Praveen Kumar Nallipogu — all three on every sector above, same flights and times throughout. The only booking quirk is the 25 Sep Kenya Airways sectors, which are split across two separate PNRs (Pratap &amp; Praveen on YATBRP, Amar on YB2SM9) purely for reservation purposes — all three are on both flights together.</p>
+  </div>
+
+</div>
+</body>
+</html>

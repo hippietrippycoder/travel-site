@@ -1,0 +1,773 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free-Time Extras — Africa Five Nation Tour</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Karla:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --bg: #EEF0E4;
+  --surface: #FBFBF4;
+  --surface-2: #F2F3E8;
+  --text: #212C1C;
+  --text-muted: #5C6650;
+  --line: #D6DAC4;
+  --accent: #A9701F;
+  --accent-strong: #7C5216;
+  --accent-soft: #EFDFBB;
+  --danger: #963B26;
+  --danger-soft: #F3DCCC;
+  --shadow: 0 1px 2px rgba(33,44,28,0.06), 0 8px 24px -12px rgba(33,44,28,0.18);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg: #161D14;
+    --surface: #1D2519;
+    --surface-2: #232C1E;
+    --text: #E8EADB;
+    --text-muted: #9CA68C;
+    --line: #333F2B;
+    --accent: #DDA54E;
+    --accent-strong: #F0BE70;
+    --accent-soft: #3A3220;
+    --danger: #E58A6C;
+    --danger-soft: #3B241C;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+  }
+}
+:root[data-theme="dark"]{
+  --bg: #161D14;
+  --surface: #1D2519;
+  --surface-2: #232C1E;
+  --text: #E8EADB;
+  --text-muted: #9CA68C;
+  --line: #333F2B;
+  --accent: #DDA54E;
+  --accent-strong: #F0BE70;
+  --accent-soft: #3A3220;
+  --danger: #E58A6C;
+  --danger-soft: #3B241C;
+  --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+}
+
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Karla', ui-sans-serif, system-ui, sans-serif;
+  padding-inline:20px;
+  padding-block:36px 64px;
+}
+.wrap{max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:28px;}
+
+h1,h2,h3{font-family:'Fraunces', Georgia, serif; text-wrap:balance; margin:0;}
+.eyebrow{
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.72rem;
+  letter-spacing:0.09em;
+  text-transform:uppercase;
+  color:var(--accent-strong);
+  font-weight:600;
+}
+.countries-line{
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.7rem;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--text-muted);
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:9px;
+  margin-top:4px;
+}
+.countries-line .sep{
+  color:var(--accent);
+  font-size:0.6rem;
+  transform:translateY(-1px);
+}
+.countries-line .flag{
+  font-size:1.15rem;
+  line-height:1;
+}
+.num{font-family:'JetBrains Mono', monospace; font-variant-numeric:tabular-nums;}
+
+.travellers{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:2px;
+}
+.travellers .pill{
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.68rem;
+  letter-spacing:0.03em;
+  font-weight:600;
+  text-transform:uppercase;
+  color:var(--accent-strong);
+  background:var(--accent-soft);
+  border:1px solid var(--line);
+  padding:5px 12px;
+  border-radius:999px;
+  white-space:nowrap;
+}
+
+/* header */
+header{display:flex; flex-direction:column; gap:10px;}
+header h1{font-size:clamp(1.7rem, 4.5vw, 2.4rem); font-weight:700; color:var(--text);}
+header p.sub{margin:0; color:var(--text-muted); font-size:1.02rem; max-width:60ch;}
+
+.route-strip{
+  display:flex;
+  align-items:flex-start;
+  overflow-x:auto;
+  padding-block:8px 6px;
+}
+.route-node{
+  display:flex; flex-direction:column; align-items:center; gap:6px;
+  min-width:68px; flex-shrink:0;
+}
+.route-dot{
+  width:13px; height:13px; border-radius:50%;
+  background:var(--accent); border:2px solid var(--surface);
+  box-shadow:0 0 0 2px var(--accent);
+  flex-shrink:0;
+}
+.route-dot.is-muted{background:var(--text-muted); box-shadow:0 0 0 2px var(--text-muted);}
+.route-dot.is-danger{background:var(--danger); box-shadow:0 0 0 2px var(--danger);}
+.route-flag{
+  font-size:1.35rem; line-height:1;
+  border-radius:50%;
+  box-shadow:0 0 0 2px var(--accent);
+  width:24px; height:24px;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+  flex-shrink:0;
+}
+.route-flag.is-danger{box-shadow:0 0 0 2px var(--danger);}
+.route-node span{font-size:0.76rem; text-align:center; color:var(--text); font-weight:600; line-height:1.2;}
+.route-node small{display:flex; flex-direction:column; align-items:center; gap:1px; text-align:center;}
+.route-node .rd-day{font-family:'JetBrains Mono',monospace; font-size:0.72rem; font-weight:700; color:var(--text); line-height:1.2;}
+.route-node .rd-month{font-family:'JetBrains Mono',monospace; font-size:0.58rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--text-muted); line-height:1.2;}
+.route-line{
+  flex:1 1 16px; height:2px; align-self:flex-start; margin-top:6px; min-width:12px;
+  background:repeating-linear-gradient(90deg, var(--line) 0 5px, transparent 5px 8px);
+}
+
+/* callout */
+.callout{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:18px 20px;
+  box-shadow:var(--shadow);
+  display:flex; gap:16px; align-items:flex-start;
+}
+.callout.warn{background:var(--danger-soft); border-color:transparent;}
+.callout .icon{
+  font-family:'JetBrains Mono',monospace; font-weight:700; font-size:0.72rem;
+  letter-spacing:0.08em; text-transform:uppercase; color:var(--danger);
+  flex-shrink:0; margin-top:3px;
+}
+.callout p{margin:0; font-size:0.95rem; line-height:1.55; color:var(--text);}
+.callout p+p{margin-top:6px;}
+.callout strong{color:var(--danger); font-weight:700;}
+
+/* gate hours */
+.gate-hours{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+  background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden;
+}
+.gate-hours > div{background:var(--surface); padding:14px 16px; display:flex; flex-direction:column; gap:4px;}
+.gate-hours .label{font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted); font-weight:600;}
+.gate-hours .value{font-family:'JetBrains Mono',monospace; font-size:1.15rem; font-weight:600; color:var(--text);}
+
+/* day cards */
+.day{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:16px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.day-head{
+  display:flex; align-items:center; gap:14px;
+  padding:18px 22px;
+  border-bottom:1px solid var(--line);
+  background:var(--surface-2);
+}
+.day-badge{
+  color:var(--accent-strong);
+  background:var(--accent-soft);
+  min-width:48px; height:44px; border-radius:10px; padding:0 6px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px;
+  flex-shrink:0;
+  line-height:1;
+}
+.day-badge .label{font-family:'JetBrains Mono',monospace; font-size:0.55rem; letter-spacing:0.09em; font-weight:700; opacity:0.85;}
+.day-badge .num{font-family:'Fraunces',serif; font-weight:700; font-size:1.25rem;}
+.day-head h2{font-size:1.15rem; color:var(--text); text-transform:uppercase; letter-spacing:0.02em;}
+.day-head h2 .via{font-size:0.62em; font-weight:600; color:var(--text-muted); letter-spacing:0.01em;}
+.day-head .date, .day-head .day-country{font-size:0.85rem; color:var(--text-muted); font-weight:500;}
+.day-head .camp{
+  margin-left:auto; text-align:right; flex-shrink:0;
+}
+.day-head .camp .label{font-size:0.66rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted);}
+.day-head .camp .name{font-family:'JetBrains Mono',monospace; font-size:0.88rem; font-weight:600; color:var(--accent-strong);}
+.day-head .camp .tbd{font-size:0.62rem; color:var(--text-muted); font-weight:500;}
+
+.legs{display:flex; flex-direction:column;}
+.leg{
+  display:grid;
+  grid-template-columns:26px 1fr auto;
+  gap:4px 14px;
+  padding:14px 22px;
+  border-bottom:1px solid var(--line);
+  align-items:start;
+}
+.leg:last-child{border-bottom:none;}
+.leg .dot-col{display:flex; flex-direction:column; align-items:center; padding-top:3px;}
+.leg .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);}
+.leg .leg-icon{width:17px; height:17px; color:var(--accent-strong); flex-shrink:0;}
+.leg .stem{width:1px; flex:1; background:var(--line); margin-top:4px;}
+.leg .dot-col:has(.leg-icon){padding-top:0;}
+.leg .route-name{font-weight:600; font-size:0.95rem; color:var(--text);}
+.leg .road{font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:var(--text-muted); margin-left:6px;}
+.leg .note{font-size:0.86rem; color:var(--text-muted); margin-top:3px; line-height:1.45;}
+.leg .dist{
+  font-family:'JetBrains Mono',monospace; text-align:right; white-space:nowrap;
+  font-size:0.85rem; color:var(--accent-strong); font-weight:600;
+}
+.leg .dist small{display:block; font-weight:400; color:var(--text-muted); font-size:0.72rem;}
+
+.day-foot{
+  padding:12px 22px 18px;
+  display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
+  font-size:0.85rem; color:var(--text-muted);
+}
+.day-foot .total{font-weight:700; color:var(--text);}
+
+/* reminder */
+.reminder{
+  display:flex; align-items:center; gap:12px;
+  background:var(--accent-soft); border:1px solid var(--line);
+  border-radius:12px; padding:12px 18px;
+}
+.reminder svg{width:20px; height:20px; color:var(--accent-strong); flex-shrink:0;}
+.reminder p{margin:0; font-size:0.86rem; color:var(--text); line-height:1.4;}
+.reminder strong{color:var(--accent-strong);}
+
+/* reference table */
+.table-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:12px;}
+table{border-collapse:collapse; width:100%; min-width:520px; background:var(--surface);}
+th,td{padding:10px 14px; text-align:left; font-size:0.85rem; border-bottom:1px solid var(--line);}
+th{
+  font-family:'JetBrains Mono',monospace; font-size:0.68rem; text-transform:uppercase;
+  letter-spacing:0.05em; color:var(--text-muted); background:var(--surface-2); font-weight:600;
+}
+td.num{font-family:'JetBrains Mono',monospace; font-variant-numeric:tabular-nums;}
+tr:last-child td{border-bottom:none;}
+th.chk-col{text-align:center;}
+td.chk-col{text-align:center; transition:background 0.15s;}
+.chk-box{width:17px; height:17px; cursor:pointer; accent-color:var(--accent-strong); margin:0;}
+td.chk-col.is-done{background:var(--accent-soft);}
+.doc-table td:nth-child(3), .doc-table th:nth-child(3){white-space:nowrap;}
+.fuel-tag{margin-left:6px; font-size:0.85em;}
+tr.section-row td{
+  background:var(--accent-soft); color:var(--accent-strong);
+  font-family:'JetBrains Mono',monospace; font-size:0.68rem;
+  text-transform:uppercase; letter-spacing:0.06em; font-weight:700;
+  padding:8px 14px;
+}
+
+.notes{display:flex; flex-direction:column; gap:12px;}
+.notes h3{font-size:1.05rem; margin-bottom:2px;}
+.notes ul{margin:0; padding-left:1.2em; display:flex; flex-direction:column; gap:8px;}
+.notes li{font-size:0.92rem; line-height:1.55; color:var(--text);}
+.notes li strong{color:var(--accent-strong);}
+
+footer{color:var(--text-muted); font-size:0.78rem; text-align:center; padding-top:8px;}
+
+@media (max-width:520px){
+  .day-head{flex-wrap:wrap;}
+  .day-head .camp{margin-left:0; text-align:left;}
+  .leg{grid-template-columns:20px 1fr; }
+  .leg .dist{grid-column:2; text-align:left; margin-top:2px;}
+  .gate-hours{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+    <h1>FREE-TIME EXTRAS</h1>
+    <span class="eyebrow">Africa Five Nation Tour · 24 September – 12 October 2026</span>
+    <div class="travellers"><span class="pill">Amar Raj Urs</span><span class="pill">Pratap Raj</span><span class="pill">Praveen Kumar Nallipogu</span></div>
+  </header>
+
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">0</span></div>
+      <div>
+        <h2>Bengaluru → Mumbai</h2>
+        <div class="date">Thursday, 24 September</div>
+        <div class="day-country">India</div>
+      </div>
+      <div class="camp"><div class="label">Onward</div><div class="name">Mumbai → Nairobi, 02:40</div></div>
+    </div>
+    <div style="padding:18px 22px 20px;">
+      <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0; margin-bottom:14px;">The window is tight — land at 18:05, leave Colaba by ≈22:00 for the airport — so these are swap-in options for the Gateway/Colaba stop above rather than extra detours, all within a few minutes' walk of the Taj:</p>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Category</th><th>Name</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr class="section-row"><td colspan="3">Near the Gateway &amp; Colaba</td></tr>
+            <tr><td>Market</td><td>Colaba Causeway</td><td class="num" style="white-space:normal;">The street market running off the Gateway/Taj corner — clothes, bags and curios, easy to fold into the same walk without adding real distance.</td></tr>
+            <tr><td>Drive-by viewpoint</td><td>Marine Drive</td><td class="num" style="white-space:normal;">The route down from the Sea Link runs right along it — worth a slow pass at dusk for the lit-up "Queen's Necklace" curve, even without stopping.</td></tr>
+            <tr><td>Quick detour</td><td>The Afghan Church</td><td class="num" style="white-space:normal;">A quiet Gothic-style church with stained glass, a short walk off Colaba Causeway — worth it only if there's a spare 15 minutes.</td></tr>
+            <tr class="section-row"><td colspan="3">Pubs &amp; bars</td></tr>
+            <tr><td>Iconic</td><td>Leopold Cafe</td><td class="num" style="white-space:normal;">Mumbai's most famous bar-restaurant, open since 1871, right on Colaba Causeway a few minutes from the Taj — a genuine institution, always busy.</td></tr>
+            <tr><td>Retro</td><td>Cafe Mondegar</td><td class="num" style="white-space:normal;">A 1930s bar just off Gateway of India — jukebox, wall art, American grills alongside Indian dishes.</td></tr>
+            <tr><td>Lively</td><td>Irish House</td><td class="num" style="white-space:normal;">Pub styling with happy-hour pricing, a short walk from the Taj — livelier than the two above if the group wants music with dinner.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">1</span></div>
+      <div>
+        <h2>Mumbai → Nairobi → Victoria Falls</h2>
+        <div class="date">Friday, 25 September</div>
+        <div class="day-country">Zimbabwe</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Joyful Vista Guest Lodge</div></div>
+    </div>
+    <div style="padding:18px 22px 20px;">
+<p style="font-size:0.82rem; color:var(--text-muted); margin-top:0; margin-bottom:14px;">The afternoon above already covers the Big Tree, the bridge viewpoint, Elephant's Walk and the sunset cruise — but Vic Falls town is small and everything below is a short taxi hop, so here's more to fill any gap or to swap in instead:</p>
+  <div class="table-scroll">
+    <table>
+      <thead><tr><th>Category</th><th>Name</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr class="section-row"><td colspan="3">Offbeat &amp; viewpoints</td></tr>
+        <tr><td>Date-specific</td><td>Lunar rainbow (moonbow)</td><td class="num" style="white-space:normal;">Worth flagging: the full moon falls on 26 Sep 2026, and the Rainforest opens for night tours on the three nights around it — meaning tonight, 25 Sep, is one of only three nights all year this is bookable. It needs advance booking (park entry fee applies) and runs after dark, so it would replace rather than follow the sunset cruise/dinner. A genuinely rare option if anyone wants to chase it.</td></tr>
+        <tr><td>Guided tour</td><td>Victoria Falls Bridge catwalk tour</td><td class="num" style="white-space:normal;">A guided walk on the catwalk slung beneath the bridge itself — history and engineering of the 1905 structure, plus a close-up view of bungee jumpers from below. More immersive than the roadside gorge view already on today's route.</td></tr>
+        <tr><td>Half-day</td><td>Zambezi jet boat</td><td class="num" style="white-space:normal;">High-speed boat runs through the rapids and canyon just below the Falls — a faster, wetter alternative to the calm upstream sunset cruise, for anyone who wants one adrenaline activity worked in today.</td></tr>
+        <tr><td>Dining + view</td><td>The Lookout Café</td><td class="num" style="white-space:normal;">Perched right on the edge of Batoka Gorge a short drive from town — open-air dining with canyon views, and the base for gorge-swing/zip-line activities if anyone wants to add one on.</td></tr>
+        <tr class="section-row"><td colspan="3">Pubs &amp; bars</td></tr>
+        <tr><td>Bar</td><td>Shoestrings Backpackers &amp; Bar</td><td class="num" style="white-space:normal;">Laid-back backpacker bar on Parkway Drive with a regular line-up of local bands and DJs — the liveliest low-key option in town, free entry.</td></tr>
+        <tr><td>Bar</td><td>Explorers Club</td><td class="num" style="white-space:normal;">Also on Parkway Drive — a quieter, dimly-lit lounge bar built for conversation over cocktails rather than a dance floor.</td></tr>
+        <tr><td>Restaurant &amp; bar</td><td>The Three Monkeys</td><td class="num" style="white-space:normal;">Popular town-centre restaurant and bar on Adam Stander Drive — pizzas, grills and drinks, and also the usual pickup point for the Bamba Tram across the bridge if that's of interest another evening.</td></tr>
+        <tr><td>Dinner show</td><td>The Boma – Dinner &amp; Drum Show</td><td class="num" style="white-space:normal;">Already flagged as an alternative to the sunset cruise — a traditional buffet with live drumming and dancing, a livelier way to close the evening if anyone still has energy after the long flights.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+  </section>
+
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">2</span></div>
+      <div>
+        <h2>Victoria Falls → Dete → Hwange</h2>
+        <div class="date">Saturday, 26 September</div>
+        <div class="day-country">Zimbabwe</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Gwango Heritage Resort</div></div>
+    </div>
+    <div style="padding:18px 22px 20px;">
+<p style="font-size:0.82rem; color:var(--text-muted); margin-top:0; margin-bottom:14px;">Dete is a small rural stop on the edge of Hwange, not a town with a nightlife scene — so free time here looks different from Vic Falls or Kasane. The good news is the resort itself is most of the entertainment:</p>
+  <div class="table-scroll">
+    <table>
+      <thead><tr><th>Category</th><th>Name</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr class="section-row"><td colspan="3">On-site at Gwango</td></tr>
+        <tr><td>Wildlife viewing</td><td>Rooftop pool &amp; waterhole</td><td class="num" style="white-space:normal;">Gwango's rooftop pool overlooks its own elephant waterhole, with no fence between the resort and the park — guests have had elephant trunks dip into the pool from below. Worth timing a dip for late afternoon, when animals tend to come in to drink.</td></tr>
+        <tr><td>Evening</td><td>Bar, lounge &amp; fire pit</td><td class="num" style="white-space:normal;">The resort's own bar and a fire-pit area for evening gatherings — the natural spot for sundowners after the border-and-kombi day, with a good chance of watching animals at the waterhole as the light fades.</td></tr>
+        <tr><td>Guided</td><td>Nature walk / waterhole sit-out</td><td class="num" style="white-space:normal;">Already flagged on today's route — Gwango can usually arrange a short guided walk on the property or a quiet sit-out at the waterhole hide, worth booking at check-in if there's daylight left on arrival.</td></tr>
+        <tr class="section-row"><td colspan="3">Nearby in Dete</td></tr>
+        <tr><td>Conservation centre</td><td>Painted Dog Conservation Centre</td><td class="num" style="white-space:normal;">A rehabilitation and education centre for endangered African painted dogs, just off the A8 opposite Hwange National Park Airport — free entry (donations welcome), open 08:00–17:00 daily except the last weekend of the month. Worth it only if the kombi gets in with a couple of hours to spare before closing; otherwise it pairs naturally with tomorrow's early game drive route instead.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+  </section>
+
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">3</span></div>
+      <div>
+        <h2>Hwange → Dete → Victoria Falls → Livingstone</h2>
+        <div class="date">Sunday, 27 September</div>
+        <div class="day-country">Zimbabwe → Zambia</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Tabonina Guesthouse</div></div>
+    </div>
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">4</span></div>
+      <div>
+        <h2>Mosi-oa-Tunya Rhino Walk &amp; Victoria Falls <span class="via">(Zambia)</span></h2>
+        <div class="date">Monday, 28 September</div>
+        <div class="day-country">Zambia</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Tabonina Guesthouse</div></div>
+    </div>
+    <div style="padding:18px 22px 20px;">
+<p style="font-size:0.82rem; color:var(--text-muted); margin-top:0; margin-bottom:14px;">Livingstone is one continuous stay at Tabonina Guesthouse across both nights (27–28 Sep), so this list covers free time on either evening — most of it suits after dark, with the daylight options better saved for the midday window on 28 Sep, between the rhino walk and the Falls visit:</p>
+  <div class="table-scroll">
+    <table>
+      <thead><tr><th>Category</th><th>Name</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr class="section-row"><td colspan="3">Offbeat &amp; viewpoints</td></tr>
+        <tr><td>Museum</td><td>Livingstone Museum</td><td class="num" style="white-space:normal;">Zambia's oldest and largest museum — David Livingstone artifacts, tools, masks and jewellery, ≈3 hours for a proper visit. Open 09:00–16:30 daily; a bit of a squeeze in 28 Sep's midday gap once the rhino walk gets back, so treat it as optional rather than a given.</td></tr>
+        <tr><td>Shopping</td><td>Mukuni Park Curio Market</td><td class="num" style="white-space:normal;">≈60 small stalls on Mwela Street — wood carvings, paintings, baskets. Friendly, low-pressure vendors, and bargaining is expected (start well below the asking price). Quicker than the museum, so an easier fit for 28 Sep's midday window.</td></tr>
+        <tr><td>Cultural</td><td>Mukuni Village</td><td class="num" style="white-space:normal;">A 13th-century Leya settlement ≈10–15 min from most Livingstone lodges — guided visits with traditional drumming, dance and storytelling. Also a reasonable fit for 28 Sep's midday gap if there's an appetite for one more outing before the Falls.</td></tr>
+        <tr><td>Sundowner</td><td>Livingstone Waterfront</td><td class="num" style="white-space:normal;">Riverside spot right on the Zambezi with sunset cocktails and live Afro-fusion bands — an easy, laid-back way to close out the evening if you're in by dusk.</td></tr>
+        <tr class="section-row"><td colspan="3">Pubs &amp; bars</td></tr>
+        <tr><td>Bar &amp; club</td><td>Fezbar</td><td class="num" style="white-space:normal;">Restaurant, bar and club in one — starts relaxed over dinner and shifts into an energetic, youthful dance-floor scene with DJs and themed nights later on.</td></tr>
+        <tr><td>Bar &amp; live music</td><td>Café Zambezi</td><td class="num" style="white-space:normal;">Restaurant by day, entertainment venue by night — live music, drumming sessions and even fire-dancing shows, alongside Caribbean/African/Zambian fusion food.</td></tr>
+        <tr><td>Upscale sundowner</td><td>The River Club</td><td class="num" style="white-space:normal;">An elegant, quieter riverside option for cocktails — the pick if the group wants a refined sundowner rather than a late night out after a long day of travel.</td></tr>
+        <tr><td>Backpacker bar</td><td>Jollyboys / Fawlty Towers</td><td class="num" style="white-space:normal;">Hostel-based bars with poolside happy hours and a casual, social, budget-friendly crowd — an easy low-key option if energy is limited after today's border crossings.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+  </section>
+
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">5</span></div>
+      <div>
+        <h2>Livingstone → Kazungula → Kasane</h2>
+        <div class="date">Tuesday, 29 September</div>
+        <div class="day-country">Zambia → Botswana</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Nxabii Cottages</div></div>
+    </div>
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">6</span></div>
+      <div>
+        <h2>Chobe National Park Game Drive &amp; Sunset Cruise</h2>
+        <div class="date">Wednesday, 30 September</div>
+        <div class="day-country">Botswana</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Nxabii Cottages</div></div>
+    </div>
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">7</span></div>
+      <div>
+        <h2>Chobe River Sunrise Cruise &amp; Free Day</h2>
+        <div class="date">Thursday, 1 October</div>
+        <div class="day-country">Botswana</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Nxabii Cottages</div></div>
+    </div>
+    <div style="padding:18px 22px 20px;">
+<p style="font-size:0.82rem; color:var(--text-muted); margin-top:0; margin-bottom:14px;">Kasane is one continuous stay at Nxabii Cottages across all three nights (29 Sep – 1 Oct). Beyond the Chobe game drive and the two river cruises, there's genuine spare time across these three days — Kasane is small and walkable, and wildlife wanders freely through town since there's no fence between it and the park. A shortlist to fill the gaps, applicable across all three evenings:</p>
+  <div class="table-scroll">
+    <table>
+      <thead><tr><th>Category</th><th>Name</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr class="section-row"><td colspan="3">Offbeat &amp; viewpoints</td></tr>
+        <tr><td>Wander</td><td>Wildlife in town</td><td class="num" style="white-space:normal;">No fence separates Kasane from Chobe NP — warthogs, banded mongoose and even elephants are regularly seen on the streets, especially early morning/late afternoon. Costs nothing, just keep a respectful distance.</td></tr>
+        <tr><td>Landmark</td><td>Baobab Prison Tree</td><td class="num" style="white-space:normal;">A large hollow baobab at the old police station, historically used as a makeshift holding cell and even a postal drop. A five-minute stop with real local history.</td></tr>
+        <tr><td>Market</td><td>Kasane market, Hunter's Mall</td><td class="num" style="white-space:normal;">Local produce and crafts — dried Chobe bream, groundnuts, printed cloth. Good for curios and a feel of daily life away from the lodges.</td></tr>
+        <tr><td>Half-day</td><td>Chobe Crocodile Farm</td><td class="num" style="white-space:normal;">Just outside town — a working crocodile farm with guided tours covering breeding and conservation. An easy, air-conditioned option if the day gets hot.</td></tr>
+        <tr><td>Viewpoint</td><td>Kazungula Bridge</td><td class="num" style="white-space:normal;">The new road-and-rail bridge over the Zambezi, a short drive from town — Africa's longest cantilever bridge, and the border area is often marketed as a four-country meeting point (Botswana, Zambia, Zimbabwe, Namibia), though the exact boundary lines there are disputed. Worth a look for the bridge itself and the river views.</td></tr>
+        <tr><td>Half-day</td><td>Tiger fishing charter</td><td class="num" style="white-space:normal;">Chobe River fishing trips run year-round; tiger fish are most active in the dry-season months (which includes early October). A different way to be on the water than the two scheduled cruises.</td></tr>
+        <tr><td>Full-day (passport needed)</td><td>Impalila Island, Namibia</td><td class="num" style="white-space:normal;">A short boat crossing to this river island where the Chobe and Zambezi meet — guided village and nature walks. Involves a mini border formality since it's technically Namibia, so only worth it if the free day allows the extra time.</td></tr>
+        <tr class="section-row"><td colspan="3">Pubs &amp; bars</td></tr>
+        <tr><td>Bar</td><td>Kasane Savannah Bar</td><td class="num" style="white-space:normal;">Lively, central spot mixing locals and tourists — regional beers, local artwork on the walls, a good place to trade wildlife stories after a game drive.</td></tr>
+        <tr><td>Bar</td><td>Sevuva Bar, Tholo Crescent</td><td class="num" style="white-space:normal;">Quieter and more laid-back, open 08:00–18:00 — local beers and cocktails, valued for its sunset views.</td></tr>
+        <tr><td>Riverside</td><td>The Old House</td><td class="num" style="white-space:normal;">Open-air bar-restaurant right on the Chobe riverbank — breakfasts, pizzas and dinners, a relaxed sundowner setting without needing to book a cruise.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+  </section>
+
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">8</span></div>
+      <div>
+        <h2>Kasane → Victoria Falls → Johannesburg</h2>
+        <div class="date">Friday, 2 October</div>
+        <div class="day-country">Botswana → Zimbabwe → South Africa</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Vetho 1 Apartments</div></div>
+    </div>
+    <div style="padding:18px 22px 20px;">
+      <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0; margin-bottom:14px;">Realistically there's little time tonight — landing at 18:00, then the rental car and drive to the apartment, with a 06:00 departure for Komatipoort tomorrow morning. This is here just in case you land early, the car pickup is quick, and there's an hour or two to spare:</p>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Category</th><th>Name</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr class="section-row"><td colspan="3">If there's time — Emperors Palace</td></tr>
+            <tr><td>All-in-one</td><td>Emperors Palace, Kempton Park</td><td class="num" style="white-space:normal;">A casino-and-entertainment complex right next to OR Tambo, with a complimentary shuttle every 20 minutes between 06:00 and 23:00 — the one place close enough to genuinely fit into a tight evening. Casino floor, a cinema and several bars alongside the restaurants below.</td></tr>
+            <tr><td>Dinner</td><td>Tribes African Grill &amp; Steakhouse</td><td class="num" style="white-space:normal;">Bush-styled steakhouse inside the Emperors Palace complex — a proper sit-down dinner if there's enough time for one.</td></tr>
+            <tr><td>Dinner</td><td>Dine At Platia</td><td class="num" style="white-space:normal;">Greek restaurant in the Emperors Palace Retail Emporium — slow-roasted lamb, kleftiko, moussaka, open from 12:00 daily.</td></tr>
+            <tr><td>Dinner</td><td>Fu Li Hua Asian Cuisine</td><td class="num" style="white-space:normal;">Large Chinese restaurant also at Emperors Palace, a third option under the same roof.</td></tr>
+            <tr class="section-row"><td colspan="3">Nearby &amp; practical</td></tr>
+            <tr><td>Quick stop</td><td>Birch Acres Mall / Bonaero Park Shopping Centre</td><td class="num" style="white-space:normal;">Everyday shopping centres in the Kempton Park area — useful only for a last-minute essential on the way in, not a destination in themselves.</td></tr>
+            <tr class="section-row"><td colspan="3">Staying in</td></tr>
+            <tr><td>Simplest option</td><td>Vetho 1 Apartments</td><td class="num" style="white-space:normal;">With a 06:00 start tomorrow for the long drive to Komatipoort, an early night in is just as good a choice as heading out — nobody will blame you for skipping the casino tonight.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">9</span></div>
+      <div>
+        <h2>Johannesburg → Komatipoort</h2>
+        <div class="date">Saturday, 3 October</div>
+        <div class="day-country">South Africa</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Kruger Allo B&amp;B, Komatipoort</div></div>
+    </div>
+    <div style="padding:18px 22px 20px;">
+<div class="callout warn" style="margin-bottom:14px;">
+    <div class="icon">21:30</div>
+    <p><strong>Kruger Allo B&amp;B's gate closes strictly at 21:30</strong> — whatever you choose below, build the return trip in with margin rather than cutting it fine.</p>
+  </div>
+  <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0; margin-bottom:14px;">Komatipoort is a small border town, not a nightlife destination — dinner nearby and an early return is really the shape of the evening:</p>
+  <div class="table-scroll">
+    <table>
+      <thead><tr><th>Category</th><th>Name</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr class="section-row"><td colspan="3">Dinner nearby</td></tr>
+        <tr><td>Dinner + wildlife</td><td>Ngwenya Parkview Restaurant</td><td class="num" style="white-space:normal;">Crocodile River-front deck facing Kruger — buffalo, waterbuck, elephant and even rhino are regularly seen while you eat, so it doubles as an evening game-viewing spot.</td></tr>
+        <tr><td>Dinner</td><td>Trees Too Guest Lodge restaurant &amp; bar</td><td class="num" style="white-space:normal;">A fully licensed bar and restaurant a short drive out, dinner served 17:30–20:00 — comfortably done and back inside the 21:30 curfew.</td></tr>
+        <tr class="section-row"><td colspan="3">If there's still daylight</td></tr>
+        <tr><td>Landmark</td><td>Samora Machel Monument</td><td class="num" style="white-space:normal;">Marks the 1986 air-crash site, a short drive from town — a quick, low-key stop with genuine historical weight. Daylight only.</td></tr>
+        <tr><td>For future reference</td><td>Lebombo 4×4 Trail</td><td class="num" style="white-space:normal;">Based here if a future visit calls for a full off-road day — not an evening activity, but worth knowing about.</td></tr>
+        <tr class="section-row"><td colspan="3">Staying in</td></tr>
+        <tr><td>Simplest option</td><td>Kruger Allo B&amp;B grounds</td><td class="num" style="white-space:normal;">Pool, garden, patio and board games on site — the easiest way to respect the 21:30 gate after a long drive is to just not leave.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+  </section>
+
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">10</span></div>
+      <div>
+        <h2>Komatipoort → Satara <span class="via">(via Crocodile Bridge, Lower Sabie &amp; Skukuza)</span></h2>
+        <div class="date">Sunday, 4 October</div>
+        <div class="day-country">South Africa</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Satara Rest Camp</div></div>
+    </div>
+    <div style="padding:18px 22px 20px;">
+<p style="font-size:0.82rem; color:var(--text-muted); margin-top:0; margin-bottom:14px;">Satara is a fenced rest camp inside the park, not a town — once the 18:00 gate closes, self-driving is over for the night, so everything below is either on camp grounds or run by SANParks:</p>
+  <div class="table-scroll">
+    <table>
+      <thead><tr><th>Category</th><th>Name</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr class="section-row"><td colspan="3">In camp</td></tr>
+        <tr><td>Cool off</td><td>Swimming pool</td><td class="num" style="white-space:normal;">Has its own children's play area — a good way to unwind after a long game-drive day.</td></tr>
+        <tr><td>Dinner</td><td>Restaurant, deli &amp; shop</td><td class="num" style="white-space:normal;">A full sit-down restaurant plus a deli and shop for self-catering — no need to leave camp for a meal.</td></tr>
+        <tr><td>Quiet spot</td><td>Eco Information Centre &amp; Amphitheatre</td><td class="num" style="white-space:normal;">Small on-site displays on the area's ecology — an easy, low-key wander before dinner.</td></tr>
+        <tr class="section-row"><td colspan="3">Bookable at reception</td></tr>
+        <tr><td>Sunset drive</td><td>SANParks guided drive</td><td class="num" style="white-space:normal;">An open-vehicle drive timed around the 18:00 gate closing — the legal way to keep spotting wildlife once the public roads shut for the night.</td></tr>
+        <tr><td>Night drive</td><td>SANParks guided drive</td><td class="num" style="white-space:normal;">A later spotlit drive — the only way to see nocturnal hunters like genet, civet and, with luck, leopard, since self-driving after dark isn't permitted.</td></tr>
+        <tr><td>Bush braai</td><td>Bush Braai &amp; Breakfast</td><td class="num" style="white-space:normal;">A guided game drive out to a bush venue for a braai dinner (or breakfast) — worth booking ahead if the group fancies something different from the camp restaurant.</td></tr>
+        <tr class="section-row"><td colspan="3">Evening</td></tr>
+        <tr><td>Screening</td><td>Wildlife films</td><td class="num" style="white-space:normal;">Shown on the big screen at camp most evenings — but the program skips Sundays, and 4 Oct is a Sunday, so it's likely off tonight. Worth confirming at reception on arrival.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+  </section>
+
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">11</span></div>
+      <div>
+        <h2>Satara → Sabie <span class="via">(via Phabeni Gate, Hazyview &amp; Graskop)</span></h2>
+        <div class="date">Monday, 5 October</div>
+        <div class="day-country">South Africa</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Sabie Star</div></div>
+    </div>
+    <div style="padding:18px 22px 20px;">
+<p style="font-size:0.82rem; color:var(--text-muted); margin-top:0; margin-bottom:14px;">Sabie is the waterfall town of the Panorama Route — most of its highlights sit just outside town, so this evening's shape depends on how much daylight is left after the drive down from Graskop:</p>
+  <div class="table-scroll">
+    <table>
+      <thead><tr><th>Category</th><th>Name</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr class="section-row"><td colspan="3">Offbeat &amp; viewpoints</td></tr>
+        <tr><td>In town</td><td>Sabie Falls</td><td class="num" style="white-space:normal;">A small waterfall right in town with an easy viewing path — the one option here that still works even with limited daylight left.</td></tr>
+        <tr><td>Half-day</td><td>Lone Creek, Bridal Veil &amp; Horseshoe Falls</td><td class="num" style="white-space:normal;">A cluster of forest waterfalls ≈9 km out of town, small entry fee each — Lone Creek's short, family-friendly path to a 68 m fall is the easiest of the three. Daylight only.</td></tr>
+        <tr><td>Daylight only</td><td>Forest Industry Museum</td><td class="num" style="white-space:normal;">SAFCOL's museum on the region's timber industry — Monday hours are 08:00–16:30, so it's likely already closed by the time you check in.</td></tr>
+        <tr class="section-row"><td colspan="3">Pubs &amp; bars</td></tr>
+        <tr><td>Brewery (limited hours today)</td><td>Sabie Brewing Co.</td><td class="num" style="white-space:normal;">Craft beer and hearty pub food in a heritage building on Main Street — a real highlight, but 5 Oct is a Monday, when it only runs 11:00–17:00 rather than its usual evening hours. Worth checking it's still open before making it the plan.</td></tr>
+        <tr><td>Pub &amp; dinner</td><td>The Woodsman Pub &amp; Restaurant</td><td class="num" style="white-space:normal;">94 Main Road — steaks, seafood and Greek dishes, veranda seating and a fireplace, serves dinner nightly. The safer bet if the brewery's shut by the time you arrive.</td></tr>
+        <tr><td>Family pub</td><td>Loggers Pub &amp; Grill</td><td class="num" style="white-space:normal;">Casual burgers-and-grills spot at the Market Square in town — relaxed, family-friendly.</td></tr>
+        <tr class="section-row"><td colspan="3">Staying in</td></tr>
+        <tr><td>Simplest option</td><td>Sabie Star's own kitchenette</td><td class="num" style="white-space:normal;">Each studio has a kitchenette, stovetop and braai plus an outdoor dining patio — a genuinely easy option to just cook in and rest after the long day from Satara.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+  </section>
+
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">12</span></div>
+      <div>
+        <h2>Sabie → Johannesburg <span class="via">(via Graskop &amp; Blyde River Canyon)</span></h2>
+        <div class="date">Tuesday, 6 October</div>
+        <div class="day-country">South Africa</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Vetho 1 Apartments</div></div>
+    </div>
+    <div style="padding:18px 22px 20px;">
+      <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0; margin-bottom:14px;">This overnight stop is booked at Vetho 1 Apartments, OR Tambo Airport — the same property as 2 October's stay, this time for the night of 6–7 Oct. After the Panorama Route and the ~5h drive down, how much evening is left depends on when you actually get moving from Graskop. The good news: unlike 2 Oct, there's no crack-of-dawn start tomorrow, just the Hertz return and a 09:00 flight, so there's a bit more room to enjoy this one:</p>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Category</th><th>Name</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr class="section-row"><td colspan="3">If there's time — Emperors Palace</td></tr>
+            <tr><td>All-in-one</td><td>Emperors Palace, Kempton Park</td><td class="num" style="white-space:normal;">A casino-and-entertainment complex right next to OR Tambo, with a complimentary shuttle every 20 minutes between 06:00 and 23:00 — whichever property you end up booking nearby, this is likely the easiest evening out in the area. Casino floor, a cinema and several bars alongside the restaurants below.</td></tr>
+            <tr><td>Dinner</td><td>Tribes African Grill &amp; Steakhouse</td><td class="num" style="white-space:normal;">Bush-styled steakhouse inside the Emperors Palace complex — a fitting last sit-down dinner in South Africa before Mauritius.</td></tr>
+            <tr><td>Dinner</td><td>Dine At Platia</td><td class="num" style="white-space:normal;">Greek restaurant in the Emperors Palace Retail Emporium — slow-roasted lamb, kleftiko, moussaka, open from 12:00 daily.</td></tr>
+            <tr><td>Dinner</td><td>Fu Li Hua Asian Cuisine</td><td class="num" style="white-space:normal;">Large Chinese restaurant also at Emperors Palace, a third option under the same roof.</td></tr>
+            <tr class="section-row"><td colspan="3">Nearby &amp; practical</td></tr>
+            <tr><td>Quick stop</td><td>Birch Acres Mall / Bonaero Park Shopping Centre</td><td class="num" style="white-space:normal;">Everyday shopping centres in the Kempton Park area — useful for any last souvenir or forgotten item before flying out.</td></tr>
+            <tr class="section-row"><td colspan="3">Staying in</td></tr>
+            <tr><td>Simplest option</td><td>Vetho 1 Apartments</td><td class="num" style="white-space:normal;">The last night of the South Africa leg — as good a time as any to repack for Mauritius and sort out anything before the Hertz return and 09:00 flight tomorrow.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">13</span></div>
+      <div>
+        <h2>Johannesburg → Mauritius → Le Morne</h2>
+        <div class="date">Wednesday, 7 October</div>
+        <div class="day-country">South Africa → Mauritius</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Palms Studio</div><div class="tbd">La Gaulette</div></div>
+    </div>
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">14</span></div>
+      <div>
+        <h2>Le Morne — Free Day</h2>
+        <div class="date">Thursday, 8 October</div>
+        <div class="day-country">Mauritius</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Palms Studio</div><div class="tbd">La Gaulette</div></div>
+    </div>
+    <div style="padding:18px 22px 20px;">
+      <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0; margin-bottom:14px;">Two nights at Palms Studio, La Gaulette (7–9 Oct). The daytime headline acts for 8 Oct — the Île aux Bénitiers catamaran, kitesurfing, the Le Morne Brabant hike, horseback riding and the Chamarel half-day — are already on the main itinerary's Day 14 card, so this list is just dinner and evening options across both nights:</p>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Category</th><th>Name</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr class="section-row"><td colspan="3">Dinner &amp; sundowners</td></tr>
+            <tr><td>Beach bar</td><td>Ocean Vagabond</td><td class="num" style="white-space:normal;">Right on La Gaulette beach — casual, barefoot vibe with grills and salads, popular with the kitesurf crowd. An easy first-night option a short walk from Palms Studio.</td></tr>
+            <tr><td>Beachfront grill</td><td>The Boathouse, St Regis Le Morne</td><td class="num" style="white-space:normal;">Beach grill and lounge bar at the St Regis resort — seafood and grills plus a relaxed sunset-drinks lounge, a step up if you want a dressier evening.</td></tr>
+            <tr><td>Casual resto-bar</td><td>Eldorade Resto &amp; Bar</td><td class="num" style="white-space:normal;">Low-key Mauritian/international resto-bar in the La Gaulette/Chamarel area — a solid, unfussy dinner away from the resort strip.</td></tr>
+            <tr class="section-row"><td colspan="3">Special-occasion dinner</td></tr>
+            <tr><td>Fine dining</td><td>Le Chamarel Restaurant</td><td class="num" style="white-space:normal;">Refined Mauritian/French tasting-menu dining with panoramic valley views near Chamarel village — worth booking ahead if the group wants one proper sit-down dinner during the Le Morne stay, and pairs naturally with the Chamarel half-day already on the itinerary.</td></tr>
+            <tr class="section-row"><td colspan="3">Staying in</td></tr>
+            <tr><td>Simplest option</td><td>Palms Studio</td><td class="num" style="white-space:normal;">After a full day on the water or the mountain, the studio's own space is just as reasonable a choice as heading out — no obligation to go out both nights.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">15</span></div>
+      <div>
+        <h2>Le Morne → Grand Baie</h2>
+        <div class="date">Friday, 9 October</div>
+        <div class="day-country">Mauritius</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Le Point Choisy</div><div class="tbd">Pointe aux Cannoniers</div></div>
+    </div>
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">16</span></div>
+      <div>
+        <h2>Grand Baie — Free Day</h2>
+        <div class="date">Saturday, 10 October</div>
+        <div class="day-country">Mauritius</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Le Point Choisy</div><div class="tbd">Pointe aux Cannoniers</div></div>
+    </div>
+    <div style="padding:18px 22px 20px;">
+      <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0; margin-bottom:14px;">Two nights at Residence Le Point Choisy (9–11 Oct). The main itinerary's Day 16 card already covers the daytime options (northern-islands catamaran, dolphin/whale watching, the botanical garden, Cap Malheureux, the beaches) and the nightlife (Banana Beach Club, Le Bar &amp; Vous, RedCat Beach Lounge) — what's missing there is dinner, so here's where to eat across both evenings:</p>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Category</th><th>Name</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr class="section-row"><td colspan="3">Dinner in Grand Baie</td></tr>
+            <tr><td>Local favourite</td><td>La Rougaille Créole</td><td class="num" style="white-space:normal;">The most-reviewed restaurant in Grand Baie — classic Mauritian Creole and seafood, rougaille and the fresh catch of the day, mid-priced. The easy go-to for an authentic local meal.</td></tr>
+            <tr><td>Japanese</td><td>Mayniko Restaurant &amp; Lounge</td><td class="num" style="white-space:normal;">Upscale sushi and hot dishes in a polished lounge setting — a good splurge night.</td></tr>
+            <tr><td>Moroccan</td><td>Walima by Bisou</td><td class="num" style="white-space:normal;">Moroccan fine dining, known for its tagines and atmosphere — a change of pace from the seafood-heavy options nearby.</td></tr>
+            <tr><td>Casual, affordable</td><td>Felicita</td><td class="num" style="white-space:normal;">Wood-fired Neapolitan pizza in a lively, casual setting — the easiest and most affordable night if energy's running low.</td></tr>
+            <tr><td>Beachfront</td><td>2Beach Club by 2Futures</td><td class="num" style="white-space:normal;">European/fusion dining right on the sand — stylish, good for a slightly dressier evening without leaving the beach.</td></tr>
+            <tr class="section-row"><td colspan="3">Staying in</td></tr>
+            <tr><td>Simplest option</td><td>Residence Le Point Choisy</td><td class="num" style="white-space:normal;">Breakfast is included both mornings, so there's no pressure to make every evening a big one — a quiet night in works just as well between the free day's outings.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">17</span></div>
+      <div>
+        <h2>Grand Baie → Union Vale</h2>
+        <div class="date">Sunday, 11 October</div>
+        <div class="day-country">Mauritius</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Gite des Acacias</div><div class="tbd">Union Vale</div></div>
+    </div>
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">18</span></div>
+      <div>
+        <h2>Union Vale → Mauritius → Bengaluru</h2>
+        <div class="date">Monday, 12 October</div>
+        <div class="day-country">Mauritius → India</div>
+      </div>
+      <div class="camp"><div class="label">Flight</div><div class="name">6E1862 · 09:30</div></div>
+    </div>
+    <div style="padding:18px 22px 20px;">
+      <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0; margin-bottom:14px;">One night at Gite des Acacias, Union Vale — and realistically the only free time left on the trip, since 12 Oct is checkout-from-04:00 straight to a 09:30 flight, with nothing to add there. The main itinerary's Day 17 card already covers Blue Bay Marine Park, Île aux Aigrettes and the Mahebourg waterfront &amp; museum; this expands on where to eat that last evening:</p>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Category</th><th>Name</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr class="section-row"><td colspan="3">Last-evening dinner</td></tr>
+            <tr><td>Romantic</td><td>Le Jardin de Beau Vallon</td><td class="num" style="white-space:normal;">A restaurant in a colonial house near Mahebourg, international cuisine served in a garden setting — a proper way to close out the trip if the group wants one nice last dinner.</td></tr>
+            <tr><td>Local seafood</td><td>Chez Patrick Resto</td><td class="num" style="white-space:normal;">A simple, authentic seafood spot on the Mahebourg waterfront — popular with visitors doing the Mahebourg/Blue Bay circuit.</td></tr>
+            <tr><td>Current favourite</td><td>Sea Fire Salt</td><td class="num" style="white-space:normal;">A few minutes from Gite des Acacias in Blue Bay itself, and currently the area's top-rated spot — worth confirming it's still open when you book, since it's a newer standout.</td></tr>
+            <tr><td>Casual</td><td>Esco_Burger</td><td class="num" style="white-space:normal;">Casual American-style burger bar in Blue Bay — an easy, low-key option that doubles as a casual drinks spot.</td></tr>
+            <tr class="section-row"><td colspan="3">Staying in</td></tr>
+            <tr><td>Simplest option</td><td>Gite des Acacias' pool</td><td class="num" style="white-space:normal;">With a 04:00 checkout window and a 09:30 flight the next morning, an early night at the property — pool included — is just as reasonable a choice as one last dinner out.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

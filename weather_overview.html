@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weather &amp; Places — Africa Five Nation Tour</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Karla:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --bg: #EEF0E4;
+  --surface: #FBFBF4;
+  --surface-2: #F2F3E8;
+  --text: #212C1C;
+  --text-muted: #5C6650;
+  --line: #D6DAC4;
+  --accent: #A9701F;
+  --accent-strong: #7C5216;
+  --accent-soft: #EFDFBB;
+  --danger: #963B26;
+  --danger-soft: #F3DCCC;
+  --good: #3E7A3E;
+  --good-soft: #DCEBDA;
+  --rain: #3D6FA6;
+  --rain-strong: #25507F;
+  --rain-soft: #DCE6F0;
+  --shadow: 0 1px 2px rgba(33,44,28,0.06), 0 8px 24px -12px rgba(33,44,28,0.18);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg: #161D14;
+    --surface: #1D2519;
+    --surface-2: #232C1E;
+    --text: #E8EADB;
+    --text-muted: #9CA68C;
+    --line: #333F2B;
+    --accent: #DDA54E;
+    --accent-strong: #F0BE70;
+    --accent-soft: #3A3220;
+    --danger: #E58A6C;
+    --danger-soft: #3B241C;
+    --good: #7FC17F;
+    --good-soft: #223A22;
+    --rain: #8FC1EF;
+    --rain-strong: #B7D9F5;
+    --rain-soft: #1E2A38;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+  }
+}
+:root[data-theme="dark"]{
+  --bg: #161D14;
+  --surface: #1D2519;
+  --surface-2: #232C1E;
+  --text: #E8EADB;
+  --text-muted: #9CA68C;
+  --line: #333F2B;
+  --accent: #DDA54E;
+  --accent-strong: #F0BE70;
+  --accent-soft: #3A3220;
+  --danger: #E58A6C;
+  --danger-soft: #3B241C;
+  --good: #7FC17F;
+  --good-soft: #223A22;
+  --rain: #8FC1EF;
+  --rain-strong: #B7D9F5;
+  --rain-soft: #1E2A38;
+  --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+}
+
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Karla', ui-sans-serif, system-ui, sans-serif;
+  padding-inline:20px;
+  padding-block:36px 64px;
+}
+.wrap{max-width:980px; margin:0 auto; display:flex; flex-direction:column; gap:24px;}
+
+h1,h2,h3{font-family:'Fraunces', Georgia, serif; text-wrap:balance; margin:0;}
+.eyebrow{
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.72rem;
+  letter-spacing:0.09em;
+  text-transform:uppercase;
+  color:var(--accent-strong);
+  font-weight:600;
+}
+
+.travellers{display:flex; flex-wrap:wrap; gap:8px; margin-top:2px;}
+.travellers .pill{
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.68rem;
+  letter-spacing:0.03em;
+  font-weight:600;
+  text-transform:uppercase;
+  color:var(--accent-strong);
+  background:var(--accent-soft);
+  border:1px solid var(--line);
+  padding:5px 12px;
+  border-radius:999px;
+  white-space:nowrap;
+}
+
+header{display:flex; flex-direction:column; gap:10px;}
+header h1{font-size:clamp(1.7rem, 4.5vw, 2.4rem); font-weight:700; color:var(--text);}
+
+.note{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:16px 20px;
+  box-shadow:var(--shadow);
+  display:flex; gap:14px; align-items:flex-start;
+}
+.note svg{width:20px; height:20px; color:var(--accent-strong); flex-shrink:0; margin-top:2px;}
+.note p{margin:0; font-size:0.88rem; line-height:1.55; color:var(--text);}
+.note strong{color:var(--accent-strong);}
+
+/* legend */
+.legend{display:flex; flex-wrap:wrap; gap:16px; font-size:0.78rem; color:var(--text-muted); align-items:center;}
+.legend .item{display:flex; align-items:center; gap:6px;}
+.legend svg{width:18px; height:18px;}
+.legend .divider{width:1px; height:14px; background:var(--line);}
+.dot{display:inline-block; width:9px; height:9px; border-radius:50%; flex-shrink:0;}
+.dot.lvl-low{background:var(--good);}
+.dot.lvl-mid{background:var(--accent-strong);}
+.dot.lvl-high{background:var(--rain-strong);}
+
+/* table */
+.table-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow);}
+table{border-collapse:collapse; width:100%; min-width:940px; background:var(--surface);}
+th,td{padding:12px 16px; text-align:left; font-size:0.86rem; border-bottom:1px solid var(--line); vertical-align:middle;}
+th{
+  font-family:'JetBrains Mono',monospace; font-size:0.66rem; text-transform:uppercase;
+  letter-spacing:0.06em; color:var(--text-muted); background:var(--surface-2); font-weight:700;
+}
+tr:last-child td{border-bottom:none;}
+tr:nth-child(even) td{background:var(--surface-2);}
+
+td.day-cell{font-family:'JetBrains Mono',monospace; color:var(--text-muted); white-space:nowrap;}
+td.day-cell .dnum{color:var(--accent-strong); font-weight:700;}
+td.date-cell{white-space:nowrap; font-weight:600;}
+td.place-cell{font-weight:700; color:var(--text);}
+td.place-cell .via{display:block; font-weight:500; font-size:0.76rem; color:var(--text-muted); margin-top:1px;}
+td.country-cell{white-space:nowrap;}
+.flag{font-size:1.05rem; margin-right:5px; vertical-align:-2px;}
+.ccode{font-family:'JetBrains Mono',monospace; font-size:0.72rem; letter-spacing:0.03em; color:var(--text-muted);}
+
+.wx{display:flex; align-items:center; gap:10px;}
+.wicon{width:28px; height:28px; fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; flex-shrink:0;}
+.wicon-sun{color:var(--accent-strong);}
+.wicon-sun-cloud{color:var(--accent);}
+.wicon-rain{color:var(--rain);}
+.wicon-rain-heavy{color:var(--rain-strong);}
+.wx-text{display:flex; flex-direction:column; line-height:1.3;}
+.wx-cond{font-weight:600; font-size:0.83rem; white-space:nowrap;}
+.wx-temp{font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:var(--text-muted);}
+.wx-src{font-size:0.62rem; color:var(--text-muted); font-style:italic; margin-top:1px; white-space:nowrap;}
+.wx-src.is-fc{color:var(--good);}
+.wx-src.is-lowconf{color:var(--accent-strong);}
+
+td.pct-cell{white-space:nowrap;}
+.pct{font-family:'JetBrains Mono',monospace; font-weight:700; font-size:0.85rem; letter-spacing:0.01em; font-variant-numeric:tabular-nums;}
+.pct-sub{display:block; font-family:'Karla',sans-serif; font-weight:500; font-size:0.66rem; letter-spacing:0.02em; text-transform:uppercase; color:var(--text-muted); margin-top:1px;}
+.pct.lvl-low{color:var(--good);}
+.pct.lvl-mid{color:var(--accent-strong);}
+.pct.lvl-high{color:var(--rain-strong);}
+
+footer{color:var(--text-muted); font-size:0.78rem; text-align:center; padding-top:8px;}
+
+@media (max-width:640px){
+  td, th{font-size:0.76rem; padding:9px 8px;}
+  .wicon{width:22px; height:22px;}
+  .wx-cond{white-space:normal;}
+  .pct{font-size:0.78rem;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<svg width="0" height="0" style="position:absolute; overflow:hidden;">
+  <defs>
+    <symbol id="ic-sun" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v3M12 20v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M1 12h3M20 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/>
+    </symbol>
+    <symbol id="ic-sun-cloud" viewBox="0 0 24 24">
+      <circle cx="17" cy="6.8" r="3.2"/>
+      <path d="M17 1.8v1.5M17 10.3v1.5M12.4 6.8h1.5M20.1 6.8h1.5M13.8 3.6l1.1 1.1M19.1 8.9l1.1 1.1M13.8 10l1.1-1.1M19.1 4.6l1.1-1.1"/>
+      <path d="M15.7 20.2H6.2a4.1 4.1 0 1 1 1.22-8.02 4.6 4.6 0 0 1 8.1-2.6"/>
+    </symbol>
+    <symbol id="ic-cloud-rain" viewBox="0 0 24 24">
+      <path d="M18 10.58A5 5 0 0 0 16 2h-1.24A8 8 0 1 0 5 14.25"/>
+      <path d="M8 17v3M12 15.5v3M16 17v3"/>
+    </symbol>
+    <symbol id="ic-cloud-rain-heavy" viewBox="0 0 24 24">
+      <path d="M18 10.58A5 5 0 0 0 16 2h-1.24A8 8 0 1 0 5 14.25"/>
+      <path d="M6.5 17l-1.2 3.2M11 15.8l-1.2 3.2M15.5 17l-1.2 3.2M19 15.8l-1.2 3.2"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header>
+  <h1>WEATHER &amp; PLACES</h1>
+  <span class="eyebrow">Africa Five Nation Tour · 24 September – 12 October 2026</span>
+  <div class="travellers"><span class="pill">Amar Raj Urs</span><span class="pill">Pratap Raj</span><span class="pill">Praveen Kumar Nallipogu</span></div>
+</header>
+
+
+<div class="legend">
+  <span class="item"><svg class="wicon wicon-sun"><use href="#ic-sun"></use></svg> Hot &amp; sunny / dry</span>
+  <span class="item"><svg class="wicon wicon-sun-cloud"><use href="#ic-sun-cloud"></use></svg> Mild, mostly clear</span>
+  <span class="item"><svg class="wicon wicon-rain"><use href="#ic-cloud-rain"></use></svg> Chance of showers</span>
+  <span class="item"><svg class="wicon wicon-rain-heavy"><use href="#ic-cloud-rain-heavy"></use></svg> Humid, rain likely</span>
+  <span class="divider"></span>
+  <span class="item"><span class="dot lvl-low"></span> Low</span>
+  <span class="item"><span class="dot lvl-mid"></span> Moderate</span>
+  <span class="item"><span class="dot lvl-high"></span> High</span>
+</div>
+
+<div class="table-scroll">
+  <table>
+    <thead>
+      <tr><th>Date</th><th>Day</th><th>Place</th><th>Country</th><th>Typical Weather</th><th>Humidity</th><th>Rain Chance</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="date-cell">24 Sep</td>
+        <td class="day-cell"><span class="dnum">0</span></td>
+        <td class="place-cell">Mumbai<span class="via">via Bengaluru</span></td>
+        <td class="country-cell"><span class="flag">🇮🇳</span><span class="ccode">IND</span></td>
+        <td><div class="wx"><svg class="wicon wicon-rain-heavy"><use href="#ic-cloud-rain-heavy"></use></svg><div class="wx-text"><span class="wx-cond">Mostly cloudy, chance of rain</span><span class="wx-temp">33° / 27°C</span><span class="wx-src is-fc">Forecast · 6d out</span></div></div></td>
+        <td class="pct-cell"><span class="pct lvl-high">83%</span></td>
+        <td class="pct-cell"><span class="pct lvl-high">55%</span></td>
+      </tr>
+      <tr>
+        <td class="date-cell">25 Sep</td>
+        <td class="day-cell"><span class="dnum">1</span></td>
+        <td class="place-cell">Victoria Falls</td>
+        <td class="country-cell"><span class="flag">🇿🇼</span><span class="ccode">ZWE</span></td>
+        <td><div class="wx"><svg class="wicon wicon-sun"><use href="#ic-sun"></use></svg><div class="wx-text"><span class="wx-cond">Times of sun and cloud</span><span class="wx-temp">33° / 16°C</span><span class="wx-src is-fc">Forecast · 7d out</span></div></div></td>
+        <td class="pct-cell"><span class="pct lvl-low">35%</span></td>
+        <td class="pct-cell"><span class="pct lvl-low">1%</span></td>
+      </tr>
+      <tr>
+        <td class="date-cell">26 Sep</td>
+        <td class="day-cell"><span class="dnum">2</span></td>
+        <td class="place-cell">Hwange <span class="via">(Dete)</span></td>
+        <td class="country-cell"><span class="flag">🇿🇼</span><span class="ccode">ZWE</span></td>
+        <td><div class="wx"><svg class="wicon wicon-sun-cloud"><use href="#ic-sun-cloud"></use></svg><div class="wx-text"><span class="wx-cond">More cloud than sun</span><span class="wx-temp">35° / 17°C</span><span class="wx-src is-fc">Forecast · 8d out</span></div></div></td>
+        <td class="pct-cell"><span class="pct lvl-low">32%</span></td>
+        <td class="pct-cell"><span class="pct lvl-mid">25%</span></td>
+      </tr>
+      <tr>
+        <td class="date-cell">27 Sep</td>
+        <td class="day-cell"><span class="dnum">3</span></td>
+        <td class="place-cell">Livingstone<span class="via">via Victoria Falls</span></td>
+        <td class="country-cell"><span class="flag">🇿🇼</span><span class="flag">🇿🇲</span><span class="ccode">ZWE → ZMB</span></td>
+        <td><div class="wx"><svg class="wicon wicon-sun"><use href="#ic-sun"></use></svg><div class="wx-text"><span class="wx-cond">Clear, few clouds</span><span class="wx-temp">34° / 22°C</span><span class="wx-src is-fc">Forecast · 9d out</span></div></div></td>
+        <td class="pct-cell"><span class="pct lvl-low">35%</span></td>
+        <td class="pct-cell"><span class="pct lvl-mid">10%</span></td>
+      </tr>
+      <tr>
+        <td class="date-cell">28 Sep</td>
+        <td class="day-cell"><span class="dnum">4</span></td>
+        <td class="place-cell">Livingstone</td>
+        <td class="country-cell"><span class="flag">🇿🇲</span><span class="ccode">ZMB</span></td>
+        <td><div class="wx"><svg class="wicon wicon-sun"><use href="#ic-sun"></use></svg><div class="wx-text"><span class="wx-cond">Clear, few clouds</span><span class="wx-temp">34° / 23°C</span><span class="wx-src is-fc is-lowconf">Forecast · 10d out, lower confidence</span></div></div></td>
+        <td class="pct-cell"><span class="pct lvl-low">35%</span></td>
+        <td class="pct-cell"><span class="pct lvl-mid">25%</span></td>
+      </tr>
+      <tr>
+        <td class="date-cell">29 Sep</td>
+        <td class="day-cell"><span class="dnum">5</span></td>
+        <td class="place-cell">Kasane<span class="via">via Kazungula</span></td>
+        <td class="country-cell"><span class="flag">🇿🇲</span><span class="flag">🇧🇼</span><span class="ccode">ZMB → BWA</span></td>
+        <td><div class="wx"><svg class="wicon wicon-sun-cloud"><use href="#ic-sun-cloud"></use></svg><div class="wx-text"><span class="wx-cond">Very warm, increasing cloud</span><span class="wx-temp">36° / 20°C</span><span class="wx-src is-fc is-lowconf">Forecast · 11d out, low confidence</span></div></div></td>
+        <td class="pct-cell"><span class="pct lvl-low">27%</span></td>
+        <td class="pct-cell"><span class="pct lvl-mid">25%</span></td>
+      </tr>
+      <tr>
+        <td class="date-cell">30 Sep</td>
+        <td class="day-cell"><span class="dnum">6</span></td>
+        <td class="place-cell">Kasane <span class="via">(Chobe NP)</span></td>
+        <td class="country-cell"><span class="flag">🇧🇼</span><span class="ccode">BWA</span></td>
+        <td><div class="wx"><svg class="wicon wicon-sun"><use href="#ic-sun"></use></svg><div class="wx-text"><span class="wx-cond">Very warm, plenty of sun</span><span class="wx-temp">36° / 19°C</span><span class="wx-src is-fc is-lowconf">Forecast · 12d out, low confidence</span></div></div></td>
+        <td class="pct-cell"><span class="pct lvl-low">28%</span></td>
+        <td class="pct-cell"><span class="pct lvl-low">5%</span></td>
+      </tr>
+      <tr>
+        <td class="date-cell">1 Oct</td>
+        <td class="day-cell"><span class="dnum">7</span></td>
+        <td class="place-cell">Kasane</td>
+        <td class="country-cell"><span class="flag">🇧🇼</span><span class="ccode">BWA</span></td>
+        <td><div class="wx"><svg class="wicon wicon-sun-cloud"><use href="#ic-sun-cloud"></use></svg><div class="wx-text"><span class="wx-cond">Mostly sunny</span><span class="wx-temp">34° / 17°C</span><span class="wx-src is-fc is-lowconf">Forecast · 13d out, low confidence</span></div></div></td>
+        <td class="pct-cell"><span class="pct lvl-low">29%</span></td>
+        <td class="pct-cell"><span class="pct lvl-mid">20%</span></td>
+      </tr>
+      <tr>
+        <td class="date-cell">2 Oct</td>
+        <td class="day-cell"><span class="dnum">8</span></td>
+        <td class="place-cell">Johannesburg<span class="via">via Victoria Falls</span></td>
+        <td class="country-cell"><span class="flag">🇧🇼</span><span class="flag">🇿🇼</span><span class="flag">🇿🇦</span><span class="ccode">BWA → ZWE → ZAF</span></td>
+        <td><div class="wx"><svg class="wicon wicon-sun-cloud"><use href="#ic-sun-cloud"></use></svg><div class="wx-text"><span class="wx-cond">Mild, mostly sunny</span><span class="wx-temp">22° / 9°C</span><span class="wx-src is-fc is-lowconf">Forecast · 14d out, low confidence</span></div></div></td>
+        <td class="pct-cell"><span class="pct lvl-mid">56%</span></td>
+        <td class="pct-cell"><span class="pct lvl-mid">20%</span></td>
+      </tr>
+      <tr>
+        <td class="date-cell">3 Oct</td>
+        <td class="day-cell"><span class="dnum">9</span></td>
+        <td class="place-cell">Komatipoort</td>
+        <td class="country-cell"><span class="flag">🇿🇦</span><span class="ccode">ZAF</span></td>
+        <td><div class="wx"><svg class="wicon wicon-sun-cloud"><use href="#ic-sun-cloud"></use></svg><div class="wx-text"><span class="wx-cond">Warm, isolated shower</span><span class="wx-temp">32° / 18°C</span><span class="wx-src">Seasonal average</span></div></div></td>
+        <td class="pct-cell"><span class="pct lvl-mid">50%</span></td>
+        <td class="pct-cell"><span class="pct lvl-mid">10%</span></td>
+      </tr>
+      <tr>
+        <td class="date-cell">4 Oct</td>
+        <td class="day-cell"><span class="dnum">10</span></td>
+        <td class="place-cell">Satara <span class="via">(Kruger NP)</span></td>
+        <td class="country-cell"><span class="flag">🇿🇦</span><span class="ccode">ZAF</span></td>
+        <td><div class="wx"><svg class="wicon wicon-rain"><use href="#ic-cloud-rain"></use></svg><div class="wx-text"><span class="wx-cond">Warm, afternoon showers</span><span class="wx-temp">31° / 18°C</span><span class="wx-src">Seasonal average</span></div></div></td>
+        <td class="pct-cell"><span class="pct lvl-mid">52%</span></td>
+        <td class="pct-cell"><span class="pct lvl-mid">13%</span></td>
+      </tr>
+      <tr>
+        <td class="date-cell">5 Oct</td>
+        <td class="day-cell"><span class="dnum">11</span></td>
+        <td class="place-cell">Sabie</td>
+        <td class="country-cell"><span class="flag">🇿🇦</span><span class="ccode">ZAF</span></td>
+        <td><div class="wx"><svg class="wicon wicon-rain"><use href="#ic-cloud-rain"></use></svg><div class="wx-text"><span class="wx-cond">Mild, showers possible</span><span class="wx-temp">24° / 12°C</span><span class="wx-src">Seasonal average</span></div></div></td>
+        <td class="pct-cell"><span class="pct lvl-mid">58%</span></td>
+        <td class="pct-cell"><span class="pct lvl-mid">28%</span></td>
+      </tr>
+      <tr>
+        <td class="date-cell">6 Oct</td>
+        <td class="day-cell"><span class="dnum">12</span></td>
+        <td class="place-cell">Johannesburg<span class="via">via Graskop</span></td>
+        <td class="country-cell"><span class="flag">🇿🇦</span><span class="ccode">ZAF</span></td>
+        <td><div class="wx"><svg class="wicon wicon-sun-cloud"><use href="#ic-sun-cloud"></use></svg><div class="wx-text"><span class="wx-cond">Mild, partly cloudy</span><span class="wx-temp">24° / 11°C</span><span class="wx-src">Seasonal average</span></div></div></td>
+        <td class="pct-cell"><span class="pct lvl-mid">56%</span></td>
+        <td class="pct-cell"><span class="pct lvl-mid">25%</span></td>
+      </tr>
+      <tr>
+        <td class="date-cell">7 Oct</td>
+        <td class="day-cell"><span class="dnum">13</span></td>
+        <td class="place-cell">Le Morne</td>
+        <td class="country-cell"><span class="flag">🇿🇦</span><span class="flag">🇲🇺</span><span class="ccode">ZAF → MUS</span></td>
+        <td><div class="wx"><svg class="wicon wicon-sun"><use href="#ic-sun"></use></svg><div class="wx-text"><span class="wx-cond">Warm &amp; sunny</span><span class="wx-temp">27° / 21°C</span><span class="wx-src">Seasonal average</span></div></div></td>
+        <td class="pct-cell"><span class="pct lvl-high">70%</span></td>
+        <td class="pct-cell"><span class="pct lvl-mid">10%</span></td>
+      </tr>
+      <tr>
+        <td class="date-cell">8 Oct</td>
+        <td class="day-cell"><span class="dnum">14</span></td>
+        <td class="place-cell">Le Morne</td>
+        <td class="country-cell"><span class="flag">🇲🇺</span><span class="ccode">MUS</span></td>
+        <td><div class="wx"><svg class="wicon wicon-sun"><use href="#ic-sun"></use></svg><div class="wx-text"><span class="wx-cond">Warm &amp; sunny</span><span class="wx-temp">27° / 21°C</span><span class="wx-src">Seasonal average</span></div></div></td>
+        <td class="pct-cell"><span class="pct lvl-high">70%</span></td>
+        <td class="pct-cell"><span class="pct lvl-mid">10%</span></td>
+      </tr>
+      <tr>
+        <td class="date-cell">9 Oct</td>
+        <td class="day-cell"><span class="dnum">15</span></td>
+        <td class="place-cell">Grand Baie<span class="via">via Le Morne</span></td>
+        <td class="country-cell"><span class="flag">🇲🇺</span><span class="ccode">MUS</span></td>
+        <td><div class="wx"><svg class="wicon wicon-sun"><use href="#ic-sun"></use></svg><div class="wx-text"><span class="wx-cond">Warm &amp; sunny</span><span class="wx-temp">27° / 21°C</span><span class="wx-src">Seasonal average</span></div></div></td>
+        <td class="pct-cell"><span class="pct lvl-high">70%</span></td>
+        <td class="pct-cell"><span class="pct lvl-mid">10%</span></td>
+      </tr>
+      <tr>
+        <td class="date-cell">10 Oct</td>
+        <td class="day-cell"><span class="dnum">16</span></td>
+        <td class="place-cell">Grand Baie</td>
+        <td class="country-cell"><span class="flag">🇲🇺</span><span class="ccode">MUS</span></td>
+        <td><div class="wx"><svg class="wicon wicon-sun"><use href="#ic-sun"></use></svg><div class="wx-text"><span class="wx-cond">Warm &amp; sunny</span><span class="wx-temp">27° / 21°C</span><span class="wx-src">Seasonal average</span></div></div></td>
+        <td class="pct-cell"><span class="pct lvl-high">70%</span></td>
+        <td class="pct-cell"><span class="pct lvl-mid">10%</span></td>
+      </tr>
+      <tr>
+        <td class="date-cell">11 Oct</td>
+        <td class="day-cell"><span class="dnum">17</span></td>
+        <td class="place-cell">Union Vale<span class="via">via Grand Baie</span></td>
+        <td class="country-cell"><span class="flag">🇲🇺</span><span class="ccode">MUS</span></td>
+        <td><div class="wx"><svg class="wicon wicon-sun"><use href="#ic-sun"></use></svg><div class="wx-text"><span class="wx-cond">Warm &amp; sunny</span><span class="wx-temp">27° / 21°C</span><span class="wx-src">Seasonal average</span></div></div></td>
+        <td class="pct-cell"><span class="pct lvl-high">70%</span></td>
+        <td class="pct-cell"><span class="pct lvl-mid">10%</span></td>
+      </tr>
+      <tr>
+        <td class="date-cell">12 Oct</td>
+        <td class="day-cell"><span class="dnum">18</span></td>
+        <td class="place-cell">Bengaluru<span class="via">via Mauritius</span></td>
+        <td class="country-cell"><span class="flag">🇲🇺</span><span class="flag">🇮🇳</span><span class="ccode">MUS → IND</span></td>
+        <td><div class="wx"><svg class="wicon wicon-rain-heavy"><use href="#ic-cloud-rain-heavy"></use></svg><div class="wx-text"><span class="wx-cond">Mild, showers possible</span><span class="wx-temp">28° / 20°C</span><span class="wx-src">Seasonal average</span></div></div></td>
+        <td class="pct-cell"><span class="pct lvl-high">65%</span></td>
+        <td class="pct-cell"><span class="pct lvl-mid">24%</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+</div>
+</body>
+</html>

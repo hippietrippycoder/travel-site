@@ -1,0 +1,448 @@
+<title>Trip Budget &amp; Costs — Africa Five Nation Tour</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Karla:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --bg: #EEF0E4;
+  --surface: #FBFBF4;
+  --surface-2: #F2F3E8;
+  --text: #212C1C;
+  --text-muted: #5C6650;
+  --line: #D6DAC4;
+  --accent: #A9701F;
+  --accent-strong: #7C5216;
+  --accent-soft: #EFDFBB;
+  --danger: #963B26;
+  --danger-soft: #F3DCCC;
+  --good: #3E7A3E;
+  --good-soft: #DCEBDA;
+  --shadow: 0 1px 2px rgba(33,44,28,0.06), 0 8px 24px -12px rgba(33,44,28,0.18);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg: #161D14;
+    --surface: #1D2519;
+    --surface-2: #232C1E;
+    --text: #E8EADB;
+    --text-muted: #9CA68C;
+    --line: #333F2B;
+    --accent: #DDA54E;
+    --accent-strong: #F0BE70;
+    --accent-soft: #3A3220;
+    --danger: #E58A6C;
+    --danger-soft: #3B241C;
+    --good: #7FC17F;
+    --good-soft: #223A22;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+  }
+}
+:root[data-theme="dark"]{
+  --bg: #161D14;
+  --surface: #1D2519;
+  --surface-2: #232C1E;
+  --text: #E8EADB;
+  --text-muted: #9CA68C;
+  --line: #333F2B;
+  --accent: #DDA54E;
+  --accent-strong: #F0BE70;
+  --accent-soft: #3A3220;
+  --danger: #E58A6C;
+  --danger-soft: #3B241C;
+  --good: #7FC17F;
+  --good-soft: #223A22;
+  --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+}
+
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Karla', ui-sans-serif, system-ui, sans-serif;
+  padding-inline:20px;
+  padding-block:36px 64px;
+}
+.wrap{max-width:1080px; margin:0 auto; display:flex; flex-direction:column; gap:28px;}
+
+h1,h2,h3{font-family:'Fraunces', Georgia, serif; text-wrap:balance; margin:0;}
+.eyebrow{
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.72rem;
+  letter-spacing:0.09em;
+  text-transform:uppercase;
+  color:var(--accent-strong);
+  font-weight:600;
+}
+.num{font-family:'JetBrains Mono', monospace; font-variant-numeric:tabular-nums;}
+
+.travellers{display:flex; flex-wrap:wrap; gap:8px; margin-top:2px;}
+.travellers .pill{
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.68rem;
+  letter-spacing:0.03em;
+  font-weight:600;
+  text-transform:uppercase;
+  color:var(--accent-strong);
+  background:var(--accent-soft);
+  border:1px solid var(--line);
+  padding:5px 12px;
+  border-radius:999px;
+  white-space:nowrap;
+}
+
+header{display:flex; flex-direction:column; gap:10px;}
+header h1{font-size:clamp(1.7rem, 4.5vw, 2.4rem); font-weight:700; color:var(--text);}
+header p.sub{margin:0; color:var(--text-muted); font-size:1.02rem; max-width:60ch;}
+
+.section-title{margin-top:4px; font-weight:700; text-transform:uppercase; letter-spacing:0.02em;}
+
+/* stat tiles */
+.stat-grid{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+  background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden;
+}
+.stat-grid > div{background:var(--surface); padding:16px 18px; display:flex; flex-direction:column; gap:5px;}
+.stat-grid .label{font-size:0.7rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted); font-weight:600; font-family:'JetBrains Mono',monospace;}
+.stat-grid .value{font-family:'Fraunces',serif; font-size:1.5rem; font-weight:700; color:var(--text); line-height:1.15;}
+.stat-grid .value small{font-family:'Karla',sans-serif; font-size:0.62em; font-weight:600; color:var(--text-muted);}
+.stat-grid .foot{font-size:0.74rem; color:var(--accent-strong); font-weight:600;}
+
+/* bar chart */
+.chart-card{
+  background:var(--surface); border:1px solid var(--line); border-radius:16px;
+  padding:20px 22px 18px; box-shadow:var(--shadow);
+  display:flex; flex-direction:column; gap:14px;
+}
+.chart-card h3{font-size:1.05rem;}
+.chart-sub{margin:0; font-size:0.82rem; color:var(--text-muted); margin-top:-8px;}
+.bar-chart{display:flex; flex-direction:column; gap:14px;}
+.bar-row{
+  display:grid;
+  grid-template-columns:104px 1fr 118px;
+  align-items:center;
+  gap:12px;
+  position:relative;
+  border-radius:8px;
+  padding:2px;
+  outline:none;
+}
+.bar-row:hover, .bar-row:focus-visible{background:var(--surface-2);}
+.bar-label{font-size:0.85rem; font-weight:600; color:var(--text);}
+.bar-track{
+  height:22px; background:var(--surface-2); border-radius:5px;
+  border:1px solid var(--line); overflow:hidden; position:relative;
+}
+.bar-fill{
+  height:100%; border-radius:4px; background:var(--accent);
+  min-width:6px;
+}
+.bar-value{
+  font-family:'JetBrains Mono',monospace; font-size:0.8rem; font-weight:700; color:var(--text);
+  text-align:right; white-space:nowrap;
+}
+.bar-value .bar-pct{display:block; font-weight:500; color:var(--text-muted); font-size:0.72rem; margin-top:1px;}
+.bar-tip{
+  position:absolute; left:104px; right:0; top:calc(100% + 2px); z-index:5;
+  background:var(--surface); border:1px solid var(--line); border-radius:8px;
+  box-shadow:var(--shadow); padding:8px 12px; font-size:0.78rem; color:var(--text-muted);
+  line-height:1.4; opacity:0; pointer-events:none; transform:translateY(-4px);
+  transition:opacity 0.12s, transform 0.12s;
+}
+.bar-row:hover .bar-tip, .bar-row:focus-visible .bar-tip{opacity:1; transform:translateY(0);}
+.bar-tip strong{color:var(--accent-strong);}
+
+.cat-table{width:100%; border-collapse:collapse; margin-top:2px;}
+.cat-table th,.cat-table td{padding:7px 10px; text-align:left; font-size:0.8rem; border-bottom:1px solid var(--line);}
+.cat-table th{font-family:'JetBrains Mono',monospace; font-size:0.65rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted); font-weight:600;}
+.cat-table td.num{font-family:'JetBrains Mono',monospace; text-align:right;}
+.cat-table tr:last-child td{border-bottom:none;}
+.cat-table tr.tot td{font-weight:700; color:var(--accent-strong); border-top:2px solid var(--line); border-bottom:none;}
+details.table-view{font-size:0.82rem; color:var(--text-muted);}
+details.table-view summary{cursor:pointer; font-weight:600; color:var(--accent-strong); font-family:'JetBrains Mono',monospace; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.05em; padding:4px 0;}
+details.table-view[open] summary{margin-bottom:8px;}
+
+/* day-by-day table */
+.table-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:12px;}
+table.budget-table{border-collapse:collapse; width:100%; min-width:900px; background:var(--surface);}
+.budget-table th,.budget-table td{padding:9px 12px; text-align:right; font-size:0.82rem; border-bottom:1px solid var(--line); white-space:nowrap;}
+.budget-table th{
+  font-family:'JetBrains Mono',monospace; font-size:0.64rem; text-transform:uppercase;
+  letter-spacing:0.04em; color:var(--text-muted); background:var(--surface-2); font-weight:600;
+}
+.budget-table th:nth-child(1),.budget-table td:nth-child(1),
+.budget-table th:nth-child(2),.budget-table td:nth-child(2),
+.budget-table th:nth-child(3),.budget-table td:nth-child(3){text-align:left;}
+.budget-table td.num,.budget-table th.num{font-family:'JetBrains Mono',monospace;}
+.budget-table td.zero{color:var(--text-muted); text-align:right;}
+.budget-table .daycell .d{font-weight:700; color:var(--text);}
+.budget-table .daycell .dt{display:block; font-size:0.72rem; color:var(--text-muted); font-weight:500; margin-top:1px;}
+.budget-table .flags{font-size:0.95rem; letter-spacing:1px;}
+.budget-table td.route{font-family:'JetBrains Mono',monospace; font-size:0.74rem; color:var(--text-muted); text-align:left;}
+.budget-table td.total{font-weight:700; color:var(--accent-strong);}
+.budget-table tr:last-child td{border-bottom:none;}
+tfoot .grand td{
+  background:var(--accent-soft); color:var(--accent-strong); font-weight:700;
+  border-top:2px solid var(--line); border-bottom:none;
+}
+
+footer{color:var(--text-muted); font-size:0.78rem; text-align:center; padding-top:8px;}
+
+/* forecast/actual toggle */
+.section-head-row{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:12px;}
+.seg{display:inline-flex; border:1px solid var(--line); border-radius:8px; overflow:hidden; flex-shrink:0;}
+.seg input{position:absolute; opacity:0; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap;}
+.seg label{padding:6px 14px; font-family:'JetBrains Mono',monospace; font-size:0.68rem; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted); cursor:pointer; background:var(--surface); user-select:none; transition:background 0.12s,color 0.12s;}
+.seg label:not(:last-of-type){border-right:1px solid var(--line);}
+.seg input:checked + label{background:var(--accent); color:#fff;}
+.seg input:focus-visible + label{outline:2px solid var(--accent-strong); outline-offset:-2px;}
+
+/* dummy-data callout */
+.callout-dummy{
+  display:flex; align-items:flex-start; gap:10px;
+  background:var(--accent-soft); border:1px solid var(--line); border-radius:12px;
+  padding:12px 16px; font-size:0.82rem; color:var(--text); line-height:1.5;
+}
+.callout-dummy .tag{
+  font-family:'JetBrains Mono',monospace; font-size:0.62rem; font-weight:700; letter-spacing:0.06em;
+  text-transform:uppercase; color:var(--accent-strong); background:var(--surface); border:1px solid var(--line);
+  border-radius:999px; padding:2px 9px; white-space:nowrap; flex-shrink:0; margin-top:1px;
+}
+
+/* variance / status text */
+.delta{font-family:'JetBrains Mono',monospace; font-weight:700; font-size:0.85rem; white-space:nowrap;}
+.delta.over{color:var(--danger);}
+.delta.under{color:var(--good);}
+.delta.flat{color:var(--text-muted); font-weight:500;}
+.stat-grid .value.over{color:var(--danger);}
+.stat-grid .value.under{color:var(--good);}
+
+/* toggle-controlled forecast/actual cells */
+.table-scroll .ac{display:none;}
+.table-scroll .fc{display:inline;}
+.seg:has(#vA:checked) ~ .table-scroll .fc{display:none;}
+.seg:has(#vA:checked) ~ .table-scroll .ac{display:inline;}
+.daytotal .delta{display:block; font-size:0.66rem; margin-top:2px;}
+
+/* per-price variance icon on the Actual value: red up = over forecast, green down = under forecast */
+.vi{display:inline-block; margin-left:4px; vertical-align:-1.5px; flex-shrink:0;}
+.vi.over{color:var(--danger);}
+.vi.under{color:var(--good);}
+
+/* dumbbell chart */
+.bar-row.db-row{grid-template-columns:104px 1fr 172px;}
+.db-track{height:22px; position:relative; display:flex; align-items:center;}
+.db-axis{position:absolute; left:0; right:0; height:1px; background:var(--line);}
+.db-connector{position:absolute; height:4px; border-radius:2px; top:50%; transform:translateY(-50%);}
+.db-connector.over{background:var(--danger-soft);}
+.db-connector.under{background:var(--good-soft);}
+.db-dot{position:absolute; top:50%; width:12px; height:12px; border-radius:50%; transform:translate(-50%,-50%); box-sizing:border-box;}
+.db-dot.fore{background:var(--surface); border:2.5px solid var(--accent);}
+.db-dot.act{background:var(--accent-strong); border:2.5px solid var(--accent-strong);}
+.db-value{text-align:right;}
+.db-value .fa{display:block; font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:var(--text-muted); margin-top:3px; white-space:nowrap;}
+.db-legend{display:flex; align-items:center; gap:16px; font-size:0.76rem; color:var(--text-muted); margin-top:-4px;}
+.db-legend .lg-item{display:flex; align-items:center; gap:6px;}
+.db-legend .lg-dot{width:11px; height:11px; border-radius:50%; box-sizing:border-box; flex-shrink:0;}
+.db-legend .lg-dot.fore{background:var(--surface); border:2.5px solid var(--accent);}
+.db-legend .lg-dot.act{background:var(--accent-strong); border:2.5px solid var(--accent-strong);}
+
+@media (max-width:640px){
+  .stat-grid{grid-template-columns:repeat(2,1fr);}
+  .bar-row{grid-template-columns:78px 1fr 92px; gap:8px;}
+  .bar-tip{left:78px;}
+  .bar-label{font-size:0.76rem;}
+  .bar-row.db-row{grid-template-columns:70px 1fr 118px;}
+  .db-value .fa{font-size:0.6rem;}
+  .db-value .delta{font-size:0.76rem;}
+}
+</style>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>TRIP BUDGET &amp; COST BREAKDOWN</h1>
+  <span class="eyebrow">Africa Five Nation Tour · 24 September – 12 October 2026</span>
+  <div class="travellers"><span class="pill">Amar Raj Urs</span><span class="pill">Pratap Raj</span><span class="pill">Praveen Kumar Nallipogu</span></div>
+</header>
+
+<p style="font-size:0.85rem; color:var(--text-muted); text-align:center; max-width:640px; margin:0 auto;">Every cost across the 19-day trip, in Indian Rupees (₹), <strong style="color:var(--accent-strong);">per traveller</strong> — multiply by 3 for the group figure. Now tracking Forecast against Actual spend, with the variance between them.</p>
+
+<div class="callout-dummy">
+  <span class="tag">🧪 Mixed Data</span>
+  <span><strong style="color:var(--accent-strong);">Flight</strong>, <strong style="color:var(--accent-strong);">Visa</strong>, <strong style="color:var(--accent-strong);">Travel Insurance</strong> and <strong style="color:var(--accent-strong);">Stay</strong> actuals below are real, and so is <strong style="color:var(--accent-strong);">Safari on Days 1, 3, 4, 6, 7 and 10</strong>, plus <strong style="color:var(--accent-strong);">Car Rental on Days 9–12</strong>. Every other Safari day and every other Car Rental day are still placeholder dummy data. Swap the rest in as receipts come in — the layout, toggle and totals will keep working unchanged.</span>
+</div>
+
+<div class="stat-grid">
+  <div>
+    <span class="label">Forecast (pp)</span>
+    <span class="value">₹2,50,532</span>
+    <span class="foot">original plan</span>
+  </div>
+  <div>
+    <span class="label">Actual (pp)</span>
+    <span class="value">₹2,60,832</span>
+    <span class="foot">4+ of 6 categories real</span>
+  </div>
+  <div>
+    <span class="label">Variance</span>
+    <span class="value over">▲ +₹10,300</span>
+    <span class="foot" style="color:var(--danger);">+4.1% over forecast</span>
+  </div>
+  <div>
+    <span class="label">Biggest Overrun</span>
+    <span class="value">Flights</span>
+    <span class="foot" style="color:var(--danger);">+₹7,439 · +6.2%</span>
+  </div>
+</div>
+
+<div class="chart-card">
+  <h3>Cost by Category <span style="font-family:'JetBrains Mono',monospace; font-size:0.62rem; font-weight:600; letter-spacing:0.04em; text-transform:uppercase; color:var(--text-muted); vertical-align:middle;">forecast vs actual · per traveller</span></h3>
+  <p class="chart-sub">Largest category first. Each row: where the plan said we'd land, and where actual spend landed. Hover or focus a row for the detail.</p>
+  <div class="db-legend">
+    <span class="lg-item"><span class="lg-dot fore"></span>Forecast</span>
+    <span class="lg-item"><span class="lg-dot act"></span>Actual</span>
+  </div>
+  <div class="bar-chart">
+    <div class="bar-row db-row" tabindex="0">
+      <div class="bar-label">Flights</div>
+      <div class="db-track">
+        <div class="db-axis"></div>
+        <div class="db-connector over" style="left:94.2%; width:5.8%;"></div>
+        <div class="db-dot fore" style="left:94.2%;"></div>
+        <div class="db-dot act" style="left:100%;"></div>
+      </div>
+      <div class="db-value"><span class="delta over">▲ +₹7,439</span><span class="fa">F ₹1,20,000 → A ₹1,27,439</span></div>
+      <div class="bar-tip"><strong>Flights</strong> — forecast ₹1,20,000, actual ₹1,27,439 · <span style="color:var(--danger); font-weight:700;">▲ +₹7,439 (+6.2%)</span> over plan — the biggest overrun in ₹. Real fares across Day 0/1/8/13/18 came in higher than the plan on most legs.</div>
+    </div>
+    <div class="bar-row db-row" tabindex="0">
+      <div class="bar-label">Stay</div>
+      <div class="db-track">
+        <div class="db-axis"></div>
+        <div class="db-connector over" style="left:38.9%; width:5.7%;"></div>
+        <div class="db-dot fore" style="left:38.9%;"></div>
+        <div class="db-dot act" style="left:44.6%;"></div>
+      </div>
+      <div class="db-value"><span class="delta over">▲ +₹7,332</span><span class="fa">F ₹49,532 → A ₹56,864</span></div>
+      <div class="bar-tip"><strong>Stay</strong> — forecast ₹49,532, actual ₹56,864 · <span style="color:var(--danger); font-weight:700;">▲ +₹7,332 (+14.8%)</span> over plan — the biggest overrun by percentage. Day 10's actual (₹12,598 vs a ₹3,333 forecast) alone accounts for most of it — worth double‑checking that figure.</div>
+    </div>
+    <div class="bar-row db-row" tabindex="0">
+      <div class="bar-label">Safari</div>
+      <div class="db-track">
+        <div class="db-axis"></div>
+        <div class="db-connector under" style="left:30.5%; width:3.7%;"></div>
+        <div class="db-dot fore" style="left:34.1%;"></div>
+        <div class="db-dot act" style="left:30.5%;"></div>
+      </div>
+      <div class="db-value"><span class="delta under">▼ −₹4,670</span><span class="fa">F ₹43,500 → A ₹38,830</span></div>
+      <div class="bar-tip"><strong>Safari</strong> — forecast ₹43,500, actual ₹38,830 · <span style="color:var(--good); font-weight:700;">▼ −₹4,670 (−10.7%)</span> under plan. Day 1 came in real at ₹5,570 against ₹5,000, Day 3 at ₹6,240 against ₹6,500, Day 4 at ₹1,920 against ₹2,500, Day 6 at ₹7,050 against ₹6,500, Day 7 at ₹7,050 against ₹8,000, and Day 10 at ₹0 against a ₹3,500 forecast; every other Safari day is still dummy placeholder data.</div>
+    </div>
+    <div class="bar-row db-row" tabindex="0">
+      <div class="bar-label">Car Rental</div>
+      <div class="db-track">
+        <div class="db-axis"></div>
+        <div class="db-connector over" style="left:14.0%; width:0.2%;"></div>
+        <div class="db-dot fore" style="left:14.0%;"></div>
+        <div class="db-dot act" style="left:14.2%;"></div>
+      </div>
+      <div class="db-value"><span class="delta over">▲ +₹264</span><span class="fa">F ₹17,800 → A ₹18,064</span></div>
+      <div class="bar-tip"><strong>Car Rental</strong> — forecast ₹17,800, actual ₹18,064 · <span style="color:var(--danger); font-weight:700;">▲ +₹264 (+1.5%)</span> — essentially on plan, a hair over. Real for Days 9–12 at ₹1,666 each (the Kruger self-drive rental); every other Car Rental day is still dummy placeholder data.</div>
+    </div>
+    <div class="bar-row db-row" tabindex="0">
+      <div class="bar-label">Visa</div>
+      <div class="db-track">
+        <div class="db-axis"></div>
+        <div class="db-connector under" style="left:13.8%; width:0.1%;"></div>
+        <div class="db-dot fore" style="left:13.9%;"></div>
+        <div class="db-dot act" style="left:13.8%;"></div>
+      </div>
+      <div class="db-value"><span class="delta under">▼ −₹83</span><span class="fa">F ₹17,700 → A ₹17,617</span></div>
+      <div class="bar-tip"><strong>Visa</strong> — forecast ₹17,700, actual ₹17,617 · <span style="color:var(--good); font-weight:700;">▼ −₹83 (−0.5%)</span> — essentially on plan, a hair under.</div>
+    </div>
+    <div class="bar-row db-row" tabindex="0">
+      <div class="bar-label">Travel Ins.</div>
+      <div class="db-track">
+        <div class="db-axis"></div>
+        <div class="db-connector over" style="left:1.6%; width:0.1%;"></div>
+        <div class="db-dot fore" style="left:1.6%;"></div>
+        <div class="db-dot act" style="left:1.7%;"></div>
+      </div>
+      <div class="db-value"><span class="delta over">▲ +₹18</span><span class="fa">F ₹2,000 → A ₹2,018</span></div>
+      <div class="bar-tip"><strong>Travel Insurance</strong> — forecast ₹2,000, actual ₹2,018 · <span style="color:var(--danger); font-weight:700;">▲ +₹18 (+0.9%)</span> — essentially on plan, a hair over. One-off charge on Day 0.</div>
+    </div>
+  </div>
+  <details class="table-view">
+    <summary>View as table</summary>
+    <table class="cat-table">
+      <thead><tr><th>Category</th><th class="num">Forecast</th><th class="num">Actual</th><th class="num">Variance</th><th class="num">%</th></tr></thead>
+      <tbody>
+        <tr><td>Flights</td><td class="num">₹1,20,000</td><td class="num">₹1,27,439</td><td class="num" style="color:var(--danger);">+₹7,439</td><td class="num" style="color:var(--danger);">+6.2%</td></tr>
+        <tr><td>Stay</td><td class="num">₹49,532</td><td class="num">₹56,864</td><td class="num" style="color:var(--danger);">+₹7,332</td><td class="num" style="color:var(--danger);">+14.8%</td></tr>
+        <tr><td>Safari</td><td class="num">₹43,500</td><td class="num">₹38,830</td><td class="num" style="color:var(--good);">−₹4,670</td><td class="num" style="color:var(--good);">−10.7%</td></tr>
+        <tr><td>Car Rental</td><td class="num">₹17,800</td><td class="num">₹18,064</td><td class="num" style="color:var(--danger);">+₹264</td><td class="num" style="color:var(--danger);">+1.5%</td></tr>
+        <tr><td>Visa</td><td class="num">₹17,700</td><td class="num">₹17,617</td><td class="num" style="color:var(--good);">−₹83</td><td class="num" style="color:var(--good);">−0.5%</td></tr>
+        <tr><td>Travel Insurance</td><td class="num">₹2,000</td><td class="num">₹2,018</td><td class="num" style="color:var(--danger);">+₹18</td><td class="num" style="color:var(--danger);">+0.9%</td></tr>
+        <tr class="tot"><td>Per-Traveller Total</td><td class="num">₹2,50,532</td><td class="num">₹2,60,832</td><td class="num" style="color:var(--danger);">+₹10,300</td><td class="num" style="color:var(--danger);">+4.1%</td></tr>
+      </tbody>
+    </table>
+  </details>
+</div>
+
+<div>
+  <div class="section-head-row">
+    <h3 class="section-title" style="margin:0;">Day-by-Day Cost Detail <span style="font-family:'JetBrains Mono',monospace; font-size:0.62rem; font-weight:600; letter-spacing:0.04em; text-transform:none; color:var(--text-muted);">— per traveller</span></h3>
+  </div>
+  <div class="seg" style="margin-bottom:12px;">
+    <input type="radio" name="dayview" id="vF" checked><label for="vF">Forecast</label>
+    <input type="radio" name="dayview" id="vA"><label for="vA">Actual</label>
+  </div>
+  <div class="table-scroll">
+    <table class="budget-table">
+      <thead>
+        <tr>
+          <th style="text-align:left;">Day</th>
+          <th style="text-align:left;">Country</th>
+          <th style="text-align:left;">Route</th>
+          <th class="num">Visa</th>
+          <th class="num">Stay</th>
+          <th class="num">Flight</th>
+          <th class="num">Safari</th>
+          <th class="num">Car Rental</th>
+          <th class="num">Travel Ins.</th>
+          <th class="num">Day Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="daycell"><span class="d">Day 0</span><span class="dt">Thu 24 Sep</span></td><td class="flags">🇮🇳 IND</td><td class="route">BLR → MUM</td><td class="zero">–</td><td class="zero">–</td><td class="num"><span class="fc">₹4,000</span><span class="ac">₹4,789<svg class="vi over" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.6L11 10.2H1Z" fill="currentColor"/></svg></span></td><td class="zero">–</td><td class="num"><span class="fc">₹1,200</span><span class="ac">₹1,200</span></td><td class="num"><span class="fc">₹2,000</span><span class="ac">₹2,018<svg class="vi over" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.6L11 10.2H1Z" fill="currentColor"/></svg></span></td><td class="num total daytotal"><span class="fc">₹7,200</span><span class="ac">₹8,007<svg class="vi over" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.6L11 10.2H1Z" fill="currentColor"/></svg></span><span class="delta over">+₹807</span></td></tr>
+        <tr><td class="daycell"><span class="d">Day 1</span><span class="dt">Fri 25 Sep</span></td><td class="flags">🇮🇳→🇿🇼</td><td class="route">MUM → VF</td><td class="num"><span class="fc">₹4,500</span><span class="ac">₹4,524<svg class="vi over" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.6L11 10.2H1Z" fill="currentColor"/></svg></span></td><td class="num"><span class="fc">₹2,667</span><span class="ac">₹1,900<svg class="vi under" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 10.4L1 1.8H11Z" fill="currentColor"/></svg></span></td><td class="num"><span class="fc">₹48,000</span><span class="ac">₹50,247<svg class="vi over" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.6L11 10.2H1Z" fill="currentColor"/></svg></span></td><td class="num"><span class="fc">₹5,000</span><span class="ac">₹5,570<svg class="vi over" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.6L11 10.2H1Z" fill="currentColor"/></svg></span></td><td class="zero">–</td><td class="zero">–</td><td class="num total daytotal"><span class="fc">₹60,167</span><span class="ac">₹62,241<svg class="vi over" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.6L11 10.2H1Z" fill="currentColor"/></svg></span><span class="delta over">+₹2,074</span></td></tr>
+        <tr><td class="daycell"><span class="d">Day 2</span><span class="dt">Sat 26 Sep</span></td><td class="flags">🇿🇼 ZWE</td><td class="route">VF → HAW</td><td class="zero">–</td><td class="num"><span class="fc">₹3,000</span><span class="ac">₹3,894<svg class="vi over" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.6L11 10.2H1Z" fill="currentColor"/></svg></span></td><td class="zero">–</td><td class="zero">–</td><td class="num"><span class="fc">₹1,000</span><span class="ac">₹1,000</span></td><td class="zero">–</td><td class="num total daytotal"><span class="fc">₹4,000</span><span class="ac">₹4,894<svg class="vi over" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.6L11 10.2H1Z" fill="currentColor"/></svg></span><span class="delta over">+₹894</span></td></tr>
+        <tr><td class="daycell"><span class="d">Day 3</span><span class="dt">Sun 27 Sep</span></td><td class="flags">🇿🇼→🇿🇲</td><td class="route">HAW → VF → LIVST</td><td class="num"><span class="fc">₹8,000</span><span class="ac">₹7,826<svg class="vi under" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 10.4L1 1.8H11Z" fill="currentColor"/></svg></span></td><td class="num"><span class="fc">₹3,000</span><span class="ac">₹2,317<svg class="vi under" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 10.4L1 1.8H11Z" fill="currentColor"/></svg></span></td><td class="zero">–</td><td class="num"><span class="fc">₹6,500</span><span class="ac">₹6,240<svg class="vi under" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 10.4L1 1.8H11Z" fill="currentColor"/></svg></span></td><td class="zero">–</td><td class="zero">–</td><td class="num total daytotal"><span class="fc">₹17,500</span><span class="ac">₹16,383<svg class="vi under" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 10.4L1 1.8H11Z" fill="currentColor"/></svg></span><span class="delta under">−₹1,117</span></td></tr>
+        <tr><td class="daycell"><span class="d">Day 4</span><span class="dt">Mon 28 Sep</span></td><td class="flags">🇿🇲 ZMB</td><td class="route">LIVINGSTONE</td><td class="zero">–</td><td class="num"><span class="fc">₹3,000</span><span class="ac">₹2,317<svg class="vi under" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 10.4L1 1.8H11Z" fill="currentColor"/></svg></span></td><td class="zero">–</td><td class="num"><span class="fc">₹2,500</span><span class="ac">₹1,920<svg class="vi under" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 10.4L1 1.8H11Z" fill="currentColor"/></svg></span></td><td class="num"><span class="fc">₹1,000</span><span class="ac">₹1,000</span></td><td class="zero">–</td><td class="num total daytotal"><span class="fc">₹6,500</span><span class="ac">₹5,237<svg class="vi under" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 10.4L1 1.8H11Z" fill="currentColor"/></svg></span><span class="delta under">−₹1,263</span></td></tr>
+        <tr><td class="daycell"><span class="d">Day 5</span><span class="dt">Tue 29 Sep</span></td><td class="flags">🇿🇲→🇧🇼</td><td class="route">LIVST → KSNE</td><td class="num"><span class="fc">₹2,200</span><span class="ac">₹2,200</span></td><td class="num"><span class="fc">₹2,733</span><span class="ac">₹2,430<svg class="vi under" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 10.4L1 1.8H11Z" fill="currentColor"/></svg></span></td><td class="zero">–</td><td class="num"><span class="fc">₹8,000</span><span class="ac">₹7,500<svg class="vi under" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 10.4L1 1.8H11Z" fill="currentColor"/></svg></span></td><td class="zero">–</td><td class="zero">–</td><td class="num total daytotal"><span class="fc">₹12,933</span><span class="ac">₹12,130<svg class="vi under" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 10.4L1 1.8H11Z" fill="currentColor"/></svg></span><span class="delta under">−₹803</span></td></tr>
+        <tr><td class="daycell"><span class="d">Day 6</span><span class="dt">Wed 30 Sep</span></td><td class="flags">🇧🇼 BWA</td><td class="route">KASANE</td><td class="zero">–</td><td class="num"><span class="fc">₹2,733</span><span class="ac">₹2,430<svg class="vi under" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 10.4L1 1.8H11Z" fill="currentColor"/></svg></span></td><td class="zero">–</td><td class="num"><span class="fc">₹6,500</span><span class="ac">₹7,050<svg class="vi over" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.6L11 10.2H1Z" fill="currentColor"/></svg></span></td><td class="num"><span class="fc">₹1,000</span><span class="ac">₹1,000</span></td><td class="zero">–</td><td class="num total daytotal"><span class="fc">₹10,233</span><span class="ac">₹10,480<svg class="vi over" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.6L11 10.2H1Z" fill="currentColor"/></svg></span><span class="delta over">+₹247</span></td></tr>
+        <tr><td class="daycell"><span class="d">Day 7</span><span class="dt">Thu 1 Oct</span></td><td class="flags">🇧🇼 BWA</td><td class="route">KASANE</td><td class="zero">–</td><td class="num"><span class="fc">₹2,733</span><span class="ac">₹2,426<svg class="vi under" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 10.4L1 1.8H11Z" fill="currentColor"/></svg></span></td><td class="zero">–</td><td class="num"><span class="fc">₹8,000</span><span class="ac">₹7,050<svg class="vi under" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 10.4L1 1.8H11Z" fill="currentColor"/></svg></span></td><td class="zero">–</td><td class="zero">–</td><td class="num total daytotal"><span class="fc">₹10,733</span><span class="ac">₹9,476<svg class="vi under" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 10.4L1 1.8H11Z" fill="currentColor"/></svg></span><span class="delta under">−₹1,257</span></td></tr>
+        <tr><td class="daycell"><span class="d">Day 8</span><span class="dt">Fri 2 Oct</span></td><td class="flags">🇧🇼→🇿🇼→🇿🇦</td><td class="route">KSNE → VF → JNB</td><td class="num"><span class="fc">₹3,000</span><span class="ac">₹3,067<svg class="vi over" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.6L11 10.2H1Z" fill="currentColor"/></svg></span></td><td class="num"><span class="fc">₹3,333</span><span class="ac">₹1,335<svg class="vi under" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 10.4L1 1.8H11Z" fill="currentColor"/></svg></span></td><td class="num"><span class="fc">₹15,000</span><span class="ac">₹14,814<svg class="vi under" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 10.4L1 1.8H11Z" fill="currentColor"/></svg></span></td><td class="zero">–</td><td class="num"><span class="fc">₹1,000</span><span class="ac">₹1,000</span></td><td class="zero">–</td><td class="num total daytotal"><span class="fc">₹22,333</span><span class="ac">₹20,216<svg class="vi under" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 10.4L1 1.8H11Z" fill="currentColor"/></svg></span><span class="delta under">−₹2,117</span></td></tr>
+        <tr><td class="daycell"><span class="d">Day 9</span><span class="dt">Sat 3 Oct</span></td><td class="flags">🇿🇦 ZAF</td><td class="route">JNB → KRGR</td><td class="zero">–</td><td class="num"><span class="fc">₹3,333</span><span class="ac">₹1,656<svg class="vi under" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 10.4L1 1.8H11Z" fill="currentColor"/></svg></span></td><td class="zero">–</td><td class="zero">–</td><td class="num"><span class="fc">₹1,600</span><span class="ac">₹1,666<svg class="vi over" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.6L11 10.2H1Z" fill="currentColor"/></svg></span></td><td class="zero">–</td><td class="num total daytotal"><span class="fc">₹4,933</span><span class="ac">₹3,322<svg class="vi under" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 10.4L1 1.8H11Z" fill="currentColor"/></svg></span><span class="delta under">−₹1,611</span></td></tr>
+        <tr><td class="daycell"><span class="d">Day 10</span><span class="dt">Sun 4 Oct</span></td><td class="flags">🇿🇦 ZAF</td><td class="route">KRGR</td><td class="zero">–</td><td class="num"><span class="fc">₹3,333</span><span class="ac">₹12,598<svg class="vi over" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.6L11 10.2H1Z" fill="currentColor"/></svg></span></td><td class="zero">–</td><td class="num"><span class="fc">₹3,500</span><span class="ac">₹0<svg class="vi under" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 10.4L1 1.8H11Z" fill="currentColor"/></svg></span></td><td class="num"><span class="fc">₹1,600</span><span class="ac">₹1,666<svg class="vi over" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.6L11 10.2H1Z" fill="currentColor"/></svg></span></td><td class="zero">–</td><td class="num total daytotal"><span class="fc">₹8,433</span><span class="ac">₹14,264<svg class="vi over" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.6L11 10.2H1Z" fill="currentColor"/></svg></span><span class="delta over">+₹5,831</span></td></tr>
+        <tr><td class="daycell"><span class="d">Day 11</span><span class="dt">Mon 5 Oct</span></td><td class="flags">🇿🇦 ZAF</td><td class="route">KRGR → GRASKOP</td><td class="zero">–</td><td class="num"><span class="fc">₹3,333</span><span class="ac">₹3,243<svg class="vi under" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 10.4L1 1.8H11Z" fill="currentColor"/></svg></span></td><td class="zero">–</td><td class="num"><span class="fc">₹3,500</span><span class="ac">₹3,500</span></td><td class="num"><span class="fc">₹1,600</span><span class="ac">₹1,666<svg class="vi over" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.6L11 10.2H1Z" fill="currentColor"/></svg></span></td><td class="zero">–</td><td class="num total daytotal"><span class="fc">₹8,433</span><span class="ac">₹8,409<svg class="vi under" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 10.4L1 1.8H11Z" fill="currentColor"/></svg></span><span class="delta under">−₹24</span></td></tr>
+        <tr><td class="daycell"><span class="d">Day 12</span><span class="dt">Tue 6 Oct</span></td><td class="flags">🇿🇦 ZAF</td><td class="route">GRASKOP → JNB</td><td class="zero">–</td><td class="num"><span class="fc">₹3,333</span><span class="ac">₹1,248<svg class="vi under" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 10.4L1 1.8H11Z" fill="currentColor"/></svg></span></td><td class="zero">–</td><td class="zero">–</td><td class="num"><span class="fc">₹1,600</span><span class="ac">₹1,666<svg class="vi over" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.6L11 10.2H1Z" fill="currentColor"/></svg></span></td><td class="zero">–</td><td class="num total daytotal"><span class="fc">₹4,933</span><span class="ac">₹2,914<svg class="vi under" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 10.4L1 1.8H11Z" fill="currentColor"/></svg></span><span class="delta under">−₹2,019</span></td></tr>
+        <tr><td class="daycell"><span class="d">Day 13</span><span class="dt">Wed 7 Oct</span></td><td class="flags">🇿🇦→🇲🇺</td><td class="route">JNB → Port Louis</td><td class="zero">–</td><td class="num"><span class="fc">₹2,500</span><span class="ac">₹3,529<svg class="vi over" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.6L11 10.2H1Z" fill="currentColor"/></svg></span></td><td class="num"><span class="fc">₹25,000</span><span class="ac">₹28,188<svg class="vi over" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.6L11 10.2H1Z" fill="currentColor"/></svg></span></td><td class="zero">–</td><td class="num"><span class="fc">₹1,000</span><span class="ac">₹1,000</span></td><td class="zero">–</td><td class="num total daytotal"><span class="fc">₹28,500</span><span class="ac">₹32,717<svg class="vi over" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.6L11 10.2H1Z" fill="currentColor"/></svg></span><span class="delta over">+₹4,217</span></td></tr>
+        <tr><td class="daycell"><span class="d">Day 14</span><span class="dt">Thu 8 Oct</span></td><td class="flags">🇲🇺 MUS</td><td class="route">PORT LOUIS</td><td class="zero">–</td><td class="num"><span class="fc">₹2,500</span><span class="ac">₹3,528<svg class="vi over" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.6L11 10.2H1Z" fill="currentColor"/></svg></span></td><td class="zero">–</td><td class="zero">–</td><td class="num"><span class="fc">₹1,000</span><span class="ac">₹1,000</span></td><td class="zero">–</td><td class="num total daytotal"><span class="fc">₹3,500</span><span class="ac">₹4,528<svg class="vi over" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.6L11 10.2H1Z" fill="currentColor"/></svg></span><span class="delta over">+₹1,028</span></td></tr>
+        <tr><td class="daycell"><span class="d">Day 15</span><span class="dt">Fri 9 Oct</span></td><td class="flags">🇲🇺 MUS</td><td class="route">PORT LOUIS</td><td class="zero">–</td><td class="num"><span class="fc">₹2,667</span><span class="ac">₹4,173<svg class="vi over" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.6L11 10.2H1Z" fill="currentColor"/></svg></span></td><td class="zero">–</td><td class="zero">–</td><td class="num"><span class="fc">₹1,000</span><span class="ac">₹1,000</span></td><td class="zero">–</td><td class="num total daytotal"><span class="fc">₹3,667</span><span class="ac">₹5,173<svg class="vi over" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.6L11 10.2H1Z" fill="currentColor"/></svg></span><span class="delta over">+₹1,506</span></td></tr>
+        <tr><td class="daycell"><span class="d">Day 16</span><span class="dt">Sat 10 Oct</span></td><td class="flags">🇲🇺 MUS</td><td class="route">PORT LOUIS</td><td class="zero">–</td><td class="num"><span class="fc">₹2,667</span><span class="ac">₹4,173<svg class="vi over" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.6L11 10.2H1Z" fill="currentColor"/></svg></span></td><td class="zero">–</td><td class="zero">–</td><td class="num"><span class="fc">₹1,000</span><span class="ac">₹1,000</span></td><td class="zero">–</td><td class="num total daytotal"><span class="fc">₹3,667</span><span class="ac">₹5,173<svg class="vi over" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.6L11 10.2H1Z" fill="currentColor"/></svg></span><span class="delta over">+₹1,506</span></td></tr>
+        <tr><td class="daycell"><span class="d">Day 17</span><span class="dt">Sun 11 Oct</span></td><td class="flags">🇲🇺 MUS</td><td class="route">PORT LOUIS</td><td class="zero">–</td><td class="num"><span class="fc">₹2,667</span><span class="ac">₹3,667<svg class="vi over" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.6L11 10.2H1Z" fill="currentColor"/></svg></span></td><td class="zero">–</td><td class="zero">–</td><td class="num"><span class="fc">₹1,000</span><span class="ac">₹1,000</span></td><td class="zero">–</td><td class="num total daytotal"><span class="fc">₹3,667</span><span class="ac">₹4,667<svg class="vi over" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.6L11 10.2H1Z" fill="currentColor"/></svg></span><span class="delta over">+₹1,000</span></td></tr>
+        <tr><td class="daycell"><span class="d">Day 18</span><span class="dt">Mon 12 Oct</span></td><td class="flags">🇲🇺→🇮🇳</td><td class="route">Port Louis → BLR</td><td class="zero">–</td><td class="zero">–</td><td class="num"><span class="fc">₹28,000</span><span class="ac">₹29,401<svg class="vi over" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.6L11 10.2H1Z" fill="currentColor"/></svg></span></td><td class="zero">–</td><td class="num"><span class="fc">₹1,200</span><span class="ac">₹1,200</span></td><td class="zero">–</td><td class="num total daytotal"><span class="fc">₹29,200</span><span class="ac">₹30,601<svg class="vi over" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.6L11 10.2H1Z" fill="currentColor"/></svg></span><span class="delta over">+₹1,401</span></td></tr>
+      </tbody>
+      <tfoot>
+        <tr class="grand"><td colspan="3" style="text-align:left;">TOTAL (PER TRAVELLER)</td><td class="num"><span class="fc">₹17,700</span><span class="ac">₹17,617<svg class="vi under" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 10.4L1 1.8H11Z" fill="currentColor"/></svg></span></td><td class="num"><span class="fc">₹49,532</span><span class="ac">₹56,864<svg class="vi over" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.6L11 10.2H1Z" fill="currentColor"/></svg></span></td><td class="num"><span class="fc">₹1,20,000</span><span class="ac">₹1,27,439<svg class="vi over" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.6L11 10.2H1Z" fill="currentColor"/></svg></span></td><td class="num"><span class="fc">₹43,500</span><span class="ac">₹38,830<svg class="vi under" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 10.4L1 1.8H11Z" fill="currentColor"/></svg></span></td><td class="num"><span class="fc">₹17,800</span><span class="ac">₹18,064<svg class="vi over" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.6L11 10.2H1Z" fill="currentColor"/></svg></span></td><td class="num"><span class="fc">₹2,000</span><span class="ac">₹2,018<svg class="vi over" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.6L11 10.2H1Z" fill="currentColor"/></svg></span></td><td class="num"><span class="fc">₹2,50,532</span><span class="ac">₹2,60,832<svg class="vi over" width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.6L11 10.2H1Z" fill="currentColor"/></svg></span></td></tr>
+        <tr class="grand" style="background:transparent; border-top:none;"><td colspan="3" style="text-align:left; font-weight:700; color:var(--text-muted); font-family:'JetBrains Mono',monospace; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.04em;">VARIANCE (ACTUAL − FORECAST)</td><td class="num delta under">−₹83</td><td class="num delta over">+₹7,332</td><td class="num delta over">+₹7,439</td><td class="num delta under">−₹4,670</td><td class="num delta over">+₹264</td><td class="num delta over">+₹18</td><td class="num delta over">+₹10,300</td></tr>
+      </tfoot>
+    </table>
+  </div>
+  <p style="font-size:0.82rem; color:var(--text-muted); margin-top:8px;">Use the Forecast/Actual switch above the table to flip every category column; the Day Total column always shows a small variance line underneath regardless of which view is selected, and the bottom VARIANCE row totals it by category. Every number is the cost <strong style="color:var(--accent-strong);">per traveller</strong> — multiply by 3 for the group figure. "–" means no charge fell in that category on that day. Base-camp codes: VF = Victoria Falls, HAW = Hwange, LIVST = Livingstone, KSNE = Kasane, JNB = Johannesburg, KRGR = Kruger. Day 0's ₹2,000 (forecast) travel insurance is a one-off charge covering the whole trip, not a daily cost. Flight, Visa, Travel Insurance and Stay Actual values are all real figures now, and so is Safari on Days 1 (₹5,570), 3 (₹6,240), 4 (₹1,920), 6 (₹7,050), 7 (₹7,050) and 10 (₹0), plus Car Rental on Days 9–12 (₹1,666 each); every other Safari day and every other Car Rental day are still dummy placeholder data. Day 10's Stay actual (₹12,598 against a ₹3,333 forecast) is a notable outlier — worth double-checking against the receipt.</p>
+</div>
+
+<footer>Forecast reflects the trip budget as planned; Flight/Visa/Travel Insurance/Stay actuals are real (Safari Days 1, 3, 4, 6, 7 &amp; 10, and Car Rental Days 9–12, too), the rest of Safari and Car Rental are still dummy placeholder data pending real spend (× 3 for the group total) — for confirmed hotel and flight bookings, see the Hotels &amp; Flights Booked document.</footer>
+
+</div>
+</body>
+</html>

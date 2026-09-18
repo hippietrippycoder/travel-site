@@ -1,0 +1,705 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Must-Try Local Food — Africa Five Nation Tour</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Karla:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --bg: #EEF0E4;
+  --surface: #FBFBF4;
+  --surface-2: #F2F3E8;
+  --text: #212C1C;
+  --text-muted: #5C6650;
+  --line: #D6DAC4;
+  --accent: #A9701F;
+  --accent-strong: #7C5216;
+  --accent-soft: #EFDFBB;
+  --danger: #963B26;
+  --danger-soft: #F3DCCC;
+  --good: #3E7A3E;
+  --good-soft: #DCEBDA;
+  --coffee: #6B4423;
+  --coffee-soft: #E8DCC8;
+  --dessert: #9C4165;
+  --dessert-soft: #F3DCE3;
+  --fruit: #6B4A8A;
+  --fruit-soft: #E8DEF0;
+  --indian: #1F6F78;
+  --indian-soft: #D7EAEC;
+  --shadow: 0 1px 2px rgba(33,44,28,0.06), 0 8px 24px -12px rgba(33,44,28,0.18);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg: #161D14;
+    --surface: #1D2519;
+    --surface-2: #232C1E;
+    --text: #E8EADB;
+    --text-muted: #9CA68C;
+    --line: #333F2B;
+    --accent: #DDA54E;
+    --accent-strong: #F0BE70;
+    --accent-soft: #3A3220;
+    --danger: #E58A6C;
+    --danger-soft: #3B241C;
+    --good: #7FC17F;
+    --good-soft: #223A22;
+    --coffee: #C99B6E;
+    --coffee-soft: #3A2E1E;
+    --dessert: #E58AAE;
+    --dessert-soft: #3B2230;
+    --fruit: #B79BDB;
+    --fruit-soft: #2E2540;
+    --indian: #7ED1D9;
+    --indian-soft: #1E3A3D;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+  }
+}
+:root[data-theme="dark"]{
+  --bg: #161D14;
+  --surface: #1D2519;
+  --surface-2: #232C1E;
+  --text: #E8EADB;
+  --text-muted: #9CA68C;
+  --line: #333F2B;
+  --accent: #DDA54E;
+  --accent-strong: #F0BE70;
+  --accent-soft: #3A3220;
+  --danger: #E58A6C;
+  --danger-soft: #3B241C;
+  --good: #7FC17F;
+  --good-soft: #223A22;
+  --coffee: #C99B6E;
+  --coffee-soft: #3A2E1E;
+  --dessert: #E58AAE;
+  --dessert-soft: #3B2230;
+  --fruit: #B79BDB;
+  --fruit-soft: #2E2540;
+  --indian: #7ED1D9;
+  --indian-soft: #1E3A3D;
+  --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+}
+
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Karla', ui-sans-serif, system-ui, sans-serif;
+  padding-inline:20px;
+  padding-block:36px 64px;
+}
+.wrap{max-width:800px; margin:0 auto; display:flex; flex-direction:column; gap:28px;}
+
+h1,h2,h3{font-family:'Fraunces', Georgia, serif; text-wrap:balance; margin:0;}
+.eyebrow{
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.72rem;
+  letter-spacing:0.09em;
+  text-transform:uppercase;
+  color:var(--accent-strong);
+  font-weight:600;
+}
+.num{font-family:'JetBrains Mono', monospace; font-variant-numeric:tabular-nums;}
+
+.travellers{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:2px;
+}
+.travellers .pill{
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.68rem;
+  letter-spacing:0.03em;
+  font-weight:600;
+  text-transform:uppercase;
+  color:var(--accent-strong);
+  background:var(--accent-soft);
+  border:1px solid var(--line);
+  padding:5px 12px;
+  border-radius:999px;
+  white-space:nowrap;
+}
+
+/* header */
+header{display:flex; flex-direction:column; gap:10px;}
+header h1{font-size:clamp(1.7rem, 4.5vw, 2.4rem); font-weight:700; color:var(--text);}
+header p.sub{margin:0; color:var(--text-muted); font-size:1.02rem; max-width:60ch;}
+
+/* day cards */
+.day{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:16px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.day-head{
+  display:flex; align-items:center; gap:14px;
+  padding:18px 22px;
+  border-bottom:1px solid var(--line);
+  background:var(--surface-2);
+}
+.day-badge{
+  color:var(--accent-strong);
+  background:var(--accent-soft);
+  min-width:48px; height:44px; border-radius:10px; padding:0 6px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px;
+  flex-shrink:0;
+  line-height:1;
+}
+.day-badge .label{font-family:'JetBrains Mono',monospace; font-size:0.55rem; letter-spacing:0.09em; font-weight:700; opacity:0.85;}
+.day-badge .num{font-family:'Fraunces',serif; font-weight:700; font-size:1.25rem;}
+.day-head h2{font-size:1.15rem; color:var(--text); text-transform:uppercase; letter-spacing:0.02em;}
+.day-head h2 .via{font-size:0.62em; font-weight:600; color:var(--text-muted); letter-spacing:0.01em;}
+.day-head .date, .day-head .day-country{font-size:0.85rem; color:var(--text-muted); font-weight:500;}
+.day-head .camp{
+  margin-left:auto; text-align:right; flex-shrink:0;
+}
+.day-head .camp .label{font-size:0.66rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted);}
+.day-head .camp .name{font-family:'JetBrains Mono',monospace; font-size:0.88rem; font-weight:600; color:var(--accent-strong);}
+
+/* reference table */
+.table-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:12px;}
+table{border-collapse:collapse; width:100%; min-width:640px; background:var(--surface);}
+th,td{padding:10px 14px; text-align:left; font-size:0.85rem; border-bottom:1px solid var(--line);}
+th{
+  font-family:'JetBrains Mono',monospace; font-size:0.68rem; text-transform:uppercase;
+  letter-spacing:0.05em; color:var(--text-muted); background:var(--surface-2); font-weight:600;
+}
+td.num{font-family:'JetBrains Mono',monospace; font-variant-numeric:tabular-nums;}
+tr:last-child td{border-bottom:none;}
+tr.section-row td{
+  font-family:'JetBrains Mono',monospace; font-size:0.68rem;
+  text-transform:uppercase; letter-spacing:0.06em; font-weight:700;
+  padding:8px 14px;
+}
+tr.section-row.veg td{background:var(--accent-soft); color:var(--accent-strong);}
+tr.section-row.vegan td{background:var(--good-soft); color:var(--good);}
+tr.section-row.nonveg td{background:var(--danger-soft); color:var(--danger);}
+tr.section-row.coffee td{background:var(--coffee-soft); color:var(--coffee);}
+tr.section-row.dessert td{background:var(--dessert-soft); color:var(--dessert);}
+tr.section-row.fruit td{background:var(--fruit-soft); color:var(--fruit);}
+tr.section-row.indian td{background:var(--indian-soft); color:var(--indian);}
+td.where{color:var(--text-muted); font-style:italic;}
+.km-tag{font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:var(--text-muted); display:block; margin-top:2px;}
+
+footer{color:var(--text-muted); font-size:0.78rem; text-align:center; padding-top:8px;}
+
+@media (max-width:520px){
+  .day-head{flex-wrap:wrap;}
+  .day-head .camp{margin-left:0; text-align:left;}
+}
+@media (max-width:640px){
+  table{table-layout:auto;}
+  td, th{white-space:normal !important; font-size:0.73rem; padding:7px 6px;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+    <h1>MUST-TRY LOCAL FOOD</h1>
+    <span class="eyebrow">Africa Five Nation Tour · 24 September – 12 October 2026</span>
+    <div class="travellers"><span class="pill">Amar Raj Urs</span><span class="pill">Pratap Raj</span><span class="pill">Praveen Kumar Nallipogu</span></div>
+  </header>
+
+  <p style="font-size:0.85rem; color:var(--text-muted); text-align:center; max-width:680px; margin:0 auto 8px;">One card per day, matching Free-Time Extras' day headers. Each area's signature dishes, split into Vegetarian / Vegan / Non-Vegetarian plus Coffee &amp; Tea, Desserts, Fruits and Indian Cuisine (for whenever the local food needs a break), with a real restaurant or spot nearby to actually try each one — researched against current listings, not guessed, but always worth confirming a menu on the night. The (≈km) figure is the approximate road distance from that day's overnight stay (for Day 0, from the Taj/Gateway area since there's no overnight that night).</p>
+
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">0</span></div>
+      <div>
+        <h2>Bengaluru → Mumbai</h2>
+        <div class="date">Thursday, 24 September</div>
+        <div class="day-country">India</div>
+      </div>
+    </div>
+    <div style="padding:18px 22px 20px;">
+      <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0; margin-bottom:14px;">The window is tight — land at 18:05, leave Colaba by ≈22:00 — so everything here is within a few minutes of the Taj, except the one sit-down option flagged as a short taxi ride away:</p>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Dish</th><th>Notes</th><th>Where to Try</th></tr></thead>
+          <tbody>
+            <tr class="section-row veg"><td colspan="3">Vegetarian</td></tr>
+            <tr><td>Vada Pav</td><td class="where" style="white-space:normal;">Mumbai's "vegetarian burger" — a spiced potato patty in a bun with garlic and tamarind chutneys.</td><td>Street carts along Colaba Causeway<span class="km-tag">(≈0.3 km)</span></td></tr>
+            <tr><td>Pav Bhaji</td><td class="where" style="white-space:normal;">Thick mashed-vegetable curry mopped up with buttered rolls.</td><td>Colaba Causeway stalls<span class="km-tag">(≈0.3 km)</span></td></tr>
+            <tr><td>Mumbai Sandwich</td><td class="where" style="white-space:normal;">Buttered bread layered with potato, beetroot, cucumber and mint chutney.</td><td>Colaba Causeway carts<span class="km-tag">(≈0.3 km)</span></td></tr>
+            <tr class="section-row vegan"><td colspan="3">Vegan</td></tr>
+            <tr><td>Bhelpuri</td><td class="where" style="white-space:normal;">Puffed rice, sev, onion, tomato and tangy chutneys — no dairy.</td><td>Colaba Causeway chaat stalls<span class="km-tag">(≈0.3 km)</span></td></tr>
+            <tr><td>Pani Puri</td><td class="where" style="white-space:normal;">Crisp puris filled with spiced potato and chickpea, doused in tamarind water.</td><td>Colaba Causeway chaat stalls<span class="km-tag">(≈0.3 km)</span></td></tr>
+            <tr class="section-row nonveg"><td colspan="3">Non-Vegetarian</td></tr>
+            <tr><td>Bombay Duck Fry</td><td class="where" style="white-space:normal;">Not duck at all — a local lizardfish, semolina-crumbed and fried crisp. A genuine coastal specialty, if there's time for a sit-down stop.</td><td>Trishna, Kala Ghoda (Fort)<span class="km-tag">(≈1.5 km)</span></td></tr>
+            <tr><td>Chicken Seekh Roll</td><td class="where" style="white-space:normal;">Spiced minced chicken, grilled and rolled in rumali roti — the classic Mumbai late-night order.</td><td>Bademiya, Tulloch Road, Colaba<span class="km-tag">(≈0.4 km)</span></td></tr>
+            <tr class="section-row coffee"><td colspan="3">Coffee &amp; Tea</td></tr>
+            <tr><td>Cutting Chai</td><td class="where" style="white-space:normal;">Strong, sweet milky tea served in a small glass, "cut" in half — the quintessential Mumbai street order.</td><td>Leopold Café, Colaba Causeway<span class="km-tag">(≈0.3 km)</span></td></tr>
+            <tr class="section-row dessert"><td colspan="3">Desserts</td></tr>
+            <tr><td>Kulfi &amp; Ice Cream Sandwich</td><td class="where" style="white-space:normal;">Dense, slow-frozen Indian ice cream — this Parsi-run legacy shop's ice-cream-between-wafers sandwich is a Colaba institution.</td><td>K. Rustom &amp; Co., near Regal Cinema, Colaba<span class="km-tag">(≈0.5 km)</span></td></tr>
+            <tr class="section-row fruit"><td colspan="3">Fruits</td></tr>
+            <tr><td>Fruit Chaat</td><td class="where" style="white-space:normal;">Mixed seasonal fruit — papaya, guava, banana, pomegranate — tossed with chaat masala and lime.</td><td>Fruit-chaat carts, Colaba Causeway<span class="km-tag">(≈0.3 km)</span></td></tr>
+            <tr class="section-row indian"><td colspan="3">Indian Cuisine</td></tr>
+            <tr><td>Full Thali</td><td class="where" style="white-space:normal;">You're already in India — but if there's time for a proper sit-down unlimited thali instead of street snacks, this Gujarati/Maharashtrian institution is the move.</td><td>Golden Star Thali, Charni Road<span class="km-tag">(≈3.5 km)</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">1</span></div>
+      <div>
+        <h2>Victoria Falls</h2>
+        <div class="date">Friday, 25 September</div>
+        <div class="day-country">Zimbabwe</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Joyful Vista Guest Lodge</div></div>
+    </div>
+    <div style="padding:18px 22px 20px;">
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Dish</th><th>Notes</th><th>Where to Try</th></tr></thead>
+          <tbody>
+            <tr class="section-row veg"><td colspan="3">Vegetarian</td></tr>
+            <tr><td>Bota (milk &amp; sugar)</td><td class="where" style="white-space:normal;">Smooth maize porridge cooked with milk and sugar — the classic breakfast version.</td><td>Most Vic Falls lodge breakfast buffets<span class="km-tag">(on-site)</span></td></tr>
+            <tr class="section-row vegan"><td colspan="3">Vegan</td></tr>
+            <tr><td>Sadza &amp; Muriwo</td><td class="where" style="white-space:normal;">Stiff maize pap with leafy greens cooked in peanut butter — Zimbabwe's everyday plate.</td><td>Mama Africa Eating House, town centre<span class="km-tag">(≈2 km)</span></td></tr>
+            <tr><td>Chikanda ("African polony")</td><td class="where" style="white-space:normal;">A firm savoury cake from wild orchid tubers and ground peanuts — an unusual vegan specialty.</td><td>Mama Africa Eating House<span class="km-tag">(≈2 km)</span></td></tr>
+            <tr class="section-row nonveg"><td colspan="3">Non-Vegetarian</td></tr>
+            <tr><td>Nyama Choma</td><td class="where" style="white-space:normal;">Charcoal-grilled beef, goat or chicken, smoky and simply seasoned.</td><td>Mama Africa Eating House<span class="km-tag">(≈2 km)</span></td></tr>
+            <tr><td>Zambezi Bream</td><td class="where" style="white-space:normal;">Grilled or pan-fried whole with lemon butter — already on today's route.</td><td>The Lookout Café, Batoka Gorge<span class="km-tag">(≈4 km)</span></td></tr>
+            <tr><td>Mopane Worms</td><td class="where" style="white-space:normal;">Dried, seasoned caterpillars fried crisp — a genuine local delicacy.</td><td>Mama Africa Eating House<span class="km-tag">(≈2 km)</span></td></tr>
+            <tr class="section-row coffee"><td colspan="3">Coffee &amp; Tea</td></tr>
+            <tr><td>Chimanimani Coffee</td><td class="where" style="white-space:normal;">Arabica grown in Zimbabwe's Eastern Highlands — the beans most Vic Falls lodges pour at breakfast.</td><td>Joyful Vista Guest Lodge<span class="km-tag">(on-site)</span></td></tr>
+            <tr class="section-row dessert"><td colspan="3">Desserts</td></tr>
+            <tr><td>Malva Pudding</td><td class="where" style="white-space:normal;">A warm, spongy apricot-jam pudding drenched in cream sauce — a Southern African tourist-menu staple that starts right here.</td><td>Mama Africa Eating House<span class="km-tag">(≈2 km)</span></td></tr>
+            <tr class="section-row fruit"><td colspan="3">Fruits</td></tr>
+            <tr><td>Baobab Fruit</td><td class="where" style="white-space:normal;">Tangy, powdery pulp from the iconic baobab pod, sold whole or as a snack powder.</td><td>Vic Falls curio market, town centre<span class="km-tag">(≈1.5 km)</span></td></tr>
+            <tr class="section-row indian"><td colspan="3">Indian Cuisine</td></tr>
+            <tr><td>—</td><td class="where" style="white-space:normal;">No dedicated Indian restaurant in Victoria Falls town — the nearest proper ones are in Harare, hours away. Worth asking the lodge kitchen if they can spice a dish curry-style instead.</td><td>Joyful Vista Guest Lodge kitchen<span class="km-tag">(on request)</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">2</span></div>
+      <div>
+        <h2>Hwange / Dete</h2>
+        <div class="date">Saturday, 26 September</div>
+        <div class="day-country">Zimbabwe</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Gwango Heritage Resort</div></div>
+    </div>
+    <div style="padding:18px 22px 20px;">
+      <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0; margin-bottom:14px;">Dete is a small rural stop — the resort's own restaurant is realistically the only option tonight:</p>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Dish</th><th>Notes</th><th>Where to Try</th></tr></thead>
+          <tbody>
+            <tr class="section-row veg"><td colspan="3">Vegetarian</td></tr>
+            <tr><td>Bota</td><td class="where" style="white-space:normal;">The same milk-and-sugar maize porridge as Vic Falls.</td><td>Gwango Heritage Resort restaurant<span class="km-tag">(on-site)</span></td></tr>
+            <tr class="section-row vegan"><td colspan="3">Vegan</td></tr>
+            <tr><td>Sadza &amp; Muriwo Unedovi</td><td class="where" style="white-space:normal;">Maize pap with peanut-buttered greens, on the resort's regular dinner menu.</td><td>Gwango Heritage Resort restaurant<span class="km-tag">(on-site)</span></td></tr>
+            <tr class="section-row nonveg"><td colspan="3">Non-Vegetarian</td></tr>
+            <tr><td>Kudu or Guinea Fowl Stew</td><td class="where" style="white-space:normal;">With Hwange NP on the doorstep, the kitchen leans on game meat.</td><td>Gwango Heritage Resort restaurant<span class="km-tag">(on-site)</span></td></tr>
+            <tr><td>Boerewors</td><td class="where" style="white-space:normal;">A coiled, spiced beef sausage — a standard braai item most evenings.</td><td>Gwango Heritage Resort restaurant<span class="km-tag">(on-site)</span></td></tr>
+            <tr class="section-row coffee"><td colspan="3">Coffee &amp; Tea</td></tr>
+            <tr><td>Zimbabwean Filter Coffee</td><td class="where" style="white-space:normal;">Locally grown Highlands coffee, served at breakfast — Dete has no town café, so the resort is genuinely the only option.</td><td>Gwango Heritage Resort restaurant<span class="km-tag">(on-site)</span></td></tr>
+            <tr class="section-row dessert"><td colspan="3">Desserts</td></tr>
+            <tr><td>Malva Pudding</td><td class="where" style="white-space:normal;">The same warm apricot sponge pudding, on the resort's regular dinner menu.</td><td>Gwango Heritage Resort restaurant<span class="km-tag">(on-site)</span></td></tr>
+            <tr class="section-row fruit"><td colspan="3">Fruits</td></tr>
+            <tr><td>Seasonal Fruit Platter</td><td class="where" style="white-space:normal;">Whatever's in season locally, served at the breakfast buffet.</td><td>Gwango Heritage Resort restaurant<span class="km-tag">(on-site)</span></td></tr>
+            <tr class="section-row indian"><td colspan="3">Indian Cuisine</td></tr>
+            <tr><td>—</td><td class="where" style="white-space:normal;">Dete is too rural for a dedicated Indian restaurant; nothing realistic within reach tonight.</td><td>Gwango Heritage Resort restaurant<span class="km-tag">(on-site only)</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">3</span></div>
+      <div>
+        <h2>Livingstone <span class="via">(Days 3–4)</span></h2>
+        <div class="date">27–28 September</div>
+        <div class="day-country">Zambia</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Tabonina Guesthouse</div></div>
+    </div>
+    <div style="padding:18px 22px 20px;">
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Dish</th><th>Notes</th><th>Where to Try</th></tr></thead>
+          <tbody>
+            <tr class="section-row veg"><td colspan="3">Vegetarian</td></tr>
+            <tr><td>Ifisashi</td><td class="where" style="white-space:normal;">Leafy greens or pumpkin leaves simmered in a rich groundnut sauce.</td><td>Culture Cafe, Mosi-oa-Tunya Road<span class="km-tag">(≈2 km)</span></td></tr>
+            <tr class="section-row vegan"><td colspan="3">Vegan</td></tr>
+            <tr><td>Chikanda</td><td class="where" style="white-space:normal;">Zambia's own wild-orchid-tuber-and-peanut cake, sometimes called "Zambian polony."</td><td>Cafe Zambezi, 217 Mosi-oa-Tunya Road<span class="km-tag">(≈2 km)</span></td></tr>
+            <tr><td>Nshima</td><td class="where" style="white-space:normal;">Stiff maize porridge, plain and entirely plant-based — the everyday staple carb.</td><td>Culture Cafe<span class="km-tag">(≈2 km)</span></td></tr>
+            <tr class="section-row nonveg"><td colspan="3">Non-Vegetarian</td></tr>
+            <tr><td>Kapenta</td><td class="where" style="white-space:normal;">Small sun-dried Zambezi sardines, fried crisp or in tomato sauce.</td><td>Cafe Zambezi<span class="km-tag">(≈2 km)</span></td></tr>
+            <tr><td>Village Chicken / Impala</td><td class="where" style="white-space:normal;">Free-range chicken and impala meat both feature on the traditional menu here.</td><td>Culture Cafe<span class="km-tag">(≈2 km)</span></td></tr>
+            <tr class="section-row coffee"><td colspan="3">Coffee &amp; Tea</td></tr>
+            <tr><td>Kawambwa Tea</td><td class="where" style="white-space:normal;">Zambia's own tea, grown on the Kawambwa estates in the north — a genuine local specialty most visitors never hear about.</td><td>Cafe Zambezi, Mosi-oa-Tunya Road<span class="km-tag">(≈2 km)</span></td></tr>
+            <tr class="section-row dessert"><td colspan="3">Desserts</td></tr>
+            <tr><td>Bakery Desserts &amp; Ice Cream</td><td class="where" style="white-space:normal;">Olga's is an Italian-run social enterprise bakery well known in Livingstone for its cakes and desserts.</td><td>Olga's Italian Corner<span class="km-tag">(≈2 km)</span></td></tr>
+            <tr class="section-row fruit"><td colspan="3">Fruits</td></tr>
+            <tr><td>Seasonal Fruit</td><td class="where" style="white-space:normal;">Bananas, oranges and other fresh produce sold from stalls in town.</td><td>Livingstone town market<span class="km-tag">(≈2 km)</span></td></tr>
+            <tr class="section-row indian"><td colspan="3">Indian Cuisine</td></tr>
+            <tr><td>Butter Chicken, Biryani &amp; Curries</td><td class="where" style="white-space:normal;">A proper Indian menu on the same street as the other Livingstone picks — genuinely good reviews for authentic Indian food.</td><td>Aurum Restaurant (formerly The Golden Leaf), Mosi-oa-Tunya Road<span class="km-tag">(≈2 km)</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">5</span></div>
+      <div>
+        <h2>Kasane <span class="via">(Days 5–7)</span></h2>
+        <div class="date">29 September – 1 October</div>
+        <div class="day-country">Botswana</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Nxabii Cottages</div></div>
+    </div>
+    <div style="padding:18px 22px 20px;">
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Dish</th><th>Notes</th><th>Where to Try</th></tr></thead>
+          <tbody>
+            <tr class="section-row veg"><td colspan="3">Vegetarian</td></tr>
+            <tr><td>Bogobe Jwa Lerotse</td><td class="where" style="white-space:normal;">Sorghum porridge cooked with melon flesh — a regional specialty not always on standard menus.</td><td>Ask at any Kasane lodge restaurant<span class="km-tag">(≈1–3 km)</span></td></tr>
+            <tr class="section-row vegan"><td colspan="3">Vegan</td></tr>
+            <tr><td>Morogo</td><td class="where" style="white-space:normal;">Wild leafy greens cooked with tomato and onion, plain version is fully plant-based.</td><td>Kasane market, Hunter's Mall<span class="km-tag">(≈3 km)</span></td></tr>
+            <tr class="section-row nonveg"><td colspan="3">Non-Vegetarian</td></tr>
+            <tr><td>Seswaa</td><td class="where" style="white-space:normal;">Slow-cooked, hand-shredded beef or goat — Botswana's national dish.</td><td>Sedudu Bar &amp; Grill, Chobe Safari Lodge (riverfront)<span class="km-tag">(≈4 km)</span></td></tr>
+            <tr><td>Chobe Bream</td><td class="where" style="white-space:normal;">Freshwater bream straight from the river on Kasane's doorstep.</td><td>The Old House, Chobe riverbank<span class="km-tag">(≈4 km)</span></td></tr>
+            <tr><td>Phane (Mopane Worms)</td><td class="where" style="white-space:normal;">Dried mopane caterpillars — a genuine Botswana delicacy.</td><td>Kasane market, Hunter's Mall<span class="km-tag">(≈3 km)</span></td></tr>
+            <tr class="section-row coffee"><td colspan="3">Coffee &amp; Tea</td></tr>
+            <tr><td>Rooibos Tea</td><td class="where" style="white-space:normal;">Caffeine-free redbush tea, the everyday hot drink at lodges across the region.</td><td>Any Kasane lodge restaurant<span class="km-tag">(≈1–3 km)</span></td></tr>
+            <tr class="section-row dessert"><td colspan="3">Desserts</td></tr>
+            <tr><td>Malva Pudding</td><td class="where" style="white-space:normal;">The same warm apricot sponge pudding found at lodges right across Southern Africa.</td><td>Sedudu Bar &amp; Grill, Chobe Safari Lodge<span class="km-tag">(≈4 km)</span></td></tr>
+            <tr class="section-row fruit"><td colspan="3">Fruits</td></tr>
+            <tr><td>Seasonal Fruit</td><td class="where" style="white-space:normal;">Fresh produce brought in from South Africa and local gardens.</td><td>Kasane market, Hunter's Mall<span class="km-tag">(≈3 km)</span></td></tr>
+            <tr class="section-row indian"><td colspan="3">Indian Cuisine</td></tr>
+            <tr><td>Biryani, Butter Chicken &amp; Paneer Tikka</td><td class="where" style="white-space:normal;">A dedicated Indian restaurant right in Kasane — vegetarian and non-vegetarian both well covered.</td><td>Tandurei, President Avenue<span class="km-tag">(≈3 km)</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">8</span></div>
+      <div>
+        <h2>Johannesburg <span class="via">(Kempton Park)</span></h2>
+        <div class="date">Friday, 2 October</div>
+        <div class="day-country">South Africa</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Vetho 1 Apartments</div></div>
+    </div>
+    <div style="padding:18px 22px 20px;">
+      <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0; margin-bottom:14px;">Little time tonight, so this leans on Emperors Palace, already the plan for dinner:</p>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Dish</th><th>Notes</th><th>Where to Try</th></tr></thead>
+          <tbody>
+            <tr class="section-row veg"><td colspan="3">Vegetarian</td></tr>
+            <tr><td>Vetkoek</td><td class="where" style="white-space:normal;">Deep-fried dough balls, split and filled with jam or cheese.</td><td>Bakeries near Birch Acres Mall<span class="km-tag">(≈7 km)</span></td></tr>
+            <tr><td>Melktert</td><td class="where" style="white-space:normal;">A soft-set custard tart dusted with cinnamon.</td><td>Dine At Platia / Tribes, Emperors Palace<span class="km-tag">(≈4 km)</span></td></tr>
+            <tr class="section-row vegan"><td colspan="3">Vegan</td></tr>
+            <tr><td>Chakalaka</td><td class="where" style="white-space:normal;">Spicy tomato-and-vegetable relish, plain version has no dairy or meat.</td><td>Tribes African Grill &amp; Steakhouse, Emperors Palace<span class="km-tag">(≈4 km)</span></td></tr>
+            <tr><td>Pap</td><td class="where" style="white-space:normal;">Plain maize porridge, vegan on its own.</td><td>Tribes African Grill &amp; Steakhouse<span class="km-tag">(≈4 km)</span></td></tr>
+            <tr class="section-row nonveg"><td colspan="3">Non-Vegetarian</td></tr>
+            <tr><td>Boerewors</td><td class="where" style="white-space:normal;">A coiled, spiced beef-and-pork sausage — the centrepiece of any braai.</td><td>Tribes African Grill &amp; Steakhouse<span class="km-tag">(≈4 km)</span></td></tr>
+            <tr><td>Bobotie</td><td class="where" style="white-space:normal;">Spiced minced meat under an egg-custard topping — often called SA's national dish.</td><td>Tribes African Grill &amp; Steakhouse<span class="km-tag">(≈4 km)</span></td></tr>
+            <tr><td>Bunny Chow</td><td class="where" style="white-space:normal;">A hollowed loaf filled with curry — the real destination for it is Sakhumzi in Soweto, a genuine detour rather than tonight's plan, but worth knowing about for a future Joburg trip.</td><td>Sakhumzi Restaurant, Soweto (for reference)<span class="km-tag">(≈45 km)</span></td></tr>
+            <tr class="section-row coffee"><td colspan="3">Coffee &amp; Tea</td></tr>
+            <tr><td>Rooibos Tea</td><td class="where" style="white-space:normal;">South Africa's signature caffeine-free tea, on every restaurant menu here.</td><td>Tribes African Grill &amp; Steakhouse, Emperors Palace<span class="km-tag">(≈4 km)</span></td></tr>
+            <tr class="section-row dessert"><td colspan="3">Desserts</td></tr>
+            <tr><td>Peppermint Crisp Tart</td><td class="where" style="white-space:normal;">A beloved no-bake SA dessert — layers of caramel, cream and crushed chocolate-mint bars.</td><td>Dine At Platia / Tribes, Emperors Palace<span class="km-tag">(≈4 km)</span></td></tr>
+            <tr class="section-row fruit"><td colspan="3">Fruits</td></tr>
+            <tr><td>Cape Gooseberries</td><td class="where" style="white-space:normal;">Small tart-sweet golden berries in a papery husk, a distinctly South African fruit stall staple.</td><td>Fruit stalls, Birch Acres Mall<span class="km-tag">(≈7 km)</span></td></tr>
+            <tr class="section-row indian"><td colspan="3">Indian Cuisine</td></tr>
+            <tr><td>Butter Chicken, Rogan Josh &amp; Naan</td><td class="where" style="white-space:normal;">A proper Indian restaurant right in Croydon, the same suburb as Vetho 1 — genuinely the closest option on this whole trip.</td><td>Maharaja Indian Restaurant, Reier Street<span class="km-tag">(≈2 km)</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">9</span></div>
+      <div>
+        <h2>Komatipoort</h2>
+        <div class="date">Saturday, 3 October</div>
+        <div class="day-country">South Africa</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Kruger Allo B&amp;B</div></div>
+    </div>
+    <div style="padding:18px 22px 20px;">
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Dish</th><th>Notes</th><th>Where to Try</th></tr></thead>
+          <tbody>
+            <tr class="section-row veg"><td colspan="3">Vegetarian</td></tr>
+            <tr><td>Gem Squash</td><td class="where" style="white-space:normal;">A small round squash, halved and baked with butter — a common home-style side.</td><td>Kruger Allo B&amp;B<span class="km-tag">(on-site)</span> / Trees Too Guest Lodge<span class="km-tag">(≈4 km)</span></td></tr>
+            <tr class="section-row vegan"><td colspan="3">Vegan</td></tr>
+            <tr><td>Morogo</td><td class="where" style="white-space:normal;">Wild spinach-type greens cooked simply with tomato and onion.</td><td>Trees Too Guest Lodge restaurant &amp; bar<span class="km-tag">(≈4 km)</span></td></tr>
+            <tr class="section-row nonveg"><td colspan="3">Non-Vegetarian</td></tr>
+            <tr><td>Game Braai</td><td class="where" style="white-space:normal;">Kudu, impala or warthog grilled alongside beef, with Kruger views while you eat.</td><td>Ngwenya Parkview Restaurant<span class="km-tag">(≈12 km)</span></td></tr>
+            <tr><td>Biltong &amp; Droëwors</td><td class="where" style="white-space:normal;">Air-dried spiced beef strips and sausage.</td><td>Farm stalls between Komatipoort and Kruger<span class="km-tag">(≈5–15 km)</span></td></tr>
+            <tr class="section-row coffee"><td colspan="3">Coffee &amp; Tea</td></tr>
+            <tr><td>Rooibos Tea</td><td class="where" style="white-space:normal;">The regional standard hot drink, on the menu at both the B&amp;B and nearby lodges.</td><td>Kruger Allo B&amp;B<span class="km-tag">(on-site)</span></td></tr>
+            <tr class="section-row dessert"><td colspan="3">Desserts</td></tr>
+            <tr><td>Malva Pudding with Amarula Custard</td><td class="where" style="white-space:normal;">The regional apricot sponge pudding, often finished here with a splash of Amarula cream liqueur.</td><td>Ngwenya Parkview Restaurant<span class="km-tag">(≈12 km)</span></td></tr>
+            <tr class="section-row fruit"><td colspan="3">Fruits</td></tr>
+            <tr><td>Lowveld Citrus</td><td class="where" style="white-space:normal;">Oranges and naartjies grown commercially in the Mpumalanga Lowveld, in season this time of year.</td><td>Farm stalls between Komatipoort and Kruger<span class="km-tag">(≈5–15 km)</span></td></tr>
+            <tr class="section-row indian"><td colspan="3">Indian Cuisine</td></tr>
+            <tr><td>—</td><td class="where" style="white-space:normal;">No Indian restaurant in Komatipoort itself; the nearest options (Kadai, Curry Crush) are in Nelspruit/Mbombela, too far for the one night here.</td><td>Kadai / Curry Crush, Mbombela (for reference)<span class="km-tag">(≈110 km)</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">10</span></div>
+      <div>
+        <h2>Satara Rest Camp</h2>
+        <div class="date">Sunday, 4 October</div>
+        <div class="day-country">South Africa</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Satara Rest Camp</div></div>
+    </div>
+    <div style="padding:18px 22px 20px;">
+      <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0; margin-bottom:14px;">A fenced camp inside the park — everything below is on camp grounds:</p>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Dish</th><th>Notes</th><th>Where to Try</th></tr></thead>
+          <tbody>
+            <tr class="section-row veg"><td colspan="3">Vegetarian</td></tr>
+            <tr><td>Pap &amp; Chakalaka</td><td class="where" style="white-space:normal;">The camp restaurant's standard vegetarian plate.</td><td>Satara Rest Camp restaurant<span class="km-tag">(on-site)</span></td></tr>
+            <tr class="section-row vegan"><td colspan="3">Vegan</td></tr>
+            <tr><td>Plain Pap</td><td class="where" style="white-space:normal;">The same maize porridge without any dairy or meat accompaniment.</td><td>Satara Rest Camp restaurant<span class="km-tag">(on-site)</span></td></tr>
+            <tr class="section-row nonveg"><td colspan="3">Non-Vegetarian</td></tr>
+            <tr><td>Boerewors Roll</td><td class="where" style="white-space:normal;">A grilled sausage in a roll with onion and tomato sauce.</td><td>Satara Rest Camp shop<span class="km-tag">(on-site)</span></td></tr>
+            <tr><td>Game Potjiekos</td><td class="where" style="white-space:normal;">Springbok, kudu or oxtail slow-cooked in a cast-iron pot.</td><td>Bush Braai &amp; Breakfast (book at reception)<span class="km-tag">(varies by venue)</span></td></tr>
+            <tr class="section-row coffee"><td colspan="3">Coffee &amp; Tea</td></tr>
+            <tr><td>Filter Coffee &amp; Rooibos</td><td class="where" style="white-space:normal;">The camp restaurant's standard hot drinks — there's nowhere else inside the fence.</td><td>Satara Rest Camp restaurant<span class="km-tag">(on-site)</span></td></tr>
+            <tr class="section-row dessert"><td colspan="3">Desserts</td></tr>
+            <tr><td>Malva Pudding</td><td class="where" style="white-space:normal;">A regular fixture on the camp restaurant's dinner menu.</td><td>Satara Rest Camp restaurant<span class="km-tag">(on-site)</span></td></tr>
+            <tr class="section-row fruit"><td colspan="3">Fruits</td></tr>
+            <tr><td>Seasonal Fruit</td><td class="where" style="white-space:normal;">Fresh fruit stocked at the camp shop for the drive onward.</td><td>Satara Rest Camp shop<span class="km-tag">(on-site)</span></td></tr>
+            <tr class="section-row indian"><td colspan="3">Indian Cuisine</td></tr>
+            <tr><td>—</td><td class="where" style="white-space:normal;">None inside the park — Satara's kitchen doesn't do Indian food, and the nearest options are well outside the Kruger gates.</td><td>Not available in camp<span class="km-tag">(none nearby)</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">11</span></div>
+      <div>
+        <h2>Sabie</h2>
+        <div class="date">Monday, 5 October</div>
+        <div class="day-country">South Africa</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Sabie Star</div></div>
+    </div>
+    <div style="padding:18px 22px 20px;">
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Dish</th><th>Notes</th><th>Where to Try</th></tr></thead>
+          <tbody>
+            <tr class="section-row veg"><td colspan="3">Vegetarian</td></tr>
+            <tr><td>Scones with Jam &amp; Cream</td><td class="where" style="white-space:normal;">A legacy of Sabie's old timber-estate tea-garden culture.</td><td>Tea gardens around Sabie town centre<span class="km-tag">(≈3 km)</span></td></tr>
+            <tr class="section-row vegan"><td colspan="3">Vegan</td></tr>
+            <tr><td>Pap &amp; Chakalaka</td><td class="where" style="white-space:normal;">The same plant-based staple found across South Africa.</td><td>Loggers Pub &amp; Grill, Market Square<span class="km-tag">(≈3 km)</span></td></tr>
+            <tr class="section-row nonveg"><td colspan="3">Non-Vegetarian</td></tr>
+            <tr><td>Smoked or Grilled Trout</td><td class="where" style="white-space:normal;">Sabie sits in genuine trout-farming country (Horseshoe Trout &amp; About, Lunsklip Fisheries nearby) — this restaurant's trout platter is the way to try it.</td><td>The Wild Fig Tree, cnr Trichardt &amp; Main Road<span class="km-tag">(≈3 km)</span></td></tr>
+            <tr><td>Bobotie / Potjie</td><td class="where" style="white-space:normal;">Also on the same menu as the trout platter, alongside ostrich kebabs and crocodile curry.</td><td>The Wild Fig Tree<span class="km-tag">(≈3 km)</span></td></tr>
+            <tr><td>Biltong &amp; Droëwors</td><td class="where" style="white-space:normal;">Air-dried spiced beef, sold all along the Panorama Route.</td><td>Farm stalls, Sabie–Graskop road<span class="km-tag">(varies, ≈2–15 km)</span></td></tr>
+            <tr class="section-row coffee"><td colspan="3">Coffee &amp; Tea</td></tr>
+            <tr><td>High Tea &amp; Filter Coffee</td><td class="where" style="white-space:normal;">A holdover from Sabie's old timber-estate tea-garden culture, served alongside the scones.</td><td>Tea gardens around Sabie town centre<span class="km-tag">(≈3 km)</span></td></tr>
+            <tr class="section-row dessert"><td colspan="3">Desserts</td></tr>
+            <tr><td>Malva Pudding with Amarula Custard</td><td class="where" style="white-space:normal;">The regional apricot sponge pudding, on the same menu as the trout platter.</td><td>The Wild Fig Tree<span class="km-tag">(≈3 km)</span></td></tr>
+            <tr class="section-row fruit"><td colspan="3">Fruits</td></tr>
+            <tr><td>Litchis &amp; Granadillas</td><td class="where" style="white-space:normal;">Lowveld-grown litchis and granadillas (passion fruit), sold at farm stalls along the Panorama Route.</td><td>Farm stalls, Sabie–Graskop road<span class="km-tag">(varies, ≈2–15 km)</span></td></tr>
+            <tr class="section-row indian"><td colspan="3">Indian Cuisine</td></tr>
+            <tr><td>Halal Indian Deli Fare</td><td class="where" style="white-space:normal;">A genuine surprise for a small timber town — halal Indian and vegetarian dishes right on Market Square.</td><td>Ayesha's Indian Deli, Sabie Market Square<span class="km-tag">(≈3 km)</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">12</span></div>
+      <div>
+        <h2>Sabie → Johannesburg <span class="via">(Kempton Park)</span></h2>
+        <div class="date">Tuesday, 6 October</div>
+        <div class="day-country">South Africa</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Vetho 1 Apartments</div></div>
+    </div>
+    <div style="padding:18px 22px 20px;">
+      <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0; margin-bottom:14px;">The last night in South Africa — same Emperors Palace plan as 2 Oct, worth treating as the send-off dinner:</p>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Dish</th><th>Notes</th><th>Where to Try</th></tr></thead>
+          <tbody>
+            <tr class="section-row veg"><td colspan="3">Vegetarian</td></tr>
+            <tr><td>Vetkoek</td><td class="where" style="white-space:normal;">Deep-fried dough balls filled with jam or cheese.</td><td>Bakeries near Birch Acres Mall<span class="km-tag">(≈7 km)</span></td></tr>
+            <tr><td>Koeksisters</td><td class="where" style="white-space:normal;">Deep-fried braided dough soaked in cold sticky syrup — a fitting last SA dessert.</td><td>Dine At Platia, Emperors Palace<span class="km-tag">(≈4 km)</span></td></tr>
+            <tr class="section-row vegan"><td colspan="3">Vegan</td></tr>
+            <tr><td>Chakalaka</td><td class="where" style="white-space:normal;">Same spicy relish as 2 Oct.</td><td>Tribes African Grill &amp; Steakhouse<span class="km-tag">(≈4 km)</span></td></tr>
+            <tr><td>Pap</td><td class="where" style="white-space:normal;">Plain maize porridge, vegan on its own.</td><td>Tribes African Grill &amp; Steakhouse<span class="km-tag">(≈4 km)</span></td></tr>
+            <tr class="section-row nonveg"><td colspan="3">Non-Vegetarian</td></tr>
+            <tr><td>Boerewors</td><td class="where" style="white-space:normal;">One more braai-style plate before leaving South Africa.</td><td>Tribes African Grill &amp; Steakhouse<span class="km-tag">(≈4 km)</span></td></tr>
+            <tr><td>Bobotie</td><td class="where" style="white-space:normal;">A fitting last South African sit-down dinner.</td><td>Tribes African Grill &amp; Steakhouse / Dine At Platia<span class="km-tag">(≈4 km)</span></td></tr>
+            <tr class="section-row coffee"><td colspan="3">Coffee &amp; Tea</td></tr>
+            <tr><td>Rooibos Tea</td><td class="where" style="white-space:normal;">One last cup of South Africa's own tea before flying out.</td><td>Tribes African Grill &amp; Steakhouse<span class="km-tag">(≈4 km)</span></td></tr>
+            <tr class="section-row dessert"><td colspan="3">Desserts</td></tr>
+            <tr><td>Peppermint Crisp Tart</td><td class="where" style="white-space:normal;">Same beloved no-bake tart as 2 Oct — worth a repeat before leaving.</td><td>Dine At Platia, Emperors Palace<span class="km-tag">(≈4 km)</span></td></tr>
+            <tr class="section-row fruit"><td colspan="3">Fruits</td></tr>
+            <tr><td>Cape Gooseberries</td><td class="where" style="white-space:normal;">The same tart golden berries, easy to pick up for the flight home.</td><td>Fruit stalls, Birch Acres Mall<span class="km-tag">(≈7 km)</span></td></tr>
+            <tr class="section-row indian"><td colspan="3">Indian Cuisine</td></tr>
+            <tr><td>Butter Chicken, Rogan Josh &amp; Naan</td><td class="where" style="white-space:normal;">Same nearby option as 2 Oct — an easy last-night pick if anyone's craving home food before the flight.</td><td>Maharaja Indian Restaurant, Reier Street<span class="km-tag">(≈2 km)</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">13</span></div>
+      <div>
+        <h2>Le Morne <span class="via">(Days 13–14)</span></h2>
+        <div class="date">7–8 October</div>
+        <div class="day-country">Mauritius</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Palms Studio</div></div>
+    </div>
+    <div style="padding:18px 22px 20px;">
+      <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0; margin-bottom:14px;">Daytime here is already covered in Free-Time Extras (catamaran, Le Morne hike, Chamarel) — this is just what to eat, from village street food up to the Chamarel highlands:</p>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Dish</th><th>Notes</th><th>Where to Try</th></tr></thead>
+          <tbody>
+            <tr class="section-row veg"><td colspan="3">Vegetarian</td></tr>
+            <tr><td>Dholl Puri</td><td class="where" style="white-space:normal;">Flatbread of ground yellow split peas, folded around butter-bean curry and chutneys — Mauritius's everyday street snack, sold from carts island-wide.</td><td>Roadside stalls, La Gaulette village<span class="km-tag">(≈1 km)</span></td></tr>
+            <tr><td>Napolitaine</td><td class="where" style="white-space:normal;">A soft, sugar-glazed biscuit sandwiched with raspberry jam — a fixture of every Mauritian bakery counter.</td><td>Village bakery, La Gaulette<span class="km-tag">(≈1 km)</span></td></tr>
+            <tr class="section-row vegan"><td colspan="3">Vegan</td></tr>
+            <tr><td>Gato Pima (Gateau Piment)</td><td class="where" style="white-space:normal;">Deep-fried yellow split-pea and chilli fritters, sold hot from roadside carts — Mauritius's most iconic snack, and naturally vegan.</td><td>Roadside stalls, La Gaulette / Le Morne village<span class="km-tag">(≈1–2 km)</span></td></tr>
+            <tr><td>Salade de Palmiste (Millionaire's Salad)</td><td class="where" style="white-space:normal;">Shredded palm heart in a light vinaigrette — a genuine Mauritian delicacy (each salad costs a felled palm tree, hence the name). Worth confirming it's on the menu before ordering.</td><td>Restaurants along the Black River coast road<span class="km-tag">(≈5 km)</span></td></tr>
+            <tr class="section-row nonveg"><td colspan="3">Non-Vegetarian</td></tr>
+            <tr><td>Cari Ourite (Octopus Curry)</td><td class="where" style="white-space:normal;">Mauritius's signature seafood curry — octopus simmered in a turmeric-tomato masala.</td><td>Chez Popo, Corn Islet, La Gaulette — a well-known no-menu, fresh-catch seafood shack<span class="km-tag">(≈3 km)</span></td></tr>
+            <tr><td>Grilled Marlin or Dorade</td><td class="where" style="white-space:normal;">Fresh-caught fish, grilled simply with lime and chilli.</td><td>Chez Popo, Corn Islet<span class="km-tag">(≈3 km)</span></td></tr>
+            <tr class="section-row coffee"><td colspan="3">Coffee &amp; Tea</td></tr>
+            <tr><td>Chamarel Coffee</td><td class="where" style="white-space:normal;">Genuine local highland Arabica grown on Chamarel's volcanic soil — not the rare "Bourbon Pointu" varietal despite occasional signage suggesting otherwise, just good small-batch local coffee.</td><td>Rhumerie de Chamarel café/tasting room<span class="km-tag">(≈14 km)</span></td></tr>
+            <tr class="section-row dessert"><td colspan="3">Desserts</td></tr>
+            <tr><td>Gateau Patate</td><td class="where" style="white-space:normal;">A sweet potato and coconut cake, fried and dusted with sugar — sold hot from the same street carts as the savoury snacks.</td><td>Village stalls, La Gaulette<span class="km-tag">(≈1–2 km)</span></td></tr>
+            <tr class="section-row fruit"><td colspan="3">Fruits</td></tr>
+            <tr><td>Pineapple (Victoria) &amp; Papaya</td><td class="where" style="white-space:normal;">Mauritius's everyday tropical fruit-stall staples, sold year-round along the coast road.</td><td>Roadside fruit stalls toward Baie du Cap<span class="km-tag">(≈2–5 km)</span></td></tr>
+            <tr class="section-row indian"><td colspan="3">Indian Cuisine</td></tr>
+            <tr><td>North Indian Curries &amp; Thali</td><td class="where" style="white-space:normal;">A proper Indian menu, though it's a resort restaurant — worth calling ahead to check non-guest access.</td><td>Simply India, St Regis Mauritius Resort, Le Morne<span class="km-tag">(≈4 km)</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">15</span></div>
+      <div>
+        <h2>Grand Baie <span class="via">(Days 15–16)</span></h2>
+        <div class="date">9–10 October</div>
+        <div class="day-country">Mauritius</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Le Point Choisy</div></div>
+    </div>
+    <div style="padding:18px 22px 20px;">
+      <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0; margin-bottom:14px;">Daytime activities and the Grand Baie nightlife venues are already in Free-Time Extras — this covers meals and snacks not listed there:</p>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Dish</th><th>Notes</th><th>Where to Try</th></tr></thead>
+          <tbody>
+            <tr class="section-row veg"><td colspan="3">Vegetarian</td></tr>
+            <tr><td>Dholl Puri &amp; Roti</td><td class="where" style="white-space:normal;">The same split-pea flatbread and chutneys, from the stalls around Grand Baie's own market (closed Sundays, but open both other days of this stay).</td><td>Grand Baie Public Market / Bazaar<span class="km-tag">(≈1 km)</span></td></tr>
+            <tr class="section-row vegan"><td colspan="3">Vegan</td></tr>
+            <tr><td>Gato Pima &amp; Bol Renversé (veg)</td><td class="where" style="white-space:normal;">The same chilli fritters, plus a vegetable version of the Chinese-Mauritian "upside-down bowl" of rice and stir-fried vegetables.</td><td>Grand Baie Public Market / Bazaar<span class="km-tag">(≈1 km)</span></td></tr>
+            <tr class="section-row nonveg"><td colspan="3">Non-Vegetarian</td></tr>
+            <tr><td>Grilled Octopus &amp; Prawns</td><td class="where" style="white-space:normal;">A Grand Baie favourite for fresh seafood, grilled simply.</td><td>La Kaza, Grand Baie<span class="km-tag">(≈2 km)</span></td></tr>
+            <tr class="section-row coffee"><td colspan="3">Coffee &amp; Tea</td></tr>
+            <tr><td>Specialty Coffee</td><td class="where" style="white-space:normal;">A proper espresso-bar stop, a change of pace from hotel filter coffee.</td><td>Coffee Nut Café, Grand Baie<span class="km-tag">(≈1.5 km)</span></td></tr>
+            <tr class="section-row dessert"><td colspan="3">Desserts</td></tr>
+            <tr><td>French-Mauritian Pastries</td><td class="where" style="white-space:normal;">Croissants, tarts and other patisserie — a well-regarded Grand Baie bakery.</td><td>Le Fournil, Grand Baie<span class="km-tag">(≈1.5 km)</span></td></tr>
+            <tr class="section-row fruit"><td colspan="3">Fruits</td></tr>
+            <tr><td>Seasonal Tropical Fruit</td><td class="where" style="white-space:normal;">Papaya, pineapple, banana and whatever's freshest that morning.</td><td>Grand Baie Public Market / Bazaar<span class="km-tag">(≈1 km)</span></td></tr>
+            <tr class="section-row indian"><td colspan="3">Indian Cuisine</td></tr>
+            <tr><td>Butter Chicken, Biryani &amp; Curries</td><td class="where" style="white-space:normal;">A dedicated Indian restaurant right in Grand Baie.</td><td>Happy Rajah Indian Restaurant, Grand Baie<span class="km-tag">(≈1.5 km)</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="day">
+    <div class="day-head">
+      <div class="day-badge"><span class="label">DAY</span><span class="num">17</span></div>
+      <div>
+        <h2>Union Vale <span class="via">(Days 17–18)</span></h2>
+        <div class="date">11–12 October</div>
+        <div class="day-country">Mauritius</div>
+      </div>
+      <div class="camp"><div class="label">Overnight</div><div class="name">Gite des Acacias</div></div>
+    </div>
+    <div style="padding:18px 22px 20px;">
+      <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0; margin-bottom:14px;">This stay is short — arrival Sunday evening, then a 04:00 checkout Monday for the 09:30 flight home — so there's really only the Sunday-evening window. Worth flagging: Mahebourg's famous street-food market (dholl puri, gato pima and briyani stalls) runs Mondays only, which lands right on the departure morning with zero free time, so it isn't realistically usable this trip — the picks below are what's reachable Sunday evening instead:</p>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Dish</th><th>Notes</th><th>Where to Try</th></tr></thead>
+          <tbody>
+            <tr class="section-row veg"><td colspan="3">Vegetarian</td></tr>
+            <tr><td>Dholl Puri</td><td class="where" style="white-space:normal;">Dholl puri carts are a daily fixture in most Mauritian towns, not just at Mahebourg's Monday market — worth asking at Gite des Acacias reception for the nearest evening stall.</td><td>Mahebourg town centre stalls<span class="km-tag">(≈3 km)</span></td></tr>
+            <tr class="section-row vegan"><td colspan="3">Vegan</td></tr>
+            <tr><td>Gato Pima</td><td class="where" style="white-space:normal;">The same chilli fritters, sold at general stores and snack counters around town on non-market days too.</td><td>Mahebourg town centre<span class="km-tag">(≈3 km)</span></td></tr>
+            <tr class="section-row nonveg"><td colspan="3">Non-Vegetarian</td></tr>
+            <tr><td>Smoked Marlin (Poisson Fumé)</td><td class="where" style="white-space:normal;">A genuine south-coast specialty — cold-smoked marlin, thinly sliced. Sold at delis rather than restaurants, so worth asking at reception for the nearest stockist.</td><td>Delis around Mahebourg / south coast<span class="km-tag">(on request)</span></td></tr>
+            <tr class="section-row coffee"><td colspan="3">Coffee &amp; Tea</td></tr>
+            <tr><td>Filter Coffee</td><td class="where" style="white-space:normal;">A waterfront café stop overlooking Mahebourg's harbour.</td><td>Cafés along the Mahebourg waterfront<span class="km-tag">(≈3 km)</span></td></tr>
+            <tr class="section-row dessert"><td colspan="3">Desserts</td></tr>
+            <tr><td>Biscuits Manioc (Cassava Biscuits)</td><td class="where" style="white-space:normal;">A Mahebourg heritage specialty — thin cassava-flour biscuits, made at a historic biscuiterie open for tastings.</td><td>Biscuiterie H. Rault, Mahebourg<span class="km-tag">(≈4 km)</span></td></tr>
+            <tr class="section-row fruit"><td colspan="3">Fruits</td></tr>
+            <tr><td>Seasonal Fruit</td><td class="where" style="white-space:normal;">Whatever's fresh at the local general stores that evening — market-day variety won't be available.</td><td>General stores, Mahebourg town centre<span class="km-tag">(≈3 km)</span></td></tr>
+            <tr class="section-row indian"><td colspan="3">Indian Cuisine</td></tr>
+            <tr><td>Himalayan &amp; Curry Menu</td><td class="where" style="white-space:normal;">Not strictly Indian — a Nepali-run kitchen with momos, dal and curries in a similar spirit — but the closest proper curry house to Mahebourg.</td><td>Namaste Kathmandu, Mahebourg<span class="km-tag">(≈3 km)</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <footer>Restaurant names and dishes are researched against current listings (2026), but hours, menus and availability can change — worth a quick check on the day.</footer>
+
+</div>
+</body>
+</html>

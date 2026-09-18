@@ -97,9 +97,23 @@ h1{font-family:'Fraunces', Georgia, serif; text-wrap:balance; margin:0; font-siz
 }
 header{display:flex; flex-direction:column; gap:8px;}
 
+.hero-grid{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:18px;}
+.hero-text{flex:1 1 300px; display:flex; flex-direction:column; gap:8px;}
+.hero-map{flex:0 0 auto; width:210px; max-width:44vw; margin-inline:auto;}
+.hero-map svg{width:100%; height:auto; display:block;}
+.africa-shape{fill:var(--surface-2); stroke:var(--accent); stroke-width:1.5; stroke-linejoin:round;}
+.africa-pin{fill:var(--accent-strong);}
+.africa-leader{stroke:var(--accent-strong); stroke-width:1; stroke-dasharray:3,3;}
+.africa-label{font-family:'JetBrains Mono', monospace; font-size:11px; font-weight:600; fill:var(--text);}
+@media (max-width:600px){
+  .hero-grid{flex-direction:column; align-items:center;}
+  .hero-text{text-align:left; width:100%;}
+  .hero-map{width:230px; max-width:66vw;}
+}
+
 .stat-strip{
   display:grid;
-  grid-template-columns:repeat(4, 1fr);
+  grid-template-columns:repeat(3, 1fr);
   gap:10px;
 }
 .stat{
@@ -113,8 +127,9 @@ header{display:flex; flex-direction:column; gap:8px;}
 .stat svg{width:17px; height:17px; color:var(--accent); flex-shrink:0;}
 .stat .num{font-family:'Fraunces', Georgia, serif; font-weight:700; font-size:1.5rem; line-height:1;}
 .stat .lbl{font-family:'JetBrains Mono', monospace; font-size:0.6rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--text-muted); font-weight:600;}
-@media (max-width:560px){
-  .stat-strip{grid-template-columns:repeat(2, 1fr);}
+@media (max-width:420px){
+  .stat-strip{grid-template-columns:repeat(3, 1fr); gap:6px;}
+  .stat{padding:12px 8px;}
 }
 
 .grid{display:flex; flex-direction:column; gap:12px;}
@@ -249,10 +264,38 @@ body{ padding-inline:0; padding-block:0; overflow-x:hidden; }
 
 <header>
   <div class="glow"></div>
-  <span class="eyebrow">24 September – 12 October 2026</span>
-  <h1>AFRICA FIVE NATION TOUR</h1>
-  <div class="route-line">India → Zimbabwe → Zambia → Botswana → South Africa → Mauritius → India</div>
-  <div class="travellers"><span class="pill">Amar Raj Urs</span><span class="pill">Pratap Raj</span><span class="pill">Praveen Kumar Nallipogu</span></div>
+  <div class="hero-grid">
+    <div class="hero-text">
+      <span class="eyebrow">24 September – 12 October 2026</span>
+      <h1>AFRICA FIVE NATION TOUR</h1>
+      <div class="route-line">India → Zimbabwe → Zambia → Botswana → South Africa → Mauritius → India</div>
+      <div class="travellers"><span class="pill">Amar Raj Urs</span><span class="pill">Pratap Raj</span><span class="pill">Praveen Kumar Nallipogu</span></div>
+    </div>
+    <div class="hero-map">
+      <svg viewBox="0 0 400 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Map of Africa with Zimbabwe, Zambia, Botswana, South Africa and Mauritius marked">
+        <path class="africa-shape" d="
+          M 51,32 L 187,8 L 255,40 L 265,70 L 323,128 L 280,150 L 265,190 L 255,220
+          L 245,280 L 238,320 L 225,360 L 211,388 L 185,392 L 153,360 L 129,316
+          L 109,260 L 95,220 L 100,195 L 75,180 L 45,178 L 25,165 L 7,130 L 20,95 L 40,60 Z
+        "/>
+        <line class="africa-leader" x1="248" y1="355" x2="305" y2="335"/>
+        <circle class="africa-pin" cx="308" cy="333" r="4"/>
+        <text class="africa-label" x="316" y="337">Mauritius</text>
+
+        <circle class="africa-pin" cx="185" cy="245" r="4"/>
+        <text class="africa-label" x="193" y="242">Zambia</text>
+
+        <circle class="africa-pin" cx="203" cy="278" r="4"/>
+        <text class="africa-label" x="211" y="282">Zimbabwe</text>
+
+        <circle class="africa-pin" cx="163" cy="290" r="4"/>
+        <text class="africa-label" x="95" y="300">Botswana</text>
+
+        <circle class="africa-pin" cx="197" cy="365" r="4"/>
+        <text class="africa-label" x="205" y="368">South Africa</text>
+      </svg>
+    </div>
+  </div>
 </header>
 
 <div class="stat-strip">
@@ -268,66 +311,6 @@ body{ padding-inline:0; padding-block:0; overflow-x:hidden; }
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
     <span class="num">3</span><span class="lbl">Travellers</span>
   </div>
-  <div class="stat">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-    <span class="num">8</span><span class="lbl">Guides</span>
-  </div>
-</div>
-
-<div class="grid">
-
-  <div class="group-label">Day by day, on the trip</div>
-
-  <a class="card" href="full_trip_route.html">
-    <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 20l-5.5 2V6L9 4m0 16l6 2m-6-2V4m6 18l5.5-2V4L15 6m0 16V4m0 0L9 6"/></svg></div>
-    <div class="body"><span class="title">Day-by-Day Itinerary</span><span class="desc">Day-by-day route, legs, distances and drive times — Day 0 to 18.</span></div>
-    <div class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-  </a>
-
-  <a class="card" href="weather_overview.html">
-    <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10.58A5 5 0 0 0 16 2h-1.24A8 8 0 1 0 5 14.25"/><path d="M8 17v3M12 15.5v3M16 17v3"/></svg></div>
-    <div class="body"><span class="title">Weather Forecast Daily</span><span class="desc">Typical and forecast weather for every stop, day by day.</span></div>
-    <div class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-  </a>
-
-  <a class="card" href="free_time_extras.html">
-    <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></div>
-    <div class="body"><span class="title">Off Beat Activities</span><span class="desc">Offbeat activities, pubs &amp; bars and things to do on unstructured days.</span></div>
-    <div class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-  </a>
-
-  <a class="card" href="local_food_guide.html">
-    <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3v7a3 3 0 0 0 3 3v8M7 3v7M10 3v7M17 3c-2 2-2 5-2 8 0 2 1 3 2 3v7"/></svg></div>
-    <div class="body"><span class="title">Local Food &amp; Cuisines</span><span class="desc">Signature dishes and real restaurants to try in each place, day by day.</span></div>
-    <div class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-  </a>
-
-  <div class="group-label">Reference — check once, or as needed</div>
-
-  <a class="card" href="hotels_flights.html">
-    <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 22l20-9L2 4l5 9-5 9z"/></svg></div>
-    <div class="body"><span class="title">Hotel &amp; Flights</span><span class="desc">All confirmed bookings — flights, hotels, confirmation numbers.</span></div>
-    <div class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-  </a>
-
-  <a class="card" href="trip_budget.html">
-    <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-    <div class="body"><span class="title">Budget Vs Actuals</span><span class="desc">Costs, bookings and per-person spend across the whole trip.</span></div>
-    <div class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-  </a>
-
-  <a class="card" href="important_actions_checklist.html">
-    <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-    <div class="body"><span class="title">Imp To-Do Checklist</span><span class="desc">Things to do before and during the trip — visas, check-ins, reminders.</span></div>
-    <div class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-  </a>
-
-  <a class="card" href="travel_documents_checklist.html">
-    <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg></div>
-    <div class="body"><span class="title">Travel Doc Checklist</span><span class="desc">Passports, visas and paperwork needed for each country.</span></div>
-    <div class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-  </a>
-
 </div>
 
 <footer>Private trip reference for Amar Raj Urs, Pratap Raj and Praveen Kumar Nallipogu — Africa Five Nation Tour, 24 September – 12 October 2026.</footer>

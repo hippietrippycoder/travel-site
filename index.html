@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Africa Five Nation Tour — Trip Site</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Karla:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,500&family=Karla:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root{
   --bg: #EEF0E4;
@@ -47,26 +47,41 @@
 }
 
 *{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
 body{
   margin:0;
   background:var(--bg);
   color:var(--text);
   font-family:'Karla', ui-sans-serif, system-ui, sans-serif;
   padding-inline:20px;
-  padding-block:40px 64px;
+  padding-block:36px 64px;
+  overflow-x:hidden;
 }
-.wrap{max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:28px;}
+.wrap{max-width:800px; margin:0 auto; display:flex; flex-direction:column; gap:34px;}
 
-h1{font-family:'Fraunces', Georgia, serif; text-wrap:balance; margin:0; font-size:clamp(1.7rem, 4.5vw, 2.4rem); font-weight:700;}
+header{position:relative; overflow:hidden; border-radius:18px;}
+.glow{
+  position:absolute; top:-90px; right:-70px; width:320px; height:320px;
+  background:radial-gradient(circle, var(--accent-soft) 0%, transparent 70%);
+  opacity:0.55; filter:blur(10px); z-index:-1; pointer-events:none;
+}
+
+h1{font-family:'Fraunces', Georgia, serif; text-wrap:balance; margin:0; font-size:clamp(2rem, 6vw, 3rem); font-weight:800; line-height:1.04; letter-spacing:-0.01em;}
 .eyebrow{
   font-family:'JetBrains Mono', monospace;
-  font-size:0.72rem;
-  letter-spacing:0.09em;
+  font-size:0.74rem;
+  letter-spacing:0.1em;
   text-transform:uppercase;
   color:var(--accent-strong);
   font-weight:600;
 }
-.travellers{display:flex; flex-wrap:wrap; gap:8px; margin-top:2px;}
+.route-line{
+  font-family:'Karla', sans-serif;
+  font-size:0.98rem;
+  color:var(--text-muted);
+  margin-top:2px;
+}
+.travellers{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px;}
 .travellers .pill{
   font-family:'JetBrains Mono', monospace;
   font-size:0.68rem;
@@ -80,52 +95,115 @@ h1{font-family:'Fraunces', Georgia, serif; text-wrap:balance; margin:0; font-siz
   border-radius:999px;
   white-space:nowrap;
 }
-header{display:flex; flex-direction:column; gap:10px;}
+header{display:flex; flex-direction:column; gap:8px;}
+
+.stat-strip{
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:10px;
+}
+.stat{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:14px 12px;
+  box-shadow:var(--shadow);
+  display:flex; flex-direction:column; align-items:flex-start; gap:6px;
+}
+.stat svg{width:17px; height:17px; color:var(--accent); flex-shrink:0;}
+.stat .num{font-family:'Fraunces', Georgia, serif; font-weight:700; font-size:1.5rem; line-height:1;}
+.stat .lbl{font-family:'JetBrains Mono', monospace; font-size:0.6rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--text-muted); font-weight:600;}
+@media (max-width:560px){
+  .stat-strip{grid-template-columns:repeat(2, 1fr);}
+}
 
 .grid{display:flex; flex-direction:column; gap:12px;}
 .group-label{
+  display:flex; align-items:center; gap:10px;
   font-family:'JetBrains Mono', monospace;
-  font-size:0.68rem;
-  letter-spacing:0.07em;
+  font-size:0.7rem;
+  letter-spacing:0.08em;
   text-transform:uppercase;
   color:var(--text-muted);
   font-weight:600;
-  margin:10px 2px -2px;
+  margin:14px 0 -2px;
 }
-.group-label:first-child{margin-top:0;}
+.group-label:first-child{margin-top:2px;}
+.group-label::after{content:""; flex:1; height:1px; background:var(--line);}
+
 a.card{
   display:flex; align-items:center; gap:16px;
   background:var(--surface);
   border:1px solid var(--line);
-  border-radius:14px;
+  border-radius:16px;
   box-shadow:var(--shadow);
-  padding:18px 20px;
+  padding:16px 18px;
   text-decoration:none;
   color:var(--text);
-  transition:transform 0.12s ease, border-color 0.12s ease;
+  transition:transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  position:relative;
+  overflow:hidden;
 }
-a.card:hover{transform:translateY(-1px); border-color:var(--accent);}
+a.card::before{
+  content:"";
+  position:absolute; left:0; top:0; bottom:0; width:3px;
+  background:var(--accent); opacity:0; transition:opacity 0.15s ease;
+}
+a.card:hover{transform:translateY(-2px); border-color:var(--accent); box-shadow:0 4px 8px rgba(33,44,28,0.08), 0 16px 28px -14px rgba(33,44,28,0.28);}
+a.card:hover::before{opacity:1;}
 a.card .icon{
-  width:42px; height:42px; border-radius:10px; flex-shrink:0;
-  background:var(--accent-soft); color:var(--accent-strong);
+  width:44px; height:44px; border-radius:11px; flex-shrink:0;
+  background:linear-gradient(155deg, var(--accent-soft), var(--surface-2));
+  color:var(--accent-strong);
   display:flex; align-items:center; justify-content:center;
+  border:1px solid var(--line);
 }
 a.card .icon svg{width:22px; height:22px;}
-a.card .body{display:flex; flex-direction:column; gap:2px;}
+a.card .body{display:flex; flex-direction:column; gap:3px; min-width:0;}
 a.card .title{font-family:'Fraunces', Georgia, serif; font-weight:600; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.01em;}
-a.card .desc{font-size:0.84rem; color:var(--text-muted); line-height:1.4;}
+a.card .desc{font-size:0.84rem; color:var(--text-muted); line-height:1.45;}
+a.card .go{
+  margin-left:auto; flex-shrink:0; color:var(--text-muted); opacity:0; transform:translateX(-4px);
+  transition:opacity 0.15s ease, transform 0.15s ease;
+}
+a.card .go svg{width:18px; height:18px;}
+a.card:hover .go{opacity:1; transform:translateX(0); color:var(--accent-strong);}
+@media (max-width:480px){
+  a.card .go{display:none;}
+}
 
-footer{color:var(--text-muted); font-size:0.78rem; text-align:center; padding-top:8px;}
+footer{color:var(--text-muted); font-size:0.78rem; text-align:center; padding-top:10px; line-height:1.6;}
 </style>
 </head>
 <body>
 <div class="wrap">
 
 <header>
-  <h1>AFRICA FIVE NATION TOUR</h1>
+  <div class="glow"></div>
   <span class="eyebrow">24 September – 12 October 2026</span>
+  <h1>AFRICA FIVE NATION TOUR</h1>
+  <div class="route-line">India → Zimbabwe → Zambia → Botswana → South Africa → Mauritius → India</div>
   <div class="travellers"><span class="pill">Amar Raj Urs</span><span class="pill">Pratap Raj</span><span class="pill">Praveen Kumar Nallipogu</span></div>
 </header>
+
+<div class="stat-strip">
+  <div class="stat">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+    <span class="num">19</span><span class="lbl">Days</span>
+  </div>
+  <div class="stat">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18z"/></svg>
+    <span class="num">5</span><span class="lbl">Countries</span>
+  </div>
+  <div class="stat">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    <span class="num">3</span><span class="lbl">Travellers</span>
+  </div>
+  <div class="stat">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+    <span class="num">8</span><span class="lbl">Guides</span>
+  </div>
+</div>
 
 <div class="grid">
 
@@ -134,21 +212,25 @@ footer{color:var(--text-muted); font-size:0.78rem; text-align:center; padding-to
   <a class="card" href="full_trip_route.html">
     <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 20l-5.5 2V6L9 4m0 16l6 2m-6-2V4m6 18l5.5-2V4L15 6m0 16V4m0 0L9 6"/></svg></div>
     <div class="body"><span class="title">Day-by-Day Itinerary</span><span class="desc">Day-by-day route, legs, distances and drive times — Day 0 to 18.</span></div>
+    <div class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
   </a>
 
   <a class="card" href="weather_overview.html">
     <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10.58A5 5 0 0 0 16 2h-1.24A8 8 0 1 0 5 14.25"/><path d="M8 17v3M12 15.5v3M16 17v3"/></svg></div>
     <div class="body"><span class="title">Weather Forecast Daily</span><span class="desc">Typical and forecast weather for every stop, day by day.</span></div>
+    <div class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
   </a>
 
   <a class="card" href="free_time_extras.html">
     <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></div>
     <div class="body"><span class="title">Off Beat Activities</span><span class="desc">Offbeat activities, pubs &amp; bars and things to do on unstructured days.</span></div>
+    <div class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
   </a>
 
   <a class="card" href="local_food_guide.html">
     <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3v7a3 3 0 0 0 3 3v8M7 3v7M10 3v7M17 3c-2 2-2 5-2 8 0 2 1 3 2 3v7"/></svg></div>
     <div class="body"><span class="title">Local Food &amp; Cuisines</span><span class="desc">Signature dishes and real restaurants to try in each place, day by day.</span></div>
+    <div class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
   </a>
 
   <div class="group-label">Reference — check once, or as needed</div>
@@ -156,21 +238,25 @@ footer{color:var(--text-muted); font-size:0.78rem; text-align:center; padding-to
   <a class="card" href="hotels_flights.html">
     <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 22l20-9L2 4l5 9-5 9z"/></svg></div>
     <div class="body"><span class="title">Hotel &amp; Flights</span><span class="desc">All confirmed bookings — flights, hotels, confirmation numbers.</span></div>
+    <div class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
   </a>
 
   <a class="card" href="trip_budget.html">
     <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
     <div class="body"><span class="title">Budget Vs Actuals</span><span class="desc">Costs, bookings and per-person spend across the whole trip.</span></div>
+    <div class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
   </a>
 
   <a class="card" href="important_actions_checklist.html">
     <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
     <div class="body"><span class="title">Imp To-Do Checklist</span><span class="desc">Things to do before and during the trip — visas, check-ins, reminders.</span></div>
+    <div class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
   </a>
 
   <a class="card" href="travel_documents_checklist.html">
     <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg></div>
     <div class="body"><span class="title">Travel Doc Checklist</span><span class="desc">Passports, visas and paperwork needed for each country.</span></div>
+    <div class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
   </a>
 
 </div>

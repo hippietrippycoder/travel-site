@@ -172,9 +172,37 @@ footer{color:var(--text-muted); font-size:0.78rem; text-align:center; padding-to
   .progress-label{font-size:0.76rem;}
   .progress-panel{padding:16px 16px 18px;}
 }
+
+.site-nav{
+  position:sticky; top:12px; z-index:50;
+  display:flex; align-items:center; justify-content:space-between; gap:14px;
+  background:var(--surface); border:1px solid var(--line); border-radius:12px;
+  box-shadow:var(--shadow);
+  padding:10px 16px;
+}
+.site-nav-home{
+  display:flex; align-items:center; gap:8px;
+  font-family:'JetBrains Mono', monospace; font-size:0.72rem; letter-spacing:0.05em; text-transform:uppercase; font-weight:600;
+  color:var(--accent-strong); text-decoration:none; flex-shrink:0;
+}
+.site-nav-home svg{width:15px; height:15px; flex-shrink:0;}
+.site-nav-home:hover{color:var(--accent);}
+.site-nav-page{
+  font-family:'JetBrains Mono', monospace; font-size:0.68rem; letter-spacing:0.04em; text-transform:uppercase; color:var(--text-muted);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+@media (max-width:420px){ .site-nav-page{display:none;} }
+.wrap{gap:32px;}
 </style>
 <body>
 <div class="wrap">
+<nav class="site-nav">
+  <a class="site-nav-home" href="index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>
+    <span>Africa Five Nation Tour</span>
+  </a>
+  <span class="site-nav-page">Travel Doc Checklist</span>
+</nav>
 
 <header>
     <h1>TRAVEL DOCUMENTS CHECKLIST</h1>

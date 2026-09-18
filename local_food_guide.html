@@ -197,21 +197,64 @@ footer{color:var(--text-muted); font-size:0.78rem; text-align:center; padding-to
   table{table-layout:auto;}
   td, th{white-space:normal !important; font-size:0.73rem; padding:7px 6px;}
 }
+
+.site-nav{
+  position:sticky; top:12px; z-index:50;
+  display:flex; align-items:center; justify-content:space-between; gap:14px;
+  background:var(--surface); border:1px solid var(--line); border-radius:12px;
+  box-shadow:var(--shadow);
+  padding:10px 16px;
+}
+.site-nav-home{
+  display:flex; align-items:center; gap:8px;
+  font-family:'JetBrains Mono', monospace; font-size:0.72rem; letter-spacing:0.05em; text-transform:uppercase; font-weight:600;
+  color:var(--accent-strong); text-decoration:none; flex-shrink:0;
+}
+.site-nav-home svg{width:15px; height:15px; flex-shrink:0;}
+.site-nav-home:hover{color:var(--accent);}
+.site-nav-page{
+  font-family:'JetBrains Mono', monospace; font-size:0.68rem; letter-spacing:0.04em; text-transform:uppercase; color:var(--text-muted);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+@media (max-width:420px){ .site-nav-page{display:none;} }
+.wrap{gap:32px;}
+
+.jump-nav{
+  display:flex; gap:8px; overflow-x:auto; padding:2px 2px 4px; margin:0 0 -6px;
+  -webkit-overflow-scrolling:touch; scrollbar-width:thin;
+}
+.jump-nav a{
+  flex-shrink:0;
+  font-family:'JetBrains Mono', monospace; font-size:0.72rem; font-weight:600; letter-spacing:0.02em;
+  color:var(--accent-strong); background:var(--accent-soft); border:1px solid var(--line);
+  border-radius:999px; padding:6px 14px; text-decoration:none; white-space:nowrap;
+  transition:background 0.12s ease, color 0.12s ease;
+}
+.jump-nav a:hover{background:var(--accent); color:var(--surface); border-color:var(--accent);}
 </style>
 </head>
 <body>
 <div class="wrap">
+<nav class="site-nav">
+  <a class="site-nav-home" href="index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>
+    <span>Africa Five Nation Tour</span>
+  </a>
+  <span class="site-nav-page">Local Food &amp; Cuisines</span>
+</nav>
 
 <header>
     <h1>MUST-TRY LOCAL FOOD</h1>
     <span class="eyebrow">Africa Five Nation Tour · 24 September – 12 October 2026</span>
     <div class="travellers"><span class="pill">Amar Raj Urs</span><span class="pill">Pratap Raj</span><span class="pill">Praveen Kumar Nallipogu</span></div>
   </header>
+<div class="jump-nav"><a href="#day-0">Day 0</a><a href="#day-1">Day 1</a><a href="#day-2">Day 2</a><a href="#day-3">Day 3</a><a href="#day-5">Day 5</a><a href="#day-8">Day 8</a><a href="#day-9">Day 9</a><a href="#day-10">Day 10</a><a href="#day-11">Day 11</a><a href="#day-12">Day 12</a><a href="#day-13">Day 13</a><a href="#day-15">Day 15</a><a href="#day-17">Day 17</a></div>
+
 
   <p style="font-size:0.85rem; color:var(--text-muted); text-align:center; max-width:680px; margin:0 auto 8px;">One card per day, matching Free-Time Extras' day headers. Each area's signature dishes, split into Vegetarian / Vegan / Non-Vegetarian plus Coffee &amp; Tea, Desserts, Fruits and Indian Cuisine (for whenever the local food needs a break), with a real restaurant or spot nearby to actually try each one — researched against current listings, not guessed, but always worth confirming a menu on the night. The (≈km) figure is the approximate road distance from that day's overnight stay (for Day 0, from the Taj/Gateway area since there's no overnight that night).</p>
 
   <section class="day">
-    <div class="day-head">
+    <div class="day-head" id="day-0">
       <div class="day-badge"><span class="label">DAY</span><span class="num">0</span></div>
       <div>
         <h2>Bengaluru → Mumbai</h2>
@@ -250,7 +293,7 @@ footer{color:var(--text-muted); font-size:0.78rem; text-align:center; padding-to
   </section>
 
   <section class="day">
-    <div class="day-head">
+    <div class="day-head" id="day-1">
       <div class="day-badge"><span class="label">DAY</span><span class="num">1</span></div>
       <div>
         <h2>Victoria Falls</h2>
@@ -288,7 +331,7 @@ footer{color:var(--text-muted); font-size:0.78rem; text-align:center; padding-to
   </section>
 
   <section class="day">
-    <div class="day-head">
+    <div class="day-head" id="day-2">
       <div class="day-badge"><span class="label">DAY</span><span class="num">2</span></div>
       <div>
         <h2>Hwange / Dete</h2>
@@ -325,7 +368,7 @@ footer{color:var(--text-muted); font-size:0.78rem; text-align:center; padding-to
   </section>
 
   <section class="day">
-    <div class="day-head">
+    <div class="day-head" id="day-3">
       <div class="day-badge"><span class="label">DAY</span><span class="num">3</span></div>
       <div>
         <h2>Livingstone <span class="via">(Days 3–4)</span></h2>
@@ -362,7 +405,7 @@ footer{color:var(--text-muted); font-size:0.78rem; text-align:center; padding-to
   </section>
 
   <section class="day">
-    <div class="day-head">
+    <div class="day-head" id="day-5">
       <div class="day-badge"><span class="label">DAY</span><span class="num">5</span></div>
       <div>
         <h2>Kasane <span class="via">(Days 5–7)</span></h2>
@@ -399,7 +442,7 @@ footer{color:var(--text-muted); font-size:0.78rem; text-align:center; padding-to
   </section>
 
   <section class="day">
-    <div class="day-head">
+    <div class="day-head" id="day-8">
       <div class="day-badge"><span class="label">DAY</span><span class="num">8</span></div>
       <div>
         <h2>Johannesburg <span class="via">(Kempton Park)</span></h2>
@@ -439,7 +482,7 @@ footer{color:var(--text-muted); font-size:0.78rem; text-align:center; padding-to
   </section>
 
   <section class="day">
-    <div class="day-head">
+    <div class="day-head" id="day-9">
       <div class="day-badge"><span class="label">DAY</span><span class="num">9</span></div>
       <div>
         <h2>Komatipoort</h2>
@@ -475,7 +518,7 @@ footer{color:var(--text-muted); font-size:0.78rem; text-align:center; padding-to
   </section>
 
   <section class="day">
-    <div class="day-head">
+    <div class="day-head" id="day-10">
       <div class="day-badge"><span class="label">DAY</span><span class="num">10</span></div>
       <div>
         <h2>Satara Rest Camp</h2>
@@ -512,7 +555,7 @@ footer{color:var(--text-muted); font-size:0.78rem; text-align:center; padding-to
   </section>
 
   <section class="day">
-    <div class="day-head">
+    <div class="day-head" id="day-11">
       <div class="day-badge"><span class="label">DAY</span><span class="num">11</span></div>
       <div>
         <h2>Sabie</h2>
@@ -549,7 +592,7 @@ footer{color:var(--text-muted); font-size:0.78rem; text-align:center; padding-to
   </section>
 
   <section class="day">
-    <div class="day-head">
+    <div class="day-head" id="day-12">
       <div class="day-badge"><span class="label">DAY</span><span class="num">12</span></div>
       <div>
         <h2>Sabie → Johannesburg <span class="via">(Kempton Park)</span></h2>
@@ -588,7 +631,7 @@ footer{color:var(--text-muted); font-size:0.78rem; text-align:center; padding-to
   </section>
 
   <section class="day">
-    <div class="day-head">
+    <div class="day-head" id="day-13">
       <div class="day-badge"><span class="label">DAY</span><span class="num">13</span></div>
       <div>
         <h2>Le Morne <span class="via">(Days 13–14)</span></h2>
@@ -627,7 +670,7 @@ footer{color:var(--text-muted); font-size:0.78rem; text-align:center; padding-to
   </section>
 
   <section class="day">
-    <div class="day-head">
+    <div class="day-head" id="day-15">
       <div class="day-badge"><span class="label">DAY</span><span class="num">15</span></div>
       <div>
         <h2>Grand Baie <span class="via">(Days 15–16)</span></h2>
@@ -663,7 +706,7 @@ footer{color:var(--text-muted); font-size:0.78rem; text-align:center; padding-to
   </section>
 
   <section class="day">
-    <div class="day-head">
+    <div class="day-head" id="day-17">
       <div class="day-badge"><span class="label">DAY</span><span class="num">17</span></div>
       <div>
         <h2>Union Vale <span class="via">(Days 17–18)</span></h2>

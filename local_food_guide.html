@@ -226,10 +226,12 @@ body{ padding-inline:0; padding-block:0; overflow-x:hidden; }
 .sidebar-eyebrow small{ display:block; font-family:'JetBrains Mono', monospace; font-size:0.6rem; letter-spacing:0.07em; text-transform:uppercase; color:var(--accent-strong); font-weight:600; margin-top:4px; }
 .sidebar-group{ font-family:'JetBrains Mono', monospace; font-size:0.62rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-muted); font-weight:600; margin:14px 10px 4px; }
 .sidebar-link{
-  display:flex; align-items:center; gap:10px;
-  padding:8px 10px; border-radius:8px;
+  display:flex; align-items:center; gap:8px;
+  padding:8px 8px; border-radius:8px;
   color:var(--text); text-decoration:none;
-  font-size:0.85rem; font-weight:500; line-height:1.3;
+  font-size:0.66rem; font-weight:500; line-height:1.3;
+  text-transform:uppercase; letter-spacing:0.005em;
+  white-space:nowrap;
 }
 .sidebar-link svg{ width:16px; height:16px; flex-shrink:0; color:var(--text-muted); }
 .sidebar-link:hover{ background:var(--surface-2); }
@@ -271,17 +273,18 @@ body{ padding-inline:0; padding-block:0; overflow-x:hidden; }
 <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-brand"><span class="sidebar-eyebrow">Africa Five Nation Tour<small>24 Sep &ndash; 12 Oct 2026</small></span></div>
-  <a class="sidebar-link home-link" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg><span>Trip Home</span></a>
+  <a class="sidebar-link home-link" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg><span>Home</span></a>
   <div class="sidebar-group">Day by day</div>
   <a class="sidebar-link" href="full_trip_route.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 20l-5.5 2V6L9 4m0 16l6 2m-6-2V4m6 18l5.5-2V4L15 6m0 16V4m0 0L9 6"/></svg><span>Day-by-Day Itinerary</span></a>
-  <a class="sidebar-link" href="weather_overview.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10.58A5 5 0 0 0 16 2h-1.24A8 8 0 1 0 5 14.25"/><path d="M8 17v3M12 15.5v3M16 17v3"/></svg><span>Weather Forecast Daily</span></a>
   <a class="sidebar-link" href="free_time_extras.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg><span>Off Beat Activities</span></a>
   <a class="sidebar-link is-active" href="local_food_guide.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3v7a3 3 0 0 0 3 3v8M7 3v7M10 3v7M17 3c-2 2-2 5-2 8 0 2 1 3 2 3v7"/></svg><span>Local Food &amp; Cuisines</span></a>
+  <a class="sidebar-link" href="weather_overview.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10.58A5 5 0 0 0 16 2h-1.24A8 8 0 1 0 5 14.25"/><path d="M8 17v3M12 15.5v3M16 17v3"/></svg><span>Weather Forecast Daily</span></a>
   <div class="sidebar-group">Reference</div>
   <a class="sidebar-link" href="hotels_flights.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 22l20-9L2 4l5 9-5 9z"/></svg><span>Hotel &amp; Flights</span></a>
-  <a class="sidebar-link" href="trip_budget.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span>Budget Vs Actuals</span></a>
   <a class="sidebar-link" href="important_actions_checklist.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span>Imp To-Do Checklist</span></a>
   <a class="sidebar-link" href="travel_documents_checklist.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg><span>Travel Doc Checklist</span></a>
+  <div class="sidebar-group">Financials</div>
+  <a class="sidebar-link" href="trip_budget.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span>Budget Vs Actuals</span></a>
 </aside>
 <main class="site-main">
 <div class="wrap">
@@ -293,8 +296,6 @@ body{ padding-inline:0; padding-block:0; overflow-x:hidden; }
   </header>
 <div class="jump-nav"><a href="#day-0">Day 0</a><a href="#day-1">Day 1</a><a href="#day-2">Day 2</a><a href="#day-3">Day 3</a><a href="#day-5">Day 5</a><a href="#day-8">Day 8</a><a href="#day-9">Day 9</a><a href="#day-10">Day 10</a><a href="#day-11">Day 11</a><a href="#day-12">Day 12</a><a href="#day-13">Day 13</a><a href="#day-15">Day 15</a><a href="#day-17">Day 17</a></div>
 
-
-  <p style="font-size:0.85rem; color:var(--text-muted); text-align:center; max-width:680px; margin:0 auto 8px;">One card per day, matching Free-Time Extras' day headers. Each area's signature dishes, split into Vegetarian / Vegan / Non-Vegetarian plus Coffee &amp; Tea, Desserts, Fruits and Indian Cuisine (for whenever the local food needs a break), with a real restaurant or spot nearby to actually try each one — researched against current listings, not guessed, but always worth confirming a menu on the night. The (≈km) figure is the approximate road distance from that day's overnight stay (for Day 0, from the Taj/Gateway area since there's no overnight that night).</p>
 
   <section class="day">
     <div class="day-head" id="day-0">

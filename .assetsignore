@@ -1,2 +1,4 @@
 .git
 .wrangler
+worker.js
+wrangler.jsonc

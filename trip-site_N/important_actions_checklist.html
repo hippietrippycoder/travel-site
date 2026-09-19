@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Travel Documents Checklist — Africa Five Nation Tour</title>
+<title>Important Actions Checklist — Africa Five Nation Tour</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Karla:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
@@ -133,6 +133,7 @@ th.chk-col{text-align:center;}
 td.chk-col{text-align:center; transition:background 0.15s;}
 .chk-box{width:17px; height:17px; cursor:pointer; accent-color:var(--accent-strong); margin:0;}
 td.chk-col.is-done{background:var(--accent-soft);}
+.doc-table td:nth-child(3), .doc-table th:nth-child(3){white-space:nowrap;}
 tr.section-row td{
   background:var(--accent-soft); color:var(--accent-strong);
   font-family:'JetBrains Mono',monospace; font-size:0.68rem;
@@ -172,8 +173,10 @@ footer{color:var(--text-muted); font-size:0.78rem; text-align:center; padding-to
 .progress-pct{font-family:'JetBrains Mono', monospace; font-size:0.78rem; text-align:right; color:var(--text-muted); font-weight:600;}
 
 @media (max-width:640px){
-  table{table-layout:auto; min-width:0;}
-  td, th{white-space:normal !important; font-size:0.76rem; padding:7px 5px;}
+  .doc-table{table-layout:auto; min-width:0;}
+  .doc-table td, .doc-table th{white-space:normal !important; font-size:0.72rem; padding:6px 4px;}
+  .doc-table th.chk-col, .doc-table td.chk-col{padding-inline:2px;}
+  .doc-table .chk-box{width:14px; height:14px;}
   .progress-row{grid-template-columns:minmax(84px,120px) 1fr 40px; gap:8px;}
   .progress-label{font-size:0.76rem;}
   .progress-panel{padding:16px 16px 18px;}
@@ -251,10 +254,9 @@ body{ padding-inline:0; padding-block:0; overflow-x:hidden; }
   <a class="sidebar-link" href="local_food_guide.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3v7a3 3 0 0 0 3 3v8M7 3v7M10 3v7M17 3c-2 2-2 5-2 8 0 2 1 3 2 3v7"/></svg><span>Local Food &amp; Cuisines</span></a>
   <a class="sidebar-link" href="weather_overview.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10.58A5 5 0 0 0 16 2h-1.24A8 8 0 1 0 5 14.25"/><path d="M8 17v3M12 15.5v3M16 17v3"/></svg><span>Weather Forecast Daily</span></a>
   <div class="sidebar-group">Reference</div>
-  <a class="sidebar-link" href="documents.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-4-4m4 4 4-4"/><path d="M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></svg><span>Trip Documents</span></a>
   <a class="sidebar-link" href="hotels_flights.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 22l20-9L2 4l5 9-5 9z"/></svg><span>Hotel &amp; Flights</span></a>
-  <a class="sidebar-link" href="important_actions_checklist.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span>Imp To-Do Checklist</span></a>
-  <a class="sidebar-link is-active" href="travel_documents_checklist.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg><span>Travel Doc Checklist</span></a>
+  <a class="sidebar-link is-active" href="important_actions_checklist.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span>Imp To-Do Checklist</span></a>
+  <a class="sidebar-link" href="travel_documents_checklist.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg><span>Travel Doc Checklist</span></a>
   <div class="sidebar-group">Financials</div>
   <a class="sidebar-link" href="trip_budget.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span>Budget Vs Actuals</span></a>
 </aside>
@@ -262,16 +264,16 @@ body{ padding-inline:0; padding-block:0; overflow-x:hidden; }
 <div class="wrap">
 
 <header>
-    <h1>TRAVEL DOCUMENTS CHECKLIST</h1>
+    <h1>IMPORTANT ACTIONS CHECKLIST</h1>
     <span class="eyebrow">Africa Five Nation Tour · 24 September – 12 October 2026</span>
     <div class="travellers"><span class="pill">Amar Raj Urs</span><span class="pill">Pratap Raj</span><span class="pill">Praveen Kumar Nallipogu</span></div>
   </header>
 
-  <p style="font-size:0.85rem; color:var(--text-muted); text-align:center; max-width:640px; margin:0 auto;">Every physical and digital document to pack or have accessible for the trip, pulled straight from the main itinerary for quick reference.</p>
+  <p style="font-size:0.85rem; color:var(--text-muted); text-align:center; max-width:640px; margin:0 auto;">Every visa, check-in and pre-arrival action for the trip, in the order they need doing — pulled straight from the main itinerary for quick reference.</p>
 
   <div class="progress-panel">
     <div class="progress-panel-head">
-      <span class="progress-title">Trip Readiness</span>
+      <span class="progress-title">Action Readiness</span>
       <span id="sync-status" class="sync-status">Checking sync…</span>
     </div>
     <div class="progress-rows">
@@ -291,7 +293,7 @@ body{ padding-inline:0; padding-block:0; overflow-x:hidden; }
         <span class="progress-pct">0%</span>
       </div>
       <div class="progress-row overall">
-        <span class="progress-label">Overall trip readiness</span>
+        <span class="progress-label">Overall action readiness</span>
         <div class="progress-track"><div class="progress-fill"></div></div>
         <span class="progress-pct">0%</span>
       </div>
@@ -300,36 +302,35 @@ body{ padding-inline:0; padding-block:0; overflow-x:hidden; }
 
   <div>
   <div class="table-scroll">
-    <table>
-      <thead><tr><th>Sl.No</th><th>Document name</th><th class="chk-col">ARU</th><th class="chk-col">PR</th><th class="chk-col">PKN</th></tr></thead>
+    <table class="doc-table">
+      <thead><tr><th>Action date</th><th>Date of travel</th><th>Country</th><th>Action to be performed</th><th class="chk-col">ARU</th><th class="chk-col">PR</th><th class="chk-col">PKN</th></tr></thead>
       <tbody>
-        <tr class="section-row"><td colspan="5">Physical copies &amp; originals</td></tr>
-        <tr><td class="num">1</td><td>Passport (original)</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-p-passport" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-p-passport" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-p-passport" data-who="PKN"></td></tr>
-        <tr><td class="num">2</td><td>Zimbabwe Double-Entry Visa — payment confirmation printout</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-p-zw-visa" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-p-zw-visa" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-p-zw-visa" data-who="PKN"></td></tr>
-        <tr><td class="num">3</td><td>Zambia Double-Entry Visa — approval letter &amp; payment receipt printout</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-p-zm-visa" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-p-zm-visa" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-p-zm-visa" data-who="PKN"></td></tr>
-        <tr><td class="num">4</td><td>South Africa Multiple Entry ETA — printout &amp; payment confirmation printout</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-p-sa-eta" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-p-sa-eta" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-p-sa-eta" data-who="PKN"></td></tr>
-        <tr><td class="num">5</td><td>Driving licence + International Driving Permit (physical card)</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-p-driving-licence" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-p-driving-licence" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-p-driving-licence" data-who="PKN"></td></tr>
-        <tr><td class="num">6</td><td>Passport size photo (white background) - 4 nos</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-p-photo" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-p-photo" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-p-photo" data-who="PKN"></td></tr>
-        <tr><td class="num">7</td><td>Flight e-tickets / PNR confirmations</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-p-flight-tickets" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-p-flight-tickets" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-p-flight-tickets" data-who="PKN"></td></tr>
-        <tr><td class="num">8</td><td>Hotel booking confirmations</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-p-hotel-bookings" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-p-hotel-bookings" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-p-hotel-bookings" data-who="PKN"></td></tr>
-        <tr><td class="num">9</td><td>Travel / medical insurance policy</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-p-travel-insurance" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-p-travel-insurance" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-p-travel-insurance" data-who="PKN"></td></tr>
-        <tr class="section-row"><td colspan="5">Digital copies</td></tr>
-        <tr><td class="num">1</td><td>Flight e-tickets / PNR confirmations</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-d-flight-tickets" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-d-flight-tickets" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-d-flight-tickets" data-who="PKN"></td></tr>
-        <tr><td class="num">2</td><td>Hotel booking confirmations</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-d-hotel-bookings" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-d-hotel-bookings" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-d-hotel-bookings" data-who="PKN"></td></tr>
-        <tr><td class="num">3</td><td>Hertz self-drive booking confirmation</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-d-hertz-booking" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-d-hertz-booking" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-d-hertz-booking" data-who="PKN"></td></tr>
-        <tr><td class="num">4</td><td>Travel / medical insurance policy</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-d-travel-insurance" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-d-travel-insurance" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-d-travel-insurance" data-who="PKN"></td></tr>
-        <tr><td class="num">5</td><td>Scanned backups — passport &amp; all visas (phone/cloud)</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-d-scans" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-d-scans" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-d-scans" data-who="PKN"></td></tr>
-        <tr><td class="num">6</td><td>3 months salary slip</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-d-salary-slip" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-d-salary-slip" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="doc-d-salary-slip" data-who="PKN"></td></tr>
+        <tr><td>Before 24 Sep</td><td>27 Sep</td><td>🇿🇲 ZMB</td><td><strong>PRE-ARRIVAL</strong> — Confirm Zambia Double-Entry visa approval before leaving Bengaluru.</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zambia-visa-confirm" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zambia-visa-confirm" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zambia-visa-confirm" data-who="PKN"></td></tr>
+        <tr><td>23 Sep</td><td>24 Sep</td><td>🇮🇳 IND</td><td><strong>WEB CHECK-IN</strong> — Akasa QP1150, Bengaluru → Mumbai (16:05).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="qp1150-checkin" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="qp1150-checkin" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="qp1150-checkin" data-who="PKN"></td></tr>
+        <tr><td>23 Sep</td><td>24 Sep</td><td>🇮🇳 IND</td><td><strong>PRE-ARRIVAL</strong> — Register on Digi Yatra for Akasa QP1150.</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="qp1150-digiyatra" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="qp1150-digiyatra" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="qp1150-digiyatra" data-who="PKN"></td></tr>
+        <tr><td>23 Sep</td><td>25 Sep</td><td>🇮🇳 IND / 🇰🇪 KEN</td><td><strong>WEB CHECK-IN</strong> — Kenya Airways KQ203 (Mumbai–Nairobi) &amp; KQ792 (Nairobi–Victoria Falls).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="kq-checkin" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="kq-checkin" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="kq-checkin" data-who="PKN"></td></tr>
+        <tr><td>23 Sep</td><td>25 Sep</td><td>🇿🇼 ZWE</td><td><strong>PRE-ARRIVAL</strong> — Submit Zimbabwe Digital Immigration Form (after KQ203/KQ792 check-in).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zw-digital-immigration" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zw-digital-immigration" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zw-digital-immigration" data-who="PKN"></td></tr>
+        <tr><td>27 Sep</td><td>27 Sep</td><td>🇿🇲 ZMB</td><td><strong>PRE-ARRIVAL</strong> — Fill Zambia arrival card; carry visa approval letter &amp; payment receipt.</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zm-arrival-card" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zm-arrival-card" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zm-arrival-card" data-who="PKN"></td></tr>
+        <tr><td>29 Sep</td><td>29 Sep</td><td>🇧🇼 BWA</td><td><strong>PRE-ARRIVAL</strong> — Pay Botswana visa-on-arrival fee at Kazungula border (cash).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="bw-visa-arrival" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="bw-visa-arrival" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="bw-visa-arrival" data-who="PKN"></td></tr>
+        <tr><td>1 Oct</td><td>2 Oct</td><td>🇿🇼 ZWE / 🇿🇦 ZAF</td><td><strong>WEB CHECK-IN</strong> — FlySafAir FA-827, Victoria Falls → JNB (15:50).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="fa827-checkin" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="fa827-checkin" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="fa827-checkin" data-who="PKN"></td></tr>
+        <tr><td>1 Oct</td><td>2 Oct</td><td>🇿🇼 ZWE</td><td><strong>PRE-ARRIVAL</strong> — Submit Zimbabwe Digital Immigration Form (after FA-827 check-in).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zw-digital-immigration-fa827" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zw-digital-immigration-fa827" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zw-digital-immigration-fa827" data-who="PKN"></td></tr>
+        <tr><td>1 Oct</td><td>2 Oct</td><td>🇿🇦 ZAF</td><td><strong>PRE-ARRIVAL</strong> — Submit SA Customs Traveller Declaration (after FA-827 check-in).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="sa-customs-declaration" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="sa-customs-declaration" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="sa-customs-declaration" data-who="PKN"></td></tr>
+        <tr><td>1 Oct</td><td>2 Oct</td><td>🇿🇦 ZAF</td><td><strong>HOTEL CHECK-IN</strong> — Vetho 1 Apartments, OR Tambo Airport.</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="vetho1-checkin-2oct" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="vetho1-checkin-2oct" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="vetho1-checkin-2oct" data-who="PKN"></td></tr>
+        <tr><td>5 Oct</td><td>6 Oct</td><td>🇿🇦 ZAF</td><td><strong>HOTEL CHECK-IN</strong> — Vetho 1 Apartments, OR Tambo Airport.</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="vetho1-checkin-6oct" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="vetho1-checkin-6oct" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="vetho1-checkin-6oct" data-who="PKN"></td></tr>
+        <tr><td>6 Oct</td><td>7 Oct</td><td>🇿🇦 ZAF</td><td><strong>WEB CHECK-IN</strong> — FlySafAir FA-830, JNB → Mauritius (09:00).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="fa830-checkin" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="fa830-checkin" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="fa830-checkin" data-who="PKN"></td></tr>
+        <tr><td>6 Oct</td><td>7 Oct</td><td>🇲🇺 MUS</td><td><strong>PRE-ARRIVAL</strong> — Submit Mauritius Health Declaration Form (after FA-830 check-in).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="mu-health-declaration" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="mu-health-declaration" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="mu-health-declaration" data-who="PKN"></td></tr>
+        <tr><td>11 Oct</td><td>12 Oct</td><td>🇲🇺 MUS</td><td><strong>WEB CHECK-IN</strong> — IndiGo 6E1862, Mauritius → Bengaluru (09:30).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="6e1862-checkin" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="6e1862-checkin" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="6e1862-checkin" data-who="PKN"></td></tr>
+        <tr><td>11 Oct</td><td>12 Oct</td><td>🇮🇳 IND</td><td><strong>PRE-ARRIVAL</strong> — Submit India Air Suvidha 2.0 (after 6E1862 check-in).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="air-suvidha" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="air-suvidha" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="air-suvidha" data-who="PKN"></td></tr>
       </tbody>
     </table>
   </div>
-  <p style="font-size:0.82rem; color:var(--text-muted); margin-top:8px;">Tick off ARU / PR / PKN once each traveller has that document packed or accessible. When live sync is available, progress updates instantly on every traveller's device; otherwise ticks are saved on this device only.</p>
+  <p style="font-size:0.82rem; color:var(--text-muted); margin-top:8px;">"Action date" is when to actually do the thing (check in, confirm, pay); "Date of travel" is the day the leg itself happens. Web check-in windows above follow each airline's standard 24–48h opening — always double-check the exact opening time closer to the date. Tick off ARU / PR / PKN as each traveller completes an item. When live sync is available, progress updates instantly on every traveller's device; otherwise ticks are saved on this device only.</p>
   </div>
 
 </div>
 <script>
 (function(){
-  var LEGACY_KEY = 'travel-docs-checklist-v1';
+  var LEGACY_KEY = 'actions-checklist-v1';
   var travellers = ['ARU', 'PR', 'PKN'];
   var boxes = Array.prototype.slice.call(document.querySelectorAll('.chk-box'));
 
@@ -448,7 +449,7 @@ body{ padding-inline:0; padding-block:0; overflow-x:hidden; }
     window.claude.use('db').then(function(db){
       if(!db){ setStatus('Saved on this device only', 'local'); return; }
       usingDb = true;
-      dbDoc = db.doc('checklist/state');
+      dbDoc = db.doc('checklist/actions');
       setStatus('Connecting…', 'local');
       dbDoc.onSnapshot(function(snap){
         var data = snap.exists ? snap.data() : null;

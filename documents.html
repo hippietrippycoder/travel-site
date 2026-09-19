@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trip Documents — Africa Five Nation Tour</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Karla:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --bg: #EEF0E4;
+  --surface: #FBFBF4;
+  --surface-2: #F2F3E8;
+  --text: #212C1C;
+  --text-muted: #5C6650;
+  --line: #D6DAC4;
+  --accent: #A9701F;
+  --accent-strong: #7C5216;
+  --accent-soft: #EFDFBB;
+  --danger: #963B26;
+  --danger-soft: #F3DCCC;
+  --shadow: 0 1px 2px rgba(33,44,28,0.06), 0 8px 24px -12px rgba(33,44,28,0.18);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg: #161D14;
+    --surface: #1D2519;
+    --surface-2: #232C1E;
+    --text: #E8EADB;
+    --text-muted: #9CA68C;
+    --line: #333F2B;
+    --accent: #DDA54E;
+    --accent-strong: #F0BE70;
+    --accent-soft: #3A3220;
+    --danger: #E58A6C;
+    --danger-soft: #3B241C;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+  }
+}
+:root[data-theme="dark"]{
+  --bg: #161D14;
+  --surface: #1D2519;
+  --surface-2: #232C1E;
+  --text: #E8EADB;
+  --text-muted: #9CA68C;
+  --line: #333F2B;
+  --accent: #DDA54E;
+  --accent-strong: #F0BE70;
+  --accent-soft: #3A3220;
+  --danger: #E58A6C;
+  --danger-soft: #3B241C;
+  --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+}
+
+*{box-sizing:border-box;}
+body{ margin:0; padding-inline:0; padding-block:0; overflow-x:hidden; background:var(--bg); color:var(--text); font-family:'Karla', ui-sans-serif, system-ui, sans-serif; }
+.wrap{max-width:880px; margin:0 auto; display:flex; flex-direction:column; gap:26px;}
+
+h1,h2,h3{font-family:'Fraunces', Georgia, serif; text-wrap:balance; margin:0;}
+.eyebrow{ font-family:'JetBrains Mono', monospace; font-size:0.72rem; letter-spacing:0.09em; text-transform:uppercase; color:var(--accent-strong); font-weight:600; }
+
+.travellers{display:flex; flex-wrap:wrap; gap:8px; margin-top:2px;}
+.travellers .pill{
+  font-family:'JetBrains Mono', monospace; font-size:0.68rem; letter-spacing:0.03em; font-weight:600;
+  text-transform:uppercase; color:var(--accent-strong); background:var(--accent-soft); border:1px solid var(--line);
+  padding:5px 12px; border-radius:999px; white-space:nowrap;
+}
+
+header{display:flex; flex-direction:column; gap:10px;}
+header h1{font-size:clamp(1.7rem, 4.5vw, 2.4rem); font-weight:700; color:var(--text);}
+header p.sub{margin:0; color:var(--text-muted); font-size:1.02rem; max-width:62ch;}
+
+.note-strip{
+  display:flex; gap:10px; align-items:flex-start;
+  background:var(--surface); border:1px solid var(--line); border-radius:12px;
+  padding:12px 16px; box-shadow:var(--shadow); font-size:0.85rem; color:var(--text-muted);
+}
+.note-strip svg{width:16px; height:16px; color:var(--accent-strong); flex-shrink:0; margin-top:2px;}
+.note-strip strong{color:var(--text);}
+
+/* upload card */
+.upload-card{
+  background:var(--surface); border:1px solid var(--line); border-radius:14px;
+  padding:20px 22px 22px; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:14px;
+}
+.upload-card h2{font-size:1.08rem; font-weight:700;}
+.upload-card .hint{margin:0; font-size:0.82rem; color:var(--text-muted);}
+.field-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+.field{display:flex; flex-direction:column; gap:5px;}
+.field.full{grid-column:1 / -1;}
+.field label{font-family:'JetBrains Mono', monospace; font-size:0.66rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--text-muted); font-weight:600;}
+.field input[type="text"], .field input[type="password"], .field select, .field input[type="file"]{
+  font-family:'Karla', sans-serif; font-size:0.9rem; color:var(--text);
+  background:var(--surface-2); border:1px solid var(--line); border-radius:8px;
+  padding:9px 11px; width:100%;
+}
+.field input:focus, .field select:focus{ outline:2px solid var(--accent); outline-offset:1px; }
+.upload-actions{display:flex; align-items:center; gap:12px; flex-wrap:wrap;}
+
+.btn{
+  font-family:'JetBrains Mono', monospace; font-size:0.72rem; font-weight:700; letter-spacing:0.04em; text-transform:uppercase;
+  border-radius:9px; padding:10px 18px; border:1px solid transparent; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:7px;
+}
+.btn-primary{ background:var(--accent-strong); color:var(--surface); }
+.btn-primary:hover{ opacity:0.92; }
+.btn-primary:disabled{ opacity:0.55; cursor:default; }
+.btn-ghost{ background:var(--surface-2); color:var(--text); border-color:var(--line); }
+.btn-ghost:hover{ background:var(--accent-soft); }
+
+.upload-msg{ font-size:0.85rem; font-weight:600; display:none; }
+.upload-msg.show{ display:block; }
+.upload-msg.error{ color:var(--danger); }
+.upload-msg.success{ color:var(--accent-strong); }
+
+/* document sections */
+.doc-section{display:flex; flex-direction:column; gap:10px;}
+.doc-section-title{
+  font-family:'JetBrains Mono', monospace; font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase;
+  color:var(--text-muted); font-weight:600; display:flex; align-items:center; gap:8px;
+}
+.doc-section-title .count{
+  background:var(--surface-2); border:1px solid var(--line); border-radius:999px; padding:1px 8px; font-weight:700; color:var(--text);
+}
+.doc-list{ background:var(--surface); border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow); overflow:hidden; }
+.doc-item{ display:flex; align-items:center; gap:12px; padding:12px 16px; border-bottom:1px solid var(--line); }
+.doc-item:last-child{ border-bottom:none; }
+.doc-item .file-ic{ width:34px; height:34px; border-radius:9px; background:var(--surface-2); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; color:var(--accent-strong); flex-shrink:0; }
+.doc-item .file-ic svg{ width:17px; height:17px; }
+.doc-item .meta{ flex:1 1 auto; min-width:0; }
+.doc-item .fname{ font-weight:700; font-size:0.9rem; color:var(--text); overflow-wrap:anywhere; }
+.doc-item .fnote{ font-size:0.8rem; color:var(--text-muted); margin-top:1px; overflow-wrap:anywhere; }
+.doc-item .fsub{ font-family:'JetBrains Mono', monospace; font-size:0.68rem; color:var(--text-muted); margin-top:3px; }
+.doc-item .actions{ display:flex; align-items:center; gap:6px; flex-shrink:0; }
+.icon-btn{
+  width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center;
+  background:var(--surface-2); border:1px solid var(--line); color:var(--text); cursor:pointer; text-decoration:none; flex-shrink:0;
+}
+.icon-btn svg{width:15px; height:15px;}
+.icon-btn:hover{ background:var(--accent-soft); color:var(--accent-strong); }
+.icon-btn.danger:hover{ background:var(--danger-soft); color:var(--danger); }
+
+.empty-state{
+  text-align:center; padding:34px 20px; color:var(--text-muted); font-size:0.9rem;
+  background:var(--surface); border:1px dashed var(--line); border-radius:14px;
+}
+.empty-state svg{width:26px; height:26px; color:var(--accent-strong); margin-bottom:10px;}
+
+footer{color:var(--text-muted); font-size:0.78rem; text-align:center; padding-top:10px;}
+
+.site-shell{ display:flex; align-items:flex-start; min-height:100vh; }
+.sidebar{
+  width:238px; flex-shrink:0;
+  background:var(--surface); border-right:1px solid var(--line);
+  padding:18px 12px 24px; display:flex; flex-direction:column; gap:2px;
+  position:sticky; top:0; height:100vh; overflow-y:auto;
+}
+.sidebar-brand{ display:flex; justify-content:center; padding:12px 8px 16px; }
+.sidebar-icon-row{ display:flex; gap:3px; }
+.sidebar-icon-row .icon-chip{ width:29px; height:29px; border-radius:7px; background:var(--surface-2); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; color:var(--accent-strong); flex-shrink:0; }
+.sidebar-icon-row .icon-chip svg{ width:15px; height:15px; }
+.sidebar-group{ font-family:'JetBrains Mono', monospace; font-size:0.62rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-muted); font-weight:600; margin:14px 10px 4px; }
+.sidebar-link{
+  display:flex; align-items:center; gap:8px;
+  padding:8px 8px; border-radius:8px;
+  color:var(--text); text-decoration:none;
+  font-size:0.66rem; font-weight:500; line-height:1.3;
+  text-transform:uppercase; letter-spacing:0.005em;
+  white-space:nowrap;
+}
+.sidebar-link svg{ width:16px; height:16px; flex-shrink:0; color:var(--text-muted); }
+.sidebar-link:hover{ background:var(--surface-2); }
+.sidebar-link.is-active{ background:var(--accent-soft); color:var(--accent-strong); font-weight:700; }
+.sidebar-link.is-active svg{ color:var(--accent-strong); }
+.sidebar-link.home-link{ border-bottom:1px solid var(--line); margin-bottom:6px; padding-bottom:12px; }
+
+.site-main{ flex:1 1 auto; min-width:0; padding-inline:20px; padding-block:36px 64px; }
+
+.sidebar-toggle{ display:none; }
+.sidebar-backdrop{ display:none; }
+
+@media (max-width:900px){
+  .sidebar{
+    position:fixed; top:0; left:0; height:100vh; width:78vw; max-width:280px; z-index:200;
+    transform:translateX(-100%); transition:transform 0.2s ease;
+  }
+  .sidebar.is-open{ transform:translateX(0); box-shadow:10px 0 28px rgba(0,0,0,0.18); }
+  .sidebar-toggle{
+    display:flex; align-items:center; justify-content:center;
+    position:fixed; top:14px; left:14px; z-index:210;
+    width:40px; height:40px; border-radius:10px;
+    background:var(--surface); border:1px solid var(--line); box-shadow:var(--shadow);
+    color:var(--text); cursor:pointer;
+  }
+  .sidebar-toggle svg{ width:19px; height:19px; }
+  .sidebar-backdrop{
+    display:block; position:fixed; inset:0; background:rgba(10,14,8,0.4);
+    opacity:0; pointer-events:none; transition:opacity 0.2s ease; z-index:190;
+  }
+  .sidebar-backdrop.is-open{ opacity:1; pointer-events:auto; }
+  .site-main{ padding-top:72px; }
+}
+@media (max-width:640px){
+  .field-grid{grid-template-columns:1fr;}
+  .doc-item{flex-wrap:wrap;}
+  .doc-item .meta{flex-basis:100%; order:2;}
+  .doc-item .actions{order:3; margin-left:46px;}
+}
+</style>
+</head>
+<body>
+<div class="site-shell">
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand"><div class="sidebar-icon-row"><span class="icon-chip"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><ellipse cx="12" cy="14.5" rx="4.6" ry="5.4"/><ellipse cx="6.3" cy="8.2" rx="2" ry="2.5" transform="rotate(-20 6.3 8.2)"/><ellipse cx="10.2" cy="5.3" rx="1.9" ry="2.4" transform="rotate(-8 10.2 5.3)"/><ellipse cx="14.3" cy="5.1" rx="1.9" ry="2.4" transform="rotate(8 14.3 5.1)"/><ellipse cx="18" cy="8" rx="2" ry="2.5" transform="rotate(20 18 8)"/></svg></span><span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 17 8 9l3 4.5L14.5 8l6 9"/><path d="M3.5 17h17"/></svg></span><span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0 1 12 3.5 6.5 6.5 0 0 1 18.5 10c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg></span><span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.5V11"/><path d="M12 12c0-4.5-3-7.5-7.5-8 .5 4.3 3.3 7.4 7.5 8z"/><path d="M12 12c0-4.5 3-7.5 7.5-8-.5 4.3-3.3 7.4-7.5 8z"/></svg></span><span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.3"/><path d="M3 18.5c1.8-3 4.4-4.8 6.3-3 1 .9 1.7 1 2.7 0 1.9-1.8 4.5 0 6.3 3"/></svg></span><span class="icon-chip"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M13.2 2.3c2.7.5 4.9 2.2 6 4.6.4.9.2 1.9-.5 2.5l-1.7 1.5c-.4.3-.6.8-.5 1.3l.5 2.1c.2.8-.1 1.6-.8 2.1l-2.6 1.8c-.5.3-.8.9-.7 1.5l.3 1.9c.1.7-.4 1.4-1.1 1.4-3.9-.1-7.3-2.3-9-5.6-.4-.8-.1-1.7.6-2.2l1.6-1.1c.5-.3.7-.9.5-1.4l-.6-1.7c-.2-.6 0-1.3.6-1.7l2-1.4c.4-.3.6-.8.5-1.3l-.4-1.7c-.2-.9.4-1.8 1.3-1.9l3-.4c.4 0 .7-.2 1-.5z"/></svg></span></div></div>
+  <a class="sidebar-link home-link" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg><span>Home</span></a>
+  <div class="sidebar-group">Day by day</div>
+  <a class="sidebar-link" href="full_trip_route.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 20l-5.5 2V6L9 4m0 16l6 2m-6-2V4m6 18l5.5-2V4L15 6m0 16V4m0 0L9 6"/></svg><span>Day-by-Day Itinerary</span></a>
+  <a class="sidebar-link" href="free_time_extras.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg><span>Off Beat Activities</span></a>
+  <a class="sidebar-link" href="local_food_guide.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3v7a3 3 0 0 0 3 3v8M7 3v7M10 3v7M17 3c-2 2-2 5-2 8 0 2 1 3 2 3v7"/></svg><span>Local Food &amp; Cuisines</span></a>
+  <a class="sidebar-link" href="weather_overview.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10.58A5 5 0 0 0 16 2h-1.24A8 8 0 1 0 5 14.25"/><path d="M8 17v3M12 15.5v3M16 17v3"/></svg><span>Weather Forecast Daily</span></a>
+  <div class="sidebar-group">Reference</div>
+  <a class="sidebar-link is-active" href="documents.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-4-4m4 4 4-4"/><path d="M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></svg><span>Trip Documents</span></a>
+  <a class="sidebar-link" href="hotels_flights.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 22l20-9L2 4l5 9-5 9z"/></svg><span>Hotel &amp; Flights</span></a>
+  <a class="sidebar-link" href="important_actions_checklist.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span>Imp To-Do Checklist</span></a>
+  <a class="sidebar-link" href="travel_documents_checklist.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg><span>Travel Doc Checklist</span></a>
+  <div class="sidebar-group">Financials</div>
+  <a class="sidebar-link" href="trip_budget.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span>Budget Vs Actuals</span></a>
+</aside>
+<main class="site-main">
+<div class="wrap">
+
+  <header>
+    <h1>TRIP DOCUMENTS</h1>
+    <span class="eyebrow">Africa Five Nation Tour · 24 September – 12 October 2026</span>
+    <div class="travellers"><span class="pill">Amar Raj Urs</span><span class="pill">Pratap Raj</span><span class="pill">Praveen Kumar Nallipogu</span></div>
+    <p class="sub">Flight e-tickets, hotel confirmations and safari booking vouchers, kept in one place instead of scattered across email.</p>
+  </header>
+
+  <div class="note-strip">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 8h.01M11 12h1v5h1"/></svg>
+    <span>Everyone with this link can view and download a document. Adding or removing one needs the shared passphrase, so only <strong>Amar</strong> uploads on behalf of the group.</span>
+  </div>
+
+  <section class="upload-card">
+    <h2>Add a document</h2>
+    <p class="hint">PDF, JPG or PNG, up to 20 MB.</p>
+    <form id="upload-form">
+      <div class="field-grid">
+        <div class="field full">
+          <label for="doc-file">File</label>
+          <input type="file" id="doc-file" name="file" accept=".pdf,.jpg,.jpeg,.png,.heic,.webp" required>
+        </div>
+        <div class="field">
+          <label for="doc-category">Category</label>
+          <select id="doc-category" name="category">
+            <option value="flights">Flights</option>
+            <option value="hotels">Hotels</option>
+            <option value="safari">Safari Tickets</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="doc-passphrase">Passphrase</label>
+          <input type="password" id="doc-passphrase" name="passphrase" autocomplete="off" required>
+        </div>
+        <div class="field full">
+          <label for="doc-note">Note <span style="text-transform:none; font-weight:400;">(optional — e.g. "Amar &amp; Pratap, JNB–MRU")</span></label>
+          <input type="text" id="doc-note" name="note" maxlength="200">
+        </div>
+      </div>
+      <div class="upload-actions">
+        <button type="submit" class="btn btn-primary" id="upload-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M12 16V4m0 0-4 4m4-4 4 4"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>
+          Upload
+        </button>
+        <span id="upload-msg" class="upload-msg"></span>
+      </div>
+    </form>
+  </section>
+
+  <div id="doc-sections"></div>
+
+  <footer>All documents are stored privately for this trip and are not indexed by search engines.</footer>
+
+</div>
+</main>
+</div>
+
+<script>
+(function(){
+  var CATS = [
+    {key:'flights', label:'Flights'},
+    {key:'hotels', label:'Hotels'},
+    {key:'safari', label:'Safari Tickets'},
+    {key:'other', label:'Other'}
+  ];
+
+  var sectionsEl = document.getElementById('doc-sections');
+  var form = document.getElementById('upload-form');
+  var uploadBtn = document.getElementById('upload-btn');
+  var uploadMsg = document.getElementById('upload-msg');
+
+  function formatBytes(n){
+    if(!n && n !== 0) return '';
+    if(n < 1024) return n + ' B';
+    if(n < 1024*1024) return (n/1024).toFixed(0) + ' KB';
+    return (n/(1024*1024)).toFixed(1) + ' MB';
+  }
+
+  function formatDate(iso){
+    if(!iso) return '';
+    var d = new Date(iso);
+    if(isNaN(d.getTime())) return '';
+    return d.toLocaleString('en-GB', {day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit'});
+  }
+
+  function iconForType(type, name){
+    var t = (type || '').toLowerCase();
+    var n = (name || '').toLowerCase();
+    if(t.indexOf('pdf') !== -1 || n.endsWith('.pdf')){
+      return '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9.5 17v-4h1a1.5 1.5 0 0 1 0 3h-1"/>';
+    }
+    if(t.indexOf('image') !== -1 || /\.(jpe?g|png|heic|webp|gif)$/.test(n)){
+      return '<rect x="3" y="4" width="18" height="15" rx="2"/><circle cx="8.5" cy="9.5" r="1.6"/><path d="M3 16l5.5-5.5 3.5 3.5 3-3 5 5"/>';
+    }
+    return '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/>';
+  }
+
+  function el(tag, cls){
+    var e = document.createElement(tag);
+    if(cls) e.className = cls;
+    return e;
+  }
+
+  function buildDocItem(doc){
+    var item = el('div', 'doc-item');
+
+    var ic = el('div', 'file-ic');
+    ic.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + iconForType(doc.type, doc.name) + '</svg>';
+    item.appendChild(ic);
+
+    var meta = el('div', 'meta');
+    var fname = el('div', 'fname'); fname.textContent = doc.name; meta.appendChild(fname);
+    if(doc.note){ var fnote = el('div', 'fnote'); fnote.textContent = doc.note; meta.appendChild(fnote); }
+    var fsub = el('div', 'fsub'); fsub.textContent = [formatDate(doc.uploaded), formatBytes(doc.size)].filter(Boolean).join(' · '); meta.appendChild(fsub);
+    item.appendChild(meta);
+
+    var actions = el('div', 'actions');
+
+    var dl = document.createElement('a');
+    dl.className = 'icon-btn';
+    dl.href = doc.url;
+    dl.target = '_blank';
+    dl.rel = 'noopener';
+    dl.title = 'Download';
+    dl.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-4-4m4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>';
+    actions.appendChild(dl);
+
+    var rm = document.createElement('button');
+    rm.type = 'button';
+    rm.className = 'icon-btn danger';
+    rm.title = 'Remove';
+    rm.setAttribute('data-key', doc.key);
+    rm.setAttribute('data-name', doc.name);
+    rm.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2m-8 0 1 12a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1l1-12"/></svg>';
+    rm.addEventListener('click', function(){ handleRemove(doc.key, doc.name); });
+    actions.appendChild(rm);
+
+    item.appendChild(actions);
+    return item;
+  }
+
+  function renderEmpty(){
+    sectionsEl.innerHTML = '';
+    var empty = el('div', 'empty-state');
+    empty.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg><div>No documents yet — bookings uploaded here will show up for everyone.</div>';
+    sectionsEl.appendChild(empty);
+  }
+
+  function renderDocs(docs){
+    sectionsEl.innerHTML = '';
+    if(!docs.length){ renderEmpty(); return; }
+
+    var byCat = {};
+    docs.forEach(function(d){
+      var c = d.category || 'other';
+      if(!byCat[c]) byCat[c] = [];
+      byCat[c].push(d);
+    });
+
+    CATS.forEach(function(cat){
+      var items = byCat[cat.key];
+      if(!items || !items.length) return;
+      var section = el('div', 'doc-section');
+      var title = el('div', 'doc-section-title');
+      title.innerHTML = cat.label + ' <span class="count">' + items.length + '</span>';
+      section.appendChild(title);
+      var list = el('div', 'doc-list');
+      items.forEach(function(doc){ list.appendChild(buildDocItem(doc)); });
+      section.appendChild(list);
+      sectionsEl.appendChild(section);
+    });
+  }
+
+  function loadDocs(){
+    fetch('/api/documents')
+      .then(function(r){ return r.json(); })
+      .then(function(data){ renderDocs(data.documents || []); })
+      .catch(function(){
+        sectionsEl.innerHTML = '';
+        var e = el('div', 'empty-state');
+        e.textContent = 'Could not load documents right now — try refreshing.';
+        sectionsEl.appendChild(e);
+      });
+  }
+
+  function showMsg(text, kind){
+    uploadMsg.textContent = text;
+    uploadMsg.className = 'upload-msg show ' + kind;
+  }
+
+  function handleRemove(key, name){
+    var pass = window.prompt('Enter the passphrase to remove "' + name + '":');
+    if(pass === null || pass === '') return;
+    fetch('/api/delete', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({key: key, passphrase: pass})
+    }).then(function(r){ return r.json().then(function(data){ return {ok: r.ok, data: data}; }); })
+      .then(function(res){
+        if(!res.ok){ window.alert(res.data.error || 'Could not remove that file.'); return; }
+        loadDocs();
+      })
+      .catch(function(){ window.alert('Network error — please try again.'); });
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var fileInput = document.getElementById('doc-file');
+    if(!fileInput.files.length){ showMsg('Choose a file first.', 'error'); return; }
+
+    var fd = new FormData();
+    fd.append('file', fileInput.files[0]);
+    fd.append('category', document.getElementById('doc-category').value);
+    fd.append('note', document.getElementById('doc-note').value);
+    fd.append('passphrase', document.getElementById('doc-passphrase').value);
+
+    uploadBtn.disabled = true;
+    showMsg('Uploading…', 'success');
+
+    fetch('/api/upload', {method:'POST', body: fd})
+      .then(function(r){ return r.json().then(function(data){ return {ok: r.ok, data: data}; }); })
+      .then(function(res){
+        uploadBtn.disabled = false;
+        if(!res.ok){ showMsg(res.data.error || 'Upload failed.', 'error'); return; }
+        showMsg('Uploaded — thanks!', 'success');
+        form.reset();
+        loadDocs();
+      })
+      .catch(function(){
+        uploadBtn.disabled = false;
+        showMsg('Network error — please try again.', 'error');
+      });
+  });
+
+  loadDocs();
+})();
+</script>
+<script>
+(function(){
+  var btn = document.getElementById('sidebarToggle');
+  var sidebar = document.getElementById('sidebar');
+  var backdrop = document.getElementById('sidebarBackdrop');
+  if(!btn || !sidebar || !backdrop) return;
+  function openSb(){ sidebar.classList.add('is-open'); backdrop.classList.add('is-open'); }
+  function closeSb(){ sidebar.classList.remove('is-open'); backdrop.classList.remove('is-open'); }
+  btn.addEventListener('click', function(){
+    sidebar.classList.contains('is-open') ? closeSb() : openSb();
+  });
+  backdrop.addEventListener('click', closeSb);
+})();
+</script>
+</body>
+</html>

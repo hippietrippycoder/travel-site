@@ -1,8 +1,16 @@
 {
   "name": "travel-site",
   "compatibility_date": "2026-09-18",
+  "main": "worker.js",
   "assets": {
     "directory": "./",
+    "binding": "ASSETS",
     "not_found_handling": "404-page"
-  }
+  },
+  "r2_buckets": [
+    {
+      "binding": "DOCS_BUCKET",
+      "bucket_name": "trip-documents"
+    }
+  ]
 }

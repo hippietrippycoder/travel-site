@@ -133,6 +133,16 @@ export default {
       if (pathname === "/api/documents" && request.method === "GET") {
         return json({ documents: await listDocuments(env) });
       }
+      if (pathname === "/api/debug" && request.method === "GET") {
+        // Temporary — reports whether the secret is bound and how long it is,
+        // never the value itself. Safe to leave reachable while troubleshooting.
+        const val = env.UPLOAD_PASSPHRASE;
+        return json({
+          secretConfigured: typeof val === "string" && val.length > 0,
+          secretLength: typeof val === "string" ? val.length : 0,
+          bucketConfigured: !!env.DOCS_BUCKET,
+        });
+      }
       if (pathname === "/api/upload" && request.method === "POST") {
         return await handleUpload(request, env);
       }

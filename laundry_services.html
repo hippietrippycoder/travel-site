@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laundry Services — Africa Five Nation Tour</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Karla:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --bg: #EEF0E4;
+  --surface: #FBFBF4;
+  --surface-2: #F2F3E8;
+  --text: #212C1C;
+  --text-muted: #5C6650;
+  --line: #D6DAC4;
+  --accent: #A9701F;
+  --accent-strong: #7C5216;
+  --accent-soft: #EFDFBB;
+  --danger: #963B26;
+  --danger-soft: #F3DCCC;
+  --good: #3E7A3E;
+  --good-soft: #DCEBDA;
+  --shadow: 0 1px 2px rgba(33,44,28,0.06), 0 8px 24px -12px rgba(33,44,28,0.18);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg: #161D14;
+    --surface: #1D2519;
+    --surface-2: #232C1E;
+    --text: #E8EADB;
+    --text-muted: #9CA68C;
+    --line: #333F2B;
+    --accent: #DDA54E;
+    --accent-strong: #F0BE70;
+    --accent-soft: #3A3220;
+    --danger: #E58A6C;
+    --danger-soft: #3B241C;
+    --good: #7FC17F;
+    --good-soft: #223A22;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+  }
+}
+:root[data-theme="dark"]{
+  --bg: #161D14;
+  --surface: #1D2519;
+  --surface-2: #232C1E;
+  --text: #E8EADB;
+  --text-muted: #9CA68C;
+  --line: #333F2B;
+  --accent: #DDA54E;
+  --accent-strong: #F0BE70;
+  --accent-soft: #3A3220;
+  --danger: #E58A6C;
+  --danger-soft: #3B241C;
+  --good: #7FC17F;
+  --good-soft: #223A22;
+  --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+}
+
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Karla', ui-sans-serif, system-ui, sans-serif;
+  padding-inline:20px;
+  padding-block:36px 64px;
+}
+.wrap{max-width:1080px; margin:0 auto; display:flex; flex-direction:column; gap:28px;}
+
+h1,h2,h3{font-family:'Fraunces', Georgia, serif; text-wrap:balance; margin:0;}
+.eyebrow{
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.72rem;
+  letter-spacing:0.09em;
+  text-transform:uppercase;
+  color:var(--accent-strong);
+  font-weight:600;
+}
+
+.travellers{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:2px;
+}
+.travellers .pill{
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.68rem;
+  letter-spacing:0.03em;
+  font-weight:600;
+  text-transform:uppercase;
+  color:var(--accent-strong);
+  background:var(--accent-soft);
+  border:1px solid var(--line);
+  padding:5px 12px;
+  border-radius:999px;
+  white-space:nowrap;
+}
+
+/* header */
+header{display:flex; flex-direction:column; gap:10px;}
+header h1{font-size:clamp(1.7rem, 4.5vw, 2.4rem); font-weight:700; color:var(--text);}
+header p.sub{margin:0; color:var(--text-muted); font-size:1.02rem; max-width:60ch;}
+
+/* callout */
+.callout{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:18px 20px;
+  box-shadow:var(--shadow);
+  display:flex; gap:16px; align-items:flex-start;
+}
+.callout.info{background:var(--accent-soft); border-color:transparent;}
+.callout .icon{
+  font-family:'JetBrains Mono',monospace; font-weight:700; font-size:0.72rem;
+  letter-spacing:0.08em; text-transform:uppercase; color:var(--accent-strong);
+  flex-shrink:0; margin-top:3px;
+}
+.callout div > p{margin:0; font-size:0.95rem; line-height:1.55; color:var(--text);}
+.callout div > p+p{margin-top:6px;}
+.callout strong{color:var(--accent-strong);}
+
+/* reference table */
+.table-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:12px;}
+table{border-collapse:collapse; width:100%; background:var(--surface);}
+th,td{padding:10px 14px; text-align:left; font-size:0.85rem; border-bottom:1px solid var(--line); vertical-align:top;}
+th{
+  font-family:'JetBrains Mono',monospace; font-size:0.68rem; text-transform:uppercase;
+  letter-spacing:0.05em; color:var(--text-muted); background:var(--surface-2); font-weight:600;
+}
+tr:last-child td{border-bottom:none;}
+tr.section-row td{
+  background:var(--accent-soft); color:var(--accent-strong);
+  font-family:'JetBrains Mono',monospace; font-size:0.68rem;
+  text-transform:uppercase; letter-spacing:0.06em; font-weight:700;
+  padding:8px 14px;
+}
+
+.rating-none{ font-size:0.78rem; color:var(--text-muted); font-style:italic; }
+.rating-src{ font-size:0.66rem; color:var(--text-muted); line-height:1.3; display:block; margin-top:3px;}
+
+.svc-badge{
+  font-family:'JetBrains Mono',monospace; font-size:0.6rem; font-weight:700; letter-spacing:0.05em;
+  padding:3px 8px; border-radius:999px; white-space:nowrap; display:inline-block; text-transform:uppercase;
+}
+.svc-self{background:var(--good-soft); color:var(--good);}
+.svc-staffed{background:var(--accent-soft); color:var(--accent-strong);}
+.svc-inhouse{background:var(--surface-2); color:var(--text-muted); border:1px solid var(--line);}
+.svc-none{background:var(--danger-soft); color:var(--danger);}
+.svc-unconfirmed::after{content:'?'; margin-left:3px;}
+.svc-note{display:block; font-size:0.66rem; color:var(--text-muted); margin-top:4px; line-height:1.3; font-family:'Karla',sans-serif; text-transform:none; letter-spacing:0;}
+
+.notes{display:flex; flex-direction:column; gap:12px;}
+.notes h3{font-size:1.05rem; margin-bottom:2px;}
+.notes ul{margin:0; padding-left:1.2em; display:flex; flex-direction:column; gap:8px;}
+.notes li{font-size:0.92rem; line-height:1.55; color:var(--text);}
+.notes li strong{color:var(--accent-strong);}
+
+footer{color:var(--text-muted); font-size:0.78rem; text-align:center; padding-top:8px;}
+
+body{ padding-inline:0; padding-block:0; overflow-x:hidden; }
+.site-shell{ display:flex; align-items:flex-start; min-height:100vh; }
+.sidebar{
+  width:238px; flex-shrink:0;
+  background:var(--surface); border-right:1px solid var(--line);
+  padding:18px 12px 24px; display:flex; flex-direction:column; gap:2px;
+  position:sticky; top:0; height:100vh; overflow-y:auto;
+}
+.sidebar-brand{ display:flex; justify-content:center; padding:12px 8px 16px; }
+.sidebar-icon-row{ display:flex; gap:3px; }
+.sidebar-icon-row .icon-chip{ width:29px; height:29px; border-radius:7px; background:var(--surface-2); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; color:var(--accent-strong); flex-shrink:0; }
+.sidebar-icon-row .icon-chip svg{ width:15px; height:15px; }
+.sidebar-group{ font-family:'JetBrains Mono', monospace; font-size:0.62rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-muted); font-weight:600; margin:14px 10px 4px; }
+.sidebar-link{
+  display:flex; align-items:center; gap:8px;
+  padding:8px 8px; border-radius:8px;
+  color:var(--text); text-decoration:none;
+  font-size:0.66rem; font-weight:500; line-height:1.3;
+  text-transform:uppercase; letter-spacing:0.005em;
+  white-space:nowrap;
+}
+.sidebar-link svg{ width:16px; height:16px; flex-shrink:0; color:var(--text-muted); }
+.sidebar-link:hover{ background:var(--surface-2); }
+.sidebar-link.is-active{ background:var(--accent-soft); color:var(--accent-strong); font-weight:700; }
+.sidebar-link.is-active svg{ color:var(--accent-strong); }
+.sidebar-link.home-link{ border-bottom:1px solid var(--line); margin-bottom:6px; padding-bottom:12px; }
+
+.site-main{ flex:1 1 auto; min-width:0; padding-inline:20px; padding-block:36px 64px; }
+
+.sidebar-toggle{ display:none; }
+.sidebar-backdrop{ display:none; }
+
+@media (max-width:900px){
+  .sidebar{
+    position:fixed; top:0; left:0; height:100vh; width:78vw; max-width:280px; z-index:200;
+    transform:translateX(-100%); transition:transform 0.2s ease;
+  }
+  .sidebar.is-open{ transform:translateX(0); box-shadow:10px 0 28px rgba(0,0,0,0.18); }
+  .sidebar-toggle{
+    display:flex; align-items:center; justify-content:center;
+    position:fixed; top:14px; left:14px; z-index:210;
+    width:40px; height:40px; border-radius:10px;
+    background:var(--surface); border:1px solid var(--line); box-shadow:var(--shadow);
+    color:var(--text); cursor:pointer;
+  }
+  .sidebar-toggle svg{ width:19px; height:19px; }
+  .sidebar-backdrop{
+    display:block; position:fixed; inset:0; background:rgba(10,14,8,0.4);
+    opacity:0; pointer-events:none; transition:opacity 0.2s ease; z-index:190;
+  }
+  .sidebar-backdrop.is-open{ opacity:1; pointer-events:auto; }
+  .site-main{ padding-top:72px; }
+}
+@media (max-width:640px){
+  table{table-layout:auto !important;}
+  td, th{white-space:normal !important; font-size:0.76rem; padding:8px 6px;}
+}
+</style>
+</head>
+<body>
+<div class="site-shell">
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand"><div class="sidebar-icon-row"><span class="icon-chip"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><ellipse cx="12" cy="14.5" rx="4.6" ry="5.4"/><ellipse cx="6.3" cy="8.2" rx="2" ry="2.5" transform="rotate(-20 6.3 8.2)"/><ellipse cx="10.2" cy="5.3" rx="1.9" ry="2.4" transform="rotate(-8 10.2 5.3)"/><ellipse cx="14.3" cy="5.1" rx="1.9" ry="2.4" transform="rotate(8 14.3 5.1)"/><ellipse cx="18" cy="8" rx="2" ry="2.5" transform="rotate(20 18 8)"/></svg></span><span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 17 8 9l3 4.5L14.5 8l6 9"/><path d="M3.5 17h17"/></svg></span><span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0 1 12 3.5 6.5 6.5 0 0 1 18.5 10c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg></span><span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.5V11"/><path d="M12 12c0-4.5-3-7.5-7.5-8 .5 4.3 3.3 7.4 7.5 8z"/><path d="M12 12c0-4.5 3-7.5 7.5-8-.5 4.3-3.3 7.4-7.5 8z"/></svg></span><span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.3"/><path d="M3 18.5c1.8-3 4.4-4.8 6.3-3 1 .9 1.7 1 2.7 0 1.9-1.8 4.5 0 6.3 3"/></svg></span><span class="icon-chip"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M13.2 2.3c2.7.5 4.9 2.2 6 4.6.4.9.2 1.9-.5 2.5l-1.7 1.5c-.4.3-.6.8-.5 1.3l.5 2.1c.2.8-.1 1.6-.8 2.1l-2.6 1.8c-.5.3-.8.9-.7 1.5l.3 1.9c.1.7-.4 1.4-1.1 1.4-3.9-.1-7.3-2.3-9-5.6-.4-.8-.1-1.7.6-2.2l1.6-1.1c.5-.3.7-.9.5-1.4l-.6-1.7c-.2-.6 0-1.3.6-1.7l2-1.4c.4-.3.6-.8.5-1.3l-.4-1.7c-.2-.9.4-1.8 1.3-1.9l3-.4c.4 0 .7-.2 1-.5z"/></svg></span></div></div>
+  <a class="sidebar-link home-link" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg><span>Home</span></a>
+  <div class="sidebar-group">Day by day</div>
+  <a class="sidebar-link" href="full_trip_route.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 20l-5.5 2V6L9 4m0 16l6 2m-6-2V4m6 18l5.5-2V4L15 6m0 16V4m0 0L9 6"/></svg><span>Day-by-Day Itinerary</span></a>
+  <a class="sidebar-link" href="free_time_extras.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg><span>Off Beat Activities</span></a>
+  <a class="sidebar-link" href="local_food_guide.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3v7a3 3 0 0 0 3 3v8M7 3v7M10 3v7M17 3c-2 2-2 5-2 8 0 2 1 3 2 3v7"/></svg><span>Local Food &amp; Cuisines</span></a>
+  <a class="sidebar-link" href="weather_overview.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10.58A5 5 0 0 0 16 2h-1.24A8 8 0 1 0 5 14.25"/><path d="M8 17v3M12 15.5v3M16 17v3"/></svg><span>Weather Forecast Daily</span></a>
+  <div class="sidebar-group">Reference</div>
+  <a class="sidebar-link" href="documents.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-4-4m4 4 4-4"/><path d="M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></svg><span>Trip Documents</span></a>
+  <a class="sidebar-link" href="hotels_flights.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 22l20-9L2 4l5 9-5 9z"/></svg><span>Hotel &amp; Flights</span></a>
+  <a class="sidebar-link" href="airport_lounges.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2"/><path d="M3 13a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M5 17v2M19 17v2"/></svg><span>Airport Lounges</span></a>
+  <a class="sidebar-link is-active" href="laundry_services.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.2"/><path d="M9 5.5h1.2M9 5.5V4"/></svg><span>Laundry Services</span></a>
+  <a class="sidebar-link" href="important_actions_checklist.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span>Imp To-Do Checklist</span></a>
+  <a class="sidebar-link" href="travel_documents_checklist.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg><span>Travel Doc Checklist</span></a>
+  <div class="sidebar-group">Financials</div>
+  <a class="sidebar-link" href="trip_budget.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span>Budget Vs Actuals</span></a>
+</aside>
+<main class="site-main">
+<div class="wrap">
+
+<header>
+    <h1>LAUNDRY SERVICES</h1>
+    <span class="eyebrow">Africa Five Nation Tour · 24 September – 12 October 2026</span>
+    <div class="travellers"><span class="pill">Amar Raj Urs</span><span class="pill">Pratap Raj</span><span class="pill">Praveen Kumar Nallipogu</span></div>
+  </header>
+
+  <div class="callout info">
+    <div class="icon">HEADS UP</div>
+    <div>
+      <p><strong>No maps or geocoding tool was used to build this table</strong> — every distance below is either "same town" (confirmed) or marked unconfirmed. Nothing here is a guessed kilometre figure.</p>
+      <p>Where a business is genuinely self-service (coin-operated machines you run yourself), it's labelled <strong>Self-Service</strong>. Where it's a shop you hand clothes to and collect later, it's <strong>Staffed Drop-Off</strong>. A few are marked "unconfirmed" because the business name suggests one or the other but couldn't be verified.</p>
+    </div>
+  </div>
+
+  <div>
+  <h3 style="margin-top:4px; font-weight:700; text-transform:uppercase; letter-spacing:0.02em;">Laundry Options By Stop, In Route Order</h3>
+  <div class="table-scroll">
+    <table>
+      <colgroup>
+        <col style="width:28%;"><col style="width:17%;"><col style="width:20%;"><col style="width:35%;">
+      </colgroup>
+      <thead><tr><th>Laundry Option</th><th>Service Type</th><th>Distance From Hotel</th><th>Rating &amp; Notes</th></tr></thead>
+      <tbody>
+
+        <tr class="section-row"><td colspan="4">🇿🇼 Joyful Vista Guest Lodge — Victoria Falls, Zimbabwe</td></tr>
+        <tr>
+          <td>Matabele Steam Laundry <span style="color:var(--text-muted); font-weight:400;">(based at Cresta Sprayview Hotel)</span></td>
+          <td><span class="svc-badge svc-staffed svc-unconfirmed">Staffed drop-off</span></td>
+          <td>Same town (Victoria Falls) — exact distance unconfirmed</td>
+          <td><span class="rating-none">Not independently rated — 0 reviews on directory listing</span><span class="rating-src">May primarily serve hotels rather than walk-in travellers — not confirmed either way.</span></td>
+        </tr>
+
+        <tr class="section-row"><td colspan="4">🇿🇼 Gwango Heritage Resort — Dete / Hwange National Park, Zimbabwe</td></tr>
+        <tr>
+          <td>No external laundry business found</td>
+          <td><span class="svc-badge svc-inhouse">In-house only</span></td>
+          <td>—</td>
+          <td><span class="rating-none">N/A</span><span class="rating-src">Lodge's own daily laundry service is the only option — confirmed earlier in the towels research. Hwange is remote, no nearby town with services.</span></td>
+        </tr>
+
+        <tr class="section-row"><td colspan="4">🇿🇲 Tabonina Guesthouse — Livingstone, Zambia</td></tr>
+        <tr>
+          <td>Smart Southern Laundry and Dry Cleaners</td>
+          <td><span class="svc-badge svc-staffed svc-unconfirmed">Staffed drop-off</span></td>
+          <td>Same town (Livingstone) — exact distance unconfirmed</td>
+          <td><span class="rating-none">Not independently rated</span><span class="rating-src">Real, verified Livingstone business (Facebook page); street address and reviews not accessible.</span></td>
+        </tr>
+        <tr>
+          <td>Victoria Steam Laundry &amp; Dry Cleaners</td>
+          <td><span class="svc-badge svc-staffed svc-unconfirmed">Staffed drop-off</span></td>
+          <td>Livingstone — no street address found, can't estimate</td>
+          <td><span class="rating-none">Not independently rated</span><span class="rating-src">Only a PO Box address is published anywhere.</span></td>
+        </tr>
+
+        <tr class="section-row"><td colspan="4">🇧🇼 Nxabii Cottages — Kasane, Botswana</td></tr>
+        <tr>
+          <td>No laundry business found</td>
+          <td><span class="svc-badge svc-none">None found</span></td>
+          <td>—</td>
+          <td><span class="rating-none">N/A</span><span class="rating-src">Checked national Botswana directories — Kasane has no listed standalone laundry/dry-cleaning business. Likely in-house/hotel laundry only.</span></td>
+        </tr>
+
+        <tr class="section-row"><td colspan="4">🇿🇦 Vetho 1 Apartments — Kempton Park (OR Tambo), South Africa <span style="font-weight:400; text-transform:none; letter-spacing:0;">(2 stays)</span></td></tr>
+        <tr>
+          <td>Aquadry Laundry and Dry Cleaners <span style="color:var(--text-muted); font-weight:400;">(Festival Mall)</span></td>
+          <td><span class="svc-badge svc-staffed">Staffed drop-off</span></td>
+          <td>Same town (Kempton Park) — exact distance unconfirmed</td>
+          <td><span class="rating-none">Not independently rated</span><span class="rating-src">Mall-based dry cleaner — name and location make staffed drop-off very likely.</span></td>
+        </tr>
+        <tr>
+          <td>Splash Laundromat</td>
+          <td><span class="svc-badge svc-self svc-unconfirmed">Self-service</span></td>
+          <td>Same town (Kempton Park) — exact distance unconfirmed</td>
+          <td><span class="rating-none">Not independently rated</span><span class="rating-src">Name suggests a coin laundromat, but not directly verified — flagged for a closer look.</span></td>
+        </tr>
+
+        <tr class="section-row"><td colspan="4">🇿🇦 Kruger Allo B&amp;B — Komatipoort, South Africa</td></tr>
+        <tr>
+          <td>No standalone laundry business found</td>
+          <td><span class="svc-badge svc-none">None found</span></td>
+          <td>—</td>
+          <td><span class="rating-none">N/A</span><span class="rating-src">Directories list only guesthouses mentioning laundry as an amenity — no dedicated business in Komatipoort itself. (Mahanaim Laundry, an earlier lead, is actually in Randburg/Johannesburg, hours away — dropped.)</span></td>
+        </tr>
+
+        <tr class="section-row"><td colspan="4">🇿🇦 Satara Rest Camp — Kruger National Park, South Africa</td></tr>
+        <tr>
+          <td>SANParks camp laundromat</td>
+          <td><span class="svc-badge svc-self">Self-service</span></td>
+          <td>On-site, in camp (communal area near the caravan site)</td>
+          <td><span class="rating-none">Not independently rated</span><span class="rating-src">Confirmed via Tripadvisor forum — coin machines, roughly R10/load. Asking camp staff to do it for a tip is also apparently possible informally.</span></td>
+        </tr>
+
+        <tr class="section-row"><td colspan="4">🇿🇦 Sabie Star — Sabie, Mpumalanga, South Africa</td></tr>
+        <tr>
+          <td>No confirmed option in Sabie itself</td>
+          <td><span class="svc-badge svc-none">None found</span></td>
+          <td>—</td>
+          <td><span class="rating-none">N/A</span><span class="rating-src">Laundrohub, an earlier lead, is actually in Nelspruit/Mbombela — a real ~25–30 km drive away, not "near" Sabie Star. Directory searches for Sabie town itself came back empty.</span></td>
+        </tr>
+
+        <tr class="section-row"><td colspan="4">🇲🇺 Palms Studio — La Gaulette / Le Morne, Mauritius</td></tr>
+        <tr>
+          <td>Island-wide pickup/delivery <span style="color:var(--text-muted); font-weight:400;">(X-Press Ironing, UClean, DCS, Penguin Laundry)</span></td>
+          <td><span class="svc-badge svc-staffed">Pickup / delivery</span></td>
+          <td>N/A — service comes to you</td>
+          <td><span class="rating-none">Not independently rated</span><span class="rating-src">No fixed-location laundrette found near Le Morne; these operators schedule a pickup and return clean laundry.</span></td>
+        </tr>
+
+        <tr class="section-row"><td colspan="4">🇲🇺 Residence Le Point Choisy — Grand Baie / Pointe aux Cannoniers, Mauritius</td></tr>
+        <tr>
+          <td>Laverie Automatique <span style="color:var(--text-muted); font-weight:400;">(Super U parking lot, Grand Baie)</span></td>
+          <td><span class="svc-badge svc-self">Self-service</span></td>
+          <td>Grand Baie town — Pointe aux Cannoniers is a few km north, exact distance unconfirmed</td>
+          <td><span class="rating-none">Not independently rated</span><span class="rating-src">Confirmed self-service coin laundrette — multiple independent mentions describe it as "come wash your own laundry."</span></td>
+        </tr>
+        <tr>
+          <td>Island-wide pickup/delivery <span style="color:var(--text-muted); font-weight:400;">(backup option)</span></td>
+          <td><span class="svc-badge svc-staffed">Pickup / delivery</span></td>
+          <td>N/A — service comes to you</td>
+          <td><span class="rating-none">Not independently rated</span></td>
+        </tr>
+
+        <tr class="section-row"><td colspan="4">🇲🇺 Gite des Acacias — Union Vale, Mauritius</td></tr>
+        <tr>
+          <td>Island-wide pickup/delivery only</td>
+          <td><span class="svc-badge svc-staffed">Pickup / delivery</span></td>
+          <td>N/A — service comes to you</td>
+          <td><span class="rating-none">Not independently rated</span><span class="rating-src">Union Vale is inland/rural — no local laundrette found.</span></td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+  </div>
+
+  <div class="notes">
+    <h3>Reading This Table</h3>
+    <ul>
+      <li><strong>No distances were calculated with a maps tool</strong> — there isn't one available. "Same town" means the business and hotel share a town/suburb; anywhere a precise distance would otherwise appear, it says "unconfirmed" instead of a made-up figure.</li>
+      <li><strong>Service type is inferred from the business name and context where not directly confirmed.</strong> "Steam Laundry" and "Dry Cleaners" strongly imply a staffed drop-off shop; "Laundromat" or "Laverie Automatique" strongly imply self-service — but only Satara Rest Camp and Laverie Automatique (Grand Baie) were independently confirmed as self-service. Everything else marked "unconfirmed" is a reasonable guess, not a verified fact.</li>
+      <li><strong>Ratings are almost entirely "Not independently rated"</strong> — unlike the airport lounges, these are small local/regional businesses with little to no published review data. Nothing here is a fabricated star rating.</li>
+      <li><strong>Kasane, Komatipoort and Sabie</strong> have no confirmed standalone laundry business at all — expect to rely on hotel/guesthouse laundry (paid or otherwise) or simply pack accordingly for those legs.</li>
+      <li>Earlier leads that turned out to be mismatched or too far away were dropped rather than presented misleadingly: Itenge Dry Cleaners (address is actually in Kasane, Botswana, not Victoria Falls) and Mahanaim Laundry (actually in Randburg, Johannesburg, not Komatipoort).</li>
+    </ul>
+  </div>
+
+</div>
+</main>
+</div>
+<script>
+(function(){
+  var btn = document.getElementById('sidebarToggle');
+  var sidebar = document.getElementById('sidebar');
+  var backdrop = document.getElementById('sidebarBackdrop');
+  if(!btn || !sidebar || !backdrop) return;
+  function openSb(){ sidebar.classList.add('is-open'); backdrop.classList.add('is-open'); }
+  function closeSb(){ sidebar.classList.remove('is-open'); backdrop.classList.remove('is-open'); }
+  btn.addEventListener('click', function(){
+    sidebar.classList.contains('is-open') ? closeSb() : openSb();
+  });
+  backdrop.addEventListener('click', closeSb);
+})();
+</script>
+</body>
+</html>

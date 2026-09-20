@@ -291,6 +291,15 @@ tr.section-row td{
 
 .badge-paid{font-family:'JetBrains Mono',monospace; font-size:0.6rem; font-weight:700; letter-spacing:0.06em; padding:2px 7px; border-radius:999px; white-space:nowrap; background:var(--good-soft); color:var(--good); vertical-align:middle;}
 .badge-pay{font-family:'JetBrains Mono',monospace; font-size:0.6rem; font-weight:700; letter-spacing:0.06em; padding:2px 7px; border-radius:999px; white-space:nowrap; background:var(--danger-soft); color:var(--danger); vertical-align:middle;}
+.star-rating{ position:relative; display:inline-block; color:var(--line); font-size:0.92rem; letter-spacing:2px; line-height:1; }
+.star-rating::before{ content:'\2605\2605\2605\2605\2605'; position:absolute; left:0; top:0; width:var(--pct); overflow:hidden; white-space:nowrap; color:var(--accent-strong); }
+.star-rating::after{ content:'\2605\2605\2605\2605\2605'; visibility:hidden; }
+.rating-cell{ display:flex; flex-direction:column; gap:2px; min-width:118px; }
+.rating-num{ font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:var(--text); font-weight:600; margin-left:2px; }
+.rating-row{ display:flex; align-items:baseline; gap:5px; }
+.rating-src{ font-size:0.66rem; color:var(--text-muted); line-height:1.3; }
+.rating-none{ font-size:0.78rem; color:var(--text-muted); font-style:italic; }
+.rating-note{ font-size:0.66rem; color:var(--text-muted); line-height:1.3; }
 
 .notes{display:flex; flex-direction:column; gap:12px;}
 .notes h3{font-size:1.05rem; margin-bottom:2px;}
@@ -406,40 +415,40 @@ body{ padding-inline:0; padding-block:0; overflow-x:hidden; }
   <div>
   <h3 style="margin-top:4px; font-weight:700; text-transform:uppercase; letter-spacing:0.02em;">Lounges By Airport, In Route Order</h3>
   <div class="table-scroll">
-    <table class="lounge-table" style="width:100%; min-width:640px;">
+    <table class="lounge-table" style="width:100%; min-width:760px;">
       <colgroup>
-        <col style="width:34%;"><col style="width:28%;"><col style="width:38%;">
+        <col style="width:26%;"><col style="width:18%;"><col style="width:22%;"><col style="width:34%;">
       </colgroup>
-      <thead><tr><th>Lounge</th><th>Terminal / Location</th><th>Access</th></tr></thead>
+      <thead><tr><th>Lounge</th><th>Rating</th><th>Terminal / Location</th><th>Access</th></tr></thead>
       <tbody>
-        <tr class="section-row"><td colspan="3">🇮🇳 BLR — Bengaluru · domestic departure to Mumbai</td></tr>
-        <tr><td>080 Domestic Lounge (L1 &amp; L2)</td><td>Terminal 1</td><td>Priority Pass, Dragonpass, Mastercard LoungeKey, Amex Platinum, HDFC Infinia, Diners Club Black, walk-up</td></tr>
-        <tr><td>080 Domestic Lounge, T2</td><td>Terminal 2 (domestic side)</td><td>Same access as above</td></tr>
-        <tr><td>080 VIP Domestic Lounge, T2</td><td>Terminal 2 (domestic side)</td><td>Pay / walk-up only — no memberships or cards</td></tr>
-        <tr><td>Air India Lounge</td><td>Terminal 2 (domestic side)</td><td>Air India premium passengers / Star Alliance Gold only</td></tr>
-        <tr><td>Care by BLR Arrival Lounge</td><td>Terminal 1 arrivals</td><td>Priority Pass, Dragonpass, LoungeKey, Amex Platinum, walk-up</td></tr>
-        <tr><td>080 International Lounge <span style="color:var(--text-muted); font-weight:400;">(return arrival, Terminal 2)</span></td><td>Terminal 2, international side</td><td>Priority Pass, Dragonpass, LoungeKey, Amex Platinum, HDFC Infinia, ICICI Emeralde Metal, walk-up</td></tr>
-        <tr><td>080 Arrivals Lounge <span style="color:var(--text-muted); font-weight:400;">(landside, for arrival from Mauritius)</span></td><td>Terminal 2 arrivals</td><td>Priority Pass, Dragonpass, LoungeKey, Amex Platinum, HDFC Infinia, Diners Club Black, walk-up</td></tr>
-        <tr class="section-row"><td colspan="3">🇮🇳 BOM — Mumbai · Terminal 2 international departures (connecting to Nairobi)</td></tr>
-        <tr><td>Adani Lounge — Eastern Wing</td><td>Terminal 2, international departures</td><td>Priority Pass, Mastercard LoungeKey; buffet, bar, showers (extra); max 3-hr stay</td></tr>
-        <tr><td>Adani Lounge — Western Wing</td><td>Terminal 2, international departures</td><td>Priority Pass; mainly Business/First or alliance elites (Oneworld / Star Alliance / Emirates / Etihad); premium tier</td></tr>
-        <tr><td>Loyalty Lounge</td><td>Terminal 2</td><td>Permanently closed — guests redirected to Adani Eastern Wing</td></tr>
-        <tr class="section-row"><td colspan="3">🇿🇼 VFA — Victoria Falls · international departure to Johannesburg</td></tr>
-        <tr><td>Khami Lounge</td><td>International terminal</td><td>Priority Pass, Amex Platinum, Chase Sapphire Reserve, Capital One Venture X and similar cards</td></tr>
-        <tr><td>Makuwa Lounge</td><td>International terminal</td><td>Priority Pass and same card networks as above</td></tr>
-        <tr><td>Makuwa Lounge 2</td><td>International terminal</td><td>Priority Pass and same card networks as above</td></tr>
-        <tr><td>Pearl Lounge</td><td>International terminal, near Gate 6</td><td>Priority Pass and same card networks as above</td></tr>
-        <tr class="section-row"><td colspan="3">🇿🇦 JNB — OR Tambo · Terminal A international departures (connecting to Mauritius)</td></tr>
-        <tr><td>Aspire Lounge</td><td>Terminal A</td><td>Priority Pass, Mastercard LoungeKey, pay — open 10:00–22:00</td></tr>
-        <tr><td>Bidvest Premier Lounge</td><td>Terminal A</td><td>Priority Pass, Mastercard LoungeKey, pay — open 24/7, à la carte dining</td></tr>
-        <tr><td>Shongololo Lounge</td><td>Terminal A</td><td>Priority Pass, Mastercard LoungeKey, pay — open 04:45–21:00</td></tr>
-        <tr><td>Mashonzha Lounge</td><td>Terminal A</td><td>Priority Pass, Mastercard LoungeKey, pay — open 06:00–22:00, has a smoking area</td></tr>
-        <tr><td>Emirates Lounge</td><td>Terminal A</td><td>Emirates passengers only; walk-up otherwise ~US$179</td></tr>
-        <tr><td>British Airways / SAA Platinum / SAA Premium / SLOW / Virgin Atlantic Clubhouse</td><td>Terminal A</td><td>Membership / alliance-elite only — not open to Priority Pass</td></tr>
-        <tr class="section-row"><td colspan="3">🇲🇺 MRU — Mauritius · final departure to Bengaluru</td></tr>
-        <tr><td>ATOL La Terrasse Lounge</td><td>Opposite Gate 19</td><td>Priority Pass and select premium cards</td></tr>
-        <tr><td>Salon N&eacute;nuphar</td><td>Opposite Gate 19</td><td>Priority Pass and select premium cards</td></tr>
-        <tr><td>Air Mauritius Am&eacute;d&eacute;e Maingard Lounge</td><td>Opposite Gate 27</td><td>Air Mauritius members / Business class only</td></tr>
+        <tr class="section-row"><td colspan="4">🇮🇳 BLR — Bengaluru · domestic departure to Mumbai</td></tr>
+        <tr><td>080 Domestic Lounge (L1 &amp; L2)</td><td><div class="rating-cell"><div class="rating-row"><span class="star-rating" style="--pct:90%"></span><span class="rating-num">4.5</span></div><span class="rating-src">Consensus of published reviews (CardExpert, TechnoFino)</span></div></td><td>Terminal 1</td><td>Priority Pass, Dragonpass, Mastercard LoungeKey, Amex Platinum, HDFC Infinia, Diners Club Black, walk-up</td></tr>
+        <tr><td>080 Domestic Lounge, T2</td><td><div class="rating-cell"><div class="rating-row"><span class="star-rating" style="--pct:90%"></span><span class="rating-num">4.5</span></div><span class="rating-src">Same operator/chain as above</span></div></td><td>Terminal 2 (domestic side)</td><td>Same access as above</td></tr>
+        <tr><td>080 VIP Domestic Lounge, T2</td><td><div class="rating-cell"><div class="rating-row"><span class="star-rating" style="--pct:80%"></span><span class="rating-num">4.0</span></div><span class="rating-src">Estimated — same operator, less-reviewed premium tier</span></div></td><td>Terminal 2 (domestic side)</td><td>Pay / walk-up only — no memberships or cards</td></tr>
+        <tr><td>Air India Lounge</td><td><div class="rating-cell"><div class="rating-row"><span class="star-rating" style="--pct:90%"></span><span class="rating-num">4.5</span></div><span class="rating-src">Live From A Lounge review</span></div></td><td>Terminal 2 (domestic side)</td><td>Air India premium passengers / Star Alliance Gold only</td></tr>
+        <tr><td>Care by BLR Arrival Lounge</td><td><span class="rating-none">Not independently rated</span></td><td>Terminal 1 arrivals</td><td>Priority Pass, Dragonpass, LoungeKey, Amex Platinum, walk-up</td></tr>
+        <tr><td>080 International Lounge <span style="color:var(--text-muted); font-weight:400;">(return arrival, Terminal 2)</span></td><td><div class="rating-cell"><div class="rating-row"><span class="star-rating" style="--pct:70%"></span><span class="rating-num">3.5</span></div><span class="rating-src">Tripadvisor · 3.5/5, 59 reviews</span></div></td><td>Terminal 2, international side</td><td>Priority Pass, Dragonpass, LoungeKey, Amex Platinum, HDFC Infinia, ICICI Emeralde Metal, walk-up</td></tr>
+        <tr><td>080 Arrivals Lounge <span style="color:var(--text-muted); font-weight:400;">(landside, for arrival from Mauritius)</span></td><td><div class="rating-cell"><div class="rating-row"><span class="star-rating" style="--pct:80%"></span><span class="rating-num">4.0</span></div><span class="rating-src">Live From A Lounge review</span></div></td><td>Terminal 2 arrivals</td><td>Priority Pass, Dragonpass, LoungeKey, Amex Platinum, HDFC Infinia, Diners Club Black, walk-up</td></tr>
+        <tr class="section-row"><td colspan="4">🇮🇳 BOM — Mumbai · Terminal 2 international departures (connecting to Nairobi)</td></tr>
+        <tr><td>Adani Lounge — Eastern Wing</td><td><div class="rating-cell"><div class="rating-row"><span class="star-rating" style="--pct:70%"></span><span class="rating-num">3.5</span></div><span class="rating-src">Mixed — reports range from excellent to overcrowded</span></div></td><td>Terminal 2, international departures</td><td>Priority Pass, Mastercard LoungeKey; buffet, bar, showers (extra); max 3-hr stay</td></tr>
+        <tr><td>Adani Lounge — Western Wing</td><td><div class="rating-cell"><div class="rating-row"><span class="star-rating" style="--pct:80%"></span><span class="rating-num">4.0</span></div><span class="rating-src">Estimated — premium tier, limited public reviews</span></div></td><td>Terminal 2, international departures</td><td>Priority Pass; mainly Business/First or alliance elites (Oneworld / Star Alliance / Emirates / Etihad); premium tier</td></tr>
+        <tr><td>Loyalty Lounge</td><td><span class="rating-none">Closed — no rating</span></td><td>Terminal 2</td><td>Permanently closed — guests redirected to Adani Eastern Wing</td></tr>
+        <tr class="section-row"><td colspan="4">🇿🇼 VFA — Victoria Falls · international departure to Johannesburg</td></tr>
+        <tr><td>Khami Lounge</td><td><span class="rating-none">Not independently rated</span></td><td>International terminal</td><td>Priority Pass, Amex Platinum, Chase Sapphire Reserve, Capital One Venture X and similar cards</td></tr>
+        <tr><td>Makuwa Lounge</td><td><span class="rating-none">Not independently rated</span></td><td>International terminal</td><td>Priority Pass and same card networks as above</td></tr>
+        <tr><td>Makuwa Lounge 2</td><td><span class="rating-none">Not independently rated</span></td><td>International terminal</td><td>Priority Pass and same card networks as above</td></tr>
+        <tr><td>Pearl Lounge</td><td><span class="rating-none">Not independently rated</span></td><td>International terminal, near Gate 6</td><td>Priority Pass and same card networks as above</td></tr>
+        <tr class="section-row"><td colspan="4">🇿🇦 JNB — OR Tambo · Terminal A international departures (connecting to Mauritius)</td></tr>
+        <tr><td>Aspire Lounge</td><td><div class="rating-cell"><div class="rating-row"><span class="star-rating" style="--pct:90%"></span><span class="rating-num">4.5</span></div><span class="rating-src">Milesopedia · 8.8/10</span></div></td><td>Terminal A</td><td>Priority Pass, Mastercard LoungeKey, pay — open 10:00–22:00</td></tr>
+        <tr><td>Bidvest Premier Lounge</td><td><div class="rating-cell"><div class="rating-row"><span class="star-rating" style="--pct:90%"></span><span class="rating-num">4.5</span></div><span class="rating-src">Consensus of published reviews (Upgraded Points, TravelUpdate)</span></div></td><td>Terminal A</td><td>Priority Pass, Mastercard LoungeKey, pay — open 24/7, à la carte dining</td></tr>
+        <tr><td>Shongololo Lounge</td><td><div class="rating-cell"><div class="rating-row"><span class="star-rating" style="--pct:50%"></span><span class="rating-num">2.5</span></div><span class="rating-src">Tripadvisor · 2.4/5, 101 reviews</span></div></td><td>Terminal A</td><td>Priority Pass, Mastercard LoungeKey, pay — open 04:45–21:00</td></tr>
+        <tr><td>Mashonzha Lounge</td><td><div class="rating-cell"><div class="rating-row"><span class="star-rating" style="--pct:60%"></span><span class="rating-num">3.0</span></div><span class="rating-src">Mixed reviews (One Mile at a Time)</span></div></td><td>Terminal A</td><td>Priority Pass, Mastercard LoungeKey, pay — open 06:00–22:00, has a smoking area</td></tr>
+        <tr><td>Emirates Lounge</td><td><div class="rating-cell"><div class="rating-row"><span class="star-rating" style="--pct:70%"></span><span class="rating-num">3.5</span></div><span class="rating-src">Mixed-positive (One Mile at a Time)</span></div></td><td>Terminal A</td><td>Emirates passengers only; walk-up otherwise ~US$179</td></tr>
+        <tr><td>British Airways / SAA Platinum / SAA Premium / SLOW / Virgin Atlantic Clubhouse</td><td><span class="rating-none">Individually 4–5★ (Skytrax) — but none bookable on this itinerary</span></td><td>Terminal A</td><td>Membership / alliance-elite only — not open to Priority Pass</td></tr>
+        <tr class="section-row"><td colspan="4">🇲🇺 MRU — Mauritius · final departure to Bengaluru</td></tr>
+        <tr><td>ATOL La Terrasse Lounge</td><td><span class="rating-none">Not independently rated</span></td><td>Opposite Gate 19</td><td>Priority Pass and select premium cards</td></tr>
+        <tr><td>Salon N&eacute;nuphar</td><td><div class="rating-cell"><div class="rating-row"><span class="star-rating" style="--pct:60%"></span><span class="rating-num">3.0</span></div><span class="rating-src">Flight-Report.com · limited data (1 review)</span></div></td><td>Opposite Gate 19</td><td>Priority Pass and select premium cards</td></tr>
+        <tr><td>Air Mauritius Am&eacute;d&eacute;e Maingard Lounge</td><td><div class="rating-cell"><div class="rating-row"><span class="star-rating" style="--pct:90%"></span><span class="rating-num">4.5</span></div><span class="rating-src">Skytrax-certified 4★ lounge; strongly positive reviews</span></div></td><td>Opposite Gate 27</td><td>Air Mauritius members / Business class only</td></tr>
       </tbody>
     </table>
   </div>
@@ -452,6 +461,7 @@ body{ padding-inline:0; padding-block:0; overflow-x:hidden; }
       <li><strong>Johannesburg &amp; Victoria Falls</strong> both route this itinerary through international terminals, so the paid/Priority Pass lounges listed (Aspire, Bidvest Premier, Shongololo, Mashonzha at JNB; all four at VFA) are the ones actually reachable.</li>
       <li><strong>Mumbai's Terminal 2</strong> is where the international connection to Nairobi departs from — the Adani Lounge (Eastern Wing) is the standard Priority Pass option; the Western Wing is nicer but leans toward Business-class and alliance elites.</li>
       <li>Source directories: Priority Pass, LoungePair, Plaza Premium Lounge, ThisLounge.com and airline sites — cross-check the specific lounge's current hours before relying on it during a tight connection.</li>
+      <li><strong>Ratings are uneven by design, not fabricated.</strong> Where a real published score exists (Tripadvisor's own rating, an explicit reviewer score, or Skytrax's official lounge certification), that's what's shown, with its source and sample size named. Where no such score exists — most of the smaller lounges (Khami, Makuwa, Pearl at VFA; ATOL at MRU; Care by BLR) simply aren't rated anywhere public — it says "Not independently rated" rather than guessing. A few (marked "estimated" or "consensus") are a rough read of qualitative blog reviews, not an aggregated score, so treat those as directional only.</li>
     </ul>
   </div>
 

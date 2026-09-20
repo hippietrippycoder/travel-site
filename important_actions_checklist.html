@@ -143,8 +143,8 @@ tr.section-row td{
 
 footer{color:var(--text-muted); font-size:0.78rem; text-align:center; padding-top:8px;}
 
-/* progress panel */
-.progress-panel{
+/* what's next panel */
+.next-panel{
   background:var(--surface);
   border:1px solid var(--line);
   border-radius:14px;
@@ -161,16 +161,35 @@ footer{color:var(--text-muted); font-size:0.78rem; text-align:center; padding-to
   white-space:nowrap;
 }
 .sync-status.synced{color:var(--accent-strong); background:var(--accent-soft); border-color:transparent;}
-.progress-rows{display:flex; flex-direction:column; gap:10px;}
-.progress-row{display:grid; grid-template-columns:minmax(120px,190px) 1fr 46px; align-items:center; gap:12px;}
-.progress-row.overall{margin-top:2px; padding-top:14px; border-top:1px dashed var(--line);}
-.progress-label{font-size:0.85rem; color:var(--text); font-weight:600;}
-.progress-row.overall .progress-label{font-weight:700;}
-.progress-track{height:10px; border-radius:999px; background:var(--surface-2); border:1px solid var(--line); overflow:hidden;}
-.progress-fill{height:100%; width:0%; border-radius:999px; background:var(--accent); transition:width 0.35s ease;}
-.progress-row.overall .progress-fill{background:var(--accent-strong);}
-.progress-fill.is-complete{background:var(--accent-strong);}
-.progress-pct{font-family:'JetBrains Mono', monospace; font-size:0.78rem; text-align:right; color:var(--text-muted); font-weight:600;}
+
+.next-cols{display:grid; grid-template-columns:repeat(3, 1fr); gap:14px;}
+.next-col{
+  display:flex; flex-direction:column; gap:10px;
+  background:var(--surface-2); border:1px solid var(--line); border-radius:12px;
+  padding:14px 16px;
+}
+.next-col-head{display:flex; flex-direction:column; gap:2px;}
+.next-col-name{font-size:0.88rem; font-weight:700; color:var(--text);}
+.next-col-summary{font-family:'JetBrains Mono', monospace; font-size:0.64rem; letter-spacing:0.03em; color:var(--text-muted);}
+.next-col-body{display:flex; flex-direction:column; gap:10px;}
+.next-section-label{
+  font-family:'JetBrains Mono', monospace; font-size:0.6rem; letter-spacing:0.07em;
+  text-transform:uppercase; color:var(--text-muted); font-weight:700;
+}
+.next-section-label.is-overdue{color:var(--danger);}
+.next-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:6px;}
+.next-item{display:flex; gap:8px; align-items:baseline; font-size:0.8rem; line-height:1.4; color:var(--text);}
+.next-item .next-date{
+  font-family:'JetBrains Mono', monospace; font-size:0.66rem; color:var(--text-muted);
+  flex-shrink:0; white-space:nowrap; min-width:44px;
+}
+.next-item.is-overdue{color:var(--danger); font-weight:600;}
+.next-item.is-overdue .next-date{color:var(--danger); font-weight:700;}
+.next-alldone{font-size:0.85rem; color:var(--accent-strong); font-weight:700;}
+
+@media (max-width:760px){
+  .next-cols{grid-template-columns:1fr;}
+}
 
 @media (max-width:640px){
   .doc-table{table-layout:auto; min-width:0;}
@@ -275,33 +294,32 @@ body{ padding-inline:0; padding-block:0; overflow-x:hidden; }
     <div class="travellers"><span class="pill">Amar Raj Urs</span><span class="pill">Pratap Raj</span><span class="pill">Praveen Kumar Nallipogu</span></div>
   </header>
 
-  <p style="font-size:0.85rem; color:var(--text-muted); text-align:center; max-width:640px; margin:0 auto;">Every visa, check-in and pre-arrival action for the trip, in the order they need doing — pulled straight from the main itinerary for quick reference.</p>
-
-  <div class="progress-panel">
+  <div class="next-panel">
     <div class="progress-panel-head">
-      <span class="progress-title">Action Readiness</span>
+      <span class="progress-title">What's Next</span>
       <span id="sync-status" class="sync-status">Checking sync…</span>
     </div>
-    <div class="progress-rows">
-      <div class="progress-row" data-who="ARU">
-        <span class="progress-label">Amar Raj Urs</span>
-        <div class="progress-track"><div class="progress-fill"></div></div>
-        <span class="progress-pct">0%</span>
+    <div class="next-cols" id="next-cols">
+      <div class="next-col" data-who="ARU">
+        <div class="next-col-head">
+          <span class="next-col-name">Amar Raj Urs</span>
+          <span class="next-col-summary"></span>
+        </div>
+        <div class="next-col-body"></div>
       </div>
-      <div class="progress-row" data-who="PR">
-        <span class="progress-label">Pratap Raj</span>
-        <div class="progress-track"><div class="progress-fill"></div></div>
-        <span class="progress-pct">0%</span>
+      <div class="next-col" data-who="PR">
+        <div class="next-col-head">
+          <span class="next-col-name">Pratap Raj</span>
+          <span class="next-col-summary"></span>
+        </div>
+        <div class="next-col-body"></div>
       </div>
-      <div class="progress-row" data-who="PKN">
-        <span class="progress-label">Praveen Kumar Nallipogu</span>
-        <div class="progress-track"><div class="progress-fill"></div></div>
-        <span class="progress-pct">0%</span>
-      </div>
-      <div class="progress-row overall">
-        <span class="progress-label">Overall action readiness</span>
-        <div class="progress-track"><div class="progress-fill"></div></div>
-        <span class="progress-pct">0%</span>
+      <div class="next-col" data-who="PKN">
+        <div class="next-col-head">
+          <span class="next-col-name">Praveen Kumar Nallipogu</span>
+          <span class="next-col-summary"></span>
+        </div>
+        <div class="next-col-body"></div>
       </div>
     </div>
   </div>
@@ -311,26 +329,26 @@ body{ padding-inline:0; padding-block:0; overflow-x:hidden; }
     <table class="doc-table">
       <thead><tr><th>Action date</th><th>Date of travel</th><th>Country</th><th>Action to be performed</th><th class="chk-col">ARU</th><th class="chk-col">PR</th><th class="chk-col">PKN</th></tr></thead>
       <tbody>
-        <tr><td>Before 24 Sep</td><td>27 Sep</td><td>🇿🇲 ZMB</td><td><strong>PRE-ARRIVAL</strong> — Confirm Zambia Double-Entry visa approval before leaving Bengaluru.</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zambia-visa-confirm" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zambia-visa-confirm" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zambia-visa-confirm" data-who="PKN"></td></tr>
-        <tr><td>23 Sep</td><td>24 Sep</td><td>🇮🇳 IND</td><td><strong>WEB CHECK-IN</strong> — Akasa QP1150, Bengaluru → Mumbai (16:05).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="qp1150-checkin" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="qp1150-checkin" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="qp1150-checkin" data-who="PKN"></td></tr>
-        <tr><td>23 Sep</td><td>24 Sep</td><td>🇮🇳 IND</td><td><strong>PRE-ARRIVAL</strong> — Register on Digi Yatra for Akasa QP1150.</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="qp1150-digiyatra" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="qp1150-digiyatra" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="qp1150-digiyatra" data-who="PKN"></td></tr>
-        <tr><td>23 Sep</td><td>25 Sep</td><td>🇮🇳 IND / 🇰🇪 KEN</td><td><strong>WEB CHECK-IN</strong> — Kenya Airways KQ203 (Mumbai–Nairobi) &amp; KQ792 (Nairobi–Victoria Falls).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="kq-checkin" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="kq-checkin" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="kq-checkin" data-who="PKN"></td></tr>
-        <tr><td>23 Sep</td><td>25 Sep</td><td>🇿🇼 ZWE</td><td><strong>PRE-ARRIVAL</strong> — Submit Zimbabwe Digital Immigration Form (after KQ203/KQ792 check-in).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zw-digital-immigration" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zw-digital-immigration" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zw-digital-immigration" data-who="PKN"></td></tr>
-        <tr><td>27 Sep</td><td>27 Sep</td><td>🇿🇲 ZMB</td><td><strong>PRE-ARRIVAL</strong> — Fill Zambia arrival card; carry visa approval letter &amp; payment receipt.</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zm-arrival-card" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zm-arrival-card" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zm-arrival-card" data-who="PKN"></td></tr>
-        <tr><td>29 Sep</td><td>29 Sep</td><td>🇧🇼 BWA</td><td><strong>PRE-ARRIVAL</strong> — Pay Botswana visa-on-arrival fee at Kazungula border (cash).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="bw-visa-arrival" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="bw-visa-arrival" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="bw-visa-arrival" data-who="PKN"></td></tr>
-        <tr><td>1 Oct</td><td>2 Oct</td><td>🇿🇼 ZWE / 🇿🇦 ZAF</td><td><strong>WEB CHECK-IN</strong> — FlySafAir FA-827, Victoria Falls → JNB (15:50).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="fa827-checkin" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="fa827-checkin" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="fa827-checkin" data-who="PKN"></td></tr>
-        <tr><td>1 Oct</td><td>2 Oct</td><td>🇿🇼 ZWE</td><td><strong>PRE-ARRIVAL</strong> — Submit Zimbabwe Digital Immigration Form (after FA-827 check-in).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zw-digital-immigration-fa827" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zw-digital-immigration-fa827" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zw-digital-immigration-fa827" data-who="PKN"></td></tr>
-        <tr><td>1 Oct</td><td>2 Oct</td><td>🇿🇦 ZAF</td><td><strong>PRE-ARRIVAL</strong> — Submit SA Customs Traveller Declaration (after FA-827 check-in).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="sa-customs-declaration" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="sa-customs-declaration" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="sa-customs-declaration" data-who="PKN"></td></tr>
-        <tr><td>1 Oct</td><td>2 Oct</td><td>🇿🇦 ZAF</td><td><strong>HOTEL CHECK-IN</strong> — Vetho 1 Apartments, OR Tambo Airport.</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="vetho1-checkin-2oct" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="vetho1-checkin-2oct" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="vetho1-checkin-2oct" data-who="PKN"></td></tr>
-        <tr><td>5 Oct</td><td>6 Oct</td><td>🇿🇦 ZAF</td><td><strong>HOTEL CHECK-IN</strong> — Vetho 1 Apartments, OR Tambo Airport.</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="vetho1-checkin-6oct" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="vetho1-checkin-6oct" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="vetho1-checkin-6oct" data-who="PKN"></td></tr>
-        <tr><td>6 Oct</td><td>7 Oct</td><td>🇿🇦 ZAF</td><td><strong>WEB CHECK-IN</strong> — FlySafAir FA-830, JNB → Mauritius (09:00).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="fa830-checkin" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="fa830-checkin" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="fa830-checkin" data-who="PKN"></td></tr>
-        <tr><td>6 Oct</td><td>7 Oct</td><td>🇲🇺 MUS</td><td><strong>PRE-ARRIVAL</strong> — Submit Mauritius Health Declaration Form (after FA-830 check-in).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="mu-health-declaration" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="mu-health-declaration" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="mu-health-declaration" data-who="PKN"></td></tr>
-        <tr><td>11 Oct</td><td>12 Oct</td><td>🇲🇺 MUS</td><td><strong>WEB CHECK-IN</strong> — IndiGo 6E1862, Mauritius → Bengaluru (09:30).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="6e1862-checkin" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="6e1862-checkin" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="6e1862-checkin" data-who="PKN"></td></tr>
-        <tr><td>11 Oct</td><td>12 Oct</td><td>🇮🇳 IND</td><td><strong>PRE-ARRIVAL</strong> — Submit India Air Suvidha 2.0 (after 6E1862 check-in).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="air-suvidha" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="air-suvidha" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="air-suvidha" data-who="PKN"></td></tr>
+        <tr data-date="2026-09-23" data-short="Confirm Zambia visa approval"><td>Before 24 Sep</td><td>27 Sep</td><td>🇿🇲 ZMB</td><td><strong>PRE-ARRIVAL</strong> — Confirm Zambia Double-Entry visa approval before leaving Bengaluru.</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zambia-visa-confirm" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zambia-visa-confirm" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zambia-visa-confirm" data-who="PKN"></td></tr>
+        <tr data-date="2026-09-23" data-short="Web check-in — Akasa QP1150"><td>23 Sep</td><td>24 Sep</td><td>🇮🇳 IND</td><td><strong>WEB CHECK-IN</strong> — Akasa QP1150, Bengaluru → Mumbai (16:05).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="qp1150-checkin" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="qp1150-checkin" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="qp1150-checkin" data-who="PKN"></td></tr>
+        <tr data-date="2026-09-23" data-short="Digi Yatra — Akasa QP1150"><td>23 Sep</td><td>24 Sep</td><td>🇮🇳 IND</td><td><strong>PRE-ARRIVAL</strong> — Register on Digi Yatra for Akasa QP1150.</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="qp1150-digiyatra" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="qp1150-digiyatra" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="qp1150-digiyatra" data-who="PKN"></td></tr>
+        <tr data-date="2026-09-23" data-short="Web check-in — Kenya Airways KQ203/KQ792"><td>23 Sep</td><td>25 Sep</td><td>🇮🇳 IND / 🇰🇪 KEN</td><td><strong>WEB CHECK-IN</strong> — Kenya Airways KQ203 (Mumbai–Nairobi) &amp; KQ792 (Nairobi–Victoria Falls).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="kq-checkin" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="kq-checkin" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="kq-checkin" data-who="PKN"></td></tr>
+        <tr data-date="2026-09-23" data-short="Zimbabwe Digital Immigration Form"><td>23 Sep</td><td>25 Sep</td><td>🇿🇼 ZWE</td><td><strong>PRE-ARRIVAL</strong> — Submit Zimbabwe Digital Immigration Form (after KQ203/KQ792 check-in).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zw-digital-immigration" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zw-digital-immigration" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zw-digital-immigration" data-who="PKN"></td></tr>
+        <tr data-date="2026-09-24" data-short="Enable international roaming"><td>24 Sep</td><td>25 Sep</td><td>🇮🇳 IND</td><td><strong>PRE-ARRIVAL</strong> — Enable international roaming on cellphone.</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="intl-roaming" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="intl-roaming" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="intl-roaming" data-who="PKN"></td></tr>
+        <tr data-date="2026-09-27" data-short="Fill Zambia arrival card"><td>27 Sep</td><td>27 Sep</td><td>🇿🇲 ZMB</td><td><strong>PRE-ARRIVAL</strong> — Fill Zambia arrival card; carry visa approval letter &amp; payment receipt.</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zm-arrival-card" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zm-arrival-card" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zm-arrival-card" data-who="PKN"></td></tr>
+        <tr data-date="2026-09-29" data-short="Pay Botswana visa-on-arrival fee"><td>29 Sep</td><td>29 Sep</td><td>🇧🇼 BWA</td><td><strong>PRE-ARRIVAL</strong> — Pay Botswana visa-on-arrival fee at Kazungula border (cash).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="bw-visa-arrival" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="bw-visa-arrival" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="bw-visa-arrival" data-who="PKN"></td></tr>
+        <tr data-date="2026-10-01" data-short="Web check-in — FlySafAir FA-827"><td>1 Oct</td><td>2 Oct</td><td>🇿🇼 ZWE / 🇿🇦 ZAF</td><td><strong>WEB CHECK-IN</strong> — FlySafAir FA-827, Victoria Falls → JNB (15:50).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="fa827-checkin" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="fa827-checkin" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="fa827-checkin" data-who="PKN"></td></tr>
+        <tr data-date="2026-10-01" data-short="Zimbabwe Digital Immigration Form (FA-827)"><td>1 Oct</td><td>2 Oct</td><td>🇿🇼 ZWE</td><td><strong>PRE-ARRIVAL</strong> — Submit Zimbabwe Digital Immigration Form (after FA-827 check-in).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zw-digital-immigration-fa827" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zw-digital-immigration-fa827" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="zw-digital-immigration-fa827" data-who="PKN"></td></tr>
+        <tr data-date="2026-10-01" data-short="SA Customs Traveller Declaration"><td>1 Oct</td><td>2 Oct</td><td>🇿🇦 ZAF</td><td><strong>PRE-ARRIVAL</strong> — Submit SA Customs Traveller Declaration (after FA-827 check-in).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="sa-customs-declaration" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="sa-customs-declaration" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="sa-customs-declaration" data-who="PKN"></td></tr>
+        <tr data-date="2026-10-01" data-short="Hotel check-in — Vetho 1 Apartments"><td>1 Oct</td><td>2 Oct</td><td>🇿🇦 ZAF</td><td><strong>HOTEL CHECK-IN</strong> — Vetho 1 Apartments, OR Tambo Airport.</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="vetho1-checkin-2oct" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="vetho1-checkin-2oct" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="vetho1-checkin-2oct" data-who="PKN"></td></tr>
+        <tr data-date="2026-10-05" data-short="Hotel check-in — Vetho 1 Apartments"><td>5 Oct</td><td>6 Oct</td><td>🇿🇦 ZAF</td><td><strong>HOTEL CHECK-IN</strong> — Vetho 1 Apartments, OR Tambo Airport.</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="vetho1-checkin-6oct" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="vetho1-checkin-6oct" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="vetho1-checkin-6oct" data-who="PKN"></td></tr>
+        <tr data-date="2026-10-06" data-short="Web check-in — FlySafAir FA-830"><td>6 Oct</td><td>7 Oct</td><td>🇿🇦 ZAF</td><td><strong>WEB CHECK-IN</strong> — FlySafAir FA-830, JNB → Mauritius (09:00).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="fa830-checkin" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="fa830-checkin" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="fa830-checkin" data-who="PKN"></td></tr>
+        <tr data-date="2026-10-06" data-short="Mauritius Health Declaration Form"><td>6 Oct</td><td>7 Oct</td><td>🇲🇺 MUS</td><td><strong>PRE-ARRIVAL</strong> — Submit Mauritius Health Declaration Form (after FA-830 check-in).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="mu-health-declaration" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="mu-health-declaration" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="mu-health-declaration" data-who="PKN"></td></tr>
+        <tr data-date="2026-10-11" data-short="Web check-in — IndiGo 6E1862"><td>11 Oct</td><td>12 Oct</td><td>🇲🇺 MUS</td><td><strong>WEB CHECK-IN</strong> — IndiGo 6E1862, Mauritius → Bengaluru (09:30).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="6e1862-checkin" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="6e1862-checkin" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="6e1862-checkin" data-who="PKN"></td></tr>
+        <tr data-date="2026-10-11" data-short="India Air Suvidha 2.0"><td>11 Oct</td><td>12 Oct</td><td>🇮🇳 IND</td><td><strong>PRE-ARRIVAL</strong> — Submit India Air Suvidha 2.0 (after 6E1862 check-in).</td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="air-suvidha" data-who="ARU"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="air-suvidha" data-who="PR"></td><td class="chk-col"><input type="checkbox" class="chk-box" data-key="air-suvidha" data-who="PKN"></td></tr>
       </tbody>
     </table>
   </div>
-  <p style="font-size:0.82rem; color:var(--text-muted); margin-top:8px;">"Action date" is when to actually do the thing (check in, confirm, pay); "Date of travel" is the day the leg itself happens. Web check-in windows above follow each airline's standard 24–48h opening — always double-check the exact opening time closer to the date. Tick off ARU / PR / PKN as each traveller completes an item. When live sync is available, progress updates instantly on every traveller's device; otherwise ticks are saved on this device only.</p>
   </div>
 
 </div>
@@ -340,12 +358,28 @@ body{ padding-inline:0; padding-block:0; overflow-x:hidden; }
   var travellers = ['ARU', 'PR', 'PKN'];
   var boxes = Array.prototype.slice.call(document.querySelectorAll('.chk-box'));
 
-  var allKeys = [];
-  boxes.forEach(function(el){
-    var k = el.getAttribute('data-key');
-    if(allKeys.indexOf(k) === -1) allKeys.push(k);
-  });
+  var rows = Array.prototype.slice.call(document.querySelectorAll('tbody tr'));
+  var actionsMeta = rows.map(function(row){
+    var box = row.querySelector('.chk-box');
+    return {
+      key: box ? box.getAttribute('data-key') : null,
+      date: row.getAttribute('data-date'),
+      short: row.getAttribute('data-short') || ''
+    };
+  }).filter(function(a){ return a.key && a.date; });
+
+  var allKeys = actionsMeta.map(function(a){ return a.key; });
   var totalPerTraveller = allKeys.length;
+
+  var MONTH_NAMES = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function todayISO(){
+    var d = new Date();
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  }
+  function formatShortDate(iso){
+    var parts = iso.split('-');
+    return parseInt(parts[2], 10) + ' ' + MONTH_NAMES[parseInt(parts[1], 10) - 1];
+  }
 
   // state[who][key] = true/false — shared shape whether it's coming from
   // this browser's localStorage or from the live db document.
@@ -391,34 +425,77 @@ body{ padding-inline:0; padding-block:0; overflow-x:hidden; }
       el.checked = done;
       el.closest('td').classList.toggle('is-done', done);
     });
-    renderProgress();
+    renderNext();
   }
 
-  function renderProgress(){
-    var totalDone = 0;
+  function renderNext(){
+    var today = todayISO();
     travellers.forEach(function(who){
-      var done = allKeys.reduce(function(acc, key){
-        return acc + (state[who] && state[who][key] ? 1 : 0);
-      }, 0);
-      totalDone += done;
-      var pct = totalPerTraveller ? Math.round((done / totalPerTraveller) * 100) : 0;
-      var row = document.querySelector('.progress-row[data-who="' + who + '"]');
-      if(row){
-        var fill = row.querySelector('.progress-fill');
-        fill.style.width = pct + '%';
-        fill.classList.toggle('is-complete', pct === 100);
-        row.querySelector('.progress-pct').textContent = pct + '%';
+      var col = document.querySelector('.next-col[data-who="' + who + '"]');
+      if(!col) return;
+
+      var doneCount = 0, overdue = [], upcoming = [];
+      actionsMeta.forEach(function(a){
+        if(state[who] && state[who][a.key]){ doneCount++; return; }
+        if(a.date < today){ overdue.push(a); } else { upcoming.push(a); }
+      });
+      overdue.sort(function(x, y){ return x.date < y.date ? -1 : x.date > y.date ? 1 : 0; });
+      upcoming.sort(function(x, y){ return x.date < y.date ? -1 : x.date > y.date ? 1 : 0; });
+
+      var summary = col.querySelector('.next-col-summary');
+      if(summary) summary.textContent = doneCount + ' done · ' + overdue.length + ' overdue · ' + upcoming.length + ' upcoming';
+
+      var body = col.querySelector('.next-col-body');
+      if(!body) return;
+      body.innerHTML = '';
+
+      if(overdue.length === 0 && upcoming.length === 0){
+        var done = document.createElement('div');
+        done.className = 'next-alldone';
+        done.textContent = '✓ All caught up';
+        body.appendChild(done);
+        return;
+      }
+
+      if(overdue.length > 0){
+        var overdueLabel = document.createElement('div');
+        overdueLabel.className = 'next-section-label is-overdue';
+        overdueLabel.textContent = 'Overdue';
+        body.appendChild(overdueLabel);
+        var overdueList = document.createElement('ul');
+        overdueList.className = 'next-list';
+        overdue.forEach(function(a){
+          var li = document.createElement('li');
+          li.className = 'next-item is-overdue';
+          li.innerHTML = '<span class="next-date">' + formatShortDate(a.date) + '</span><span>' + a.short + '</span>';
+          overdueList.appendChild(li);
+        });
+        body.appendChild(overdueList);
+      }
+
+      if(upcoming.length > 0){
+        var nextLabel = document.createElement('div');
+        nextLabel.className = 'next-section-label';
+        nextLabel.textContent = 'Next up';
+        body.appendChild(nextLabel);
+        var nextList = document.createElement('ul');
+        nextList.className = 'next-list';
+        upcoming.slice(0, 3).forEach(function(a){
+          var li = document.createElement('li');
+          li.className = 'next-item';
+          li.innerHTML = '<span class="next-date">' + formatShortDate(a.date) + '</span><span>' + a.short + '</span>';
+          nextList.appendChild(li);
+        });
+        body.appendChild(nextList);
+        if(upcoming.length > 3){
+          var more = document.createElement('div');
+          more.style.fontSize = '0.72rem';
+          more.style.color = 'var(--text-muted)';
+          more.textContent = '+' + (upcoming.length - 3) + ' more upcoming';
+          body.appendChild(more);
+        }
       }
     });
-    var overallTotal = totalPerTraveller * travellers.length;
-    var overallPct = overallTotal ? Math.round((totalDone / overallTotal) * 100) : 0;
-    var overallRow = document.querySelector('.progress-row.overall');
-    if(overallRow){
-      var overallFill = overallRow.querySelector('.progress-fill');
-      overallFill.style.width = overallPct + '%';
-      overallFill.classList.toggle('is-complete', overallPct === 100);
-      overallRow.querySelector('.progress-pct').textContent = overallPct + '%';
-    }
   }
 
   function handleChange(el){

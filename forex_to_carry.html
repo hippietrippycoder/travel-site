@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Laundry Services — Africa Five Nation Tour</title>
+<title>Forex To Carry — Africa Five Nation Tour</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Karla:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
@@ -115,44 +115,44 @@ header p.sub{margin:0; color:var(--text-muted); font-size:1.02rem; max-width:60c
   display:flex; gap:16px; align-items:flex-start;
 }
 .callout.info{background:var(--accent-soft); border-color:transparent;}
+.callout.warn{background:var(--danger-soft); border-color:transparent;}
 .callout .icon{
   font-family:'JetBrains Mono',monospace; font-weight:700; font-size:0.72rem;
   letter-spacing:0.08em; text-transform:uppercase; color:var(--accent-strong);
   flex-shrink:0; margin-top:3px;
 }
+.callout.warn .icon{color:var(--danger);}
 .callout div > p{margin:0; font-size:0.95rem; line-height:1.55; color:var(--text);}
 .callout div > p+p{margin-top:6px;}
 .callout strong{color:var(--accent-strong);}
+.callout.warn strong{color:var(--danger);}
 
-/* reference table */
+/* batch table */
+.batch-block{display:flex; flex-direction:column; gap:10px;}
+.batch-head{display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:8px;}
+.batch-head h3{font-size:1.05rem; text-transform:uppercase; letter-spacing:0.02em; font-weight:700;}
+.batch-head .batch-meta{font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em;}
+
 .table-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:12px;}
-table{border-collapse:collapse; width:100%; background:var(--surface);}
-th,td{padding:10px 14px; text-align:left; font-size:0.85rem; border-bottom:1px solid var(--line); vertical-align:top;}
-th{
-  font-family:'JetBrains Mono',monospace; font-size:0.68rem; text-transform:uppercase;
-  letter-spacing:0.05em; color:var(--text-muted); background:var(--surface-2); font-weight:600;
+table.pay-table{border-collapse:collapse; table-layout:fixed; width:100%; min-width:840px; background:var(--surface);}
+.pay-table th,.pay-table td{padding:9px 12px; text-align:right; font-size:0.82rem; border-bottom:1px solid var(--line); white-space:nowrap;}
+.pay-table th{
+  font-family:'JetBrains Mono',monospace; font-size:0.64rem; text-transform:uppercase;
+  letter-spacing:0.04em; color:var(--text-muted); background:var(--surface-2); font-weight:600;
 }
-tr:last-child td{border-bottom:none;}
-tr.section-row td{
-  background:var(--accent-soft); color:var(--accent-strong);
-  font-family:'JetBrains Mono',monospace; font-size:0.68rem;
-  text-transform:uppercase; letter-spacing:0.06em; font-weight:700;
-  padding:8px 14px;
+.pay-table thead th:nth-child(1),.pay-table tbody td:nth-child(1),
+.pay-table thead th:nth-child(2),.pay-table tbody td:nth-child(2),
+.pay-table thead th:nth-child(3),.pay-table tbody td:nth-child(3){text-align:left; white-space:normal;}
+.pay-table td.date-col{font-family:'JetBrains Mono',monospace; font-weight:600; color:var(--text); white-space:nowrap;}
+.pay-table td.head-col{font-size:0.82rem; color:var(--text);}
+.pay-table td.family-col{font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:var(--accent-strong); font-weight:600; letter-spacing:0.02em;}
+.pay-table td.num{font-family:'JetBrains Mono',monospace; font-variant-numeric:tabular-nums;}
+.pay-table tbody tr:last-child td{border-bottom:none;}
+.pay-table tfoot tr.total-row td{
+  background:var(--accent-soft); color:var(--accent-strong); font-weight:700;
+  border-top:2px solid var(--line); border-bottom:none; font-family:'JetBrains Mono',monospace;
 }
-
-.rating-none{ font-size:0.78rem; color:var(--text-muted); font-style:italic; }
-.rating-src{ font-size:0.66rem; color:var(--text-muted); line-height:1.3; display:block; margin-top:3px;}
-
-.svc-badge{
-  font-family:'JetBrains Mono',monospace; font-size:0.6rem; font-weight:700; letter-spacing:0.05em;
-  padding:3px 8px; border-radius:999px; white-space:nowrap; display:inline-block; text-transform:uppercase;
-}
-.svc-self{background:var(--good-soft); color:var(--good);}
-.svc-staffed{background:var(--accent-soft); color:var(--accent-strong);}
-.svc-inhouse{background:var(--surface-2); color:var(--text-muted); border:1px solid var(--line);}
-.svc-none{background:var(--danger-soft); color:var(--danger);}
-.svc-unconfirmed::after{content:'?'; margin-left:3px;}
-.svc-note{display:block; font-size:0.66rem; color:var(--text-muted); margin-top:4px; line-height:1.3; font-family:'Karla',sans-serif; text-transform:none; letter-spacing:0;}
+.pay-table tfoot tr.total-row td:first-child{text-align:left; font-family:'Karla',sans-serif; letter-spacing:0.03em; text-transform:uppercase; font-size:0.72rem;}
 
 .notes{display:flex; flex-direction:column; gap:12px;}
 .notes h3{font-size:1.05rem; margin-bottom:2px;}
@@ -216,8 +216,8 @@ body{ padding-inline:0; padding-block:0; overflow-x:hidden; }
   .site-main{ padding-top:72px; }
 }
 @media (max-width:640px){
-  table{table-layout:auto !important;}
-  td, th{white-space:normal !important; font-size:0.76rem; padding:8px 6px;}
+  .pay-table{table-layout:auto !important;}
+  .pay-table td, .pay-table th{white-space:normal !important; font-size:0.73rem; padding:7px 6px;}
 }
 </style>
 </head>
@@ -237,162 +237,68 @@ body{ padding-inline:0; padding-block:0; overflow-x:hidden; }
   <a class="sidebar-link" href="documents.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-4-4m4 4 4-4"/><path d="M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></svg><span>Trip Documents</span></a>
   <a class="sidebar-link" href="hotels_flights.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 22l20-9L2 4l5 9-5 9z"/></svg><span>Hotel &amp; Flights</span></a>
   <a class="sidebar-link" href="airport_lounges.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2"/><path d="M3 13a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M5 17v2M19 17v2"/></svg><span>Airport Lounges</span></a>
-  <a class="sidebar-link is-active" href="laundry_services.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.2"/><path d="M9 5.5h1.2M9 5.5V4"/></svg><span>Laundry Services</span></a>
+  <a class="sidebar-link" href="laundry_services.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.2"/><path d="M9 5.5h1.2M9 5.5V4"/></svg><span>Laundry Services</span></a>
   <a class="sidebar-link" href="important_actions_checklist.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span>Imp To-Do Checklist</span></a>
   <a class="sidebar-link" href="travel_documents_checklist.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg><span>Travel Doc Checklist</span></a>
   <div class="sidebar-group">Financials</div>
   <a class="sidebar-link" href="trip_budget.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span>Budget Vs Actuals</span></a>
   <a class="sidebar-link" href="batch_one_payment.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M6 15h4"/></svg><span>Batch 1 — Payment</span></a>
-  <a class="sidebar-link" href="forex_to_carry.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h13l-3.5-3.5"/><path d="M21 16H8l3.5 3.5"/></svg><span>Forex To Carry</span></a>
+  <a class="sidebar-link is-active" href="forex_to_carry.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h13l-3.5-3.5"/><path d="M21 16H8l3.5 3.5"/></svg><span>Forex To Carry</span></a>
   <a class="sidebar-link" href="currency_card.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 6.5v11M15 9.3c0-1.4-1.3-2.5-3-2.5s-3 1-3 2.2c0 3 6 1.6 6 4.6 0 1.3-1.3 2.4-3 2.4s-3-1-3-2.4"/></svg><span>Currency Card</span></a>
 </aside>
 <main class="site-main">
 <div class="wrap">
 
 <header>
-    <h1>LAUNDRY SERVICES</h1>
+    <h1>FOREX TO CARRY</h1>
     <span class="eyebrow">Africa Five Nation Tour · 24 September – 12 October 2026</span>
     <div class="travellers"><span class="pill">Amar Raj Urs</span><span class="pill">Pratap Raj</span><span class="pill">Praveen Kumar Nallipogu</span></div>
   </header>
 
-  <div class="callout info">
-    <div class="icon">HEADS UP</div>
-    <div>
-      <p><strong>No maps or geocoding tool was used to build this table</strong> — every distance below is either "same town" (confirmed) or marked unconfirmed. Nothing here is a guessed kilometre figure.</p>
-      <p>Where a business is genuinely self-service (coin-operated machines you run yourself), it's labelled <strong>Self-Service</strong>. Where it's a shop you hand clothes to and collect later, it's <strong>Staffed Drop-Off</strong>. A few are marked "unconfirmed" because the business name suggests one or the other but couldn't be verified.</p>
+  <div class="batch-block">
+    <div class="batch-head">
+      <h3>Forex Expenses</h3>
+      <span class="batch-meta">24 line items · 25 Sep – 11 Oct 2026</span>
     </div>
-  </div>
-
-  <div>
-  <h3 style="margin-top:4px; font-weight:700; text-transform:uppercase; letter-spacing:0.02em;">Laundry Options By Stop, In Route Order</h3>
-  <div class="table-scroll">
-    <table>
-      <colgroup>
-        <col style="width:28%;"><col style="width:17%;"><col style="width:20%;"><col style="width:35%;">
-      </colgroup>
-      <thead><tr><th>Laundry Option</th><th>Service Type</th><th>Distance From Hotel</th><th>Rating &amp; Notes</th></tr></thead>
-      <tbody>
-
-        <tr class="section-row"><td colspan="4">🇿🇼 Joyful Vista Guest Lodge — Victoria Falls, Zimbabwe</td></tr>
-        <tr>
-          <td>Matabele Steam Laundry <span style="color:var(--text-muted); font-weight:400;">(based at Cresta Sprayview Hotel)</span></td>
-          <td><span class="svc-badge svc-staffed svc-unconfirmed">Staffed drop-off</span></td>
-          <td>Same town (Victoria Falls) — exact distance unconfirmed</td>
-          <td><span class="rating-none">Not independently rated — 0 reviews on directory listing</span><span class="rating-src">May primarily serve hotels rather than walk-in travellers — not confirmed either way.</span></td>
-        </tr>
-
-        <tr class="section-row"><td colspan="4">🇿🇼 Gwango Heritage Resort — Dete / Hwange National Park, Zimbabwe</td></tr>
-        <tr>
-          <td>No external laundry business found</td>
-          <td><span class="svc-badge svc-inhouse">In-house only</span></td>
-          <td>—</td>
-          <td><span class="rating-none">N/A</span><span class="rating-src">Lodge's own daily laundry service is the only option — confirmed earlier in the towels research. Hwange is remote, no nearby town with services.</span></td>
-        </tr>
-
-        <tr class="section-row"><td colspan="4">🇿🇲 Tabonina Guesthouse — Livingstone, Zambia</td></tr>
-        <tr>
-          <td>Smart Southern Laundry and Dry Cleaners</td>
-          <td><span class="svc-badge svc-staffed svc-unconfirmed">Staffed drop-off</span></td>
-          <td>Same town (Livingstone) — exact distance unconfirmed</td>
-          <td><span class="rating-none">Not independently rated</span><span class="rating-src">Real, verified Livingstone business (Facebook page); street address and reviews not accessible.</span></td>
-        </tr>
-        <tr>
-          <td>Victoria Steam Laundry &amp; Dry Cleaners</td>
-          <td><span class="svc-badge svc-staffed svc-unconfirmed">Staffed drop-off</span></td>
-          <td>Livingstone — no street address found, can't estimate</td>
-          <td><span class="rating-none">Not independently rated</span><span class="rating-src">Only a PO Box address is published anywhere.</span></td>
-        </tr>
-
-        <tr class="section-row"><td colspan="4">🇧🇼 Nxabii Cottages — Kasane, Botswana</td></tr>
-        <tr>
-          <td>No laundry business found</td>
-          <td><span class="svc-badge svc-none">None found</span></td>
-          <td>—</td>
-          <td><span class="rating-none">N/A</span><span class="rating-src">Checked national Botswana directories — Kasane has no listed standalone laundry/dry-cleaning business. Likely in-house/hotel laundry only.</span></td>
-        </tr>
-
-        <tr class="section-row"><td colspan="4">🇿🇦 Vetho 1 Apartments — Kempton Park (OR Tambo), South Africa <span style="font-weight:400; text-transform:none; letter-spacing:0;">(2 stays)</span></td></tr>
-        <tr>
-          <td>Aquadry Laundry and Dry Cleaners <span style="color:var(--text-muted); font-weight:400;">(Festival Mall)</span></td>
-          <td><span class="svc-badge svc-staffed">Staffed drop-off</span></td>
-          <td>Same town (Kempton Park) — exact distance unconfirmed</td>
-          <td><span class="rating-none">Not independently rated</span><span class="rating-src">Mall-based dry cleaner — name and location make staffed drop-off very likely.</span></td>
-        </tr>
-        <tr>
-          <td>Splash Laundromat</td>
-          <td><span class="svc-badge svc-self svc-unconfirmed">Self-service</span></td>
-          <td>Same town (Kempton Park) — exact distance unconfirmed</td>
-          <td><span class="rating-none">Not independently rated</span><span class="rating-src">Name suggests a coin laundromat, but not directly verified — flagged for a closer look.</span></td>
-        </tr>
-
-        <tr class="section-row"><td colspan="4">🇿🇦 Kruger Allo B&amp;B — Komatipoort, South Africa</td></tr>
-        <tr>
-          <td>No standalone laundry business found</td>
-          <td><span class="svc-badge svc-none">None found</span></td>
-          <td>—</td>
-          <td><span class="rating-none">N/A</span><span class="rating-src">Directories list only guesthouses mentioning laundry as an amenity — no dedicated business in Komatipoort itself. (Mahanaim Laundry, an earlier lead, is actually in Randburg/Johannesburg, hours away — dropped.)</span></td>
-        </tr>
-
-        <tr class="section-row"><td colspan="4">🇿🇦 Satara Rest Camp — Kruger National Park, South Africa</td></tr>
-        <tr>
-          <td>SANParks camp laundromat</td>
-          <td><span class="svc-badge svc-self">Self-service</span></td>
-          <td>On-site, in camp (communal area near the caravan site)</td>
-          <td><span class="rating-none">Not independently rated</span><span class="rating-src">Confirmed via Tripadvisor forum — coin machines, roughly R10/load. Asking camp staff to do it for a tip is also apparently possible informally.</span></td>
-        </tr>
-
-        <tr class="section-row"><td colspan="4">🇿🇦 Sabie Star — Sabie, Mpumalanga, South Africa</td></tr>
-        <tr>
-          <td>No confirmed option in Sabie itself</td>
-          <td><span class="svc-badge svc-none">None found</span></td>
-          <td>—</td>
-          <td><span class="rating-none">N/A</span><span class="rating-src">Laundrohub, an earlier lead, is actually in Nelspruit/Mbombela — a real ~25–30 km drive away, not "near" Sabie Star. Directory searches for Sabie town itself came back empty.</span></td>
-        </tr>
-
-        <tr class="section-row"><td colspan="4">🇲🇺 Palms Studio — La Gaulette / Le Morne, Mauritius</td></tr>
-        <tr>
-          <td>Island-wide pickup/delivery <span style="color:var(--text-muted); font-weight:400;">(X-Press Ironing, UClean, DCS, Penguin Laundry)</span></td>
-          <td><span class="svc-badge svc-staffed">Pickup / delivery</span></td>
-          <td>N/A — service comes to you</td>
-          <td><span class="rating-none">Not independently rated</span><span class="rating-src">No fixed-location laundrette found near Le Morne; these operators schedule a pickup and return clean laundry.</span></td>
-        </tr>
-
-        <tr class="section-row"><td colspan="4">🇲🇺 Residence Le Point Choisy — Grand Baie / Pointe aux Cannoniers, Mauritius</td></tr>
-        <tr>
-          <td>Laverie Automatique <span style="color:var(--text-muted); font-weight:400;">(Super U parking lot, Grand Baie)</span></td>
-          <td><span class="svc-badge svc-self">Self-service</span></td>
-          <td>Grand Baie town — Pointe aux Cannoniers is a few km north, exact distance unconfirmed</td>
-          <td><span class="rating-none">Not independently rated</span><span class="rating-src">Confirmed self-service coin laundrette — multiple independent mentions describe it as "come wash your own laundry."</span></td>
-        </tr>
-        <tr>
-          <td>Island-wide pickup/delivery <span style="color:var(--text-muted); font-weight:400;">(backup option)</span></td>
-          <td><span class="svc-badge svc-staffed">Pickup / delivery</span></td>
-          <td>N/A — service comes to you</td>
-          <td><span class="rating-none">Not independently rated</span></td>
-        </tr>
-
-        <tr class="section-row"><td colspan="4">🇲🇺 Gite des Acacias — Union Vale, Mauritius</td></tr>
-        <tr>
-          <td>Island-wide pickup/delivery only</td>
-          <td><span class="svc-badge svc-staffed">Pickup / delivery</span></td>
-          <td>N/A — service comes to you</td>
-          <td><span class="rating-none">Not independently rated</span><span class="rating-src">Union Vale is inland/rural — no local laundrette found.</span></td>
-        </tr>
-
-      </tbody>
-    </table>
-  </div>
-  </div>
-
-  <div class="notes">
-    <h3>Reading This Table</h3>
-    <ul>
-      <li><strong>No distances were calculated with a maps tool</strong> — there isn't one available. "Same town" means the business and hotel share a town/suburb; anywhere a precise distance would otherwise appear, it says "unconfirmed" instead of a made-up figure.</li>
-      <li><strong>Service type is inferred from the business name and context where not directly confirmed.</strong> "Steam Laundry" and "Dry Cleaners" strongly imply a staffed drop-off shop; "Laundromat" or "Laverie Automatique" strongly imply self-service — but only Satara Rest Camp and Laverie Automatique (Grand Baie) were independently confirmed as self-service. Everything else marked "unconfirmed" is a reasonable guess, not a verified fact.</li>
-      <li><strong>Ratings are almost entirely "Not independently rated"</strong> — unlike the airport lounges, these are small local/regional businesses with little to no published review data. Nothing here is a fabricated star rating.</li>
-      <li><strong>Kasane, Komatipoort and Sabie</strong> have no confirmed standalone laundry business at all — expect to rely on hotel/guesthouse laundry (paid or otherwise) or simply pack accordingly for those legs.</li>
-      <li>Earlier leads that turned out to be mismatched or too far away were dropped rather than presented misleadingly: Itenge Dry Cleaners (address is actually in Kasane, Botswana, not Victoria Falls) and Mahanaim Laundry (actually in Randburg, Johannesburg, not Komatipoort).</li>
-    </ul>
+    <div class="table-scroll">
+      <table class="pay-table">
+        <colgroup>
+          <col style="width:9%;"><col style="width:29%;"><col style="width:16%;"><col style="width:12%;"><col style="width:13%;"><col style="width:10%;"><col style="width:11%;">
+        </colgroup>
+        <thead>
+          <tr><th>Date</th><th>Expense Head</th><th>Expense Family</th><th>USD</th><th>USD Per Head</th><th>EURO</th><th>Euro Per Head</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="date-col">25-Sep</td><td class="head-col">TRANSPORT - VF Hotel</td><td class="family-col">TRANSPORT</td><td class="num">40</td><td class="num">13</td><td class="num">0</td><td class="num">0</td></tr>
+          <tr><td class="date-col">25-Sep</td><td class="head-col">Joyfull Guest House</td><td class="family-col">HOTEL</td><td class="num">58</td><td class="num">19</td><td class="num">0</td><td class="num">0</td></tr>
+          <tr><td class="date-col">25-Sep</td><td class="head-col">Victoria Falls Entry Fee</td><td class="family-col">PARK ENTRY FEE</td><td class="num">174</td><td class="num">58</td><td class="num">0</td><td class="num">0</td></tr>
+          <tr><td class="date-col">26-Sep</td><td class="head-col">TRANSPORT - Dete - GWANZO - DETE</td><td class="family-col">TRANSPORT</td><td class="num">60</td><td class="num">20</td><td class="num">0</td><td class="num">0</td></tr>
+          <tr><td class="date-col">27-Sep</td><td class="head-col">Hwange Safari</td><td class="family-col">SAFARI</td><td class="num">195</td><td class="num">65</td><td class="num">0</td><td class="num">0</td></tr>
+          <tr><td class="date-col">27-Sep</td><td class="head-col">Hwange Park Entry Fee</td><td class="family-col">PARK ENTRY FEE</td><td class="num">75</td><td class="num">25</td><td class="num">0</td><td class="num">0</td></tr>
+          <tr><td class="date-col">27-Sep</td><td class="head-col">TRANSPORT - Livingstone</td><td class="family-col">TRANSPORT</td><td class="num">40</td><td class="num">13</td><td class="num">0</td><td class="num">0</td></tr>
+          <tr><td class="date-col">27-Sep</td><td class="head-col">Tabonina Guesthouse</td><td class="family-col">HOTEL</td><td class="num">141</td><td class="num">47</td><td class="num">0</td><td class="num">0</td></tr>
+          <tr><td class="date-col">28-Sep</td><td class="head-col">TGH - Safari Pick = TGH</td><td class="family-col">TRANSPORT</td><td class="num">15</td><td class="num">5</td><td class="num">0</td><td class="num">0</td></tr>
+          <tr><td class="date-col">28-Sep</td><td class="head-col">Mosi-oa-Tunya National Park Entry Fee</td><td class="family-col">PARK ENTRY FEE</td><td class="num">60</td><td class="num">20</td><td class="num">0</td><td class="num">0</td></tr>
+          <tr><td class="date-col">29-Sep</td><td class="head-col">Victoria Falls Entry Fee</td><td class="family-col">PARK ENTRY FEE</td><td class="num">60</td><td class="num">20</td><td class="num">0</td><td class="num">0</td></tr>
+          <tr><td class="date-col">29-Sep</td><td class="head-col">TRANSPORT - Kasane - Nxabi</td><td class="family-col">TRANSPORT</td><td class="num">60</td><td class="num">20</td><td class="num">0</td><td class="num">0</td></tr>
+          <tr><td class="date-col">29-Sep</td><td class="head-col">Botswana Visa</td><td class="family-col">VISA</td><td class="num">69</td><td class="num">23</td><td class="num">0</td><td class="num">0</td></tr>
+          <tr><td class="date-col">30-Sep</td><td class="head-col">Chobe Park Entry Fee</td><td class="family-col">PARK ENTRY FEE</td><td class="num">45</td><td class="num">15</td><td class="num">0</td><td class="num">0</td></tr>
+          <tr><td class="date-col">30-Sep</td><td class="head-col">Botswana Safari - Day 1</td><td class="family-col">SAFARI</td><td class="num">183</td><td class="num">61</td><td class="num">0</td><td class="num">0</td></tr>
+          <tr><td class="date-col">01-Oct</td><td class="head-col">Chobe Park Entry Fee</td><td class="family-col">PARK ENTRY FEE</td><td class="num">45</td><td class="num">15</td><td class="num">0</td><td class="num">0</td></tr>
+          <tr><td class="date-col">01-Oct</td><td class="head-col">Botswana Safari - Day 2</td><td class="family-col">SAFARI</td><td class="num">183</td><td class="num">61</td><td class="num">0</td><td class="num">0</td></tr>
+          <tr><td class="date-col">02-Oct</td><td class="head-col">TRANSPORT - VF Airpot</td><td class="family-col">TRANSPORT</td><td class="num">70</td><td class="num">23</td><td class="num">0</td><td class="num">0</td></tr>
+          <tr><td class="date-col">02-Oct</td><td class="head-col">Miscelaneous Exp</td><td class="family-col">MISCELANEOUS</td><td class="num">226</td><td class="num">75</td><td class="num">0</td><td class="num">0</td></tr>
+          <tr><td class="date-col">07-Oct</td><td class="head-col">Tourism Fee - MAURITIUS</td><td class="family-col">TOURISM FEE</td><td class="num">0</td><td class="num">0</td><td class="num">9</td><td class="num">3</td></tr>
+          <tr><td class="date-col">08-Oct</td><td class="head-col">Tourism Fee - MAURITIUS</td><td class="family-col">TOURISM FEE</td><td class="num">0</td><td class="num">0</td><td class="num">9</td><td class="num">3</td></tr>
+          <tr><td class="date-col">09-Oct</td><td class="head-col">Tourism Fee - MAURITIUS</td><td class="family-col">TOURISM FEE</td><td class="num">0</td><td class="num">0</td><td class="num">9</td><td class="num">3</td></tr>
+          <tr><td class="date-col">10-Oct</td><td class="head-col">Tourism Fee - MAURITIUS</td><td class="family-col">TOURISM FEE</td><td class="num">0</td><td class="num">0</td><td class="num">9</td><td class="num">3</td></tr>
+          <tr><td class="date-col">11-Oct</td><td class="head-col">Tourism Fee - MAURITIUS</td><td class="family-col">TOURISM FEE</td><td class="num">0</td><td class="num">0</td><td class="num">9</td><td class="num">3</td></tr>
+        </tbody>
+        <tfoot>
+          <tr class="total-row"><td colspan="3">TOTAL</td><td class="num">1,799</td><td class="num">600</td><td class="num">45</td><td class="num">15</td></tr>
+        </tfoot>
+      </table>
+    </div>
   </div>
 
 </div>

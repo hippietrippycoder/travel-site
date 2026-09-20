@@ -177,7 +177,7 @@ table.pay-table{border-collapse:collapse; table-layout:fixed; width:100%; min-wi
 .pay-table td.txn{font-size:0.78rem; line-height:1.4;}
 .pay-table td.txn .txn-main{display:block; font-weight:600; color:var(--text);}
 .pay-table td.txn .txn-sub{display:block; font-size:0.72rem; color:var(--text-muted); font-family:'JetBrains Mono',monospace; margin-top:2px;}
-.pay-table th.status-col{text-align:left;}
+.pay-table th.status-col,.pay-table th.left-col{text-align:left;}
 .pay-table td.status{text-align:left; white-space:nowrap;}
 .pay-status{
   font-family:'JetBrains Mono',monospace; font-size:0.62rem; font-weight:700; letter-spacing:0.05em;
@@ -209,6 +209,9 @@ table.pay-table{border-collapse:collapse; table-layout:fixed; width:100%; min-wi
 .notes ul{margin:0; padding-left:1.2em; display:flex; flex-direction:column; gap:8px;}
 .notes li{font-size:0.92rem; line-height:1.55; color:var(--text);}
 .notes li strong{color:var(--accent-strong);}
+.status-legend{display:flex; flex-direction:column; gap:7px; margin-top:8px;}
+.status-legend .legend-row{display:flex; align-items:center; gap:10px;}
+.status-legend .legend-desc{font-size:0.82rem; color:var(--text-muted);}
 
 footer{color:var(--text-muted); font-size:0.78rem; text-align:center; padding-top:8px;}
 
@@ -303,24 +306,10 @@ body{ padding-inline:0; padding-block:0; overflow-x:hidden; }
     <div class="travellers"><span class="pill">Amar Raj Urs</span><span class="pill">Pratap Raj</span><span class="pill">Praveen Kumar Nallipogu</span></div>
   </header>
 
-  <div class="callout info">
-    <div class="icon">DRAFT</div>
-    <div>
-      <p><strong>This page is a working draft, not yet deployed.</strong> More payment batches will be added below before this goes live — nothing here has been committed or pushed to the site yet.</p>
-    </div>
-  </div>
-
   <div class="summary-block">
     <div class="summary-head">
       <h3>Cost Summary Per Traveller</h3>
       <span class="summary-meta">Flights + Hotels · split evenly three ways</span>
-    </div>
-
-    <div class="callout warn">
-      <div class="icon">DEADLINE</div>
-      <div>
-        <p><strong>Please settle the Total Due amount below by 30 September 2026.</strong> This covers each traveller's equal share of Flight Tickets and Hotel Bookings settled so far.</p>
-      </div>
     </div>
 
     <div class="traveller-grid">
@@ -359,7 +348,7 @@ body{ padding-inline:0; padding-block:0; overflow-x:hidden; }
           <col style="width:4%;"><col style="width:13%;"><col style="width:19%;"><col style="width:8%;"><col style="width:11%;"><col style="width:11%;"><col style="width:9%;"><col style="width:9%;"><col style="width:16%;">
         </colgroup>
         <thead>
-          <tr><th>Sl. No</th><th>Date &amp; Time</th><th>Credit Card Trans Ref</th><th>Route</th><th class="status-col">Payment Status</th><th>Bill</th><th>FCR</th><th>IGST</th><th>Total</th></tr>
+          <tr><th>Sl. No</th><th>Transaction Date</th><th>Credit Card Trans Ref</th><th class="left-col">Route</th><th class="status-col">Payment Status</th><th>Bill</th><th>FCR</th><th>IGST</th><th>Total</th></tr>
         </thead>
         <tbody>
           <tr><td class="sl">1</td><td><span class="dt-date">02-SEP-2026</span><span class="dt-time">12:44</span></td><td class="txn"><span class="txn-main">MAKEMYTRIP INDIA PVT</span><span class="txn-sub">NEW DELHI</span></td><td class="route">BLR – MUM</td><td class="status"><span class="pay-status">Paid In Full</span></td><td class="num">14,368.00</td><td class="num">0.00</td><td class="num">0.00</td><td class="num total-col">14,368.00</td></tr>
@@ -391,22 +380,22 @@ body{ padding-inline:0; padding-block:0; overflow-x:hidden; }
           <col style="width:4%;"><col style="width:12%;"><col style="width:16%;"><col style="width:22%;"><col style="width:11%;"><col style="width:10%;"><col style="width:8%;"><col style="width:7%;"><col style="width:9%;">
         </colgroup>
         <thead>
-          <tr><th>Sl. No</th><th>Date &amp; Time</th><th>Credit Card Trans Ref</th><th>Hotel &amp; Location</th><th class="status-col">Payment Status</th><th>Bill</th><th>FCR</th><th>IGST</th><th>Total</th></tr>
+          <tr><th>Sl. No</th><th>Transaction Date</th><th>Credit Card Trans Ref</th><th class="left-col">Hotel &amp; Location</th><th class="status-col">Payment Status</th><th>Bill</th><th>FCR</th><th>IGST</th><th>Total</th></tr>
         </thead>
         <tbody>
           <tr><td class="sl">1</td><td><span class="dt-date">12-SEP-2026</span><span class="dt-time">21:58</span></td><td class="txn"><span class="txn-none">None</span></td><td class="hotel"><span class="stay-dates">25 SEP – 26 SEP</span><span class="stay-place">Joyful Vista Guest Lodge, <span class="loc">Victoria Falls</span></span></td><td class="status"><span class="pay-status status-pending">Pay At Hotel</span></td><td class="num">0.00</td><td class="num">0.00</td><td class="num">0.00</td><td class="num total-col">0.00</td></tr>
           <tr><td class="sl">2</td><td><span class="dt-date">02-SEP-2026</span><span class="dt-time">18:58</span></td><td class="txn"><span class="txn-main">PAYPAL *GWANGO</span><span class="txn-sub">4029357733</span></td><td class="hotel"><span class="stay-dates">26 SEP – 27 SEP</span><span class="stay-place">Gwango Heritage Resort, <span class="loc">Hwange</span></span></td><td class="status"><span class="pay-status">Paid In Full</span></td><td class="num">11,479.69</td><td class="num">200.89</td><td class="num">0.00</td><td class="num total-col">11,680.58</td></tr>
-          <tr><td class="sl">3</td><td><span class="dt-date">06-SEP-2026</span><span class="dt-time">21:58</span></td><td class="txn"><span class="txn-none">None</span></td><td class="hotel"><span class="stay-dates">27 SEP – 29 SEP</span><span class="stay-place">Tabinina Guest House, <span class="loc">Livingstone</span></span></td><td class="status"><span class="pay-status status-pending">Pay At Hotel</span></td><td class="num">0.00</td><td class="num">0.00</td><td class="num">0.00</td><td class="num total-col">0.00</td></tr>
+          <tr><td class="sl">3</td><td><span class="dt-date">06-SEP-2026</span><span class="dt-time">21:58</span></td><td class="txn"><span class="txn-none">None</span></td><td class="hotel"><span class="stay-dates">27 SEP – 29 SEP</span><span class="stay-place">Tabonina Guesthouse, <span class="loc">Livingstone</span></span></td><td class="status"><span class="pay-status status-pending">Pay At Hotel</span></td><td class="num">0.00</td><td class="num">0.00</td><td class="num">0.00</td><td class="num total-col">0.00</td></tr>
           <tr><td class="sl">4</td><td><span class="dt-date">12-SEP-2026</span><span class="dt-time">12:30</span></td><td class="txn"><span class="txn-main">VCS*Nxabii Cottages</span><span class="txn-sub">Gaborone</span></td><td class="hotel"><span class="stay-dates">29 SEP – 30 SEP</span><span class="stay-place">Nxabii Cottages, <span class="loc">Kasane</span></span></td><td class="status"><span class="pay-status">Paid In Full</span></td><td class="num">7,109.29</td><td class="num">142.19</td><td class="num">25.59</td><td class="num total-col">7,277.07</td></tr>
           <tr><td class="sl">5</td><td><span class="dt-date">31-AUG-2026</span><span class="dt-time">23:20</span></td><td class="txn"><span class="txn-main">VCS*Nxabii Cottages</span><span class="txn-sub">Gaborone</span></td><td class="hotel"><span class="stay-dates">30 SEP – 2 OCT</span><span class="stay-place">Nxabii Cottages, <span class="loc">Kasane</span></span></td><td class="status"><span class="pay-status">Paid In Full</span></td><td class="num">14,242.80</td><td class="num">284.86</td><td class="num">51.27</td><td class="num total-col">14,578.93</td></tr>
-          <tr><td class="sl">6</td><td><span class="dt-date">12-SEP-2026</span><span class="dt-time">13:01</span></td><td class="txn"><span class="txn-main">BKG*HOTEL AT BOOKING.C</span><span class="txn-sub">(888)850-395</span></td><td class="hotel"><span class="stay-dates">2 OCT – 3 OCT</span><span class="stay-place">Vetho 1 Apartments, <span class="loc">Kempton Park</span></span></td><td class="status"><span class="pay-status">Paid In Full</span></td><td class="num">3,912.73</td><td class="num">78.25</td><td class="num">14.09</td><td class="num total-col">4,005.07</td></tr>
-          <tr><td class="sl">7</td><td><span class="dt-date">13-SEP-2026</span><span class="dt-time">14:55</span></td><td class="txn"><span class="txn-main">BKG*HOTEL AT BOOKING.C</span><span class="txn-sub">(888)850-395</span></td><td class="hotel"><span class="stay-dates">3 OCT – 4 OCT</span><span class="stay-place">Kruger Allo B&amp;B, <span class="loc">Komatipoort</span></span></td><td class="status"><span class="pay-status">Paid In Full</span></td><td class="num">4,854.14</td><td class="num">97.08</td><td class="num">17.47</td><td class="num total-col">4,968.70</td></tr>
+          <tr><td class="sl">6</td><td><span class="dt-date">12-SEP-2026</span><span class="dt-time">13:01</span></td><td class="txn"><span class="txn-main">BKG*HOTEL AT BOOKING.</span></td><td class="hotel"><span class="stay-dates">2 OCT – 3 OCT</span><span class="stay-place">Vetho 1 Apartments, <span class="loc">Kempton Park</span></span></td><td class="status"><span class="pay-status">Paid In Full</span></td><td class="num">3,912.73</td><td class="num">78.25</td><td class="num">14.09</td><td class="num total-col">4,005.07</td></tr>
+          <tr><td class="sl">7</td><td><span class="dt-date">13-SEP-2026</span><span class="dt-time">14:55</span></td><td class="txn"><span class="txn-main">BKG*HOTEL AT BOOKING.</span></td><td class="hotel"><span class="stay-dates">3 OCT – 4 OCT</span><span class="stay-place">Kruger Allo B&amp;B, <span class="loc">Komatipoort</span></span></td><td class="status"><span class="pay-status">Paid In Full</span></td><td class="num">4,854.14</td><td class="num">97.08</td><td class="num">17.47</td><td class="num total-col">4,968.70</td></tr>
           <tr><td class="sl">8</td><td><span class="dt-date">12-SEP-2026</span><span class="dt-time">21:59</span></td><td class="txn"><span class="txn-main">SANParks</span><span class="txn-sub">Muckleneuk</span></td><td class="hotel"><span class="stay-dates">4 OCT – 5 OCT</span><span class="stay-place">Satara Rest Camp, <span class="loc">Kruger National Park</span></span></td><td class="status"><span class="pay-status">Paid In Full</span></td><td class="num">36,923.56</td><td class="num">738.47</td><td class="num">132.92</td><td class="num total-col">37,794.96</td></tr>
           <tr><td class="sl">9</td><td><span class="dt-date">14-SEP-2026</span><span class="dt-time">19:59</span></td><td class="txn"><span class="txn-main">NightsBridge Pay</span><span class="txn-sub">Sandton</span></td><td class="hotel"><span class="stay-dates">5 OCT – 6 OCT</span><span class="stay-place">Sabie Star, <span class="loc">Sabie</span></span></td><td class="status"><span class="pay-status status-partial">Paid In Half</span></td><td class="num">4,751.20</td><td class="num">95.02</td><td class="num">17.10</td><td class="num total-col">4,863.33</td></tr>
-          <tr><td class="sl">10</td><td><span class="dt-date">13-SEP-2026</span><span class="dt-time">18:06</span></td><td class="txn"><span class="txn-main">BKG*HOTEL AT BOOKING.C</span><span class="txn-sub">(888)850-395</span></td><td class="hotel"><span class="stay-dates">6 OCT – 7 OCT</span><span class="stay-place">Vetho 1 Apartments, <span class="loc">Kempton Park</span></span></td><td class="status"><span class="pay-status">Paid In Full</span></td><td class="num">3,754.94</td><td class="num">75.10</td><td class="num">13.52</td><td class="num total-col">3,843.56</td></tr>
-          <tr><td class="sl">11</td><td><span class="dt-date">13-SEP-2026</span><span class="dt-time">22:22</span></td><td class="txn"><span class="txn-main">BKG*HOTEL AT BOOKING.C</span><span class="txn-sub">(888)850-395</span></td><td class="hotel"><span class="stay-dates">7 OCT – 8 OCT</span><span class="stay-place">Palms Studio, <span class="loc">La Gaulette (Le Morne)</span></span></td><td class="status"><span class="pay-status">Paid In Full</span></td><td class="num">18,728.50</td><td class="num">374.57</td><td class="num">67.42</td><td class="num total-col">19,170.49</td></tr>
-          <tr><td class="sl">12</td><td><span class="dt-date">13-SEP-2026</span><span class="dt-time">23:25</span></td><td class="txn"><span class="txn-main">BKG*HOTEL AT BOOKING.C</span><span class="txn-sub">(888)850-395</span></td><td class="hotel"><span class="stay-dates">9 OCT – 11 OCT</span><span class="stay-place">Residence Le Point Choisy, <span class="loc">Grand Baie</span></span></td><td class="status"><span class="pay-status">Paid In Full</span></td><td class="num">22,505.99</td><td class="num">450.12</td><td class="num">81.02</td><td class="num total-col">23,037.13</td></tr>
-          <tr><td class="sl">13</td><td><span class="dt-date">13-SEP-2026</span><span class="dt-time">23:59</span></td><td class="txn"><span class="txn-main">BKG*HOTEL AT BOOKING.C</span><span class="txn-sub">(888)850-395</span></td><td class="hotel"><span class="stay-dates">11 OCT – 12 OCT</span><span class="stay-place">Gite des Acacias, <span class="loc">Union Vale</span></span></td><td class="status"><span class="pay-status status-pending">Pay At Hotel</span></td><td class="num">0.00</td><td class="num">0.00</td><td class="num">0.00</td><td class="num total-col">0.00</td></tr>
+          <tr><td class="sl">10</td><td><span class="dt-date">13-SEP-2026</span><span class="dt-time">18:06</span></td><td class="txn"><span class="txn-main">BKG*HOTEL AT BOOKING.</span></td><td class="hotel"><span class="stay-dates">6 OCT – 7 OCT</span><span class="stay-place">Vetho 1 Apartments, <span class="loc">Kempton Park</span></span></td><td class="status"><span class="pay-status">Paid In Full</span></td><td class="num">3,754.94</td><td class="num">75.10</td><td class="num">13.52</td><td class="num total-col">3,843.56</td></tr>
+          <tr><td class="sl">11</td><td><span class="dt-date">13-SEP-2026</span><span class="dt-time">22:22</span></td><td class="txn"><span class="txn-main">BKG*HOTEL AT BOOKING.</span></td><td class="hotel"><span class="stay-dates">7 OCT – 8 OCT</span><span class="stay-place">Palms Studio, <span class="loc">La Gaulette (Le Morne)</span></span></td><td class="status"><span class="pay-status">Paid In Full</span></td><td class="num">18,728.50</td><td class="num">374.57</td><td class="num">67.42</td><td class="num total-col">19,170.49</td></tr>
+          <tr><td class="sl">12</td><td><span class="dt-date">13-SEP-2026</span><span class="dt-time">23:25</span></td><td class="txn"><span class="txn-main">BKG*HOTEL AT BOOKING.</span></td><td class="hotel"><span class="stay-dates">9 OCT – 11 OCT</span><span class="stay-place">Residence Le Point Choisy, <span class="loc">Grand Baie</span></span></td><td class="status"><span class="pay-status">Paid In Full</span></td><td class="num">22,505.99</td><td class="num">450.12</td><td class="num">81.02</td><td class="num total-col">23,037.13</td></tr>
+          <tr><td class="sl">13</td><td><span class="dt-date">13-SEP-2026</span><span class="dt-time">23:59</span></td><td class="txn"><span class="txn-main">BKG*HOTEL AT BOOKING.</span></td><td class="hotel"><span class="stay-dates">11 OCT – 12 OCT</span><span class="stay-place">Gite des Acacias, <span class="loc">Union Vale</span></span></td><td class="status"><span class="pay-status status-pending">Pay At Hotel</span></td><td class="num">0.00</td><td class="num">0.00</td><td class="num">0.00</td><td class="num total-col">0.00</td></tr>
         </tbody>
         <tfoot>
           <tr class="total-row"><td colspan="5">TOTAL</td><td class="num">1,28,262.84</td><td class="num">2,536.56</td><td class="num">420.42</td><td class="num">1,31,219.82</td></tr>
@@ -419,14 +408,16 @@ body{ padding-inline:0; padding-block:0; overflow-x:hidden; }
   <!-- Next batch tables go here, following the same .batch-block / .pay-table pattern -->
 
   <div class="notes">
-    <h3>Reading This Table</h3>
+    <h3>Foot Note</h3>
     <ul>
       <li><strong>FCR</strong> and <strong>IGST</strong> are the foreign currency markup and tax components on the international bookings — Bill + FCR + IGST = Total for each row. The MakeMyTrip and IndiGo domestic-fare rows show ₹0.00 for both, consistent with a domestic fare with no forex component.</li>
-      <li><strong>Per Head</strong> on each table is that table's total divided three ways (Flight Tickets: ₹3,82,315.05 ÷ 3 = ₹1,27,438.35; Hotel Bookings: ₹1,31,219.82 ÷ 3 = ₹43,739.94) — figures are formatted in Indian lakh grouping to match the rest of the site's financial pages, values themselves unchanged from what was supplied.</li>
-      <li>The <strong>Cost Summary Per Traveller</strong> cards at the top show identical figures for all three of you because every cost so far has been split strictly three ways, regardless of whose card the charge actually went on — this isn't a record of who fronted which payment, just each person's equal share. It also only covers Flight Tickets and Hotel Bookings so far — it'll need updating once laundry, lounges, activities or any other batches are added.</li>
-      <li><strong>Payment Status</strong> is colour-coded on the Hotel Bookings table: green for <strong>Paid In Full</strong>, tan for <strong>Pay At Hotel</strong> (nothing charged yet, settle on arrival), red for <strong>Paid In Half</strong> (Sabie Star — a balance is still outstanding).</li>
-      <li>Row 3's hotel name is entered as "Tabinina Guest House" in this payment record, though it's listed elsewhere on the site as "Tabonina Guesthouse" — kept exactly as given here rather than silently corrected; flag if one of these is a typo and I'll align them.</li>
-      <li>This is a draft page only — not yet added to the other pages' navigation, and nothing has been committed to git. Send over the next batch(es) and this page can be finalised in one go.</li>
+      <li><strong>Payment Status</strong> is colour-coded across both tables:
+        <div class="status-legend">
+          <div class="legend-row"><span class="pay-status">Paid In Full</span><span class="legend-desc">fully settled, nothing owed</span></div>
+          <div class="legend-row"><span class="pay-status status-pending">Pay At Hotel</span><span class="legend-desc">unpaid, settle on arrival</span></div>
+          <div class="legend-row"><span class="pay-status status-partial">Paid In Half</span><span class="legend-desc">partly paid, balance due</span></div>
+        </div>
+      </li>
     </ul>
   </div>
 

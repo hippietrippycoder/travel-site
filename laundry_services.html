@@ -105,25 +105,6 @@ header{display:flex; flex-direction:column; gap:10px;}
 header h1{font-size:clamp(1.7rem, 4.5vw, 2.4rem); font-weight:700; color:var(--text);}
 header p.sub{margin:0; color:var(--text-muted); font-size:1.02rem; max-width:60ch;}
 
-/* callout */
-.callout{
-  background:var(--surface);
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:18px 20px;
-  box-shadow:var(--shadow);
-  display:flex; gap:16px; align-items:flex-start;
-}
-.callout.info{background:var(--accent-soft); border-color:transparent;}
-.callout .icon{
-  font-family:'JetBrains Mono',monospace; font-weight:700; font-size:0.72rem;
-  letter-spacing:0.08em; text-transform:uppercase; color:var(--accent-strong);
-  flex-shrink:0; margin-top:3px;
-}
-.callout div > p{margin:0; font-size:0.95rem; line-height:1.55; color:var(--text);}
-.callout div > p+p{margin-top:6px;}
-.callout strong{color:var(--accent-strong);}
-
 /* reference table */
 .table-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:12px;}
 table{border-collapse:collapse; width:100%; background:var(--surface);}
@@ -140,9 +121,6 @@ tr.section-row td{
   padding:8px 14px;
 }
 
-.rating-none{ font-size:0.78rem; color:var(--text-muted); font-style:italic; }
-.rating-src{ font-size:0.66rem; color:var(--text-muted); line-height:1.3; display:block; margin-top:3px;}
-
 .svc-badge{
   font-family:'JetBrains Mono',monospace; font-size:0.6rem; font-weight:700; letter-spacing:0.05em;
   padding:3px 8px; border-radius:999px; white-space:nowrap; display:inline-block; text-transform:uppercase;
@@ -153,12 +131,10 @@ tr.section-row td{
 .svc-none{background:var(--danger-soft); color:var(--danger);}
 .svc-unconfirmed::after{content:'?'; margin-left:3px;}
 .svc-note{display:block; font-size:0.66rem; color:var(--text-muted); margin-top:4px; line-height:1.3; font-family:'Karla',sans-serif; text-transform:none; letter-spacing:0;}
-
-.notes{display:flex; flex-direction:column; gap:12px;}
-.notes h3{font-size:1.05rem; margin-bottom:2px;}
-.notes ul{margin:0; padding-left:1.2em; display:flex; flex-direction:column; gap:8px;}
-.notes li{font-size:0.92rem; line-height:1.55; color:var(--text);}
-.notes li strong{color:var(--accent-strong);}
+.svc-yes{background:var(--good-soft); color:var(--good);}
+.svc-no{background:var(--surface-2); color:var(--text-muted); border:1px solid var(--line);}
+.svc-unchecked{background:transparent; color:var(--text-muted); border:1px dashed var(--line);}
+td.wm-cell{white-space:nowrap;}
 
 footer{color:var(--text-muted); font-size:0.78rem; text-align:center; padding-top:8px;}
 
@@ -255,128 +231,120 @@ body{ padding-inline:0; padding-block:0; overflow-x:hidden; }
     <div class="travellers"><span class="pill">Amar Raj Urs</span><span class="pill">Pratap Raj</span><span class="pill">Praveen Kumar Nallipogu</span></div>
   </header>
 
-  <div class="callout info">
-    <div class="icon">HEADS UP</div>
-    <div>
-      <p><strong>No maps or geocoding tool was used to build this table</strong> — every distance below is either "same town" (confirmed) or marked unconfirmed. Nothing here is a guessed kilometre figure.</p>
-      <p>Where a business is genuinely self-service (coin-operated machines you run yourself), it's labelled <strong>Self-Service</strong>. Where it's a shop you hand clothes to and collect later, it's <strong>Staffed Drop-Off</strong>. A few are marked "unconfirmed" because the business name suggests one or the other but couldn't be verified.</p>
-    </div>
-  </div>
-
   <div>
   <h3 style="margin-top:4px; font-weight:700; text-transform:uppercase; letter-spacing:0.02em;">Laundry Options By Stop, In Route Order</h3>
   <div class="table-scroll">
     <table>
       <colgroup>
-        <col style="width:28%;"><col style="width:17%;"><col style="width:20%;"><col style="width:35%;">
+        <col style="width:27%;"><col style="width:21%;"><col style="width:32%;"><col style="width:20%;">
       </colgroup>
-      <thead><tr><th>Laundry Option</th><th>Service Type</th><th>Distance From Hotel</th><th>Rating &amp; Notes</th></tr></thead>
+      <thead><tr><th>Laundry Option</th><th>Service Type</th><th>Distance From Hotel</th><th>In-Hotel Washing Machine</th></tr></thead>
       <tbody>
 
-        <tr class="section-row"><td colspan="4">🇿🇼 Joyful Vista Guest Lodge — Victoria Falls, Zimbabwe</td></tr>
+        <tr class="section-row"><td colspan="3">🇿🇼 Joyful Vista Guest Lodge — Victoria Falls, Zimbabwe</td><td class="wm-cell"><span class="svc-badge svc-no">No</span></td></tr>
         <tr>
           <td>Matabele Steam Laundry <span style="color:var(--text-muted); font-weight:400;">(based at Cresta Sprayview Hotel)</span></td>
           <td><span class="svc-badge svc-staffed svc-unconfirmed">Staffed drop-off</span></td>
-          <td>Same town (Victoria Falls) — exact distance unconfirmed</td>
-          <td><span class="rating-none">Not independently rated — 0 reviews on directory listing</span><span class="rating-src">May primarily serve hotels rather than walk-in travellers — not confirmed either way.</span></td>
+          <td>950 m — 12 min walk <span style="color:var(--text-muted); font-weight:400;">(via Reynard Rd, Google Maps)</span></td>
+          <td>—</td>
         </tr>
 
-        <tr class="section-row"><td colspan="4">🇿🇼 Gwango Heritage Resort — Dete / Hwange National Park, Zimbabwe</td></tr>
+        <tr class="section-row"><td colspan="3">🇿🇼 Gwango Heritage Resort — Dete / Hwange National Park, Zimbabwe</td><td class="wm-cell"><span class="svc-badge svc-unchecked">Not checked</span></td></tr>
         <tr>
           <td>No external laundry business found</td>
           <td><span class="svc-badge svc-inhouse">In-house only</span></td>
           <td>—</td>
-          <td><span class="rating-none">N/A</span><span class="rating-src">Lodge's own daily laundry service is the only option — confirmed earlier in the towels research. Hwange is remote, no nearby town with services.</span></td>
+          <td>—</td>
         </tr>
 
-        <tr class="section-row"><td colspan="4">🇿🇲 Tabonina Guesthouse — Livingstone, Zambia</td></tr>
+        <tr class="section-row"><td colspan="3">🇿🇲 Tabonina Guesthouse — Livingstone, Zambia</td><td class="wm-cell"><span class="svc-badge svc-no">No</span></td></tr>
         <tr>
           <td>Smart Southern Laundry and Dry Cleaners</td>
           <td><span class="svc-badge svc-staffed svc-unconfirmed">Staffed drop-off</span></td>
-          <td>Same town (Livingstone) — exact distance unconfirmed</td>
-          <td><span class="rating-none">Not independently rated</span><span class="rating-src">Real, verified Livingstone business (Facebook page); street address and reviews not accessible.</span></td>
+          <td>Not found on Google Maps under this name — can't estimate<span style="display:block; margin-top:2px; font-size:0.68rem; color:var(--text-muted);">searches for it resolve to a different business</span></td>
+          <td>—</td>
         </tr>
         <tr>
           <td>Victoria Steam Laundry &amp; Dry Cleaners</td>
           <td><span class="svc-badge svc-staffed svc-unconfirmed">Staffed drop-off</span></td>
-          <td>Livingstone — no street address found, can't estimate</td>
-          <td><span class="rating-none">Not independently rated</span><span class="rating-src">Only a PO Box address is published anywhere.</span></td>
+          <td>Not found on Google Maps under this name — can't estimate<span style="display:block; margin-top:2px; font-size:0.68rem; color:var(--text-muted);">searches for it resolve to a different business</span></td>
+          <td>—</td>
         </tr>
 
-        <tr class="section-row"><td colspan="4">🇧🇼 Nxabii Cottages — Kasane, Botswana</td></tr>
+        <tr class="section-row"><td colspan="3">🇧🇼 Nxabii Cottages — Kasane, Botswana</td><td class="wm-cell"><span class="svc-badge svc-no">No</span></td></tr>
         <tr>
           <td>No laundry business found</td>
           <td><span class="svc-badge svc-none">None found</span></td>
           <td>—</td>
-          <td><span class="rating-none">N/A</span><span class="rating-src">Checked national Botswana directories — Kasane has no listed standalone laundry/dry-cleaning business. Likely in-house/hotel laundry only.</span></td>
+          <td>—</td>
         </tr>
 
-        <tr class="section-row"><td colspan="4">🇿🇦 Vetho 1 Apartments — Kempton Park (OR Tambo), South Africa <span style="font-weight:400; text-transform:none; letter-spacing:0;">(2 stays)</span></td></tr>
+        <tr class="section-row"><td colspan="3">🇿🇦 Vetho 1 Apartments — Kempton Park (OR Tambo), South Africa <span style="font-weight:400; text-transform:none; letter-spacing:0;">(2 stays)</span></td><td class="wm-cell"><span class="svc-badge svc-no">No</span></td></tr>
         <tr>
           <td>Aquadry Laundry and Dry Cleaners <span style="color:var(--text-muted); font-weight:400;">(Festival Mall)</span></td>
           <td><span class="svc-badge svc-staffed">Staffed drop-off</span></td>
-          <td>Same town (Kempton Park) — exact distance unconfirmed</td>
-          <td><span class="rating-none">Not independently rated</span><span class="rating-src">Mall-based dry cleaner — name and location make staffed drop-off very likely.</span></td>
+          <td>5.6 km — 10 min drive <span style="color:var(--text-muted); font-weight:400;">(via Green Ave, Google Maps)</span></td>
+          <td>—</td>
         </tr>
         <tr>
           <td>Splash Laundromat</td>
           <td><span class="svc-badge svc-self svc-unconfirmed">Self-service</span></td>
-          <td>Same town (Kempton Park) — exact distance unconfirmed</td>
-          <td><span class="rating-none">Not independently rated</span><span class="rating-src">Name suggests a coin laundromat, but not directly verified — flagged for a closer look.</span></td>
+          <td>10.4 km — 11 min drive <span style="color:var(--text-muted); font-weight:400;">(via R21, Google Maps)</span></td>
+          <td>—</td>
         </tr>
 
-        <tr class="section-row"><td colspan="4">🇿🇦 Kruger Allo B&amp;B — Komatipoort, South Africa</td></tr>
+        <tr class="section-row"><td colspan="3">🇿🇦 Kruger Allo B&amp;B — Komatipoort, South Africa</td><td class="wm-cell"><span class="svc-badge svc-no">No</span></td></tr>
         <tr>
           <td>No standalone laundry business found</td>
           <td><span class="svc-badge svc-none">None found</span></td>
           <td>—</td>
-          <td><span class="rating-none">N/A</span><span class="rating-src">Directories list only guesthouses mentioning laundry as an amenity — no dedicated business in Komatipoort itself. (Mahanaim Laundry, an earlier lead, is actually in Randburg/Johannesburg, hours away — dropped.)</span></td>
+          <td>—</td>
         </tr>
 
-        <tr class="section-row"><td colspan="4">🇿🇦 Satara Rest Camp — Kruger National Park, South Africa</td></tr>
+        <tr class="section-row"><td colspan="3">🇿🇦 Satara Rest Camp — Kruger National Park, South Africa</td><td class="wm-cell"><span class="svc-badge svc-yes">Yes</span></td></tr>
         <tr>
           <td>SANParks camp laundromat</td>
           <td><span class="svc-badge svc-self">Self-service</span></td>
           <td>On-site, in camp (communal area near the caravan site)</td>
-          <td><span class="rating-none">Not independently rated</span><span class="rating-src">Confirmed via Tripadvisor forum — coin machines, roughly R10/load. Asking camp staff to do it for a tip is also apparently possible informally.</span></td>
+          <td>—</td>
         </tr>
 
-        <tr class="section-row"><td colspan="4">🇿🇦 Sabie Star — Sabie, Mpumalanga, South Africa</td></tr>
+        <tr class="section-row"><td colspan="3">🇿🇦 Sabie Star — Sabie, Mpumalanga, South Africa</td><td class="wm-cell"><span class="svc-badge svc-no">No</span></td></tr>
         <tr>
           <td>No confirmed option in Sabie itself</td>
           <td><span class="svc-badge svc-none">None found</span></td>
           <td>—</td>
-          <td><span class="rating-none">N/A</span><span class="rating-src">Laundrohub, an earlier lead, is actually in Nelspruit/Mbombela — a real ~25–30 km drive away, not "near" Sabie Star. Directory searches for Sabie town itself came back empty.</span></td>
+          <td>—</td>
         </tr>
 
-        <tr class="section-row"><td colspan="4">🇲🇺 Palms Studio — La Gaulette / Le Morne, Mauritius</td></tr>
+        <tr class="section-row"><td colspan="3">🇲🇺 Palms Studio — La Gaulette / Le Morne, Mauritius</td><td class="wm-cell"><span class="svc-badge svc-no">No</span></td></tr>
         <tr>
           <td>Island-wide pickup/delivery <span style="color:var(--text-muted); font-weight:400;">(X-Press Ironing, UClean, DCS, Penguin Laundry)</span></td>
           <td><span class="svc-badge svc-staffed">Pickup / delivery</span></td>
           <td>N/A — service comes to you</td>
-          <td><span class="rating-none">Not independently rated</span><span class="rating-src">No fixed-location laundrette found near Le Morne; these operators schedule a pickup and return clean laundry.</span></td>
+          <td>—</td>
         </tr>
 
-        <tr class="section-row"><td colspan="4">🇲🇺 Residence Le Point Choisy — Grand Baie / Pointe aux Cannoniers, Mauritius</td></tr>
+        <tr class="section-row"><td colspan="3">🇲🇺 Residence Le Point Choisy — Grand Baie / Pointe aux Cannoniers, Mauritius</td><td class="wm-cell"><span class="svc-badge svc-yes">Yes</span></td></tr>
         <tr>
           <td>Laverie Automatique <span style="color:var(--text-muted); font-weight:400;">(Super U parking lot, Grand Baie)</span></td>
           <td><span class="svc-badge svc-self">Self-service</span></td>
-          <td>Grand Baie town — Pointe aux Cannoniers is a few km north, exact distance unconfirmed</td>
-          <td><span class="rating-none">Not independently rated</span><span class="rating-src">Confirmed self-service coin laundrette — multiple independent mentions describe it as "come wash your own laundry."</span></td>
+          <td>3.9 km — 9 min drive <span style="color:var(--text-muted); font-weight:400;">(via B13, Google Maps)</span></td>
+          <td>—</td>
         </tr>
         <tr>
           <td>Island-wide pickup/delivery <span style="color:var(--text-muted); font-weight:400;">(backup option)</span></td>
           <td><span class="svc-badge svc-staffed">Pickup / delivery</span></td>
           <td>N/A — service comes to you</td>
-          <td><span class="rating-none">Not independently rated</span></td>
+          <td>—</td>
         </tr>
 
-        <tr class="section-row"><td colspan="4">🇲🇺 Gite des Acacias — Union Vale, Mauritius</td></tr>
+        <tr class="section-row"><td colspan="3">🇲🇺 Gite des Acacias — Union Vale, Mauritius</td><td class="wm-cell"><span class="svc-badge svc-no">No</span></td></tr>
         <tr>
           <td>Island-wide pickup/delivery only</td>
           <td><span class="svc-badge svc-staffed">Pickup / delivery</span></td>
           <td>N/A — service comes to you</td>
-          <td><span class="rating-none">Not independently rated</span><span class="rating-src">Union Vale is inland/rural — no local laundrette found.</span></td>
+          <td>—</td>
         </tr>
 
       </tbody>
@@ -384,16 +352,6 @@ body{ padding-inline:0; padding-block:0; overflow-x:hidden; }
   </div>
   </div>
 
-  <div class="notes">
-    <h3>Reading This Table</h3>
-    <ul>
-      <li><strong>No distances were calculated with a maps tool</strong> — there isn't one available. "Same town" means the business and hotel share a town/suburb; anywhere a precise distance would otherwise appear, it says "unconfirmed" instead of a made-up figure.</li>
-      <li><strong>Service type is inferred from the business name and context where not directly confirmed.</strong> "Steam Laundry" and "Dry Cleaners" strongly imply a staffed drop-off shop; "Laundromat" or "Laverie Automatique" strongly imply self-service — but only Satara Rest Camp and Laverie Automatique (Grand Baie) were independently confirmed as self-service. Everything else marked "unconfirmed" is a reasonable guess, not a verified fact.</li>
-      <li><strong>Ratings are almost entirely "Not independently rated"</strong> — unlike the airport lounges, these are small local/regional businesses with little to no published review data. Nothing here is a fabricated star rating.</li>
-      <li><strong>Kasane, Komatipoort and Sabie</strong> have no confirmed standalone laundry business at all — expect to rely on hotel/guesthouse laundry (paid or otherwise) or simply pack accordingly for those legs.</li>
-      <li>Earlier leads that turned out to be mismatched or too far away were dropped rather than presented misleadingly: Itenge Dry Cleaners (address is actually in Kasane, Botswana, not Victoria Falls) and Mahanaim Laundry (actually in Randburg, Johannesburg, not Komatipoort).</li>
-    </ul>
-  </div>
 
 </div>
 </main>

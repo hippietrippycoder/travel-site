@@ -191,6 +191,7 @@ table.pay-table{border-collapse:collapse; table-layout:fixed; width:100%; min-wi
 .pay-table td.hotel .stay-dates{display:block; font-family:'JetBrains Mono',monospace; font-size:0.7rem; color:var(--accent-strong); font-weight:600; letter-spacing:0.02em;}
 .pay-table td.hotel .stay-place{display:block; margin-top:2px; color:var(--text);}
 .pay-table td.hotel .stay-place .loc{color:var(--text-muted); font-weight:400;}
+.pay-table td.hotel .stay-note{display:block; margin-top:2px; font-size:0.68rem; color:var(--accent-strong); font-family:'JetBrains Mono',monospace; font-weight:600;}
 .pay-table td.txn .txn-none{color:var(--text-muted); font-style:italic; font-size:0.78rem;}
 .pay-table td.num{font-family:'JetBrains Mono',monospace; font-variant-numeric:tabular-nums;}
 .pay-table td.total-col{font-weight:700; color:var(--text);}
@@ -313,29 +314,29 @@ body{ padding-inline:0; padding-block:0; overflow-x:hidden; }
   <div class="summary-block">
     <div class="summary-head">
       <h3>Cost Summary Per Traveller</h3>
-      <span class="summary-meta">Flights + Hotels · split evenly three ways</span>
+      <span class="summary-meta">Flights + Hotels · split evenly three ways, except Grand Baie stay</span>
     </div>
 
     <div class="traveller-grid">
       <div class="traveller-card">
         <span class="t-name">Amar Raj Urs</span>
         <div class="t-line"><span>Flights</span><span class="t-amt">₹1,27,438.35</span></div>
-        <div class="t-line"><span>Hotels</span><span class="t-amt">₹43,739.94</span></div>
-        <div class="t-due"><span class="t-due-label">Total Due</span><span class="t-due-amt">₹1,71,178.29</span></div>
+        <div class="t-line"><span>Hotels</span><span class="t-amt">₹47,579.47</span></div>
+        <div class="t-due"><span class="t-due-label">Total Due</span><span class="t-due-amt">₹1,75,017.82</span></div>
         <span class="t-deadline">Pay by 30-SEP-2026</span>
       </div>
       <div class="traveller-card">
         <span class="t-name">Pratap Raj</span>
         <div class="t-line"><span>Flights</span><span class="t-amt">₹1,27,438.35</span></div>
-        <div class="t-line"><span>Hotels</span><span class="t-amt">₹43,739.94</span></div>
-        <div class="t-due"><span class="t-due-label">Total Due</span><span class="t-due-amt">₹1,71,178.29</span></div>
+        <div class="t-line"><span>Hotels</span><span class="t-amt">₹36,060.89</span></div>
+        <div class="t-due"><span class="t-due-label">Total Due</span><span class="t-due-amt">₹1,63,499.24</span></div>
         <span class="t-deadline">Pay by 30-SEP-2026</span>
       </div>
       <div class="traveller-card">
         <span class="t-name">Praveen Kumar Nallipogu</span>
         <div class="t-line"><span>Flights</span><span class="t-amt">₹1,27,438.35</span></div>
-        <div class="t-line"><span>Hotels</span><span class="t-amt">₹43,739.94</span></div>
-        <div class="t-due"><span class="t-due-label">Total Due</span><span class="t-due-amt">₹1,71,178.29</span></div>
+        <div class="t-line"><span>Hotels</span><span class="t-amt">₹47,579.46</span></div>
+        <div class="t-due"><span class="t-due-label">Total Due</span><span class="t-due-amt">₹1,75,017.81</span></div>
         <span class="t-deadline">Pay by 30-SEP-2026</span>
       </div>
     </div>
@@ -398,12 +399,14 @@ body{ padding-inline:0; padding-block:0; overflow-x:hidden; }
           <tr><td class="sl">9</td><td><span class="dt-date">14-SEP-2026</span><span class="dt-time">19:59</span></td><td class="txn"><span class="txn-main">NightsBridge Pay</span><span class="txn-sub">Sandton</span></td><td class="hotel"><span class="stay-dates">5 OCT – 6 OCT</span><span class="stay-place">Sabie Star, <span class="loc">Sabie</span></span></td><td class="status"><span class="pay-status status-partial">Paid In Half</span></td><td class="num">4,751.20</td><td class="num">95.02</td><td class="num">17.10</td><td class="num total-col">4,863.33</td></tr>
           <tr><td class="sl">10</td><td><span class="dt-date">13-SEP-2026</span><span class="dt-time">18:06</span></td><td class="txn"><span class="txn-main">BKG*HOTEL AT BOOKING.</span></td><td class="hotel"><span class="stay-dates">6 OCT – 7 OCT</span><span class="stay-place">Vetho 1 Apartments, <span class="loc">Kempton Park</span></span></td><td class="status"><span class="pay-status">Paid In Full</span></td><td class="num">3,754.94</td><td class="num">75.10</td><td class="num">13.52</td><td class="num total-col">3,843.56</td></tr>
           <tr><td class="sl">11</td><td><span class="dt-date">13-SEP-2026</span><span class="dt-time">22:22</span></td><td class="txn"><span class="txn-main">BKG*HOTEL AT BOOKING.</span></td><td class="hotel"><span class="stay-dates">7 OCT – 8 OCT</span><span class="stay-place">Palms Studio, <span class="loc">La Gaulette (Le Morne)</span></span></td><td class="status"><span class="pay-status">Paid In Full</span></td><td class="num">18,728.50</td><td class="num">374.57</td><td class="num">67.42</td><td class="num total-col">19,170.49</td></tr>
-          <tr><td class="sl">12</td><td><span class="dt-date">13-SEP-2026</span><span class="dt-time">23:25</span></td><td class="txn"><span class="txn-main">BKG*HOTEL AT BOOKING.</span></td><td class="hotel"><span class="stay-dates">9 OCT – 11 OCT</span><span class="stay-place">Residence Le Point Choisy, <span class="loc">Grand Baie</span></span></td><td class="status"><span class="pay-status">Paid In Full</span></td><td class="num">22,505.99</td><td class="num">450.12</td><td class="num">81.02</td><td class="num total-col">23,037.13</td></tr>
+          <tr><td class="sl">12</td><td><span class="dt-date">13-SEP-2026</span><span class="dt-time">23:25</span></td><td class="txn"><span class="txn-main">BKG*HOTEL AT BOOKING.</span></td><td class="hotel"><span class="stay-dates">9 OCT – 11 OCT</span><span class="stay-place">Residence Le Point Choisy, <span class="loc">Grand Baie</span></span><span class="stay-note">Split: Amar &amp; Praveen only — Pratap not involved</span></td><td class="status"><span class="pay-status">Paid In Full</span></td><td class="num">22,505.99</td><td class="num">450.12</td><td class="num">81.02</td><td class="num total-col">23,037.13</td></tr>
           <tr><td class="sl">13</td><td><span class="dt-date">13-SEP-2026</span><span class="dt-time">23:59</span></td><td class="txn"><span class="txn-main">BKG*HOTEL AT BOOKING.</span></td><td class="hotel"><span class="stay-dates">11 OCT – 12 OCT</span><span class="stay-place">Gite des Acacias, <span class="loc">Union Vale</span></span></td><td class="status"><span class="pay-status status-pending">Pay At Hotel</span></td><td class="num">0.00</td><td class="num">0.00</td><td class="num">0.00</td><td class="num total-col">0.00</td></tr>
         </tbody>
         <tfoot>
           <tr class="total-row"><td colspan="5">TOTAL</td><td class="num">1,28,262.84</td><td class="num">2,536.56</td><td class="num">420.42</td><td class="num">1,31,219.82</td></tr>
-          <tr class="perhead-row"><td colspan="8">Per Head Cost</td><td class="num">43,739.94</td></tr>
+          <tr class="perhead-row"><td colspan="8">Per Head Cost — Amar Raj Urs</td><td class="num">47,579.47</td></tr>
+          <tr class="perhead-row"><td colspan="8">Per Head Cost — Pratap Raj</td><td class="num">36,060.89</td></tr>
+          <tr class="perhead-row"><td colspan="8">Per Head Cost — Praveen Kumar Nallipogu</td><td class="num">47,579.46</td></tr>
         </tfoot>
       </table>
     </div>
@@ -415,6 +418,7 @@ body{ padding-inline:0; padding-block:0; overflow-x:hidden; }
     <h3>Foot Note</h3>
     <ul>
       <li><strong>FCR</strong> and <strong>IGST</strong> are the foreign currency markup and tax components on the international bookings — Bill + FCR + IGST = Total for each row. The MakeMyTrip and IndiGo domestic-fare rows show ₹0.00 for both, consistent with a domestic fare with no forex component.</li>
+      <li><strong>Hotel booking #12</strong> (Residence Le Point Choisy, Grand Baie, 9–11 Oct, ₹23,037.13) was split only between <strong>Amar</strong> and <strong>Praveen</strong> — Pratap was not part of this stay. The remaining 12 hotel bookings (₹1,08,182.69) are still split evenly three ways. The three Per Head Cost figures in the Hotel Bookings footer, and the Hotels/Total Due figures in the traveller cards above, already reflect this adjustment.</li>
       <li><strong>Payment Status</strong> is colour-coded across both tables:
         <div class="status-legend">
           <div class="legend-row"><span class="pay-status">Paid In Full</span><span class="legend-desc">fully settled, nothing owed</span></div>

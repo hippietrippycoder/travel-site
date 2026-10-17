@@ -205,15 +205,6 @@ table.pay-table{border-collapse:collapse; table-layout:fixed; width:100%; min-wi
 .pay-table tfoot tr.total-row td:first-child,
 .pay-table tfoot tr.perhead-row td:first-child{text-align:left; font-family:'Karla',sans-serif; letter-spacing:0.03em; text-transform:uppercase; font-size:0.72rem;}
 
-.notes{display:flex; flex-direction:column; gap:12px;}
-.notes h3{font-size:1.05rem; margin-bottom:2px;}
-.notes ul{margin:0; padding-left:1.2em; display:flex; flex-direction:column; gap:8px;}
-.notes li{font-size:0.92rem; line-height:1.55; color:var(--text);}
-.notes li strong{color:var(--accent-strong);}
-.status-legend{display:flex; flex-direction:column; gap:7px; margin-top:8px;}
-.status-legend .legend-row{display:flex; align-items:center; gap:10px;}
-.status-legend .legend-desc{font-size:0.82rem; color:var(--text-muted);}
-
 footer{color:var(--text-muted); font-size:0.78rem; text-align:center; padding-top:8px;}
 
 body{ padding-inline:0; padding-block:0; overflow-x:hidden; }
@@ -413,21 +404,6 @@ body{ padding-inline:0; padding-block:0; overflow-x:hidden; }
   </div>
 
   <!-- Next batch tables go here, following the same .batch-block / .pay-table pattern -->
-
-  <div class="notes">
-    <h3>Foot Note</h3>
-    <ul>
-      <li><strong>FCR</strong> and <strong>IGST</strong> are the foreign currency markup and tax components on the international bookings — Bill + FCR + IGST = Total for each row. The MakeMyTrip and IndiGo domestic-fare rows show ₹0.00 for both, consistent with a domestic fare with no forex component.</li>
-      <li><strong>Hotel booking #12</strong> (Residence Le Point Choisy, Grand Baie, 9–11 Oct, ₹23,037.13) was split only between <strong>Amar</strong> and <strong>Praveen</strong> — Pratap was not part of this stay. The remaining 12 hotel bookings (₹1,08,182.69) are still split evenly three ways. The three Per Head Cost figures in the Hotel Bookings footer, and the Hotels/Total Due figures in the traveller cards above, already reflect this adjustment.</li>
-      <li><strong>Payment Status</strong> is colour-coded across both tables:
-        <div class="status-legend">
-          <div class="legend-row"><span class="pay-status">Paid In Full</span><span class="legend-desc">fully settled, nothing owed</span></div>
-          <div class="legend-row"><span class="pay-status status-pending">Pay At Hotel</span><span class="legend-desc">unpaid, settle on arrival</span></div>
-          <div class="legend-row"><span class="pay-status status-partial">Paid In Half</span><span class="legend-desc">partly paid, balance due</span></div>
-        </div>
-      </li>
-    </ul>
-  </div>
 
 </div>
 </main>

@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Batch 3 — Card Payments — Africa Five Nation Tour</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Karla:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --bg: #EEF0E4;
+  --surface: #FBFBF4;
+  --surface-2: #F2F3E8;
+  --text: #212C1C;
+  --text-muted: #5C6650;
+  --line: #D6DAC4;
+  --accent: #A9701F;
+  --accent-strong: #7C5216;
+  --accent-soft: #EFDFBB;
+  --danger: #963B26;
+  --danger-soft: #F3DCCC;
+  --good: #3E7A3E;
+  --good-soft: #DCEBDA;
+  --shadow: 0 1px 2px rgba(33,44,28,0.06), 0 8px 24px -12px rgba(33,44,28,0.18);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg: #161D14;
+    --surface: #1D2519;
+    --surface-2: #232C1E;
+    --text: #E8EADB;
+    --text-muted: #9CA68C;
+    --line: #333F2B;
+    --accent: #DDA54E;
+    --accent-strong: #F0BE70;
+    --accent-soft: #3A3220;
+    --danger: #E58A6C;
+    --danger-soft: #3B241C;
+    --good: #7FC17F;
+    --good-soft: #223A22;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+  }
+}
+:root[data-theme="dark"]{
+  --bg: #161D14;
+  --surface: #1D2519;
+  --surface-2: #232C1E;
+  --text: #E8EADB;
+  --text-muted: #9CA68C;
+  --line: #333F2B;
+  --accent: #DDA54E;
+  --accent-strong: #F0BE70;
+  --accent-soft: #3A3220;
+  --danger: #E58A6C;
+  --danger-soft: #3B241C;
+  --good: #7FC17F;
+  --good-soft: #223A22;
+  --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+}
+
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Karla', ui-sans-serif, system-ui, sans-serif;
+  padding-inline:20px;
+  padding-block:36px 64px;
+}
+.wrap{max-width:1080px; margin:0 auto; display:flex; flex-direction:column; gap:28px;}
+
+h1,h2,h3{font-family:'Fraunces', Georgia, serif; text-wrap:balance; margin:0;}
+.eyebrow{
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.72rem;
+  letter-spacing:0.09em;
+  text-transform:uppercase;
+  color:var(--accent-strong);
+  font-weight:600;
+}
+
+.travellers{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:2px;
+}
+.travellers .pill{
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.68rem;
+  letter-spacing:0.03em;
+  font-weight:600;
+  text-transform:uppercase;
+  color:var(--accent-strong);
+  background:var(--accent-soft);
+  border:1px solid var(--line);
+  padding:5px 12px;
+  border-radius:999px;
+  white-space:nowrap;
+}
+
+/* header */
+header{display:flex; flex-direction:column; gap:10px;}
+header h1{font-size:clamp(1.7rem, 4.5vw, 2.4rem); font-weight:700; color:var(--text);}
+header p.sub{margin:0; color:var(--text-muted); font-size:1.02rem; max-width:60ch;}
+
+/* traveller summary */
+.summary-block{display:flex; flex-direction:column; gap:10px;}
+.summary-head{display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:8px;}
+.summary-head h3{font-size:1.05rem; text-transform:uppercase; letter-spacing:0.02em; font-weight:700;}
+.summary-head .summary-meta{font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em;}
+.traveller-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:14px;}
+.traveller-card{
+  background:var(--surface); border:1px solid var(--line); border-radius:14px;
+  padding:18px 20px; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:10px;
+}
+.traveller-card .t-name{font-family:'Fraunces',Georgia,serif; font-weight:700; font-size:1.02rem; color:var(--text);}
+.traveller-card .t-line{display:flex; justify-content:space-between; align-items:baseline; font-size:0.85rem; color:var(--text-muted);}
+.traveller-card .t-line .t-amt{font-family:'JetBrains Mono',monospace; color:var(--text); font-weight:600; font-variant-numeric:tabular-nums;}
+.traveller-card .t-due{
+  display:flex; justify-content:space-between; align-items:baseline;
+  padding-top:10px; margin-top:2px; border-top:1px solid var(--line);
+}
+.traveller-card .t-due .t-due-label{font-family:'JetBrains Mono',monospace; font-size:0.66rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--accent-strong); font-weight:700;}
+.traveller-card .t-due .t-due-amt{font-family:'JetBrains Mono',monospace; font-size:1.1rem; font-weight:700; color:var(--accent-strong); font-variant-numeric:tabular-nums;}
+.traveller-card .t-deadline{
+  font-family:'JetBrains Mono',monospace; font-size:0.62rem; font-weight:700; letter-spacing:0.05em;
+  text-transform:uppercase; color:var(--danger); background:var(--danger-soft);
+  border-radius:999px; padding:4px 9px; display:inline-flex; align-self:flex-start; white-space:nowrap;
+}
+@media (max-width:760px){
+  .traveller-grid{grid-template-columns:1fr;}
+}
+
+/* batch table */
+.batch-block{display:flex; flex-direction:column; gap:10px;}
+.batch-head{display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:8px;}
+.batch-head h3{font-size:1.05rem; text-transform:uppercase; letter-spacing:0.02em; font-weight:700;}
+.batch-head .batch-meta{font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em;}
+
+.table-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:12px;}
+table.pay-table{border-collapse:collapse; table-layout:fixed; width:100%; min-width:960px; background:var(--surface);}
+.pay-table th,.pay-table td{padding:9px 12px; text-align:right; font-size:0.82rem; border-bottom:1px solid var(--line); white-space:nowrap;}
+.pay-table th{
+  font-family:'JetBrains Mono',monospace; font-size:0.64rem; text-transform:uppercase;
+  letter-spacing:0.04em; color:var(--text-muted); background:var(--surface-2); font-weight:600;
+}
+.pay-table thead th:nth-child(1),.pay-table tbody td:nth-child(1),
+.pay-table thead th:nth-child(2),.pay-table tbody td:nth-child(2),
+.pay-table thead th:nth-child(3),.pay-table tbody td:nth-child(3){text-align:left; white-space:normal;}
+.pay-table td.sl{font-family:'JetBrains Mono',monospace; color:var(--text-muted); text-align:left;}
+.pay-table td .dt-date{display:block; font-weight:600; color:var(--text); white-space:nowrap;}
+.pay-table td .dt-time{display:block; font-size:0.72rem; color:var(--text-muted); font-family:'JetBrains Mono',monospace; margin-top:2px; white-space:nowrap;}
+.pay-table td.txn{font-size:0.78rem; line-height:1.4;}
+.pay-table td.txn .txn-main{display:block; font-weight:600; color:var(--text);}
+.pay-table td.txn .txn-sub{display:block; font-size:0.72rem; color:var(--text-muted); font-family:'JetBrains Mono',monospace; margin-top:2px;}
+.pay-table th.status-col,.pay-table th.left-col{text-align:left;}
+.pay-table td.status{text-align:left; white-space:nowrap;}
+.pay-status{
+  font-family:'JetBrains Mono',monospace; font-size:0.62rem; font-weight:700; letter-spacing:0.05em;
+  padding:3px 9px; border-radius:999px; white-space:nowrap; display:inline-block; text-transform:uppercase;
+  background:var(--good-soft); color:var(--good);
+}
+.pay-status.status-pending{background:var(--accent-soft); color:var(--accent-strong);}
+.pay-status.status-partial{background:var(--danger-soft); color:var(--danger);}
+.pay-table td.route{font-family:'JetBrains Mono',monospace; font-size:0.76rem; color:var(--accent-strong); font-weight:600; text-align:left;}
+.pay-table td.hotel{font-size:0.8rem; line-height:1.4; text-align:left; white-space:normal;}
+.pay-table td.hotel .stay-dates{display:block; font-family:'JetBrains Mono',monospace; font-size:0.7rem; color:var(--accent-strong); font-weight:600; letter-spacing:0.02em;}
+.pay-table td.hotel .stay-place{display:block; margin-top:2px; color:var(--text);}
+.pay-table td.hotel .stay-place .loc{color:var(--text-muted); font-weight:400;}
+.pay-table td.txn .txn-none{color:var(--text-muted); font-style:italic; font-size:0.78rem;}
+.pay-table td.num{font-family:'JetBrains Mono',monospace; font-variant-numeric:tabular-nums;}
+.pay-table td.total-col{font-weight:700; color:var(--text);}
+.pay-table tbody tr:last-child td{border-bottom:none;}
+.pay-table tfoot tr.total-row td,
+.pay-table tfoot tr.perhead-row td{
+  background:var(--accent-soft); color:var(--accent-strong); font-weight:700;
+  border-top:2px solid var(--line); border-bottom:none; font-family:'JetBrains Mono',monospace;
+}
+.pay-table tfoot tr.perhead-row td{border-top:none;}
+.pay-table tfoot tr.total-row td:first-child,
+.pay-table tfoot tr.perhead-row td:first-child{text-align:left; font-family:'Karla',sans-serif; letter-spacing:0.03em; text-transform:uppercase; font-size:0.72rem;}
+
+footer{color:var(--text-muted); font-size:0.78rem; text-align:center; padding-top:8px;}
+
+body{ padding-inline:0; padding-block:0; overflow-x:hidden; }
+.site-shell{ display:flex; align-items:flex-start; min-height:100vh; }
+.sidebar{
+  width:238px; flex-shrink:0;
+  background:var(--surface); border-right:1px solid var(--line);
+  padding:18px 12px 24px; display:flex; flex-direction:column; gap:2px;
+  position:sticky; top:0; height:100vh; overflow-y:auto;
+}
+.sidebar-brand{ display:flex; justify-content:center; padding:12px 8px 16px; }
+.sidebar-icon-row{ display:flex; gap:3px; }
+.sidebar-icon-row .icon-chip{ width:29px; height:29px; border-radius:7px; background:var(--surface-2); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; color:var(--accent-strong); flex-shrink:0; }
+.sidebar-icon-row .icon-chip svg{ width:15px; height:15px; }
+.sidebar-group{ font-family:'JetBrains Mono', monospace; font-size:0.62rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-muted); font-weight:600; margin:14px 10px 4px; }
+.sidebar-link{
+  display:flex; align-items:center; gap:8px;
+  padding:8px 8px; border-radius:8px;
+  color:var(--text); text-decoration:none;
+  font-size:0.66rem; font-weight:500; line-height:1.3;
+  text-transform:uppercase; letter-spacing:0.005em;
+  white-space:nowrap;
+}
+.sidebar-link svg{ width:16px; height:16px; flex-shrink:0; color:var(--text-muted); }
+.sidebar-link:hover{ background:var(--surface-2); }
+.sidebar-link.is-active{ background:var(--accent-soft); color:var(--accent-strong); font-weight:700; }
+.sidebar-link.is-active svg{ color:var(--accent-strong); }
+.sidebar-link.home-link{ border-bottom:1px solid var(--line); margin-bottom:6px; padding-bottom:12px; }
+
+.site-main{ flex:1 1 auto; min-width:0; padding-inline:20px; padding-block:36px 64px; }
+
+.sidebar-toggle{ display:none; }
+.sidebar-backdrop{ display:none; }
+
+@media (max-width:900px){
+  .sidebar{
+    position:fixed; top:0; left:0; height:100vh; width:78vw; max-width:280px; z-index:200;
+    transform:translateX(-100%); transition:transform 0.2s ease;
+  }
+  .sidebar.is-open{ transform:translateX(0); box-shadow:10px 0 28px rgba(0,0,0,0.18); }
+  .sidebar-toggle{
+    display:flex; align-items:center; justify-content:center;
+    position:fixed; top:14px; left:14px; z-index:210;
+    width:40px; height:40px; border-radius:10px;
+    background:var(--surface); border:1px solid var(--line); box-shadow:var(--shadow);
+    color:var(--text); cursor:pointer;
+  }
+  .sidebar-toggle svg{ width:19px; height:19px; }
+  .sidebar-backdrop{
+    display:block; position:fixed; inset:0; background:rgba(10,14,8,0.4);
+    opacity:0; pointer-events:none; transition:opacity 0.2s ease; z-index:190;
+  }
+  .sidebar-backdrop.is-open{ opacity:1; pointer-events:auto; }
+  .site-main{ padding-top:72px; }
+}
+@media (max-width:640px){
+  .pay-table,.cat-table{table-layout:auto !important;}
+  .pay-table td, .pay-table th,.cat-table td,.cat-table th{white-space:normal !important; font-size:0.73rem; padding:7px 6px;}
+}
+
+/* Batch 2 — Forex Actual Spend: a couple of additions on top of the shared table/card patterns */
+.pay-table tbody td.date-col{font-family:'JetBrains Mono',monospace; font-weight:600; color:var(--text); white-space:nowrap;}
+.pay-table td.paidby-col{font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:var(--text); font-weight:600; text-align:left; white-space:nowrap;}
+.pay-table th.left-col{text-align:left;}
+.pay-table td.split-col{font-size:0.78rem; color:var(--text-muted); text-align:left; white-space:normal;}
+.traveller-card .t-due.is-good .t-due-label,
+.traveller-card .t-due.is-good .t-due-amt{color:var(--good);}
+.traveller-card .t-due.is-owe .t-due-label,
+.traveller-card .t-due.is-owe .t-due-amt{color:var(--danger);}
+
+.settle-list{display:flex; flex-direction:column; gap:10px;}
+.settle-row{
+  background:var(--surface); border:1px solid var(--line); border-radius:14px;
+  padding:16px 20px; box-shadow:var(--shadow);
+  display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;
+}
+.settle-row .settle-parties{display:flex; align-items:center; gap:10px; font-family:'Fraunces',Georgia,serif; font-weight:700; font-size:1rem; color:var(--text); flex-wrap:wrap;}
+.settle-row .settle-parties svg{width:17px; height:17px; color:var(--accent-strong); flex-shrink:0;}
+.settle-row .settle-amt{font-family:'JetBrains Mono',monospace; font-size:1.12rem; font-weight:700; color:var(--accent-strong); font-variant-numeric:tabular-nums; white-space:nowrap;}
+@media (max-width:480px){
+  .settle-row .settle-parties{font-size:0.9rem;}
+}
+
+/* Batch 3 — Card Payments: additions on top of Batch 2's patterns */
+.pay-table tbody td.ctry-col{font-family:'JetBrains Mono',monospace; font-size:0.7rem; color:var(--text-muted); text-align:left; white-space:nowrap; text-transform:uppercase; letter-spacing:0.02em;}
+
+.cat-table{border-collapse:collapse; table-layout:fixed; width:100%; background:var(--surface);}
+.cat-table th,.cat-table td{padding:9px 12px; text-align:right; font-size:0.82rem; border-bottom:1px solid var(--line);}
+.cat-table th{font-family:'JetBrains Mono',monospace; font-size:0.64rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--text-muted); background:var(--surface-2); font-weight:600;}
+.cat-table th.left-col{text-align:left;}
+.cat-table td.cat-name{text-align:left; font-weight:600; color:var(--text); font-size:0.82rem;}
+.cat-table td.num{font-family:'JetBrains Mono',monospace; font-variant-numeric:tabular-nums;}
+.cat-table tbody tr:last-child td{border-bottom:none;}
+.cat-table tfoot tr td{background:var(--accent-soft); color:var(--accent-strong); font-weight:700; border-top:2px solid var(--line); border-bottom:none; font-family:'JetBrains Mono',monospace;}
+.cat-table tfoot tr td:first-child{text-align:left; font-family:'Karla',sans-serif; letter-spacing:0.03em; text-transform:uppercase; font-size:0.72rem;}
+.cat-table td.cat-name .cat-code{font-family:'JetBrains Mono',monospace; font-weight:400; color:var(--text-muted); font-size:0.7rem; text-transform:uppercase; letter-spacing:0.03em;}
+</style>
+</head>
+<body>
+<div class="site-shell">
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand"><div class="sidebar-icon-row"><span class="icon-chip"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><ellipse cx="12" cy="14.5" rx="4.6" ry="5.4"/><ellipse cx="6.3" cy="8.2" rx="2" ry="2.5" transform="rotate(-20 6.3 8.2)"/><ellipse cx="10.2" cy="5.3" rx="1.9" ry="2.4" transform="rotate(-8 10.2 5.3)"/><ellipse cx="14.3" cy="5.1" rx="1.9" ry="2.4" transform="rotate(8 14.3 5.1)"/><ellipse cx="18" cy="8" rx="2" ry="2.5" transform="rotate(20 18 8)"/></svg></span><span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 17 8 9l3 4.5L14.5 8l6 9"/><path d="M3.5 17h17"/></svg></span><span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0 1 12 3.5 6.5 6.5 0 0 1 18.5 10c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg></span><span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.5V11"/><path d="M12 12c0-4.5-3-7.5-7.5-8 .5 4.3 3.3 7.4 7.5 8z"/><path d="M12 12c0-4.5 3-7.5 7.5-8-.5 4.3-3.3 7.4-7.5 8z"/></svg></span><span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.3"/><path d="M3 18.5c1.8-3 4.4-4.8 6.3-3 1 .9 1.7 1 2.7 0 1.9-1.8 4.5 0 6.3 3"/></svg></span><span class="icon-chip"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M13.2 2.3c2.7.5 4.9 2.2 6 4.6.4.9.2 1.9-.5 2.5l-1.7 1.5c-.4.3-.6.8-.5 1.3l.5 2.1c.2.8-.1 1.6-.8 2.1l-2.6 1.8c-.5.3-.8.9-.7 1.5l.3 1.9c.1.7-.4 1.4-1.1 1.4-3.9-.1-7.3-2.3-9-5.6-.4-.8-.1-1.7.6-2.2l1.6-1.1c.5-.3.7-.9.5-1.4l-.6-1.7c-.2-.6 0-1.3.6-1.7l2-1.4c.4-.3.6-.8.5-1.3l-.4-1.7c-.2-.9.4-1.8 1.3-1.9l3-.4c.4 0 .7-.2 1-.5z"/></svg></span></div></div>
+  <a class="sidebar-link home-link" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg><span>Home</span></a>
+  <div class="sidebar-group">Day by day</div>
+  <a class="sidebar-link" href="full_trip_route.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 20l-5.5 2V6L9 4m0 16l6 2m-6-2V4m6 18l5.5-2V4L15 6m0 16V4m0 0L9 6"/></svg><span>Day-by-Day Itinerary</span></a>
+  <a class="sidebar-link" href="free_time_extras.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg><span>Off Beat Activities</span></a>
+  <a class="sidebar-link" href="local_food_guide.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3v7a3 3 0 0 0 3 3v8M7 3v7M10 3v7M17 3c-2 2-2 5-2 8 0 2 1 3 2 3v7"/></svg><span>Local Food &amp; Cuisines</span></a>
+  <a class="sidebar-link" href="weather_overview.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10.58A5 5 0 0 0 16 2h-1.24A8 8 0 1 0 5 14.25"/><path d="M8 17v3M12 15.5v3M16 17v3"/></svg><span>Weather Forecast Daily</span></a>
+  <div class="sidebar-group">Reference</div>
+  <a class="sidebar-link" href="hotels_flights.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 22l20-9L2 4l5 9-5 9z"/></svg><span>Hotel &amp; Flights</span></a>
+  <a class="sidebar-link" href="airport_lounges.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2"/><path d="M3 13a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M5 17v2M19 17v2"/></svg><span>Airport Lounges</span></a>
+  <a class="sidebar-link" href="laundry_services.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.2"/><path d="M9 5.5h1.2M9 5.5V4"/></svg><span>Laundry Services</span></a>
+  <a class="sidebar-link" href="documents.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-4-4m4 4 4-4"/><path d="M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></svg><span>Trip Documents</span></a>
+  <a class="sidebar-link" href="important_actions_checklist.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span>Imp To-Do Checklist</span></a>
+  <a class="sidebar-link" href="travel_documents_checklist.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg><span>Travel Doc Checklist</span></a>
+  <div class="sidebar-group">Financials</div>
+  <a class="sidebar-link" href="trip_budget.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span>Budget Vs Actuals</span></a>
+  <a class="sidebar-link" href="batch_one_payment.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M6 15h4"/></svg><span>Batch 1 — Payment</span></a>
+  <a class="sidebar-link" href="batch_two_forex_actual_spend.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 8h6M9 12h6M9 16h3.5"/><path d="M6 3h12a1 1 0 0 1 1 1v16.5l-2.3-1.4L14.3 20.5l-2.3-1.4-2.3 1.4-2.4-1.4L5 20.5V4a1 1 0 0 1 1-1z"/></svg><span>Batch 2 — Forex Actual Spend</span></a>
+  <a class="sidebar-link is-active" href="batch_three_card_payments.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2.5"/><path d="M2 9h20"/><path d="M6 14h4"/></svg><span>Batch 3 — Card Payments</span></a>
+  <a class="sidebar-link" href="forex_to_carry.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h13l-3.5-3.5"/><path d="M21 16H8l3.5 3.5"/></svg><span>Forex To Carry</span></a>
+  <a class="sidebar-link" href="currency_card.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 6.5v11M15 9.3c0-1.4-1.3-2.5-3-2.5s-3 1-3 2.2c0 3 6 1.6 6 4.6 0 1.3-1.3 2.4-3 2.4s-3-1-3-2.4"/></svg><span>Currency Card</span></a>
+</aside>
+<main class="site-main">
+<div class="wrap">
+
+<header>
+    <h1>BATCH 3 - CARD PAYMENTS</h1>
+    <span class="eyebrow">Africa Five Nation Tour · 24 September – 12 October 2026</span>
+    <div class="travellers"><span class="pill">Amar Raj Urs</span><span class="pill">Pratap Raj</span><span class="pill">Praveen Kumar Nallipogu</span></div>
+  </header>
+
+  <div class="summary-block">
+    <div class="summary-head">
+      <h3>Settlement Summary</h3>
+      <span class="summary-meta">70 line items · INR</span>
+    </div>
+
+    <div class="traveller-grid">
+      <div class="traveller-card">
+        <span class="t-name">Amar Raj Urs</span>
+        <div class="t-line"><span>Total Paid</span><span class="t-amt">₹2,08,119.97</span></div>
+        <div class="t-line"><span>Fair Share</span><span class="t-amt">₹87,864.27</span></div>
+        <div class="t-due is-good"><span class="t-due-label">Balance</span><span class="t-due-amt">+₹1,20,255.70</span></div>
+        <span class="pay-status">Gets back ₹1,20,255.70</span>
+      </div>
+      <div class="traveller-card">
+        <span class="t-name">Pratap Raj</span>
+        <div class="t-line"><span>Total Paid</span><span class="t-amt">₹37,213.73</span></div>
+        <div class="t-line"><span>Fair Share</span><span class="t-amt">₹72,591.63</span></div>
+        <div class="t-due is-owe"><span class="t-due-label">Balance</span><span class="t-due-amt">−₹35,377.90</span></div>
+        <span class="pay-status status-partial">Owes ₹35,377.90</span>
+      </div>
+      <div class="traveller-card">
+        <span class="t-name">Praveen Kumar Nallipogu</span>
+        <div class="t-line"><span>Total Paid</span><span class="t-amt">₹2,940.00</span></div>
+        <div class="t-line"><span>Fair Share</span><span class="t-amt">₹87,817.80</span></div>
+        <div class="t-due is-owe"><span class="t-due-label">Balance</span><span class="t-due-amt">−₹84,877.80</span></div>
+        <span class="pay-status status-partial">Owes ₹84,877.80</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="batch-block">
+    <div class="batch-head">
+      <h3>Who Pays Whom</h3>
+      <span class="batch-meta">2 transfers settles the group in full</span>
+    </div>
+    <div class="settle-list">
+      <div class="settle-row">
+        <div class="settle-parties">
+          <span>Pratap Raj</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          <span>Amar Raj Urs</span>
+        </div>
+        <span class="settle-amt">₹35,377.90</span>
+      </div>
+      <div class="settle-row">
+        <div class="settle-parties">
+          <span>Praveen Kumar Nallipogu</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          <span>Amar Raj Urs</span>
+        </div>
+        <span class="settle-amt">₹84,877.80</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="batch-block">
+    <div class="batch-head">
+      <h3>Spend by Country</h3>
+      <span class="batch-meta">7 countries · ₹2,48,273.70 total</span>
+    </div>
+    <div class="table-scroll">
+      <table class="cat-table">
+        <colgroup>
+          <col style="width:40%;"><col style="width:22%;"><col style="width:19%;"><col style="width:19%;">
+        </colgroup>
+        <thead>
+          <tr><th class="left-col">Country</th><th>Final INR</th><th>% of Total</th><th>Count</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="cat-name">South Africa<span class="cat-code"> · SA</span></td><td class="num">96,443.64</td><td class="num">38.8%</td><td class="num">33</td></tr>
+          <tr><td class="cat-name">Zimbabwe<span class="cat-code"> · ZIM</span></td><td class="num">53,979.17</td><td class="num">21.7%</td><td class="num">7</td></tr>
+          <tr><td class="cat-name">Mauritius<span class="cat-code"> · MRU</span></td><td class="num">48,006.88</td><td class="num">19.3%</td><td class="num">18</td></tr>
+          <tr><td class="cat-name">Botswana<span class="cat-code"> · BTW</span></td><td class="num">19,509.40</td><td class="num">7.9%</td><td class="num">4</td></tr>
+          <tr><td class="cat-name">Zambia<span class="cat-code"> · ZAM</span></td><td class="num">17,870.51</td><td class="num">7.2%</td><td class="num">4</td></tr>
+          <tr><td class="cat-name">India<span class="cat-code"> · IND</span></td><td class="num">11,285.00</td><td class="num">4.5%</td><td class="num">3</td></tr>
+          <tr><td class="cat-name">Namibia<span class="cat-code"> · NAM</span></td><td class="num">1,179.10</td><td class="num">0.5%</td><td class="num">1</td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td>TOTAL</td><td class="num">2,48,273.70</td><td class="num">100.0%</td><td class="num">70</td></tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+  <div class="batch-block">
+    <div class="batch-head">
+      <h3>Spend by Category</h3>
+      <span class="batch-meta">11 categories · ₹2,48,273.70 total</span>
+    </div>
+    <div class="table-scroll">
+      <table class="cat-table">
+        <colgroup>
+          <col style="width:40%;"><col style="width:22%;"><col style="width:19%;"><col style="width:19%;">
+        </colgroup>
+        <thead>
+          <tr><th class="left-col">Category</th><th>Final INR</th><th>% of Total</th><th>Count</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="cat-name">FOOD</td><td class="num">1,05,706.25</td><td class="num">42.6%</td><td class="num">26</td></tr>
+          <tr><td class="cat-name">SAFARI</td><td class="num">41,473.33</td><td class="num">16.7%</td><td class="num">3</td></tr>
+          <tr><td class="cat-name">PETROL</td><td class="num">24,246.38</td><td class="num">9.8%</td><td class="num">7</td></tr>
+          <tr><td class="cat-name">CAR RENTAL</td><td class="num">19,862.02</td><td class="num">8.0%</td><td class="num">1</td></tr>
+          <tr><td class="cat-name">CIGRETTES</td><td class="num">16,424.11</td><td class="num">6.6%</td><td class="num">6</td></tr>
+          <tr><td class="cat-name">TRANSPORT</td><td class="num">13,781.34</td><td class="num">5.6%</td><td class="num">6</td></tr>
+          <tr><td class="cat-name">COFFEE</td><td class="num">8,533.30</td><td class="num">3.4%</td><td class="num">9</td></tr>
+          <tr><td class="cat-name">VISA</td><td class="num">6,481.53</td><td class="num">2.6%</td><td class="num">1</td></tr>
+          <tr><td class="cat-name">HOTEL STAY</td><td class="num">6,136.11</td><td class="num">2.5%</td><td class="num">2</td></tr>
+          <tr><td class="cat-name">GROCERY</td><td class="num">3,313.45</td><td class="num">1.3%</td><td class="num">5</td></tr>
+          <tr><td class="cat-name">ROAD TOLL</td><td class="num">2,315.88</td><td class="num">0.9%</td><td class="num">4</td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td>TOTAL</td><td class="num">2,48,273.70</td><td class="num">100.0%</td><td class="num">70</td></tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+  <div class="batch-block">
+    <div class="batch-head">
+      <h3>Expense Ledger</h3>
+      <span class="batch-meta">70 transactions · 19 Sep – 12 Oct 2026 · INR</span>
+    </div>
+    <div class="table-scroll">
+      <table class="pay-table">
+        <colgroup>
+          <col style="width:3%;"><col style="width:6.5%;"><col style="width:5%;"><col style="width:27%;"><col style="width:7%;"><col style="width:10%;"><col style="width:10.5%;"><col style="width:10.5%;"><col style="width:10.5%;"><col style="width:10%;">
+        </colgroup>
+        <thead>
+          <tr><th>Sl. No</th><th>Date</th><th class="left-col">Ctry</th><th class="left-col">Expense Head</th><th class="left-col">Paid By</th><th class="left-col">Split By</th><th>Total Cost (₹)</th><th>Amar</th><th>Pratap</th><th>Praveen</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="sl">1</td><td class="date-col">19-Sep</td><td class="ctry-col">ZIM</td><td class="txn"><span class="txn-main">BUS - VF to GWANGO</span><span class="txn-sub">TRANSPORT</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">3,151.53</td><td class="num">1,050.51</td><td class="num">1,050.51</td><td class="num">1,050.51</td></tr>
+          <tr><td class="sl">2</td><td class="date-col">19-Sep</td><td class="ctry-col">ZAM</td><td class="txn"><span class="txn-main">Mosai - O - Tunya Safari Entrée</span><span class="txn-sub">SAFARI</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">15,282.19</td><td class="num">5,094.06</td><td class="num">5,094.06</td><td class="num">5,094.06</td></tr>
+          <tr><td class="sl">3</td><td class="date-col">19-Sep</td><td class="ctry-col">SA</td><td class="txn"><span class="txn-main">Hertz RENTAL</span><span class="txn-sub">CAR RENTAL</span></td><td class="paidby-col">Pratap</td><td class="split-col">All</td><td class="num total-col">19,862.02</td><td class="num">6,620.67</td><td class="num">6,620.67</td><td class="num">6,620.67</td></tr>
+          <tr><td class="sl">4</td><td class="date-col">25-Sep</td><td class="ctry-col">NAM</td><td class="txn"><span class="txn-main">ADDIS ABABA COFFEE in TRANSIT</span><span class="txn-sub">COFFEE</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">1,179.10</td><td class="num">393.03</td><td class="num">393.03</td><td class="num">393.03</td></tr>
+          <tr><td class="sl">5</td><td class="date-col">25-Sep</td><td class="ctry-col">ZIM</td><td class="txn"><span class="txn-main">BUTCHERS DAUGHTER STAKE - VF</span><span class="txn-sub">FOOD</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">4,421.60</td><td class="num">1,473.87</td><td class="num">1,473.87</td><td class="num">1,473.87</td></tr>
+          <tr><td class="sl">6</td><td class="date-col">25-Sep</td><td class="ctry-col">IND</td><td class="txn"><span class="txn-main">MUMBAI AIRPORT PAV BHAJI</span><span class="txn-sub">FOOD</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">1,765.00</td><td class="num">588.33</td><td class="num">588.33</td><td class="num">588.33</td></tr>
+          <tr><td class="sl">7</td><td class="date-col">25-Sep</td><td class="ctry-col">IND</td><td class="txn"><span class="txn-main">King Lights - Customs</span><span class="txn-sub">CIGRETTES</span></td><td class="paidby-col">Amar</td><td class="split-col">Amar, Praveen</td><td class="num total-col">6,580.00</td><td class="num">3,290.00</td><td class="num">0.00</td><td class="num">3,290.00</td></tr>
+          <tr><td class="sl">8</td><td class="date-col">26-Sep</td><td class="ctry-col">ZIM</td><td class="txn"><span class="txn-main">HAANGE SAFARI @65 USD/HEAD</span><span class="txn-sub">SAFARI</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">19,128.36</td><td class="num">6,376.12</td><td class="num">6,376.12</td><td class="num">6,376.12</td></tr>
+          <tr><td class="sl">9</td><td class="date-col">26-Sep</td><td class="ctry-col">IND</td><td class="txn"><span class="txn-main">Mumbai APT - India Gate</span><span class="txn-sub">TRANSPORT</span></td><td class="paidby-col">Praveen</td><td class="split-col">All</td><td class="num total-col">2,940.00</td><td class="num">980.00</td><td class="num">980.00</td><td class="num">980.00</td></tr>
+          <tr><td class="sl">10</td><td class="date-col">27-Sep</td><td class="ctry-col">ZAM</td><td class="txn"><span class="txn-main">LIVINGSTONE DINNER</span><span class="txn-sub">FOOD</span></td><td class="paidby-col">Amar</td><td class="split-col">Amar, Pratap</td><td class="num total-col">2,376.51</td><td class="num">1,188.26</td><td class="num">1,188.26</td><td class="num">0.00</td></tr>
+          <tr><td class="sl">11</td><td class="date-col">27-Sep</td><td class="ctry-col">ZAM</td><td class="txn"><span class="txn-main">SPAR WATERBOTTLE</span><span class="txn-sub">GROCERY</span></td><td class="paidby-col">Amar</td><td class="split-col">Amar, Pratap</td><td class="num total-col">70.69</td><td class="num">35.34</td><td class="num">35.34</td><td class="num">0.00</td></tr>
+          <tr><td class="sl">12</td><td class="date-col">27-Sep</td><td class="ctry-col">ZIM</td><td class="txn"><span class="txn-main">GWANGO Pick Up &amp; Drop</span><span class="txn-sub">TRANSPORT</span></td><td class="paidby-col">Pratap</td><td class="split-col">All</td><td class="num total-col">5,893.15</td><td class="num">1,964.38</td><td class="num">1,964.38</td><td class="num">1,964.38</td></tr>
+          <tr><td class="sl">13</td><td class="date-col">27-Sep</td><td class="ctry-col">ZIM</td><td class="txn"><span class="txn-main">ALCOHOL - GWANGO</span><span class="txn-sub">FOOD</span></td><td class="paidby-col">Amar</td><td class="split-col">Pratap, Praveen</td><td class="num total-col">2,354.26</td><td class="num">0.00</td><td class="num">1,177.13</td><td class="num">1,177.13</td></tr>
+          <tr><td class="sl">14</td><td class="date-col">27-Sep</td><td class="ctry-col">ZIM</td><td class="txn"><span class="txn-main">FOOD - GWANGO</span><span class="txn-sub">FOOD</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">11,967.49</td><td class="num">3,989.16</td><td class="num">3,989.16</td><td class="num">3,989.16</td></tr>
+          <tr><td class="sl">15</td><td class="date-col">27-Sep</td><td class="ctry-col">ZIM</td><td class="txn"><span class="txn-main">PARK ENTRY @24 USD/HEAD</span><span class="txn-sub">SAFARI</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">7,062.78</td><td class="num">2,354.26</td><td class="num">2,354.26</td><td class="num">2,354.26</td></tr>
+          <tr><td class="sl">16</td><td class="date-col">29-Sep</td><td class="ctry-col">ZAM</td><td class="txn"><span class="txn-main">YANGO START - KAZUNGULA</span><span class="txn-sub">TRANSPORT</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">141.12</td><td class="num">47.04</td><td class="num">47.04</td><td class="num">47.04</td></tr>
+          <tr><td class="sl">17</td><td class="date-col">29-Sep</td><td class="ctry-col">BTW</td><td class="txn"><span class="txn-main">BOTSWANA VISA @300 BWP/HEAD</span><span class="txn-sub">VISA</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">6,481.53</td><td class="num">2,160.51</td><td class="num">2,160.51</td><td class="num">2,160.51</td></tr>
+          <tr><td class="sl">18</td><td class="date-col">29-Sep</td><td class="ctry-col">BTW</td><td class="txn"><span class="txn-main">BOTSWANA INDIA DINNER</span><span class="txn-sub">FOOD</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">5,057.68</td><td class="num">1,685.89</td><td class="num">1,685.89</td><td class="num">1,685.89</td></tr>
+          <tr><td class="sl">19</td><td class="date-col">01-Oct</td><td class="ctry-col">BTW</td><td class="txn"><span class="txn-main">NXABBI - FOOD</span><span class="txn-sub">FOOD</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">7,747.20</td><td class="num">2,582.40</td><td class="num">2,582.40</td><td class="num">2,582.40</td></tr>
+          <tr><td class="sl">20</td><td class="date-col">01-Oct</td><td class="ctry-col">BTW</td><td class="txn"><span class="txn-main">PETROL PUMP CHIPS</span><span class="txn-sub">GROCERY</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">222.99</td><td class="num">74.33</td><td class="num">74.33</td><td class="num">74.33</td></tr>
+          <tr><td class="sl">21</td><td class="date-col">02-Oct</td><td class="ctry-col">SA</td><td class="txn"><span class="txn-main">JNB SUPER MARKET - VETTO</span><span class="txn-sub">GROCERY</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">420.78</td><td class="num">140.26</td><td class="num">140.26</td><td class="num">140.26</td></tr>
+          <tr><td class="sl">22</td><td class="date-col">02-Oct</td><td class="ctry-col">SA</td><td class="txn"><span class="txn-main">AIRPORT - VETTO</span><span class="txn-sub">TRANSPORT</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">1,123.03</td><td class="num">374.34</td><td class="num">374.34</td><td class="num">374.34</td></tr>
+          <tr><td class="sl">23</td><td class="date-col">02-Oct</td><td class="ctry-col">SA</td><td class="txn"><span class="txn-main">CIGRETTE MALBORO</span><span class="txn-sub">CIGRETTES</span></td><td class="paidby-col">Amar</td><td class="split-col">Amar, Praveen</td><td class="num total-col">3,877.21</td><td class="num">1,938.61</td><td class="num">0.00</td><td class="num">1,938.61</td></tr>
+          <tr><td class="sl">24</td><td class="date-col">02-Oct</td><td class="ctry-col">SA</td><td class="txn"><span class="txn-main">INDIAN DINNER - JNB 1st Time</span><span class="txn-sub">FOOD</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">4,527.17</td><td class="num">1,509.06</td><td class="num">1,509.06</td><td class="num">1,509.06</td></tr>
+          <tr><td class="sl">25</td><td class="date-col">03-Oct</td><td class="ctry-col">SA</td><td class="txn"><span class="txn-main">ROAD TOLL</span><span class="txn-sub">ROAD TOLL</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">565.90</td><td class="num">188.63</td><td class="num">188.63</td><td class="num">188.63</td></tr>
+          <tr><td class="sl">26</td><td class="date-col">03-Oct</td><td class="ctry-col">SA</td><td class="txn"><span class="txn-main">ROAD TOLL</span><span class="txn-sub">ROAD TOLL</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">500.37</td><td class="num">166.79</td><td class="num">166.79</td><td class="num">166.79</td></tr>
+          <tr><td class="sl">27</td><td class="date-col">03-Oct</td><td class="ctry-col">SA</td><td class="txn"><span class="txn-main">ROAD TOLL</span><span class="txn-sub">ROAD TOLL</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">750.56</td><td class="num">250.19</td><td class="num">250.19</td><td class="num">250.19</td></tr>
+          <tr><td class="sl">28</td><td class="date-col">03-Oct</td><td class="ctry-col">SA</td><td class="txn"><span class="txn-main">BREAKFAST  - ALZO PETRO PORT</span><span class="txn-sub">FOOD</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">1,012.66</td><td class="num">337.55</td><td class="num">337.55</td><td class="num">337.55</td></tr>
+          <tr><td class="sl">29</td><td class="date-col">03-Oct</td><td class="ctry-col">SA</td><td class="txn"><span class="txn-main">DINNER - PRAWNS - KOMATIPORT</span><span class="txn-sub">FOOD</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">7,124.04</td><td class="num">2,374.68</td><td class="num">2,374.68</td><td class="num">2,374.68</td></tr>
+          <tr><td class="sl">30</td><td class="date-col">03-Oct</td><td class="ctry-col">SA</td><td class="txn"><span class="txn-main">PETROL</span><span class="txn-sub">PETROL</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">2,334.51</td><td class="num">778.17</td><td class="num">778.17</td><td class="num">778.17</td></tr>
+          <tr><td class="sl">31</td><td class="date-col">03-Oct</td><td class="ctry-col">SA</td><td class="txn"><span class="txn-main">PETROL</span><span class="txn-sub">PETROL</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">2,181.20</td><td class="num">727.07</td><td class="num">727.07</td><td class="num">727.07</td></tr>
+          <tr><td class="sl">32</td><td class="date-col">03-Oct</td><td class="ctry-col">SA</td><td class="txn"><span class="txn-main">MC DONALDS - COFFEE</span><span class="txn-sub">COFFEE</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">1,087.11</td><td class="num">362.37</td><td class="num">362.37</td><td class="num">362.37</td></tr>
+          <tr><td class="sl">33</td><td class="date-col">03-Oct</td><td class="ctry-col">SA</td><td class="txn"><span class="txn-main">BREAKFAST  - ALZO PETRO PORT</span><span class="txn-sub">FOOD</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">3,059.41</td><td class="num">1,019.80</td><td class="num">1,019.80</td><td class="num">1,019.80</td></tr>
+          <tr><td class="sl">34</td><td class="date-col">03-Oct</td><td class="ctry-col">SA</td><td class="txn"><span class="txn-main">VETTO - AIRPORT</span><span class="txn-sub">TRANSPORT</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">532.51</td><td class="num">177.50</td><td class="num">177.50</td><td class="num">177.50</td></tr>
+          <tr><td class="sl">35</td><td class="date-col">04-Oct</td><td class="ctry-col">SA</td><td class="txn"><span class="txn-main">SATARA Dinner</span><span class="txn-sub">FOOD</span></td><td class="paidby-col">Pratap</td><td class="split-col">All</td><td class="num total-col">476.55</td><td class="num">158.85</td><td class="num">158.85</td><td class="num">158.85</td></tr>
+          <tr><td class="sl">36</td><td class="date-col">04-Oct</td><td class="ctry-col">SA</td><td class="txn"><span class="txn-main">Lower Sabie - Breakfast</span><span class="txn-sub">FOOD</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">4,008.93</td><td class="num">1,336.31</td><td class="num">1,336.31</td><td class="num">1,336.31</td></tr>
+          <tr><td class="sl">37</td><td class="date-col">04-Oct</td><td class="ctry-col">SA</td><td class="txn"><span class="txn-main">Coffee at Tshokwane</span><span class="txn-sub">COFFEE</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">756.51</td><td class="num">252.17</td><td class="num">252.17</td><td class="num">252.17</td></tr>
+          <tr><td class="sl">38</td><td class="date-col">04-Oct</td><td class="ctry-col">SA</td><td class="txn"><span class="txn-main">SATARA Dinner</span><span class="txn-sub">FOOD</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">4,467.60</td><td class="num">1,489.20</td><td class="num">1,489.20</td><td class="num">1,489.20</td></tr>
+          <tr><td class="sl">39</td><td class="date-col">05-Oct</td><td class="ctry-col">SA</td><td class="txn"><span class="txn-main">Tshokwane Picnic Site Nelspruit Z</span><span class="txn-sub">FOOD</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">530.48</td><td class="num">176.83</td><td class="num">176.83</td><td class="num">176.83</td></tr>
+          <tr><td class="sl">40</td><td class="date-col">05-Oct</td><td class="ctry-col">SA</td><td class="txn"><span class="txn-main">PETROL</span><span class="txn-sub">PETROL</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">4,904.17</td><td class="num">1,634.72</td><td class="num">1,634.72</td><td class="num">1,634.72</td></tr>
+          <tr><td class="sl">41</td><td class="date-col">05-Oct</td><td class="ctry-col">SA</td><td class="txn"><span class="txn-main">OLIFANT - Coffee &amp; Cup Cake</span><span class="txn-sub">COFFEE</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">1,131.79</td><td class="num">377.26</td><td class="num">377.26</td><td class="num">377.26</td></tr>
+          <tr><td class="sl">42</td><td class="date-col">05-Oct</td><td class="ctry-col">SA</td><td class="txn"><span class="txn-main">SABIE - Dinner</span><span class="txn-sub">FOOD</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">4,765.44</td><td class="num">1,588.48</td><td class="num">1,588.48</td><td class="num">1,588.48</td></tr>
+          <tr><td class="sl">43</td><td class="date-col">06-Oct</td><td class="ctry-col">SA</td><td class="txn"><span class="txn-main">PETROL</span><span class="txn-sub">PETROL</span></td><td class="paidby-col">Pratap</td><td class="split-col">All</td><td class="num total-col">1,841.73</td><td class="num">613.91</td><td class="num">613.91</td><td class="num">613.91</td></tr>
+          <tr><td class="sl">44</td><td class="date-col">06-Oct</td><td class="ctry-col">SA</td><td class="txn"><span class="txn-main">ROAD TOLL</span><span class="txn-sub">ROAD TOLL</span></td><td class="paidby-col">Pratap</td><td class="split-col">All</td><td class="num total-col">499.05</td><td class="num">166.35</td><td class="num">166.35</td><td class="num">166.35</td></tr>
+          <tr><td class="sl">45</td><td class="date-col">06-Oct</td><td class="ctry-col">SA</td><td class="txn"><span class="txn-main">Dullstorm Pan Cakes</span><span class="txn-sub">FOOD</span></td><td class="paidby-col">Pratap</td><td class="split-col">All</td><td class="num total-col">3,326.99</td><td class="num">1,109.00</td><td class="num">1,109.00</td><td class="num">1,109.00</td></tr>
+          <tr><td class="sl">46</td><td class="date-col">06-Oct</td><td class="ctry-col">SA</td><td class="txn"><span class="txn-main">SABIE STAR HOTEL STAY REMINDER</span><span class="txn-sub">HOTEL STAY</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">4,748.03</td><td class="num">1,582.68</td><td class="num">1,582.68</td><td class="num">1,582.68</td></tr>
+          <tr><td class="sl">47</td><td class="date-col">06-Oct</td><td class="ctry-col">SA</td><td class="txn"><span class="txn-main">SABIE BREAKFAST</span><span class="txn-sub">FOOD</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">788.74</td><td class="num">262.91</td><td class="num">262.91</td><td class="num">262.91</td></tr>
+          <tr><td class="sl">48</td><td class="date-col">06-Oct</td><td class="ctry-col">SA</td><td class="txn"><span class="txn-main">PETROL</span><span class="txn-sub">PETROL</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">3,238.73</td><td class="num">1,079.58</td><td class="num">1,079.58</td><td class="num">1,079.58</td></tr>
+          <tr><td class="sl">49</td><td class="date-col">06-Oct</td><td class="ctry-col">SA</td><td class="txn"><span class="txn-main">INDIAN DINNER - JNB 2nd Time</span><span class="txn-sub">FOOD</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">3,712.10</td><td class="num">1,237.37</td><td class="num">1,237.37</td><td class="num">1,237.37</td></tr>
+          <tr><td class="sl">50</td><td class="date-col">06-Oct</td><td class="ctry-col">SA</td><td class="txn"><span class="txn-main">SABIE BREAKFAST</span><span class="txn-sub">FOOD</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">3,326.04</td><td class="num">1,108.68</td><td class="num">1,108.68</td><td class="num">1,108.68</td></tr>
+          <tr><td class="sl">51</td><td class="date-col">07-Oct</td><td class="ctry-col">MRU</td><td class="txn"><span class="txn-main">DINNER</span><span class="txn-sub">FOOD</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">10,590.20</td><td class="num">3,530.07</td><td class="num">3,530.07</td><td class="num">3,530.07</td></tr>
+          <tr><td class="sl">52</td><td class="date-col">07-Oct</td><td class="ctry-col">SA</td><td class="txn"><span class="txn-main">PETROL</span><span class="txn-sub">PETROL</span></td><td class="paidby-col">Pratap</td><td class="split-col">All</td><td class="num total-col">4,302.68</td><td class="num">1,434.23</td><td class="num">1,434.23</td><td class="num">1,434.23</td></tr>
+          <tr><td class="sl">53</td><td class="date-col">07-Oct</td><td class="ctry-col">SA</td><td class="txn"><span class="txn-main">AMAR &amp; PRAVEEN CIG LOUNGE</span><span class="txn-sub">COFFEE</span></td><td class="paidby-col">Amar</td><td class="split-col">Amar, Praveen</td><td class="num total-col">659.60</td><td class="num">329.80</td><td class="num">0.00</td><td class="num">329.80</td></tr>
+          <tr><td class="sl">54</td><td class="date-col">08-Oct</td><td class="ctry-col">MRU</td><td class="txn"><span class="txn-main">COFFEE</span><span class="txn-sub">COFFEE</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">910.99</td><td class="num">303.66</td><td class="num">303.66</td><td class="num">303.66</td></tr>
+          <tr><td class="sl">55</td><td class="date-col">08-Oct</td><td class="ctry-col">MRU</td><td class="txn"><span class="txn-main">COFFEE</span><span class="txn-sub">COFFEE</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">753.92</td><td class="num">251.31</td><td class="num">251.31</td><td class="num">251.31</td></tr>
+          <tr><td class="sl">56</td><td class="date-col">08-Oct</td><td class="ctry-col">MRU</td><td class="txn"><span class="txn-main">Aloha Dinner</span><span class="txn-sub">FOOD</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">5,926.69</td><td class="num">1,975.56</td><td class="num">1,975.56</td><td class="num">1,975.56</td></tr>
+          <tr><td class="sl">57</td><td class="date-col">08-Oct</td><td class="ctry-col">MRU</td><td class="txn"><span class="txn-main">Lunch</span><span class="txn-sub">FOOD</span></td><td class="paidby-col">Amar</td><td class="split-col">Amar, Praveen</td><td class="num total-col">3,560.20</td><td class="num">1,780.10</td><td class="num">0.00</td><td class="num">1,780.10</td></tr>
+          <tr><td class="sl">58</td><td class="date-col">08-Oct</td><td class="ctry-col">MRU</td><td class="txn"><span class="txn-main">WATER, COFFEE &amp; YOGURT</span><span class="txn-sub">GROCERY</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">1,587.43</td><td class="num">529.14</td><td class="num">529.14</td><td class="num">529.14</td></tr>
+          <tr><td class="sl">59</td><td class="date-col">08-Oct</td><td class="ctry-col">MRU</td><td class="txn"><span class="txn-main">MRU - Water &amp; Milk Shake</span><span class="txn-sub">GROCERY</span></td><td class="paidby-col">Pratap</td><td class="split-col">All</td><td class="num total-col">1,011.56</td><td class="num">337.19</td><td class="num">337.19</td><td class="num">337.19</td></tr>
+          <tr><td class="sl">60</td><td class="date-col">09-Oct</td><td class="ctry-col">MRU</td><td class="txn"><span class="txn-main">COFFEE</span><span class="txn-sub">COFFEE</span></td><td class="paidby-col">Amar</td><td class="split-col">Amar, Praveen</td><td class="num total-col">1,444.36</td><td class="num">722.18</td><td class="num">0.00</td><td class="num">722.18</td></tr>
+          <tr><td class="sl">61</td><td class="date-col">09-Oct</td><td class="ctry-col">MRU</td><td class="txn"><span class="txn-main">PETROL</span><span class="txn-sub">PETROL</span></td><td class="paidby-col">Amar</td><td class="split-col">All</td><td class="num total-col">5,443.36</td><td class="num">1,814.45</td><td class="num">1,814.45</td><td class="num">1,814.45</td></tr>
+          <tr><td class="sl">62</td><td class="date-col">09-Oct</td><td class="ctry-col">MRU</td><td class="txn"><span class="txn-main">Dinner</span><span class="txn-sub">FOOD</span></td><td class="paidby-col">Amar</td><td class="split-col">Amar, Praveen</td><td class="num total-col">2,672.07</td><td class="num">1,336.04</td><td class="num">0.00</td><td class="num">1,336.04</td></tr>
+          <tr><td class="sl">63</td><td class="date-col">10-Oct</td><td class="ctry-col">MRU</td><td class="txn"><span class="txn-main">TOURISAM FEE</span><span class="txn-sub">HOTEL STAY</span></td><td class="paidby-col">Amar</td><td class="split-col">Amar, Praveen</td><td class="num total-col">1,388.08</td><td class="num">694.04</td><td class="num">0.00</td><td class="num">694.04</td></tr>
+          <tr><td class="sl">64</td><td class="date-col">10-Oct</td><td class="ctry-col">MRU</td><td class="txn"><span class="txn-main">COFFEE</span><span class="txn-sub">COFFEE</span></td><td class="paidby-col">Amar</td><td class="split-col">Amar, Praveen</td><td class="num total-col">609.92</td><td class="num">304.96</td><td class="num">0.00</td><td class="num">304.96</td></tr>
+          <tr><td class="sl">65</td><td class="date-col">10-Oct</td><td class="ctry-col">MRU</td><td class="txn"><span class="txn-main">INDIAN DINNER - GRAN BAI</span><span class="txn-sub">FOOD</span></td><td class="paidby-col">Amar</td><td class="split-col">Amar, Praveen</td><td class="num total-col">3,407.10</td><td class="num">1,703.55</td><td class="num">0.00</td><td class="num">1,703.55</td></tr>
+          <tr><td class="sl">66</td><td class="date-col">10-Oct</td><td class="ctry-col">MRU</td><td class="txn"><span class="txn-main">Cigrettes</span><span class="txn-sub">CIGRETTES</span></td><td class="paidby-col">Amar</td><td class="split-col">Amar, Praveen</td><td class="num total-col">2,166.25</td><td class="num">1,083.12</td><td class="num">0.00</td><td class="num">1,083.12</td></tr>
+          <tr><td class="sl">67</td><td class="date-col">10-Oct</td><td class="ctry-col">MRU</td><td class="txn"><span class="txn-main">Cigrettes</span><span class="txn-sub">CIGRETTES</span></td><td class="paidby-col">Amar</td><td class="split-col">Amar, Praveen</td><td class="num total-col">925.38</td><td class="num">462.69</td><td class="num">0.00</td><td class="num">462.69</td></tr>
+          <tr><td class="sl">68</td><td class="date-col">11-Oct</td><td class="ctry-col">MRU</td><td class="txn"><span class="txn-main">LUNCH BY BEACH - INDIAN FRENCH</span><span class="txn-sub">FOOD</span></td><td class="paidby-col">Amar</td><td class="split-col">Amar, Praveen</td><td class="num total-col">2,734.10</td><td class="num">1,367.05</td><td class="num">0.00</td><td class="num">1,367.05</td></tr>
+          <tr><td class="sl">69</td><td class="date-col">11-Oct</td><td class="ctry-col">MRU</td><td class="txn"><span class="txn-main">CIGRETTE MALBORO</span><span class="txn-sub">CIGRETTES</span></td><td class="paidby-col">Amar</td><td class="split-col">Amar, Praveen</td><td class="num total-col">757.13</td><td class="num">378.56</td><td class="num">0.00</td><td class="num">378.56</td></tr>
+          <tr><td class="sl">70</td><td class="date-col">12-Oct</td><td class="ctry-col">MRU</td><td class="txn"><span class="txn-main">CIGRETTE MALBORO</span><span class="txn-sub">CIGRETTES</span></td><td class="paidby-col">Amar</td><td class="split-col">Amar, Praveen</td><td class="num total-col">2,118.14</td><td class="num">1,059.07</td><td class="num">0.00</td><td class="num">1,059.07</td></tr>
+        </tbody>
+        <tfoot>
+          <tr class="total-row"><td colspan="6">TOTAL</td><td class="num">2,48,273.70</td><td class="num">87,864.27</td><td class="num">72,591.63</td><td class="num">87,817.80</td></tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+
+</div>
+</main>
+</div>
+<script>
+(function(){
+  var btn = document.getElementById('sidebarToggle');
+  var sidebar = document.getElementById('sidebar');
+  var backdrop = document.getElementById('sidebarBackdrop');
+  if(!btn || !sidebar || !backdrop) return;
+  function openSb(){ sidebar.classList.add('is-open'); backdrop.classList.add('is-open'); }
+  function closeSb(){ sidebar.classList.remove('is-open'); backdrop.classList.remove('is-open'); }
+  btn.addEventListener('click', function(){
+    sidebar.classList.contains('is-open') ? closeSb() : openSb();
+  });
+  backdrop.addEventListener('click', closeSb);
+})();
+</script>
+</body>
+</html>
